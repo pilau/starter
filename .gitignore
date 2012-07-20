@@ -1,0 +1,28 @@
+# Ignore WP core local dev stuff
+/wp-admin/*
+/wp-content/*
+/wp-includes/*
+/index.php
+/license.txt
+/readme.html
+/wp-*.php
+/xmlrpc.php
+
+# Exceptions
+!/wp-config.php
+!/wp-content/mu-plugins/
+!/wp-content/themes/
+wp-content/themes/*
+!/wp-content/themes/pilau-starter/
+
+# Local config settings - http://markjaquith.wordpress.com/2011/06/24/wordpress-local-dev-tips/
+/local-config.php
+
+# Interconnect IT WP data migration script - http://interconnectit.com/124/search-and-replace-for-wordpress-databases/
+searchreplacedb2.php
+
+# Any system or IDE files
+Thumbs.db
+.DS_Store
+.DS_Store?
+.idea/*
