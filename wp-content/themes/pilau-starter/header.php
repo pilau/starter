@@ -26,7 +26,7 @@
 	* Remember to update the version appended here if you upgrade!
 	*/
 	?>
-	<script src="<?php echo get_template_directory_uri() . '/js/modernizr.js?ver=2.6.0'; ?>"></script>
+	<script src="<?php echo get_template_directory_uri() . '/js/modernizr.js?ver=2.6.1'; ?>"></script>
 </head>
 <body <?php body_class(); ?>>
 
