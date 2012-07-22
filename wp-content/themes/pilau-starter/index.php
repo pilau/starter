@@ -1,3 +1,14 @@
+<?php
+
+/**
+ * Theme index
+ *
+ * @package	Pilau_Starter
+ * @since	0.1
+ */
+
+?>
+
 <?php get_header(); ?>
 
 <div id="content">
@@ -224,5 +235,7 @@
 </table>
 
 </div>
+
+<?php get_sidebar( 'primary' ); ?>
 
 <?php get_footer(); ?>

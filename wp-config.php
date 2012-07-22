@@ -1,4 +1,4 @@
-<?php define('WP_CACHE', true);
+<?php
 /**
  * The base configurations of the WordPress.
  *
@@ -97,6 +97,9 @@ if ( file_exists( dirname( __FILE__ ) . '/local-config.php' ) ) {
 
 	}
 }
+
+/** Disable plugin and theme editing */
+define( 'DISALLOW_FILE_EDIT', true );
 
 /**#@+
  * Authentication Unique Keys and Salts.

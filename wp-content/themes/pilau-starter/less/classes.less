@@ -1,0 +1,34 @@
+/* Useful classes
+-------------------------------------------------------------------------------*/
+
+/* Don't display at all */
+.print-only, .hide-if-no-js { display: none; }
+
+/* Text meant only for screen readers
+@link http://adaptivethemes.com/comment/1386 */
+.assistive-text {
+	clip: rect( 1px 1px 1px 1px ); /* IE6, IE7 */
+	clip: rect( 1px, 1px, 1px, 1px );
+	position: absolute !important;
+}
+
+/* Image replacement basics - just add dimensions and an image! */
+.img-rep {
+	display: block;
+	text-indent: -9999px;
+	overflow: hidden;
+}
+.img-rep a, .img-rep span { display: block; }
+
+/* Misc */
+.clear { clear: both; }
+.center { text-align: center; }
+
+.notop {
+	margin-top: 0 !important;
+	padding-top: 0 !important;
+}
+.nobottom {
+	margin-bottom: 0 !important;
+	padding-bottom: 0 !important;
+}

@@ -131,12 +131,12 @@ a:focus {
 
 /* Custom text-selection colors (remove any text shadows: twitter.com/miketaylr/status/12228805301) */
 ::-moz-selection{
-	background: #fcd700;
+	background: #003468;
 	color: #fff;
 	text-shadow: none;
 }
 ::selection {
-	background: #fcd700;
+	background: #003468;
 	color: #fff;
 	text-shadow: none;
 }
@@ -160,40 +160,7 @@ mark {
 /* Pilau additions
 -------------------------------------------------------------------------------*/
 
-
 ol {
 	padding-left: 2em;
 }
 
-/* Don't display at all */
-.print-only, .hide-if-no-js { display: none; }
-
-/* Text meant only for screen readers
-@link http://adaptivethemes.com/comment/1386 */
-.assistive-text {
-	clip: rect( 1px 1px 1px 1px ); /* IE6, IE7 */
-	clip: rect( 1px, 1px, 1px, 1px );
-	position: absolute !important;
-}
-
-/* Override top or bottom spacing */
-.notop {
-	margin-top: 0 !important;
-	padding-top: 0 !important;
-}
-.nobottom {
-	margin-bottom: 0 !important;
-	padding-bottom: 0 !important;
-}
-
-/* Image replacement basics - just add dimensions and an image! */
-.img-rep {
-	display: block;
-	text-indent: -9999px;
-	overflow: hidden;
-}
-.img-rep a, .img-rep span { display: block; }
-
-/* Misc */
-.clear { clear: both; }
-.center { text-align: center; }

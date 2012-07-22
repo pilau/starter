@@ -1,0 +1,13 @@
+/*
+
+WordPress login styles
+
+*/
+
+/* Change logo */
+.login h1 a {
+	background-image: url('');
+	background-size: 274px 63px;
+	width: 326px;
+	height: 67px;
+}

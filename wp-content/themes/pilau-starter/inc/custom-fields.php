@@ -5,7 +5,10 @@
  * Custom meta fields for posts and users
  *
  * Depends on the Developer's Custom Fields plugin
- * For full instructions, see @link http://sltaylor.co.uk/wordpress/plugins/slt-custom-fields/docs/
+ * @link http://sltaylor.co.uk/wordpress/plugins/slt-custom-fields/docs/
+ *
+ * @package	Pilau_Starter
+ * @since	0.1
  */
 
 
@@ -13,6 +16,7 @@
  * Register custom fields
  *
  * @uses slt_cf_register_box
+ * @since	Pilau_Starter 0.1
  */
 if ( function_exists( 'slt_cf_register_box') )
 	add_action( 'init', 'pilau_register_custom_fields', 5 );

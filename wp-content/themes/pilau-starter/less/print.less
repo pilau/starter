@@ -1,4 +1,5 @@
-
+/* Import variables */
+@import 'vars.less';
 
 /* Print styles
 -------------------------------------------------------------------------------*/
@@ -33,6 +34,26 @@
 	/* Pilau stuff */
 
 	.print-only { display: block; }
+	.noprint { display: none; }
+
+	body {
+		font: 12pt/130% Georgia, Times, "Times New Roman", serif;
+		background: #fff;
+		color: #000;
+	}
+	a {
+		color: #369;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	a img { border: none; }
+	p, ul, ol, dl { margin: 0 0 1em 0; }
+	dt { font-weight: bold; }
+	dd { padding: 0; margin: 0 0 .5em 0; }
+	ul, ol { padding: 0 2em; }
+	blockquote { margin: 1.5em 3em; font-size: .9em; font-style: italic; }
+	code { font: 1em "Courier New", Courier, monospace; }
+	hr { margin: 1em 0; }
 
 }
 

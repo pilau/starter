@@ -1,4 +1,12 @@
 <?php
+
+/**
+ * Theme header
+ *
+ * @package	Pilau_Starter
+ * @since	0.1
+ */
+
 /*
  * Conditional HTML classes for IE / JS targetting
  * @link http://paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/
