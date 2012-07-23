@@ -15,15 +15,16 @@
  *
  * @since	Pilau_Starter 0.1
  */
-require( 'admin-interface.php' );
+require( dirname( __FILE__ ) . '/admin-interface.php' );
 
 /**
- * Pilau plugins table class
+ * Pilau plugins management
  *
  * @since Pilau_Starter 0.1
  */
-if ( PILAU_USE_PLUGINS_PAGE )
-	require( 'class-pilau-plugins-table.php' );
+if ( PILAU_USE_PLUGINS_PAGE ) {
+	require( dirname( __FILE__ ) . '/plugins-infos.php' );
+}
 
 
 /**
@@ -33,12 +34,22 @@ if ( PILAU_USE_PLUGINS_PAGE )
  */
 add_action( 'admin_init', 'pilau_admin_init' );
 function pilau_admin_init() {
+	global $pilau_wp_plugins;
 
 	/* Enable HTML markup in user profiles */
 	//remove_filter( 'pre_user_description', 'wp_filter_kses' );
 
 	/* Disable captions */
 	//add_filter( 'disable_captions', '__return_true' );
+
+	/**
+	 * Installed plugins data
+	 *
+	 * @since	Pilau_Starter 0.1
+	 * @global	array
+	 */
+	if ( PILAU_USE_PLUGINS_PAGE )
+		$pilau_wp_plugins = get_plugins();
 
 }
 

@@ -15,7 +15,7 @@
  */
 add_action( 'after_setup_theme', 'pilau_setup' );
 function pilau_setup() {
-	global $WPLessPlugin, $pilau_theme_options;
+	global $WPLessPlugin, $pilau_theme_options, $pilau_wp_plugins;
 
 	/*
 	 * Theme options (not settings page)

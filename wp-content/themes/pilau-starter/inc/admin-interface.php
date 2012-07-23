@@ -104,10 +104,155 @@ function pilau_admin_menus() {
  * @since	Pilau_Starter 0.1
  */
 function pilau_plugins_page() {
+	global $pilau_plugins_infos;
 
-	$plugins_list_table = new Pilau_Plugins_Table();
-	$plugins_list_table->prepare_items();
-	$plugins_list_table->display();
+	// Output
+	?>
+
+	<div class="wrap">
+
+		<div id="icon-plugins" class="icon32"><br></div>
+		<h2><?php _e( 'Pilau plugin management' ); ?></h2>
+
+		<form method="post" action="">
+
+			<?php wp_nonce_field( 'pilau-plugins', 'pilau_plugins_nonce' ); ?>
+
+			<p style="text-align:right;"><input class="button-primary" type="submit" name="submit" value="<?php _e( 'Update' ); ?>"></p>
+
+			<table class="wp-list-table widefat plugins pilau-plugins" cellspacing="0">
+				<?php foreach ( array( 'head', 'foot' ) as $row ) { ?>
+					<t<?php echo $row; ?>>
+						<tr>
+							<th scope="col" class="manage-column column-name"><?php _e( 'Plugin' ); ?></th>
+							<th scope="col" class="manage-column column-description"><?php _e( 'Description' ); ?></th>
+							<th scope="col" class="manage-column column-cb check-column"><?php _e( 'Installed?' ); ?>&nbsp;&nbsp;</th>
+							<th scope="col" class="manage-column column-cb check-column"><?php _e( 'Activated?' ); ?></th>
+						</tr>
+					</t<?php echo $row; ?>>
+				<?php } ?>
+				<tbody id="the-list">
+					<?php
+
+					// Loop for each record
+					if ( ! empty( $pilau_plugins_infos ) ) {
+
+						foreach ( $pilau_plugins_infos as $plugin_key => $plugin_data ) {
+
+							$plugin_installed = pilau_is_plugin_installed( $plugin_data['path'] );
+							$plugin_activated = is_plugin_active( $plugin_data['path'] );
+							$row_class = 'inactive';
+							if ( ! $plugin_installed ) {
+								$row_class = 'not-installed';
+							} else if ( $plugin_activated ) {
+								$row_class = 'active';
+							}
+
+							?>
+
+							<tr class="<?php echo $row_class; ?>">
+								<td class="plugin-title">
+									<strong><?php echo $plugin_data["title"];  ?></strong>
+								</td>
+								<td class="column-description desc">
+									<div class="plugin-description"><p><?php echo $plugin_data["description"]; ?></p></div>
+									<p class="plugin-meta"><?php _e( 'Status' ); ?>: <?php echo $plugin_data["status"]; ?></p>
+								</td>
+								<td class="check-column" style="text-align:center;">
+									<?php
+									if ( $plugin_installed ) {
+										// Already installed
+										echo '<img src="/wp-admin/images/yes.png" alt="' . __( 'Already installed' ) . '" />';
+									} else {
+										// Not installed, checkbox default determined by status
+										echo '<input type="checkbox" name="installed_' . $plugin_key . '" id="installed_' . $plugin_key . '"';
+										if ( $plugin_data['status'] == 'canonical' || $plugin_data['status'] == 'recommended' )
+											echo ' checked="checked"';
+										echo ' />';
+									}
+									?>
+								</td>
+								<td class="check-column" style="text-align:center;">
+									<?php
+									if ( $plugin_installed && $plugin_activated ) {
+										// Already activated
+										echo '<img src="/wp-admin/images/yes.png" alt="' . __( 'Already activated' ) . '" />';
+									} else {
+										// Not activated, checkbox default determined by status
+										echo '<input type="checkbox" name="activated_' . $plugin_key . '" id="activated_' . $plugin_key . '"';
+										if ( $plugin_data['status'] == 'canonical' )
+											echo ' checked="checked"';
+										echo ' />';
+									}
+									?>
+								</td>
+							</tr>
+
+							<?php
+
+						}
+
+					} else {
+
+						// No plugins
+						?>
+						<tr class="no-items"><td class="colspanchange" colspan="4"><?php _e( 'No theme plugins data supplied.' ); ?></td></tr>
+						<?php
+
+					}
+
+					?>
+
+				</tbody>
+
+			</table>
+
+			<p style="text-align:right;"><input class="button-primary" type="submit" name="submit" value="<?php _e( 'Update' ); ?>"></p>
+
+		</form>
+
+	</div>
+
+	<?php
+
+}
+
+/**
+ * Process plugins page submissions
+ *
+ * @since	Pilau_Starter 0.1
+ * @todo	Installation and activation!
+ */
+add_action( 'admin_init', 'pilau_plugins_page_process' );
+function pilau_plugins_page_process() {
+	global $pilau_plugins_infos;
+
+	// Submitted?
+	if ( isset( $_POST['pilau_plugins_nonce'] ) && check_admin_referer( 'pilau-plugins', 'pilau_plugins_nonce' ) ) {
+
+		// Loop through post data
+		foreach ( $_POST as $field => $value ) {
+
+			// Installed / activated field?
+			if ( strlen( $field ) > 10 && strpos( $field, '_' ) ) {
+				$field_parts = explode( '_', $field );
+
+				if ( $field_parts[0] == 'installed' ) {
+					// Need to install plugin????
+
+				} else if ( $field_parts[0] == 'activated' ) {
+					// Need to activate plugin????
+
+				}
+
+			}
+
+		}
+
+		// Redirect
+		wp_redirect( admin_url( 'plugins.php?page=pilau-plugins&done=1' ) );
+
+	}
 
 }
 
@@ -174,6 +319,14 @@ function pilau_post_columns( $cols ) {
 		unset( $cols['categories'] );
 	if ( ! PILAU_USE_TAGS)
 		unset( $cols['tags'] );
+	if ( ! PILAU_USE_COMMENTS )
+		unset( $cols['comments'] );
+	return $cols;
+}
+
+/** Page columns */
+add_filter( 'manage_edit-page_columns', 'pilau_page_columns', 10000 );
+function pilau_page_columns( $cols ) {
 	if ( ! PILAU_USE_COMMENTS )
 		unset( $cols['comments'] );
 	return $cols;

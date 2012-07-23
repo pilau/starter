@@ -464,6 +464,22 @@ function pilau_get_featured_image_url( $post_id = 0, $size = "thumbnail" ) {
 }
 
 
+/* Plugin-related
+*****************************************************************************/
+
+/**
+ * Is a plugin installed?
+ *
+ * @since	Pilau_Starter 0.1
+ * @param	string $plugin The path to the plugin file, relative to the plugins directory
+ * @uses	$pilau_wp_plugins
+ */
+function pilau_is_plugin_installed( $plugin ) {
+	global $pilau_wp_plugins;
+	return in_array( $plugin, array_keys( $pilau_wp_plugins ) );
+}
+
+
 /* Miscellaneous
 *****************************************************************************/
 

@@ -92,7 +92,15 @@ date_default_timezone_set( 'Europe/London' );
  *
  * @since	Pilau_Starter 0.1
  */
-require( 'inc/security.php' );
+require( dirname( __FILE__ ) . '/inc/security.php' );
+
+
+/**
+ * Functions library
+ *
+ * @since	Pilau_Starter 0.1
+ */
+require( dirname( __FILE__ ) . '/inc/lib.php' );
 
 
 /**
@@ -101,7 +109,7 @@ require( 'inc/security.php' );
  * @since	Pilau_Starter 0.1
  */
 global $WPLessPlugin;
-require( 'inc/wp-less/bootstrap-for-theme.php' );
+require( dirname( __FILE__ ) . '/inc/wp-less/bootstrap-for-theme.php' );
 
 
 /**
@@ -113,7 +121,7 @@ require( 'inc/wp-less/bootstrap-for-theme.php' );
  *
  * @since	Pilau_Starter 0.1
  */
-require( 'inc/setup.php' );
+require( dirname( __FILE__ ) . '/inc/setup.php' );
 
 
 /**
@@ -126,7 +134,7 @@ require( 'inc/setup.php' );
  *
  * @since	Pilau_Starter 0.1
  */
-require( 'inc/header.php');
+require( dirname( __FILE__ ) . '/inc/header.php');
 
 
 /**
@@ -134,7 +142,7 @@ require( 'inc/header.php');
  *
  * @since	Pilau_Starter 0.1
  */
-require( 'inc/feeds.php');
+require( dirname( __FILE__ ) . '/inc/feeds.php');
 
 
 /**
@@ -142,7 +150,7 @@ require( 'inc/feeds.php');
  *
  * @since	Pilau_Starter 0.1
  */
-//require( 'inc/custom-post-types.php' );
+//require( dirname( __FILE__ ) . '/inc/custom-post-types.php' );
 
 
 /**
@@ -150,7 +158,7 @@ require( 'inc/feeds.php');
  *
  * @since	Pilau_Starter 0.1
  */
-//require( 'inc/custom-taxonomies.php' );
+//require( dirname( __FILE__ ) . '/inc/custom-taxonomies.php' );
 
 
 /**
@@ -160,7 +168,7 @@ require( 'inc/feeds.php');
  *
  * @since	Pilau_Starter 0.1
  */
-require( 'inc/custom-fields.php' );
+require( dirname( __FILE__ ) . '/inc/custom-fields.php' );
 
 
 /**
@@ -168,7 +176,7 @@ require( 'inc/custom-fields.php' );
  *
  * @since	Pilau_Starter 0.1
  */
-//require( 'inc/shortcodes.php' );
+//require( dirname( __FILE__ ) . '/inc/shortcodes.php' );
 
 
 /**
@@ -176,7 +184,7 @@ require( 'inc/custom-fields.php' );
  *
  * @since	Pilau_Starter 0.1
  */
-require( 'inc/widgets.php' );
+require( dirname( __FILE__ ) . '/inc/widgets.php' );
 
 
 /**
@@ -184,7 +192,7 @@ require( 'inc/widgets.php' );
  *
  * @since	Pilau_Starter 0.1
  */
-require('inc/wp-toolbar.php');
+require( dirname( __FILE__ ) . '/inc/wp-toolbar.php' );
 
 
 /**
@@ -195,4 +203,4 @@ require('inc/wp-toolbar.php');
  * @since	Pilau_Starter 0.1
  */
 if ( ! PILAU_FRONT_OR_AJAX )
-	require( 'inc/admin.php' );
+	require( dirname( __FILE__ ) . '/inc/admin.php' );
