@@ -5,6 +5,7 @@
  *
  * @package	Pilau_Starter
  * @since	0.1
+ * @todo	Selectively remove post category / link category options on options-writing.php
  */
 
 
@@ -93,7 +94,11 @@ function pilau_admin_menus() {
 
 	// Theme plugins
 	if ( PILAU_USE_PLUGINS_PAGE )
-		add_submenu_page( 'plugins.php', __( 'Pilau plugins' ), __( 'Pilau plugins' ), 'update_core', 'pilau-plugins', 'pilau_plugins_page' );
+		add_plugins_page( __( 'Pilau plugins' ), __( 'Pilau plugins' ), 'update_core', 'pilau-plugins', 'pilau_plugins_page' );
+
+	// Theme settings script
+	if ( PILAU_USE_SETTINGS_SCRIPT )
+		add_options_page( __( 'Pilau settings initialization and reset script' ), __( 'Pilau settings script' ), 'update_core', 'pilau-settings-script', 'pilau_settings_script_page' );
 
 }
 
@@ -251,6 +256,102 @@ function pilau_plugins_page_process() {
 
 		// Redirect
 		wp_redirect( admin_url( 'plugins.php?page=pilau-plugins&done=1' ) );
+
+	}
+
+}
+
+
+/**
+ * Settings initialization / reset page
+ *
+ * @since	Pilau_Starter 0.1
+ */
+function pilau_settings_script_page() {
+
+	// Output
+	?>
+
+	<div class="wrap">
+
+		<div id="icon-options-general" class="icon32"><br></div>
+		<h2><?php _e( 'Pilau settings initialization and reset script' ); ?></h2>
+
+		<div class="error">
+			<p><?php _e( 'Running this script will initialize / reset core and / or plugin settings to Pilau defaults. Use with care, and please backup your database before doing a reset!' ); ?></p>
+		</div>
+
+		<form method="post" action="">
+
+			<?php wp_nonce_field( 'pilau-settings-script', 'pilau_settings_script_nonce' ); ?>
+
+			<p><input class="button-primary" type="submit" name="submit" value="<?php _e( 'Run script' ); ?>"></p>
+
+			<table class="wp-list-table widefat plugins pilau-settings-script" cellspacing="0">
+				<?php foreach ( array( 'head', 'foot' ) as $row ) { ?>
+				<t<?php echo $row; ?>>
+					<tr>
+						<th scope="col" class="manage-column column-cb check-column"><input type="checkbox"></th>
+						<th scope="col" class="manage-column column-name"><?php _e( 'Settings' ); ?></th>
+					</tr>
+				</t<?php echo $row; ?>>
+				<?php } ?>
+				<tbody id="the-list">
+					<tr>
+						<th scope="row" class="check-column"><input type="checkbox" name="checked[]" value="core" id="checkbox_core"><label class="screen-reader-text" for="checkbox_core"><?php _e( 'Select core settings' ); ?></label></th>
+						<td class="column-description desc"><?php _e( 'WordPress core settings' ); ?></td>
+					</tr>
+					<tr>
+						<th scope="row" class="check-column"><input type="checkbox" name="checked[]" value="home-news" id="checkbox_home-news"><label class="screen-reader-text" for="checkbox_core"><?php _e( 'Select home + news page creation' ); ?></label></th>
+						<td class="column-description desc"><?php _e( 'Create Home + News page' ); ?></td>
+					</tr>
+						<?php
+
+
+
+					?>
+				</tbody>
+
+			</table>
+
+			<p><input class="button-primary" type="submit" name="submit" value="<?php _e( 'Run script' ); ?>"></p>
+
+		</form>
+
+	</div>
+
+	<?php
+
+}
+
+
+/**
+ * Process settings script page submissions
+ *
+ * @since	Pilau_Starter 0.1
+ */
+add_action( 'admin_init', 'pilau_settings_script_page_process' );
+function pilau_settings_script_page_process() {
+	global $pilau_wp_plugins;
+
+	// Submitted?
+	if ( isset( $_POST['pilau_settings_script_nonce'] ) && check_admin_referer( 'pilau-settings-script', 'pilau_settings_script_nonce' ) ) {
+		$checked = array_values( $_POST['checked'] );
+
+		if ( in_array( 'core', $checked ) ) {
+
+			// Core settings
+			update_option( 'date_format', 'F jS Y' );
+			update_option( 'default_post_edit_rows', '30' );
+			update_option( 'default_post_edit_rows', '30' );
+			update_option( 'default_post_edit_rows', '30' );
+			update_option( 'default_post_edit_rows', '30' );
+
+		}
+
+
+		// Redirect
+		wp_redirect( admin_url( 'options-general.php?page=pilau-settings-script&done=1' ) );
 
 	}
 
