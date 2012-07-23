@@ -9,6 +9,11 @@
 
 ?>
 
+<footer id="footer" role="contentinfo">
+
+	<p>Footer</p>
+
+</footer><!-- #footer -->
 
 </div><!-- .wrapper -->
 

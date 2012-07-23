@@ -6,6 +6,7 @@
  *
  * @package	Pilau_Starter
  * @since	0.1
+ *
  */
 
 
@@ -135,6 +136,14 @@ require( dirname( __FILE__ ) . '/inc/setup.php' );
  * @since	Pilau_Starter 0.1
  */
 require( dirname( __FILE__ ) . '/inc/header.php');
+
+
+/**
+ * Content functionality
+ *
+ * @since	Pilau_Starter 0.1
+ */
+require( dirname( __FILE__ ) . '/inc/content.php');
 
 
 /**

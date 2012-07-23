@@ -27,6 +27,7 @@
  *
  * @package	Pilau_Starter
  * @since	0.1
+ * @todo	Redo as XML config file?
  */
 
 

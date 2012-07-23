@@ -36,15 +36,12 @@
 	?>
 	<script src="<?php echo get_template_directory_uri() . '/js/modernizr.js?ver=2.6.1'; ?>"></script>
 </head>
-<body <?php body_class(); ?>>
+<body <?php body_class(); ?> role="document">
 
 <?php /* Upgrade notice for IE 6 and below */ ?>
 <!--[if lt IE 7]><p class="upgrade-browser">Please note that this site does not support Internet Explorer 6 and below. Neither does Microsoft! <a href="http://browsehappy.com/">Please upgrade to a modern browser</a> if possible, or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this and other sites in your current browser.</p><![endif]-->
 
-<?php
-/*
- * Wrapper class used for layouts that need sections to be wider than the rest of the layout
- */ ?>
+<?php /* Wrapper class used for layouts that need sections to be wider than the rest of the layout (i.e. with multiple wrappers */ ?>
 <div class="wrapper">
 
 <?php /* Minimal header - adapt as necessary */ ?>

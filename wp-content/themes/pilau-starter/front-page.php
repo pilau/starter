@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Theme index (main posts listing)
+ * Front page
  *
  * @package	Pilau_Starter
  * @since	0.1
@@ -13,13 +13,11 @@
 
 <div id="content" role="main">
 
-	<h1><?php _e( 'News' ) ?></h1>
-
 	<?php if ( have_posts() ) : ?>
 
 		<?php while ( have_posts() ) : the_post(); ?>
 
-			<?php get_template_part( 'loop', get_post_format() ); ?>
+			<?php the_content(); ?>
 
 		<?php endwhile; ?>
 

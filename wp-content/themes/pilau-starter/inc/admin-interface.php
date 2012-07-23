@@ -93,13 +93,50 @@ function pilau_admin_menus() {
 	***************************************************************************/
 
 	// Theme plugins
-	if ( PILAU_USE_PLUGINS_PAGE )
-		add_plugins_page( __( 'Pilau plugins' ), __( 'Pilau plugins' ), 'update_core', 'pilau-plugins', 'pilau_plugins_page' );
+	//if ( PILAU_USE_PLUGINS_PAGE )
+	//	add_plugins_page( __( 'Pilau plugins' ), __( 'Pilau plugins' ), 'update_core', 'pilau-plugins', 'pilau_plugins_page' );
 
 	// Theme settings script
-	if ( PILAU_USE_SETTINGS_SCRIPT )
-		add_options_page( __( 'Pilau settings initialization and reset script' ), __( 'Pilau settings script' ), 'update_core', 'pilau-settings-script', 'pilau_settings_script_page' );
+	//if ( PILAU_USE_SETTINGS_SCRIPT )
+	//	add_options_page( __( 'Pilau settings initialization and reset script' ), __( 'Pilau settings script' ), 'update_core', 'pilau-settings-script', 'pilau_settings_script_page' );
 
+}
+
+
+/**
+ * Rename "Posts" in menu to "News"
+ *
+ * Most of our projects have "News", not "Blog"
+ * @link http://new2wp.com/snippet/change-wordpress-posts-post-type-news/
+ */
+add_action( 'admin_menu', 'pilau_change_post_menu_label' );
+function pilau_change_post_menu_label() {
+	global $menu;
+	global $submenu;
+	$menu[5][0] = 'News';
+	$submenu['edit.php'][5][0] = 'News';
+	$submenu['edit.php'][10][0] = 'Add News';
+	$submenu['edit.php'][16][0] = 'News Tags';
+	echo '';
+}
+
+/**
+ * Rename "Posts" in post type object to "News"
+ */
+add_action( 'init', 'pilau_change_post_object_label' );
+function pilau_change_post_object_label() {
+	global $wp_post_types;
+	$labels = &$wp_post_types['post']->labels;
+	$labels->name = 'News';
+	$labels->singular_name = 'News';
+	$labels->add_new = 'Add News';
+	$labels->add_new_item = 'Add News';
+	$labels->edit_item = 'Edit News';
+	$labels->new_item = 'News';
+	$labels->view_item = 'View News';
+	$labels->search_items = 'Search News';
+	$labels->not_found = 'No News found';
+	$labels->not_found_in_trash = 'No News found in Trash';
 }
 
 
@@ -302,14 +339,9 @@ function pilau_settings_script_page() {
 						<td class="column-description desc"><?php _e( 'WordPress core settings' ); ?></td>
 					</tr>
 					<tr>
-						<th scope="row" class="check-column"><input type="checkbox" name="checked[]" value="home-news" id="checkbox_home-news"><label class="screen-reader-text" for="checkbox_core"><?php _e( 'Select home + news page creation' ); ?></label></th>
+						<th scope="row" class="check-column"><input type="checkbox" name="checked[]" value="home-news" id="checkbox_home-news"><label class="screen-reader-text" for="checkbox_home-news"><?php _e( 'Select home + news page creation' ); ?></label></th>
 						<td class="column-description desc"><?php _e( 'Create Home + News page' ); ?></td>
 					</tr>
-						<?php
-
-
-
-					?>
 				</tbody>
 
 			</table>
@@ -324,11 +356,11 @@ function pilau_settings_script_page() {
 
 }
 
-
 /**
  * Process settings script page submissions
  *
  * @since	Pilau_Starter 0.1
+ * @todo	Store settings in XML config file?
  */
 add_action( 'admin_init', 'pilau_settings_script_page_process' );
 function pilau_settings_script_page_process() {
@@ -342,9 +374,6 @@ function pilau_settings_script_page_process() {
 
 			// Core settings
 			update_option( 'date_format', 'F jS Y' );
-			update_option( 'default_post_edit_rows', '30' );
-			update_option( 'default_post_edit_rows', '30' );
-			update_option( 'default_post_edit_rows', '30' );
 			update_option( 'default_post_edit_rows', '30' );
 
 		}
@@ -412,32 +441,39 @@ function pilau_remove_meta_boxes() {
  *
  * @since	Pilau_Starter 0.1
  */
+add_action( 'admin_init', 'pilau_customize_list_columns' );
+function pilau_customize_list_columns() {
+	add_filter( 'manage_edit-post_columns', 'pilau_admin_columns', 10000, 1 );
+	add_filter( 'manage_edit-page_columns', 'pilau_admin_columns', 10000, 1 );
+	foreach ( get_post_types( array( 'public' => true ), 'names' ) as $pt ) {
+		add_filter( 'manage_' . $pt . '_posts_columns', 'pilau_admin_columns', 10000, 1 );
+	}
+}
 
-/** Post columns */
-add_filter( 'manage_edit-post_columns', 'pilau_post_columns', 10000 );
-function pilau_post_columns( $cols ) {
-	if ( ! PILAU_USE_CATEGORIES )
+/**
+ * Global handler for all post type columns
+ *
+ * @param	array $cols
+ * @return	array
+ */
+function pilau_admin_columns( $cols ) {
+
+	// Override core stuff
+	if ( ! PILAU_USE_CATEGORIES && isset( $cols['categories'] ) )
 		unset( $cols['categories'] );
-	if ( ! PILAU_USE_TAGS)
+	if ( ! PILAU_USE_TAGS && isset( $cols['tags'] ) )
 		unset( $cols['tags'] );
-	if ( ! PILAU_USE_COMMENTS )
+	if ( ! PILAU_USE_COMMENTS && isset( $cols['comments'] ) )
 		unset( $cols['comments'] );
-	return $cols;
-}
 
-/** Page columns */
-add_filter( 'manage_edit-page_columns', 'pilau_page_columns', 10000 );
-function pilau_page_columns( $cols ) {
-	if ( ! PILAU_USE_COMMENTS )
-		unset( $cols['comments'] );
-	return $cols;
-}
+	// Override WordPress SEO plugin stuff
+	if ( defined( 'WPSEO_VERSION' ) ) {
+		foreach ( array( /*'wpseo-score',*/ 'wpseo-title', 'wpseo-metadesc', 'wpseo-focuskw' ) as $wp_seo_col ) {
+			if ( isset( $cols[ $wp_seo_col ] ) )
+				unset( $cols[ $wp_seo_col ] );
+		}
+	}
 
-/** Media columns */
-add_filter( 'manage_upload_columns', 'pilau_media_columns', 10000 );
-function pilau_media_columns( $cols ) {
-	if ( ! PILAU_USE_COMMENTS )
-		unset( $cols['comments'] );
 	return $cols;
 }
 
