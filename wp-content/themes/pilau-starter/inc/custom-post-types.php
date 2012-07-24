@@ -15,7 +15,7 @@ function pilau_register_post_types() {
 		'project', array(
 			'labels'				=> array(
 				'name'					=> __( 'Projects' ),
-				'singular_name'		=> __( 'Project' ),
+				'singular_name'			=> __( 'Project' ),
 				'add_new'				=> __( 'Add New' ),
 				'add_new_item'			=> __( 'Add New Project' ),
 				'edit'					=> __( 'Edit' ),
@@ -27,8 +27,8 @@ function pilau_register_post_types() {
 				'not_found'				=> __( 'No Projects found' ),
 				'not_found_in_trash'	=> __( 'No Projects found in Trash' )
 			),
-			'public'				=> true,
-			'menu_position'	=> 20,
+			'public'			=> true,
+			'menu_position'		=> 20,
 			'supports'			=> array( 'title', 'editor', 'custom-fields', 'thumbnail', 'revisions' ),
 			'taxonomies'		=> array( 'projecttype' ),
 			'rewrite'			=> array( 'slug' => 'projects', 'with_front' => false )

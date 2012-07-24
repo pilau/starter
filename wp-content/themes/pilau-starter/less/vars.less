@@ -3,11 +3,20 @@
 LESS variables
 - Include at the top of other LESS files
 - Don't enqueue this file to be output as CSS! There's no CSS here, folks.
+- Try to name vars with their type at the start, e.g. @color-background. This
+  can help with IDE auto-completion.
 
 */
 
+/* URL paths */
+@url-theme: '/wp-content/themes/pilau-starter';
+
+/* Fonts */
+@font-stack-regular: Helvetica, Arial, sans-serif;
+
 /* Colours */
-@bodyBackground: #fff;
-@textColor: #333;
-@linkColor: #08c;
-@linkColorHover: darken( @linkColor, 15% );
+@color-background: #fff;
+@color-body-text: #333;
+
+/* Measurements */
+@width-wrapper: 960px;

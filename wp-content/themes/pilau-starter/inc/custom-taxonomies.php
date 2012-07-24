@@ -17,14 +17,14 @@ function pilau_register_taxonomies() {
 			'hierarchical'		=> true,
 			'query_var'			=> true,
 			'rewrite'			=> true,
-			'labels'				=> array(
-				'name'					=> __( 'Project types' ),
+			'labels'			=> array(
+				'name'				=> __( 'Project types' ),
 				'singular_name'		=> __( 'Project type' ),
-				'search_items'			=> __( 'Search Project types' ),
-				'all_items'				=> __( 'All Project types' ),
-				'edit_item'				=> __( 'Edit Project type' ),
-				'update_item'			=> __( 'Update Project type' ),
-				'add_new_item'			=> __( 'Add New Project type' ),
+				'search_items'		=> __( 'Search Project types' ),
+				'all_items'			=> __( 'All Project types' ),
+				'edit_item'			=> __( 'Edit Project type' ),
+				'update_item'		=> __( 'Update Project type' ),
+				'add_new_item'		=> __( 'Add New Project type' ),
 				'new_item_name'		=> __( 'New Project type Name' ),
 			)
 		)

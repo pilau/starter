@@ -15,7 +15,7 @@
  */
 
 /** Server-dependent settings */
-if ( file_exists( dirname( __FILE__ ) . '/local-config.php' ) ) {
+if ( file_exists( dirname( __FILE__ ) . '/wp-config-local.php' ) ) {
 
 	/** Signal we're in the local dev environment */
 	define( 'WP_LOCAL_DEV', true );
@@ -24,7 +24,7 @@ if ( file_exists( dirname( __FILE__ ) . '/local-config.php' ) ) {
 	 * Local configuration file
 	 * @link http://markjaquith.wordpress.com/2011/06/24/wordpress-local-dev-tips/
 	 */
-	include( dirname( __FILE__ ) . '/local-config.php' );
+	include( dirname( __FILE__ ) . '/wp-config-local.php' );
 
 } else {
 

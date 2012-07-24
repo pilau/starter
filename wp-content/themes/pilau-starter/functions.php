@@ -41,18 +41,18 @@ define( 'PILAU_USE_CATEGORIES', false );
 define( 'PILAU_USE_TAGS', false );
 
 /**
- * Use the Pilau plugins page?
+ * Use the Pilau plugins page? (unfinished)
  *
  * @since	Pilau_Starter 0.1
  */
-define( 'PILAU_USE_PLUGINS_PAGE', true );
+define( 'PILAU_USE_PLUGINS_PAGE', false );
 
 /**
- * Include the Pilau settings script?
+ * Include the Pilau settings script? (unfinished)
  *
  * @since	Pilau_Starter 0.1
  */
-define( 'PILAU_USE_SETTINGS_SCRIPT', true );
+define( 'PILAU_USE_SETTINGS_SCRIPT', false );
 
 /**
  * Maximum length of slugs in words
