@@ -15,9 +15,6 @@
 wp-content/themes/*
 !/wp-content/themes/pilau-starter/
 
-# Local config settings - http://markjaquith.wordpress.com/2011/06/24/wordpress-local-dev-tips/
-/local-config.php
-
 # Interconnect IT WP data migration script - http://interconnectit.com/124/search-and-replace-for-wordpress-databases/
 searchreplacedb2.php
 
