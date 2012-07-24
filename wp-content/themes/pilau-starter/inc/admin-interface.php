@@ -530,7 +530,7 @@ add_filter( 'get_user_option_managenav-menuscolumnshidden', 'pilau_nav_menus_col
 function pilau_nav_menus_columns_hidden( $result ) {
 
 	/** Description always on */
-	if ( in_array( 'description', $result ) )
+	if ( is_array( $result ) && in_array( 'description', $result ) )
 		unset( $result[ array_search( 'description', $result ) ] );
 
 	return $result;

@@ -1,6 +1,6 @@
 /*
 
-LESS variables
+LESS variables and mixins
 - Include at the top of other LESS files
 - Don't enqueue this file to be output as CSS! There's no CSS here, folks.
 - Try to name vars with their type at the start, e.g. @color-background. This
@@ -20,3 +20,21 @@ LESS variables
 
 /* Measurements */
 @width-wrapper: 960px;
+
+
+/* Mixins
+- Use CamelCaps to distinguish from normal CSS classes
+-----------------------------------------------------------------------------------*/
+
+.BorderRadius( @radius: 2px ) {
+	border-radius: @radius;
+	-moz-border-radius: @radius;
+	-webkit-border-radius: @radius;
+}
+
+// Inline block with IE 7 hack
+.InlineBlock {
+	display: inline-block;
+	zoom: 1;
+	*display: inline;
+}

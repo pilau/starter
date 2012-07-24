@@ -234,12 +234,22 @@ function pilau_login_styles_scripts() { ?>
 <?php }
 
 
+/*
+ * Filters to tidy up core WP stuff
+ */
+
 /**
  * Remove unnecessary title attributes from page list links
  *
- * @since	Pilau_Starter 0.1
+ * @since	CIFF 0.1
  */
 add_filter( 'wp_list_pages', 'pilau_remove_title_attributes' );
 function pilau_remove_title_attributes( $input ) {
 	return preg_replace( '/\s*title\s*=\s*(["\']).*?\1/', '', $input );
 }
+
+/**
+ * Remove unnecessary attributes from nav menu items
+ */
+add_filter( 'nav_menu_css_class', '__return_empty_array', 10000 );
+add_filter( 'nav_menu_item_id', '__return_empty_array', 10000 );
