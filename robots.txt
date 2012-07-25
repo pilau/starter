@@ -16,4 +16,7 @@ Disallow: /*?*
 Disallow: /*?
 Allow: /wp-content/uploads
 
+# Normal sitemap URL
 #Sitemap: http://domain.org.uk/sitemap.xml
+# WordPress SEO by Yoast index sitemap URL
+#Sitemap: http://domain.org.uk/sitemap_index.xml
