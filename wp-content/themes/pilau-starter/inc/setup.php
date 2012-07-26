@@ -241,7 +241,7 @@ function pilau_login_styles_scripts() { ?>
 /**
  * Remove unnecessary title attributes from page list links
  *
- * @since	CIFF 0.1
+ * @since	Pilau_Starter 0.1
  */
 add_filter( 'wp_list_pages', 'pilau_remove_title_attributes' );
 function pilau_remove_title_attributes( $input ) {
@@ -251,7 +251,7 @@ function pilau_remove_title_attributes( $input ) {
 /**
  * Remove unnecessary attributes from nav menu items
  *
- * @since	CIFF 0.1
+ * @since	Pilau_Starter 0.1
  * @link	http://codex.wordpress.org/Function_Reference/wp_nav_menu#Menu_Item_CSS_Classes
  */
 add_filter( 'nav_menu_item_id', '__return_empty_array', 10000 );
@@ -260,7 +260,7 @@ function pilau_nav_menu_css_classes( $classes, $item, $args ) {
 	$new_classes = array();
 	foreach ( $classes as $class ) {
 		// We're only keeping classes that indicate location - all others seem redundant
-		if ( ! ( strlen( $class ) > 8 && substr( $class, 0, 9 ) == 'menu-item' ) )
+		if ( ! ( strlen( $class ) > 8 && substr( $class, 0, 9 ) == 'menu-item' ) && ( strpos( $class, 'page' ) === false || strpos( $class, 'ancestor' ) !== false ) )
 			$new_classes[] = $class;
 	}
 	return $new_classes;
