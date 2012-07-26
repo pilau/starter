@@ -250,7 +250,10 @@ function pilau_explode_constants( $constants = array(), $sep = ',' ) {
  * @since	Pilau_Starter 0.1
  * @link	http://bla.st/
  * @link	http://macromates.com/
-*/
+ * @param	string $string
+ * @param	string $noscript_contact The URL for a contact form in the no-JS fallback link
+ * @return	string
+ */
 function pilau_obfuscate_text( $string, $noscript_contact = '/contact/' ) {
 	// returns javascript code
 	$new_string = str_rot13( $string );
@@ -268,15 +271,23 @@ function pilau_obfuscate_text( $string, $noscript_contact = '/contact/' ) {
  *
  * @since	Pilau_Starter 0.1
  * @uses	pilau_obfuscate_text()
+ * @param	string $email
+ * @param	bool $icon
+ * @param	string $at_sign The text representing the @ sign in the email, if not "@"
+ * @param	string $text The link text - defaults to the email address
+ * @param	array $classes Any extra classes for the a tag
+ * @return	string
  */
-function pilau_obfuscate_email( $email, $icon = true, $at_sign = "@", $text = "" ) {
+function pilau_obfuscate_email( $email, $icon = true, $at_sign = "@", $text = "", $classes = array() ) {
 	if ( $at_sign != "@" )
 		$email = str_replace( $at_sign, "@", $email );
 	if ( ! $text )
 		$text = $email;
 	$string = '<a href="mailto:' . esc_attr( $email ) . '"';
 	if ( ! $icon )
-		$string .= ' class="no-icon"';
+		$classes[] = 'no-icon';
+	if ( $classes )
+		$string .= ' class="' . implode( " ", $classes ) . '"';
 	$string .= '>' . wp_kses( $text, array() ) .'</a>';
 	return pilau_obfuscate_text( $string );
 }
