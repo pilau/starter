@@ -55,7 +55,7 @@ function pilau_content( $content = null, $action = "extract", $strip_imgs = true
 					$content = $excerpt;
 				} else {
 					// Get a manual extract
-					//$content = pilau_extract( $content, 0, $paras );
+					$content = pilau_extract( $content, 0, $paras );
 				}
 			}
 			break;
@@ -66,6 +66,45 @@ function pilau_content( $content = null, $action = "extract", $strip_imgs = true
 		$content = apply_filters( "the_content", $content );
 
 	return $content;
+}
+
+
+/**
+ * Return the description or an extract
+ *
+ * If there's a description set by Yoast SEO or Developer's Custom Fields, returns
+ * that; otherwise, returns a content extract. Content is always tidied up, i.e. no HTML tags.
+ *
+ * @since	Pilau_Starter 0.1
+ * @uses	slt_cf_field_value()
+ * @uses	get_post()
+ * @uses	pilau_extract()
+ * @param	$post_id
+ * @param	string $description If you possibly already have the description, pass it here
+ * 			to be trimmed
+ * @param	string $post_content  If you possibly already have the full content, pass it here
+ * @param	int $maxwords Set to zero to avoid trimming description custom field; content will
+ * 			always be trimmed.
+ * @return	string
+ *
+ */
+function pilau_description_or_extract( $post_id, $description = '', $post_content = '', $maxwords = 30 ) {
+	if ( function_exists( 'wpseo_get_value' ) && ! $description )
+		$description = wpseo_get_value( 'metadesc', $post_id );
+	if ( function_exists( 'slt_cf_field_value' ) && ! $description )
+		$description = slt_cf_field_value( 'description', 'post', $post_id );
+	if ( ! $description ) {
+		if ( ! $post_content ) {
+			$post_data = get_post( $post_id );
+			$post_content = $post_data->post_content;
+		}
+		$post_content = strip_shortcodes( $post_content );
+		$post_content = trim( strip_tags( $post_content ) );
+		$description = $post_content;
+		if ( $maxwords )
+			$description = pilau_extract( $description, $maxwords );
+	}
+	return $description;
 }
 
 
