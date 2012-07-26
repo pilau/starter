@@ -250,6 +250,18 @@ function pilau_remove_title_attributes( $input ) {
 
 /**
  * Remove unnecessary attributes from nav menu items
+ *
+ * @since	CIFF 0.1
+ * @link	http://codex.wordpress.org/Function_Reference/wp_nav_menu#Menu_Item_CSS_Classes
  */
-add_filter( 'nav_menu_css_class', '__return_empty_array', 10000 );
 add_filter( 'nav_menu_item_id', '__return_empty_array', 10000 );
+add_filter( 'nav_menu_css_class', 'pilau_nav_menu_css_classes', 10000, 3 );
+function pilau_nav_menu_css_classes( $classes, $item, $args ) {
+	$new_classes = array();
+	foreach ( $classes as $class ) {
+		// We're only keeping classes that indicate location - all others seem redundant
+		if ( ! ( strlen( $class ) > 8 && substr( $class, 0, 9 ) == 'menu-item' ) )
+			$new_classes[] = $class;
+	}
+	return $new_classes;
+}
