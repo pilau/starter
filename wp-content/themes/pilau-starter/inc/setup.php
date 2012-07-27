@@ -184,10 +184,11 @@ function pilau_scripts_to_footer() {
  *
  * @since	Pilau_Starter 0.1
  * @issue	This should be hooked to wp_enqueue_scripts (http://codex.wordpress.org/Function_Reference/wp_enqueue_style#Examples).
- * 			Currently hooked to init so styles don't get moved to the footer by
+ * 			Currently hooked to init (with test for admin) so styles don't get moved to the footer by
  * 			pilau_scripts_to_footer(), along with the scripts.
  */
-add_action( 'init', 'pilau_enqueue_scripts_styles' );
+if ( ! is_admin() )
+	add_action( 'init', 'pilau_enqueue_scripts_styles' );
 function pilau_enqueue_scripts_styles() {
 
 	/*
