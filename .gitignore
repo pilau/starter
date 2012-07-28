@@ -15,6 +15,11 @@
 wp-content/themes/*
 !/wp-content/themes/pilau-starter/
 
+# Uncomment to version plugins
+#!/wp-content/plugins/
+# And make sure to exclude any caches inside plugin folders
+#/wp-content/plugins/bwp-minify/cache/*
+
 # Interconnect IT WP data migration script - http://interconnectit.com/124/search-and-replace-for-wordpress-databases/
 searchreplacedb2.php
 
