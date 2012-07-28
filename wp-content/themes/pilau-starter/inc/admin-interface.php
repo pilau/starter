@@ -68,6 +68,19 @@ function pilau_admin_notices() {
 
 }
 
+/**
+ * Test output of $current_screen
+ *
+ * @since	CIFF 0.1
+ */
+//add_action( 'admin_notices', 'pilau_check_current_screen' );
+function pilau_check_current_screen() {
+	if ( ! is_admin() )
+		return;
+	global $current_screen;
+	echo '<pre>'; print_r( $current_screen ); echo '</pre>';
+}
+
 
 /**
  * Admin menus
