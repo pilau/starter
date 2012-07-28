@@ -36,6 +36,7 @@ function pilau_setup() {
 
 	/* Get WP-LESS to compile and cache all styles */
 	add_action( 'wp_print_styles', array( $WPLessPlugin, 'processStylesheets' ) );
+	add_action( 'admin_print_styles', array( $WPLessPlugin, 'processStylesheets' ) );
 
 	/* Enable shortcodes in widgets */
 	add_filter( 'widget_text', 'do_shortcode' );
