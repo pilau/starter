@@ -535,3 +535,40 @@ function pilau_nav_menus_columns_hidden( $result ) {
 
 	return $result;
 }
+
+
+/* Functions to help building admin screens
+-------------------------------------------------------------------------------------------*/
+
+/**
+ * Output admin tabs
+ *
+ * Gets the current tab from $_GET['tab']; defaults to the first tab supplied
+ *
+ * @since	Pilau_Starter 0.1
+ * @param	array $tabs In the format:
+ * 			<code>array( 'slug1' => 'Title 1', 'slug2' => 'Title 2' )</code>
+ * @param	string $base_url Base URL for admin screen
+ */
+function pilau_admin_tabs( $tabs, $base_url ) {
+	echo '<h2 class="nav-tab-wrapper">';
+	foreach ( $tabs as $slug => $title ) {
+		$classes = array( 'nav-tab' );
+		if ( $slug == pilau_current_admin_tab( $tabs ) )
+			$classes[] = ' nav-tab-active';
+		echo '<a class="' . implode( " ", $classes ) . '" href="' . $base_url . '&amp;tab=' . $slug . '">' . $title . '</a>';
+	}
+	echo '</h2>';
+}
+
+/**
+ * Get the current tab in an admin screen
+ *
+ * @since	Pilau_Starter 0.1
+ * @param	array $tabs In the format:
+ * 			<code>array( 'slug1' => 'Title 1', 'slug2' => 'Title 2' )</code>
+ * @return	string
+ */
+function pilau_current_admin_tab( $tabs ) {
+	return isset( $_GET['tab'] ) && $_GET['tab'] ? $_GET['tab'] : key( $tabs );
+}
