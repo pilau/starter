@@ -49,6 +49,7 @@ function pilau_setup() {
 
 	/* Featured image */
 	add_theme_support( 'post-thumbnails' );
+	//set_post_thumbnail_size( 203, 161 ); // default Post Thumbnail dimensions
 
 	/* Set custom image sizes */
 	//add_image_size( 'image-banner', 250, 0, false );
