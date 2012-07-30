@@ -17,6 +17,7 @@
 add_action( 'admin_enqueue_scripts', 'pilau_admin_enqueue_scripts_styles' );
 function pilau_admin_enqueue_scripts_styles() {
 	wp_enqueue_style( 'pilau-admin', get_template_directory_uri() . '/less/wp-admin.less', array(), '1.0' );
+	wp_enqueue_script( 'pilau-admin', get_template_directory_uri() . '/js/wp-admin.js', array(), '0.1' );
 }
 
 
