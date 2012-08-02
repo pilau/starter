@@ -2,7 +2,7 @@
 -------------------------------------------------------------------------------*/
 
 /* Don't display at all */
-.print-only, .hide-if-no-js { display: none; }
+.print-only, .no-js .hide-if-no-js, .js .hide-if-js { display: none; }
 
 /* Text meant only for screen readers
 @link http://adaptivethemes.com/comment/1386 */
