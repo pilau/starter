@@ -53,3 +53,19 @@ jQuery( window ).resize( function( $ ) {
 });
  */
 
+
+/*
+ Helper functions
+ */
+
+
+/**
+ * Capitalize extension to string object
+ *
+ * @since	CIFF 0.1
+ * @link	http://stackoverflow.com/a/3291856/1087660
+ * @return	{String}
+ */
+String.prototype.capitalize = function() {
+	return this.charAt(0).toUpperCase() + this.slice(1);
+};
