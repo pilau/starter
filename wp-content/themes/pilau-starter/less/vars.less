@@ -38,3 +38,29 @@ LESS variables and mixins
 	zoom: 1;
 	*display: inline;
 }
+
+/*
+Transparent background
+@link	http://dan.cx/blog/2012/05/rgba-in-ie
+*/
+.TransparentBackground( @color, @alpha ) {
+	@alphaColor: hsla( hue( @color), saturation( @color ), lightness( @color ), @alpha );
+	@ieAlphaColour: argb( @alphaColor );
+	background-color: @color; // Fallback for older browsers
+	background-color: @alphaColor;
+// IE hacks
+	zoom: 1; // hasLayout
+	background-color: transparent\9;
+	-ms-filter:  "progid:DXImageTransform.Microsoft.gradient(startColorstr=@{ieAlphaColour}, endColorstr=@{ieAlphaColour})"; // IE 8+
+	filter: ~"progid:DXImageTransform.Microsoft.gradient(startColorstr=@{ieAlphaColour}, endColorstr=@{ieAlphaColour})"; // IE 6 & 7
+}
+
+/*
+Drop shadow
+@link	http://css-tricks.com/snippets/css/useful-css3-less-mixins/
+*/
+.DropShadow ( @x: 2px, @y: 2px, @blur: 2px, @spread: 0, @alpha: 0.25 ) {
+	-webkit-box-shadow: @x @y @blur @spread rgba( 0, 0, 0, @alpha );
+	-moz-box-shadow: @x @y @blur @spread rgba( 0, 0, 0, @alpha );
+	box-shadow: @x @y @blur @spread rgba( 0, 0, 0, @alpha );
+}
