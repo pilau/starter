@@ -68,3 +68,11 @@
 	</nav>
 
 </header><!-- #header -->
+
+<?php
+
+/* Breadcrumbs */
+if ( ! is_front_page() )
+	pilau_breadcrumbs();
+
+	?>

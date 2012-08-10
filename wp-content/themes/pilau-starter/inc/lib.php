@@ -475,6 +475,96 @@ function pilau_get_featured_image_url( $post_id = 0, $size = "thumbnail" ) {
 }
 
 
+/* Navigation
+*****************************************************************************/
+
+/**
+ * Get nav menu without markup containers
+ *
+ * @since	Pilau_Starter 0.1
+ * @uses	wp_nav_menu()
+ * @param	string $menu The name given to the menu in Appearance > Menus
+ * @param	integer $depth
+ * @return	string
+ */
+function pilau_menu_without_containers( $menu, $depth = 1 ) {
+	$menu_items = wp_nav_menu( array(
+		'menu'				=> $menu,
+		'container'			=> '',
+		'echo'				=> false,
+		'depth'				=> $depth
+	));
+	// Strip ul wrapper
+	$menu_items = trim( $menu_items );
+	$menu_items = preg_replace( '#<ul[^>]*>#i', '', $menu_items, 1 );
+	$menu_items = substr( $menu_items, 0, -5 );
+	return $menu_items;
+}
+
+/**
+ * Output breadcrumbs
+ *
+ * A lot of options for formatting, but this just uses the <nav> element, plus the
+ * 'breadcrumb' class as per @link http://microformats.org/wiki/blog-post-formats
+ *
+ * @since	Pilau_Starter 0.1
+ * @uses	$post
+ * @param	string	$prefix
+ * @param	string	$sep
+ * @return	void
+ */
+function pilau_breadcrumbs( $prefix = 'You are here: ', $sep = ' <span class="sep">/</span> ' ) {
+	global $post;
+	$output = '';
+
+	// Work backwards, start with unlinked current title
+	$output = $sep . get_the_title();
+
+	// Where are we now?
+	if ( is_page() ) {
+
+		// Page
+		if ( $post->ancestors ) {
+			foreach ( $post->ancestors as $ancestor_id ) {
+				$output = $sep . pilau_breadcrumb_link( $ancestor_id ) . $output;
+			}
+		}
+
+	} else if ( is_single() ) {
+
+		// Single post
+		if ( get_post_type() == 'post' ) {
+
+			// Standard post
+			$output = $sep . pilau_breadcrumb_link( get_option( 'page_for_posts' ) ) . $output;
+
+		}
+
+	}
+
+	// Add home page - it's assumed breadcrumb will never be on home page
+	$output = '<a href="/">' . __( 'Home' ) . '</a>' . $output;
+
+	// Prefix?
+	if ( $prefix )
+		$output = '<span class="prefix">' . $prefix . '</span>' . $output;
+
+	// Output
+	echo '<nav class="breadcrumb"><p>' . $output . '</p></nav>';
+}
+
+/**
+ * Generate breadcrumb link
+ *
+ * @since	Pilau_Starter 0.1
+ * @param	int	$id
+ * @return	string
+ */
+function pilau_breadcrumb_link( $id ) {
+	return '<a href="' . get_permalink( $id ) . '">' . get_the_title( $id ) . '</a>';
+}
+
+
 /* Plugin-related
 *****************************************************************************/
 
@@ -539,26 +629,3 @@ function pilau_format_filesize( $input, $default_output = '??' ) {
 	return $output;
 }
 
-
-/**
- * Get nav menu without markup containers
- *
- * @since	Pilau_Starter 0.1
- * @uses	wp_nav_menu()
- * @param	string $menu The name given to the menu in Appearance > Menus
- * @param	integer $depth
- * @return	string
- */
-function pilau_menu_without_containers( $menu, $depth = 1 ) {
-	$menu_items = wp_nav_menu( array(
-		'menu'				=> $menu,
-		'container'			=> '',
-		'echo'				=> false,
-		'depth'				=> $depth
-	));
-	// Strip ul wrapper
-	$menu_items = trim( $menu_items );
-	$menu_items = preg_replace( '#<ul[^>]*>#i', '', $menu_items, 1 );
-	$menu_items = substr( $menu_items, 0, -5 );
-	return $menu_items;
-}
