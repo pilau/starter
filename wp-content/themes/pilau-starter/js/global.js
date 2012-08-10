@@ -82,6 +82,60 @@ function pilau_get_string_part( s, i, sep ) {
 
 
 /**
+ * Place preloader image
+ *
+ * @param	{string}	e	Selector for element to place preloader in the centre of
+ * @return	void
+ */
+function pilau_preloader_place( e ) {
+	var size = 35,
+		p = jQuery( '<img src="' + pilau_global.themeurl + '/img/preloader.gif" width="' + size + '" height="' + size + '" alt="" class="preloader">' ),
+		t, l;
+
+	if ( typeof e != 'undefined' ) {
+
+		// Position within an element
+		e = jQuery( e );
+
+		// Make sure the container is positioned right
+		if ( e.css( 'position' ) == 'static' )
+			e.css( 'position', 'relative' );
+
+		// Place the preloader
+		p.appendTo( e );
+
+	} else {
+
+		// Position centered in viewport
+		// Override default styles
+		t = ( jQuery( window ).height() - size ) / 2;
+		w = ( jQuery( window ).width() - size ) / 2;
+		p.css({
+			'top':			t,
+			'left':			l,
+			'margin-left':	0,
+			'margin-right':	0
+		}).appendTo( 'body' );
+
+	}
+
+}
+
+
+/**
+ * Remove preloader image
+ *
+ * @param	{string}	e	Selector for element to remove preloader from
+ * @return	void
+ */
+function pilau_preloader_remove( e ) {
+	if ( typeof e == 'undefined' )
+		e = 'body';
+	jQuery( 'img.preloader', e ).remove();
+}
+
+
+/**
  * Generic AJAX error message
  *
  * Add to AJAX calls like this:
