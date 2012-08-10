@@ -72,7 +72,7 @@ function pilau_admin_notices() {
 /**
  * Test output of $current_screen
  *
- * @since	CIFF 0.1
+ * @since	Pilau_Starter 0.1
  */
 //add_action( 'admin_notices', 'pilau_check_current_screen' );
 function pilau_check_current_screen() {
