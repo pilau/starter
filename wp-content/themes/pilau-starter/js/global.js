@@ -7,6 +7,10 @@
 jQuery( document ).ready( function( $ ) {
 
 
+	/** JS-dependent elements */
+	$( '.remove-if-js' ).remove();
+
+
 	/**
 	 * Placeholder fallback
 	 * @link	http://uniquemethod.com/html5-placeholder-text-jquery-fallback-with-modernizr
