@@ -436,6 +436,8 @@ function pilau_url_to_postid( $url ) {
 				));
 				if ( is_object( $query->post ) )
 					$post_id = $query->post->ID;
+				// Reset loop
+				wp_reset_postdata();
 			}
 		}
 
