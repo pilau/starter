@@ -474,26 +474,6 @@ function pilau_get_featured_image_url( $post_id = 0, $size = "thumbnail" ) {
 	return pilau_get_image_url( get_post_thumbnail_id( $post_id ), $size );
 }
 
-/**
- * Override a 404
- *
- * @since	CIFF 0.4
- * @param	string	$template	If passed, this template will be included and
- * 								the request will be terminated if the inclusion
- * 								was successful
- * @return	void
- */
-function pilau_override_404( $template = null ) {
-	global $wp_query;
-	$wp_query->is_404 = false;
-	status_header( '200' );
-	if ( $template ) {
-		$template_found = locate_template( $template, true );
-		if ( $template_found )
-			exit;
-	}
-}
-
 
 /* Navigation
 *****************************************************************************/
