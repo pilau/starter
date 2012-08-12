@@ -383,24 +383,21 @@ function pilau_get_current_url( $keep_qs = true, $strip_wp_vars = false, $return
 	return $url;
 }
 
-
 /**
  * Return a path from a URL
  *
- * @since	Pilau_Starter 0.1
+ * @since	CIFF 0.1
  * @uses	pilau_get_current_url()
  * @param	string $url If nothing is passed, the current URL is used
- * @return	string
+ * @return	string Path, with no leading or trailing slashes
  */
 function pilau_path_from_url( $url = null ) {
 	if ( $url === null )
 		return pilau_get_current_url( false, true, true );
-	$url_parts = explode( '/', trim( $url, '/' ) );
-	$url_parts = array_splice( $url_parts, 3 );
-	return implode( '/', $url_parts );
+	$url_parts = parse_url( $url );
+	return trim( $url_parts['path'], '/' );
 }
 
-//
 /**
  * Wrapper that extends the core url_to_postid() function
  *
