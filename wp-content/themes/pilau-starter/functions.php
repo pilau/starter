@@ -147,6 +147,14 @@ require( dirname( __FILE__ ) . '/inc/content.php');
 
 
 /**
+ * Media functionality
+ *
+ * @since	Pilau_Starter 0.1
+ */
+require( dirname( __FILE__ ) . '/inc/media.php');
+
+
+/**
  * Custom management of feeds
  *
  * @since	Pilau_Starter 0.1

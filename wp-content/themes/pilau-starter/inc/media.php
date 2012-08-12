@@ -59,12 +59,12 @@ function pilau_post_image_classes( $class ) {
 
 
 /**
- * Strip out unnecessary image title attributes
+ * Manage default WP image attributes
  *
- * @since	Pilau_Starter 0.1
+ * @since	CIFF 0.1
  */
-add_filter( 'image_send_to_editor', 'pilau_no_image_titles' );
-function pilau_no_image_titles( $html ) {
-	$html = preg_replace( '/ title="[^"]*"/', '', $html );
-	return $html;
+add_filter( 'wp_get_attachment_image_attributes', 'pilau_image_attributes', 10, 2 );
+function pilau_image_attributes( $attr, $attachment ) {
+	unset( $attr['title'] );
+	return $attr;
 }
