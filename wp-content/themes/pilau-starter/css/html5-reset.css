@@ -162,3 +162,4 @@ mark {
 
 ol { padding-left: 2em; }
 
+time { white-space: nowrap; }
