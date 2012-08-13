@@ -7,7 +7,7 @@
 @import 'vars.less';
 
 
-/* Basic layout
+/* Basics
 -------------------------------------------------------------------------------*/
 
 body { text-align: center; }
@@ -17,6 +17,13 @@ body { text-align: center; }
 	width: 960px;
 	margin: 0 auto;
 	text-align: left;
+}
+
+// Basic drop-shadow - sometimes leaner to just add a class!
+// Set the mix-in settings to your most common drop-shadow style and use this
+// class where possible.
+.drop-shadow {
+	.DropShadow();
 }
 
 
