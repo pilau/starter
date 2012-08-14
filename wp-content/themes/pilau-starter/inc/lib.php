@@ -516,26 +516,44 @@ function pilau_breadcrumbs( $prefix = 'You are here: ', $sep = ' <span class="se
 	global $post;
 	$output = '';
 
-	// Work backwards, start with unlinked current title
-	$output = $sep . get_the_title();
-
 	// Where are we now?
-	if ( is_page() ) {
+	if ( is_404() ) {
 
-		// Page
+		// 404 not found
+		$output = $sep . __( 'Page not found' );
+
+	} else {
+
+		/*
+		 * Work backwards from unlinked current title
+		 * Need to use get_queried_object because get_the_title() on post listing pages returns
+		 * the title of the last post in the loop.
+		 */
+		$output = $sep . apply_filters( 'the_title', get_queried_object()->post_title );
+
 		if ( $post->ancestors ) {
+
+			// For pages and anything else ancestors
 			foreach ( $post->ancestors as $ancestor_id ) {
 				$output = $sep . pilau_breadcrumb_link( $ancestor_id ) . $output;
 			}
-		}
 
-	} else if ( is_single() ) {
+		} else if ( is_single() ) {
 
-		// Single post
-		if ( get_post_type() == 'post' ) {
+			// Single post
+			if ( get_post_type() == 'post' ) {
 
-			// Standard post
-			$output = $sep . pilau_breadcrumb_link( get_option( 'page_for_posts' ) ) . $output;
+				// Standard post
+				$output = $sep . pilau_breadcrumb_link( get_option( 'page_for_posts' ) ) . $output;
+
+			} else {
+
+				// Custom post type, get settings for CPT Structure
+				$cpt_structure_settings = get_option( 'sc_cpt_sh_permalinks' );
+				if ( in_array( get_post_type(), array_keys( $cpt_structure_settings ) ) )
+					$output = $sep . pilau_breadcrumb_link( $cpt_structure_settings[ get_post_type() ] ) . $output;
+
+			}
 
 		}
 
