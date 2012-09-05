@@ -61,7 +61,7 @@ function pilau_post_image_classes( $class ) {
 /**
  * Manage default WP image attributes
  *
- * @since	CIFF 0.1
+ * @since	Pilau_Starter 0.1
  */
 add_filter( 'wp_get_attachment_image_attributes', 'pilau_image_attributes', 10, 2 );
 function pilau_image_attributes( $attr, $attachment ) {

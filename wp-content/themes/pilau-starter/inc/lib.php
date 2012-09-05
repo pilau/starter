@@ -386,7 +386,7 @@ function pilau_get_current_url( $keep_qs = true, $strip_wp_vars = false, $return
 /**
  * Return a path from a URL
  *
- * @since	CIFF 0.1
+ * @since	Pilau_Starter 0.1
  * @uses	pilau_get_current_url()
  * @param	string $url If nothing is passed, the current URL is used
  * @return	string Path, with no leading or trailing slashes

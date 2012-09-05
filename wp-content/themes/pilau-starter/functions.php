@@ -79,6 +79,13 @@ define( 'PILAU_FRONT_OR_AJAX', ! is_admin() || ( defined( 'DOING_AJAX' ) && DOIN
  */
 define( 'PILAU_REQUEST_PROTOCOL', isset( $_SERVER[ 'HTTPS' ] ) ? 'https' : 'http' );
 
+/**
+ * Store the top-level slug
+ *
+ * @since	CIFF 0.1
+ */
+define( 'PILAU_TOP_LEVEL_SLUG', reset( explode( '/', trim( $_SERVER['REQUEST_URI'], '/' ) ) ) );
+
 
 /**
  * PHP settings

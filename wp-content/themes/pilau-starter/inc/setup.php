@@ -35,8 +35,8 @@ function pilau_setup() {
 	}
 
 	/* Get WP-LESS to compile and cache all styles */
-	add_action( 'wp_print_styles', array( $WPLessPlugin, 'processStylesheets' ) );
-	add_action( 'admin_print_styles', array( $WPLessPlugin, 'processStylesheets' ) );
+	add_action( 'wp_print_styles', 'pilau_process_less' );
+	add_action( 'admin_print_styles', 'pilau_process_less' );
 
 	/* Enable shortcodes in widgets */
 	add_filter( 'widget_text', 'do_shortcode' );
@@ -86,6 +86,25 @@ function pilau_setup() {
 	}
 	*/
 
+}
+
+
+/**
+ * Process LESS files
+ *
+ * Forces WP-LESS compilation on every dev request, to make sure changes to imported
+ * (non-enqueued) LESS files come through without having to manually change something
+ * to force it.
+ * @link	http://wordpress.org/support/topic/plugin-wp-less-updating-cache-when-imported-files-change
+ *
+ * @since	Pilau_Starter 0.1
+ * @uses	$WPLessPlugin
+ * @uses	WP_LOCAL_DEV
+ * @return	void
+ */
+function pilau_process_less() {
+	global $WPLessPlugin;
+	$WPLessPlugin->processStylesheets( WP_LOCAL_DEV );
 }
 
 
