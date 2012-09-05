@@ -21,8 +21,8 @@
 add_action( 'user_register', 'pilau_default_user_display_name' );
 function pilau_default_user_display_name( $user_id ) {
 	// Fetch current user meta information
-	$first = get_user_meta( $user_id, 'first_name' );
-	$last = get_user_meta( $user_id, 'last_name' );
+	$first = get_user_meta( $user_id, 'first_name', true );
+	$last = get_user_meta( $user_id, 'last_name', true );
 	$display = trim( $first . " " . $last );
 	// Update
 	wp_update_user( array( "ID" => $user_id, "display_name" => $display ) );
