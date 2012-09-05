@@ -41,6 +41,20 @@
 <?php /* Upgrade notice for IE 6 and below */ ?>
 <!--[if lt IE 7]><p class="upgrade-browser">Please note that this site does not support Internet Explorer 6 and below. Neither does Microsoft! <a href="http://browsehappy.com/">Please upgrade to a modern browser</a> if possible, or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this and other sites in your current browser.</p><![endif]-->
 
+<?php
+/* Cookie notice */
+if ( ! isset( $_COOKIE['pilau_cookie_notice'] ) ) { ?>
+	<div id="cookie-notice">
+		<div class="wrapper">
+			<div class="text">
+				<p><strong>This site uses cookies.</strong></p>
+				<p>By continuing to browse the site you are agreeing to our use of cookies. To find out more <a href="/privacy-policy/">read our privacy policy</a>.</p>
+			</div>
+			<p class="close"><a href="?close-cookie-notice=1">Close</a></p>
+		</div>
+	</div>
+<?php } ?>
+
 <?php /* Wrapper class used for layouts that need sections to be wider than the rest of the layout (i.e. with multiple wrappers */ ?>
 <div class="wrapper">
 
@@ -75,4 +89,4 @@
 if ( ! is_front_page() )
 	pilau_breadcrumbs();
 
-	?>
+

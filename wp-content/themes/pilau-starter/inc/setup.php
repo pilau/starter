@@ -90,6 +90,27 @@ function pilau_setup() {
 
 
 /**
+ * Cookie notice handling
+ *
+ * @since	Pilau_Starter 0.1
+ * @todo	Implement more sophisticated cookie handling (JS?) to hide notice for users who have disabled cookies
+ */
+add_action( 'init', 'pilau_cookie_notice' );
+function pilau_cookie_notice() {
+
+	// Check for this domain in referrer
+	if ( parse_url( $_SERVER['HTTP_REFERER'], PHP_URL_HOST ) == $_SERVER['SERVER_NAME'] ) {
+
+		// Set cookie showing (implied) consent
+		// Expires in 10 years
+		setcookie( 'pilau_cookie_notice', 1, time() + ( 10 * 365 * 24 * 60 * 60 ), '/' );
+
+	}
+
+}
+
+
+/**
  * Process LESS files
  *
  * Forces WP-LESS compilation on every dev request, to make sure changes to imported

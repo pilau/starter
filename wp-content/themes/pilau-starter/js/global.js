@@ -48,6 +48,16 @@ jQuery( document ).ready( function( $ ) {
 
 	}
 
+
+	/** Cookie notice */
+	$( '#cookie-notice .close' ).on( 'click', 'a', function () {
+		$( '#cookie-notice' ).slideUp( 400, function() {
+			$( this ).remove();
+		});
+		return false;
+	});
+
+
 });
 
 
