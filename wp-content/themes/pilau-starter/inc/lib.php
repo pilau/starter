@@ -646,3 +646,13 @@ function pilau_format_filesize( $input, $default_output = '??' ) {
 	return $output;
 }
 
+/**
+ * Test for being on login page
+ *
+ * @link	http://stackoverflow.com/questions/5266945/wordpress-how-detect-if-current-page-is-the-login-page
+ * @since	CIFF 0.1
+ * @return	bool
+ */
+function pilau_is_login_page() {
+	return in_array( $GLOBALS['pagenow'], array( 'wp-login.php', 'wp-register.php' ) );
+}

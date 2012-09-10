@@ -229,7 +229,7 @@ function pilau_scripts_to_footer() {
  * 			Currently hooked to init (with test for admin) so styles don't get moved to the footer by
  * 			pilau_scripts_to_footer(), along with the scripts.
  */
-if ( ! is_admin() )
+if ( ! is_admin() && ! pilau_is_login_page() )
 	add_action( 'init', 'pilau_enqueue_scripts_styles' );
 function pilau_enqueue_scripts_styles() {
 
