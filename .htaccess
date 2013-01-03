@@ -107,6 +107,13 @@ IndexIgnore *
 	deny from all
 </FilesMatch>
 
+# Protect xmlrpc.php
+# @link http://perishablepress.com/wordpress-xmlrpc-pingback-vulnerability/
+<Files xmlrpc.php>
+	order deny,allow
+	deny from all
+</Files>
+
 # ----------------------------------------------------------------------
 # PHP settings
 # ----------------------------------------------------------------------
