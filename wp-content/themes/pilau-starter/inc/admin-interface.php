@@ -28,10 +28,9 @@ function pilau_admin_enqueue_scripts_styles() {
  * Name icons cpt-[POST-TYPE].png and place into img/icons/
  *
  * @since	Pilau_Starter 0.1
- * @todo Test!
  * @todo Document on GitHub wiki
  */
-//add_action( 'admin_head', 'pilau_cpt_icons' );
+add_action( 'admin_head', 'pilau_cpt_icons' );
 function pilau_cpt_icons() {
 	$cpts = get_post_types( array( 'show_ui' => true ), 'names' );
 	if ( $cpts ) {
