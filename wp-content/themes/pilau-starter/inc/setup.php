@@ -293,6 +293,9 @@ function pilau_remove_title_attributes( $input ) {
 
 /**
  * Remove unnecessary attributes from nav menu items
+ * Note that this will remove any custom classes added in
+ * the "CSS Classes (optional) field in nav menus
+ * if they start with "menu-item"
  *
  * @since	Pilau_Starter 0.1
  * @link	http://codex.wordpress.org/Function_Reference/wp_nav_menu#Menu_Item_CSS_Classes
