@@ -5,6 +5,7 @@
 
 /** Trigger when DOM has loaded */
 jQuery( document ).ready( function( $ ) {
+	var placeholders = $( '[placeholder]' );
 
 
 	/** JS-dependent elements */
@@ -13,19 +14,18 @@ jQuery( document ).ready( function( $ ) {
 
 	/**
 	 * Placeholder fallback
-	 * @link	http://uniquemethod.com/html5-placeholder-text-jquery-fallback-with-modernizr
 	 */
 	if ( ! Modernizr.input.placeholder ) {
 
 		// set placeholder values
-		$( 'body' ).find( '[placeholder]' ).each( function() {
+		placeholders.each( function() {
 			if ( $( this ).val() == '' ) {
 				$( this ).val( $( this ).attr( 'placeholder' ) );
 			}
 		});
 
 		// focus and blur of placeholders
-		$( '[placeholder]' ).on( 'focus', function() {
+		placeholders.on( 'focus', function() {
 			if ( $( this ).val() == $( this ).attr( 'placeholder' ) ) {
 				$( this ).val('');
 				$( this ).removeClass( 'placeholder' );
@@ -38,7 +38,7 @@ jQuery( document ).ready( function( $ ) {
 			});
 
 		// remove placeholders on submit
-		$( '[placeholder]' ).closest( 'form' ).on( 'submit', function() {
+		placeholders.closest( 'form' ).on( 'submit', function() {
 			$( this ).find( '[placeholder]' ).each( function() {
 				if ( $( this ).val() == $( this ).attr( 'placeholder' ) ) {
 					$( this ).val('');
@@ -50,7 +50,7 @@ jQuery( document ).ready( function( $ ) {
 
 
 	/** Cookie notice */
-	$( '#cookie-notice .close' ).on( 'click', 'a', function () {
+	$( '#cookie-notice' ).find( '.close' ).on( 'click', 'a', function () {
 		$( '#cookie-notice' ).slideUp( 400, function() {
 			$( this ).remove();
 		});
