@@ -76,3 +76,30 @@ Drop shadow
 	-moz-box-shadow: @x @y @blur @spread rgba( 0, 0, 0, @alpha );
 	box-shadow: @x @y @blur @spread rgba( 0, 0, 0, @alpha );
 }
+
+/*
+Gradient backgrounds with fallback image
+@link	http://css-tricks.com/css3-gradients/
+*/
+.GradientBackgroundVertical( @top-color, @bottom-color, @image-url, @image-pos-x: 0, @image-pos-y: 0 ) {
+	background-color: @bottom-color; /* fallback/image non-cover color */
+	background-image: url(@{image-url});
+	background-position: @image-pos-x @image-pos-y; /* fallback image */
+	background-repeat: repeat-x;
+	background-image: -webkit-gradient( linear, 0% 0%, 0% 100%, from( @top-color ), to( @bottom-color ) ); /* Safari 4+, Chrome 1-9 */
+	background-image: -webkit-linear-gradient( top, @top-color, @bottom-color ); /* Safari 5.1+, Mobile Safari, Chrome 10+ */
+	background-image: -moz-linear-gradient( top, @top-color, @bottom-color ); /* Firefox 3.6+ */
+	background-image: -ms-linear-gradient( top, @top-color, @bottom-color ); /* IE 10+ */
+	background-image: -o-linear-gradient( top, @top-color, @bottom-color ); /* Opera 11.10+ */
+}
+.GradientBackgroundHorizontal( @left-color, @right-color, @image-url, @image-pos-x: 0, @image-pos-y: 0 ) {
+	background-color: @left-color; /* fallback/image non-cover color */
+	background-image: url(@{image-url});
+	background-position: @image-pos-x @image-pos-y; /* fallback image */
+	background-repeat: repeat-y;
+	background-image: -webkit-gradient( linear, 0% 0%, 100% 0%, from( @left-color ), to( @right-color ) ); /* Safari 4+, Chrome 1-9 */
+	background-image: -webkit-linear-gradient( left, @left-color, @right-color ); /* Safari 5.1+, Mobile Safari, Chrome 10+ */
+	background-image: -moz-linear-gradient( left, @top-color, @right-color ); /* Firefox 3.6+ */
+	background-image: -ms-linear-gradient( left, @top-color, @right-color ); /* IE 10+ */
+	background-image: -o-linear-gradient( left, @top-color, @right-color ); /* Opera 11.10+ */
+}
