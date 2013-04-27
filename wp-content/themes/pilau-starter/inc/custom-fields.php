@@ -15,7 +15,7 @@
 /**
  * Register custom fields
  *
- * @uses slt_cf_register_box
+ * @uses slt_cf_register_box()
  * @since	Pilau_Starter 0.1
  */
 if ( function_exists( 'slt_cf_register_box') )
@@ -41,4 +41,26 @@ function pilau_register_custom_fields() {
 	));
 	*/
 
+}
+
+
+/**
+ * Custom field checker
+ *
+ * @since	Pilau_Starter 0.1
+
+ * @param	string	$field	The field name to check
+ * @param	mixed	$value	The value to check against (returns true if the field value is equivalent)
+ * @param	boolean	$notset	The return value if the field isn't set at all (defaults to false)
+ * @return	boolean
+ */
+function pilau_custom_field_check( $field, $value = true, $notset = false ) {
+	global $pilau_custom_fields;
+	$result = false;
+	if ( isset( $pilau_custom_fields[ $field ] ) ) {
+		$result = ( $pilau_custom_fields[ $field ] == $value );
+	} else {
+		$result = $notset;
+	}
+	return $result;
 }
