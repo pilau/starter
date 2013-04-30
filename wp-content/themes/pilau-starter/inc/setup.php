@@ -95,7 +95,8 @@ function pilau_setup() {
  * @since	Pilau_Starter 0.1
  * @todo	Implement more sophisticated cookie handling (JS?) to hide notice for users who have disabled cookies
  */
-add_action( 'init', 'pilau_cookie_notice' );
+if ( PILAU_USE_COOKIE_NOTICE )
+	add_action( 'init', 'pilau_cookie_notice' );
 function pilau_cookie_notice() {
 
 	// Check for this domain in referrer

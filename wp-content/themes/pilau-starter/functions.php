@@ -55,6 +55,13 @@ define( 'PILAU_USE_PLUGINS_PAGE', false );
 define( 'PILAU_USE_SETTINGS_SCRIPT', false );
 
 /**
+ * Use the cookie notice?
+ *
+ * @since	Pilau_Starter 0.1
+ */
+define( 'PILAU_USE_COOKIE_NOTICE', false );
+
+/**
  * Maximum length of slugs in words
  *
  * @since	Pilau_Starter 0.1

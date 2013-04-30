@@ -5,7 +5,8 @@
 
 /** Trigger when DOM has loaded */
 jQuery( document ).ready( function( $ ) {
-	var placeholders = $( '[placeholder]' );
+	var placeholders = $( '[placeholder]' ),
+		cn = $( '#cookie-notice' );
 
 
 	/** JS-dependent elements */
@@ -50,12 +51,14 @@ jQuery( document ).ready( function( $ ) {
 
 
 	/** Cookie notice */
-	$( '#cookie-notice' ).find( '.close' ).on( 'click', 'a', function () {
-		$( '#cookie-notice' ).slideUp( 400, function() {
-			$( this ).remove();
+	if ( cn.length ) {
+		cn.find( '.close' ).on( 'click', 'a', function () {
+			cn.slideUp( 400, function() {
+				$( this ).remove();
+			});
+			return false;
 		});
-		return false;
-	});
+	}
 
 
 });
