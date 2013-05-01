@@ -546,10 +546,9 @@ function pilau_breadcrumbs( $prefix = 'You are here: ', $sep = ' <span class="se
 				// Standard post
 				$output = $sep . pilau_breadcrumb_link( get_option( 'page_for_posts' ) ) . $output;
 
-			} else {
+			} else if ( $cpt_structure_settings = get_option( 'sc_cpt_sh_permalinks' ) ) {
 
 				// Custom post type, get settings for CPT Structure
-				$cpt_structure_settings = get_option( 'sc_cpt_sh_permalinks' );
 				if ( in_array( get_post_type(), array_keys( $cpt_structure_settings ) ) )
 					$output = $sep . pilau_breadcrumb_link( $cpt_structure_settings[ get_post_type() ] ) . $output;
 
