@@ -546,6 +546,11 @@ function pilau_nav_menus_columns_hidden( $result ) {
 	if ( is_array( $result ) && in_array( 'description', $result ) )
 		unset( $result[ array_search( 'description', $result ) ] );
 
+	/** Classes always on
+	if ( is_array( $result ) && in_array( 'css-classes', $result ) )
+		unset( $result[ array_search( 'css-classes', $result ) ] );
+	 */
+
 	return $result;
 }
 
