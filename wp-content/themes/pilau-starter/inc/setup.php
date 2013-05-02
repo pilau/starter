@@ -215,7 +215,7 @@ function pilau_scripts_to_footer() {
 
 
 /**
- * Manage scripts and styles for the front-end
+ * Manage scripts for the front-end
  *
  * Always use the $ver parameter when registering or enqueuing styles or scripts, and
  * update it when deploying a new version - this helps prevent browser caching issues.
@@ -226,29 +226,11 @@ function pilau_scripts_to_footer() {
  * is used to move scripts to the footer, Modernizr is hard-coded into header.php
  *
  * @since	Pilau_Starter 0.1
- * @issue	This should be hooked to wp_enqueue_scripts (http://codex.wordpress.org/Function_Reference/wp_enqueue_style#Examples).
- * 			Currently hooked to init (with test for admin) so styles don't get moved to the footer by
- * 			pilau_scripts_to_footer(), along with the scripts.
  */
 if ( ! is_admin() && ! pilau_is_login_page() )
-	add_action( 'init', 'pilau_enqueue_scripts_styles' );
-function pilau_enqueue_scripts_styles() {
+	add_action( 'wp_enqueue_scripts', 'pilau_enqueue_scripts' );
+function pilau_enqueue_scripts() {
 
-	/*
-	 * Enqueue styles
-	 *
-	 * Version numbers probably not necessary because these get concatenated into one
-	 * file by Better WordPress Minify, which adds its own version parameter. But hey.
-	 */
-	wp_enqueue_style( 'html5-reset', get_template_directory_uri() . '/css/html5-reset.css', array(), '1.0' );
-	wp_enqueue_style( 'wp-core', get_template_directory_uri() . '/css/wp-core.css', array(), '1.0' );
-	wp_enqueue_style( 'pilau-classes', get_template_directory_uri() . '/css/classes.css', array(), '1.0' );
-	wp_enqueue_style( 'pilau-main', get_template_directory_uri() . '/less/main.less', array( 'html5-reset', 'wp-core', 'pilau-classes' ), '1.0' );
-	wp_enqueue_style( 'pilau-print', get_template_directory_uri() . '/less/print.less', array( 'html5-reset', 'wp-core', 'pilau-classes' ), '1.0' );
-
-	/*
-	 * Enqueue scripts
-	 */
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'pilau-global', get_template_directory_uri() . '/js/global.js', array( 'jquery' ), '1.0' );
 
@@ -263,6 +245,29 @@ function pilau_enqueue_scripts_styles() {
 	 * @link	http://wp.smashingmagazine.com/2011/10/18/how-to-use-ajax-in-wordpress/
 	 */
 	//wp_localize_script( 'pilau-global', 'pilau_global', array( 'ajaxurl' => admin_url( 'admin-ajax.php', PILAU_REQUEST_PROTOCOL ) ) );
+
+}
+
+
+/**
+ * Manage styles for the front-end
+ *
+ * Always use the $ver parameter when registering or enqueuing styles or scripts, and
+ * update it when deploying a new version - this helps prevent browser caching issues.
+ * (Actually this is made redundant by using Better WordPress Minify, with its
+ * appended parameter - but this is a good habit to get into ;-)
+ *
+ * @since	Pilau_Starter 0.1
+ */
+if ( ! is_admin() && ! pilau_is_login_page() )
+	add_action( 'wp_enqueue_scripts', 'pilau_enqueue_styles' );
+function pilau_enqueue_styles() {
+
+	wp_enqueue_style( 'html5-reset', get_template_directory_uri() . '/css/html5-reset.css', array(), '1.0' );
+	wp_enqueue_style( 'wp-core', get_template_directory_uri() . '/css/wp-core.css', array(), '1.0' );
+	wp_enqueue_style( 'pilau-classes', get_template_directory_uri() . '/css/classes.css', array(), '1.0' );
+	wp_enqueue_style( 'pilau-main', get_template_directory_uri() . '/less/main.less', array( 'html5-reset', 'wp-core', 'pilau-classes' ), '1.0' );
+	wp_enqueue_style( 'pilau-print', get_template_directory_uri() . '/less/print.less', array( 'html5-reset', 'wp-core', 'pilau-classes' ), '1.0' );
 
 }
 
