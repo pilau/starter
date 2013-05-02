@@ -342,11 +342,12 @@ function pilau_extract( $string, $max_words = 30, $max_paras = 0, $strip_tags = 
  * @since	Pilau_Starter 0.1
  * @uses	trailingslashit()
  * @param	bool $keep_qs Keep query string?
- * @param	bool $strip_wp_vars Strip standardWordPress variables?
+ * @param	bool $strip_wp_vars Strip standard WordPress variables?
  * @param	bool $return_path Return relative path, or URL?
+ * @param	array $strip_qs_vars Every query string variable passed in this array will be stripped
  * @return	string
  */
-function pilau_get_current_url( $keep_qs = true, $strip_wp_vars = false, $return_path = false ) {
+function pilau_get_current_url( $keep_qs = true, $strip_wp_vars = false, $return_path = false, $strip_qs_vars = array() ) {
 	$url = '';
 
 	if ( ! $return_path ) {
@@ -370,6 +371,18 @@ function pilau_get_current_url( $keep_qs = true, $strip_wp_vars = false, $return
 				$url_parts = array_slice( $url_parts, 0, $var_key );
 		}
 		$url = trailingslashit( implode( '/', $url_parts ) );
+	}
+
+	// Strip query string vars?
+	if ( $strip_qs_vars && $qs ) {
+		$qs_parts = explode( '&', $qs );
+		foreach ( $qs_parts as $key => $qs_part ) {
+			$qs_var = explode( '=', $qs_part );
+			if ( in_array( $qs_var[0], $strip_qs_vars ) ) {
+				unset( $qs_parts[ $key ] );
+			}
+		}
+		$qs = implode( '&', $qs_parts );
 	}
 
 	// Put query string back?
