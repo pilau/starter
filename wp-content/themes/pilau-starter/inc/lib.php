@@ -386,7 +386,7 @@ function pilau_get_current_url( $keep_qs = true, $strip_wp_vars = false, $return
 	}
 
 	// Put query string back?
-	if ( $keep_qs )
+	if ( $keep_qs && $qs )
 		$url .= '?' . $qs;
 
 	// Trim leading slash if a relative path
