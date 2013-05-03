@@ -61,10 +61,8 @@ if ( PILAU_USE_COOKIE_NOTICE && ! isset( $_COOKIE['pilau_cookie_notice'] ) ) { ?
 <?php /* Minimal header - adapt as necessary */ ?>
 <header id="header" role="banner">
 
-	<hgroup>
-		<h1 class="site-title"><a href="<?php echo home_url( '/' ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
-		<h2 class="site-description"><?php bloginfo( 'description' ); ?></h2>
-	</hgroup>
+	<h1 class="site-title"><a href="<?php echo home_url( '/' ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
+	<p class="site-description"><?php bloginfo( 'description' ); ?></p>
 
 	<nav role="navigation" id="nav-main">
 		<h1 class="assistive-text"><?php _e( 'Menu' ); ?></h1>
