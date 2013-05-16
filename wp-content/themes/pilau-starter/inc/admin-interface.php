@@ -10,6 +10,15 @@
 
 
 /**
+ * Disable post format UI by default
+ *
+ * @since	Pilau_Starter 0.1
+ * @link	http://wordpress.org/extend/plugins/disable-post-format-ui/
+ */
+add_filter( 'enable_post_format_ui', '__return_false' );
+
+
+/**
  * Admin scripts and styles
  *
  * @since	Pilau_Starter 0.1
