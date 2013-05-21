@@ -486,6 +486,81 @@ function pilau_get_featured_image_url( $post_id = 0, $size = "thumbnail" ) {
 	return pilau_get_image_url( get_post_thumbnail_id( $post_id ), $size );
 }
 
+/**
+ * Construct URL for website based on user ID
+ *
+ * @since	Pilau_Starter 0.1
+ * @param	string	$website	'facebook' | 'twitter' | 'google+' | 'pinterest' | 'linkedin' | 'youtube' | 'instagram' | 'foursquare'
+ * @param	string	$id
+ * @return	string
+ */
+function pilau_construct_website_url( $website, $id ) {
+	$url = null;
+
+	switch ( $website ) {
+
+		case 'facebook': {
+			$url = 'https://www.facebook.com/';
+			if ( ctype_digit( $id ) ) {
+				$url .= 'profile.php?id=' . $id;
+			} else {
+				$url .= $id;
+			}
+			break;
+		}
+
+		case 'twitter': {
+			$url = 'https://twitter.com/' . $id;
+			break;
+		}
+
+		case 'google+': {
+			$url = 'https://plus.google.com/' . $id;
+			break;
+		}
+
+		case 'pinterest': {
+			$url = 'http://pinterest.com/' . $id;
+			break;
+		}
+
+		case 'linkedin': {
+			$url = 'http://www.linkedin.com/profile/view?id=' . $id;
+			break;
+		}
+
+		case 'youtube': {
+			$url = 'http://www.youtube.com/user/' . $id;
+			break;
+		}
+
+		case 'instagram': {
+			$url = 'http://instagram.com/' . $id;
+			break;
+		}
+
+		case 'foursquare': {
+			$url = 'https://foursquare.com/' . $id;
+			break;
+		}
+
+	}
+
+	return $url;
+}
+
+/**
+ * Replace links in text with html links
+ *
+ * @link	http://stackoverflow.com/questions/1960461/convert-plain-text-urls-into-html-hyperlinks-in-php
+ * @since	Pilau_Starter 0.1
+ * @param	string $s
+ * @return	string
+ */
+function pilau_link_urls( $s ) {
+	return preg_replace('@(https?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?)?)@', '<a href="$1" target="_blank">$1</a>', $s );
+}
+
 
 /* Navigation
 *****************************************************************************/
@@ -667,67 +742,4 @@ function pilau_format_filesize( $input, $default_output = '??' ) {
  */
 function pilau_is_login_page() {
 	return in_array( $GLOBALS['pagenow'], array( 'wp-login.php', 'wp-register.php' ) );
-}
-
-/**
- * Construct URL for website based on user ID
- *
- * @since	Pilau_Starter 0.1
- * @param	string	$website	'facebook' | 'twitter' | 'google+' | 'pinterest' | 'linkedin' | 'youtube' | 'instagram' | 'foursquare'
- * @param	string	$id
- * @return	string
- */
-function pilau_construct_website_url( $website, $id ) {
-	$url = null;
-
-	switch ( $website ) {
-
-		case 'facebook': {
-			$url = 'https://www.facebook.com/';
-			if ( ctype_digit( $id ) ) {
-				$url .= 'profile.php?id=' . $id;
-			} else {
-				$url .= $id;
-			}
-			break;
-		}
-
-		case 'twitter': {
-			$url = 'https://twitter.com/' . $id;
-			break;
-		}
-
-		case 'google+': {
-			$url = 'https://plus.google.com/' . $id;
-			break;
-		}
-
-		case 'pinterest': {
-			$url = 'http://pinterest.com/' . $id;
-			break;
-		}
-
-		case 'linkedin': {
-			$url = 'http://www.linkedin.com/profile/view?id=' . $id;
-			break;
-		}
-
-		case 'youtube': {
-			$url = 'http://www.youtube.com/user/' . $id;
-			break;
-		}
-
-		case 'instagram': {
-			$url = 'http://instagram.com/' . $id;
-			break;
-		}
-
-		case 'foursquare': {
-			$url = 'https://foursquare.com/' . $id;
-			break;
-		}
-
-	}
-
-	return $url;
 }
