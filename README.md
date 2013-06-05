@@ -14,7 +14,7 @@ For more on Pilau: <http://pilaubase.com/>
 Pilau Starter uses code and inspiration from the following projects:
 
 * [HTML5 Reset](https://github.com/murtaugh/HTML5-Reset)
-* [HTML5 Boilerplater](https://github.com/h5bp/html5-boilerplate)
+* [HTML5 Boilerplate](https://github.com/h5bp/html5-boilerplate)
 * [_s](https://github.com/Automattic/_s)
 * [Modernizr](https://github.com/Modernizr/Modernizr)
 * [WP-LESS](http://wordpress.org/extend/plugins/wp-less/)
