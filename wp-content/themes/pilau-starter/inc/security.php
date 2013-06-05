@@ -39,4 +39,12 @@ function pilau_block_malicious_requests() {
 	}
 }
 
+/**
+ * Remove WP version from RSS
+ *
+ * @since	Pilau_Starter 0.1
+ */
+add_filter( 'the_generator', 'pilau_rss_version' );
+function pilau_rss_version() { return ''; }
+
 
