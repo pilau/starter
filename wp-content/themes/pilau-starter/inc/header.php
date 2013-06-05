@@ -51,7 +51,7 @@ add_action( 'wp_head', 'pilau_head' );
 function pilau_head() {
 	global $cpage, $post;
 
-	/*
+	/**
 	 * Robots meta
 	 *
 	 * noindex,nofollow for dev and staging; let Yoast SEO take over on production
@@ -62,17 +62,26 @@ function pilau_head() {
 		<?php
 	}
 
-	/* Canonical link for paged comments */
+	/**
+	 * Canonical link for paged comments
+	 */
 	if ( $cpage > 1 ) { ?>
 		<link rel="canonical" href="<?php echo esc_url( get_permalink( $post->ID ) ); ?>">
 	<?php }
 
-	/* Site icons
+	/**
+	 * Site icons
+	 *
+	 * @link	http://www.jonathantneal.com/blog/understand-the-favicon/
+
 	?>
-	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
-	<link rel="apple-touch-icon" sizes="114×114" href="/apple-touch-icon-114×114.png">
-	<link rel="apple-touch-icon" sizes="72×72" href="/apple-touch-icon-72×72.png">
-	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+	<link rel="apple-touch-icon" href="/favicon-144x144.png">
+	<link rel="icon" href="/favicon-96x96.png">
+	<!--[if IE]>
+	<link rel="shortcut icon" href="/favicon.ico">
+	<![endif]-->
+	<meta name="msapplication-TileColor" content="#99cc33">
+	<meta name="msapplication-TileImage" content="/favicon-144x144.png">
 	<?php */
 
 }
