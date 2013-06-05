@@ -69,21 +69,6 @@ function pilau_head() {
 		<link rel="canonical" href="<?php echo esc_url( get_permalink( $post->ID ) ); ?>">
 	<?php }
 
-	/**
-	 * Site icons
-	 *
-	 * @link	http://www.jonathantneal.com/blog/understand-the-favicon/
-
-	?>
-	<link rel="apple-touch-icon" href="/favicon-144x144.png">
-	<link rel="icon" href="/favicon-96x96.png">
-	<!--[if IE]>
-	<link rel="shortcut icon" href="/favicon.ico">
-	<![endif]-->
-	<meta name="msapplication-TileColor" content="#99cc33">
-	<meta name="msapplication-TileImage" content="/favicon-144x144.png">
-	<?php */
-
 }
 
 

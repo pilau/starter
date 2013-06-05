@@ -17,12 +17,33 @@
 <!--[if IE 8]><html class="no-js lt-ie9 ie8" <?php language_attributes(); ?>> <![endif]-->
 <!--[if gt IE 8]><!--><html class="no-js" <?php language_attributes(); ?>><!--<![endif]-->
 <head>
+
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
+
 	<title><?php wp_title(); ?></title>
+
+	<?php /*
+	<!-- Mobile meta -->
+	<meta name="HandheldFriendly" content="True">
+	<meta name="MobileOptimized" content="320">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	*/ ?>
+
+	<?php /*
+	<!-- Site icons @link http://www.jonathantneal.com/blog/understand-the-favicon/ -->
+	<link rel="apple-touch-icon" href="/favicon-144x144.png">
+	<link rel="icon" href="/favicon-96x96.png">
+	<!--[if IE]>
+	<link rel="shortcut icon" href="/favicon.ico">
+	<![endif]-->
+	<meta name="msapplication-TileColor" content="#99cc33">
+	<meta name="msapplication-TileImage" content="/favicon-144x144.png">
+	*/ ?>
+
 	<?php
 
 	/*
-	 * For any HTML header code that requires complex PHP processing, hook to wp_head
+	 * For any HTML header code that requires PHP processing, hook to wp_head
 	 * Check inc/header.php
 	 */
 	wp_head();
@@ -35,6 +56,7 @@
 	*/
 	?>
 	<script src="<?php echo get_template_directory_uri() . '/js/modernizr.js?ver=2.6.1'; ?>"></script>
+
 </head>
 <body <?php body_class(); ?> role="document">
 
