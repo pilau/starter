@@ -66,6 +66,14 @@ function pilau_head() {
 		<link rel="canonical" href="<?php echo esc_url( get_permalink( $post->ID ) ); ?>">
 	<?php }
 
+	/* Site icons
+	?>
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+	<link rel="apple-touch-icon" sizes="114×114" href="/apple-touch-icon-114×114.png">
+	<link rel="apple-touch-icon" sizes="72×72" href="/apple-touch-icon-72×72.png">
+	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+	<?php */
+
 }
 
 
