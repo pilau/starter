@@ -160,6 +160,18 @@ mark {
 /* Pilau additions
 -------------------------------------------------------------------------------*/
 
+/*
+Natural box layout
+@link	http://www.paulirish.com/2012/box-sizing-border-box-ftw/
+@link	https://github.com/Schepp/box-sizing-polyfill
+*/
+* {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	*behavior: url(/wp-content/themes/pilau-starter/js/boxsizing.htc);
+}
+
 ol { padding-left: 2em; }
 
 time { white-space: nowrap; }
