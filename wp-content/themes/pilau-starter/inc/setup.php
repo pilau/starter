@@ -262,12 +262,18 @@ function pilau_enqueue_scripts() {
 if ( ! is_admin() && ! pilau_is_login_page() )
 	add_action( 'wp_enqueue_scripts', 'pilau_enqueue_styles' );
 function pilau_enqueue_styles() {
+	global $wp_styles; // In case we need IE-only styles with conditional wrapper
 
 	wp_enqueue_style( 'html5-reset', get_template_directory_uri() . '/css/html5-reset.css', array(), '1.0' );
 	wp_enqueue_style( 'wp-core', get_template_directory_uri() . '/css/wp-core.css', array(), '1.0' );
 	wp_enqueue_style( 'pilau-classes', get_template_directory_uri() . '/css/classes.css', array(), '1.0' );
 	wp_enqueue_style( 'pilau-main', get_template_directory_uri() . '/less/main.less', array( 'html5-reset', 'wp-core', 'pilau-classes' ), '1.0' );
 	wp_enqueue_style( 'pilau-print', get_template_directory_uri() . '/less/print.less', array( 'html5-reset', 'wp-core', 'pilau-classes' ), '1.0' );
+
+	// IE-only styles
+	// BEWARE: When using Better WordPress Minify plugin, these appear before the other CSS files in the header
+	//wp_enqueue_style( 'pilau-ie', get_template_directory_uri() . '/less/ie.less', array( 'html5-reset', 'wp-core', 'pilau-classes' ), '1.0' );
+	//$wp_styles->add_data( 'pilau-ie', 'conditional', 'lt IE 9' );
 
 }
 
