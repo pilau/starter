@@ -27,6 +27,32 @@ body { text-align: center; }
 }
 
 
+/* Links
+-------------------------------------------------------------------------------*/
+
+// "Press button" effect
+a:active {
+	position: relative;
+	top: 1px;
+}
+
+// Anchors that wrap block-level elements
+a.block-wrapper {
+	display: block;
+	color: inherit;
+	text-decoration: none;
+	&:active { // This effect can cause weird issues when anchor wraps blocks
+		position: static;
+		top: 0;
+	}
+	&:hover, &:focus {
+		p.more {
+			text-decoration: underline;
+		}
+	}
+}
+
+
 /* Global form styles
 -------------------------------------------------------------------------------*/
 
