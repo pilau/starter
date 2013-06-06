@@ -12,13 +12,15 @@
 	position: absolute !important;
 }
 
-/* Image replacement basics - just add dimensions and an image! */
+/*
+Image replacement basics - just add dimensions and an image!
+@link	http://www.zeldman.com/2012/03/01/replacing-the-9999px-hack-new-image-replacement/
+*/
 .img-rep {
-	display: block;
-	text-indent: -9999px;
+	text-indent: 100%;
+	white-space: nowrap;
 	overflow: hidden;
 }
-.img-rep a, .img-rep span { display: block; }
 
 /* Misc */
 .clear { clear: both; }
