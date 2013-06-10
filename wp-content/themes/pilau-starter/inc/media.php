@@ -73,15 +73,16 @@ function pilau_image_attributes( $attr, $attachment ) {
 /**
  * Output an image with optional caption, using <figure> and <figcaption> tags
  *
- * @since	Pilau_Starter 0.1
+ * @since	SLTaylor 0.1
  * @param	int				$image_id		ID of the image
  * @param	string			$size			Size of the image; defaults to 'post-thumbnail'
  * @param	string			$alt			Alternate text for the image; defaults to image alt or post title
  * @param	array|string	$fig_class		Class(es) for the <figure> tag
  * @param	string			$fig_id			ID for the <figure> tag
+ * @param	string			$link			Optional link to wrap around image
  * @return	void
  */
-function pilau_image_maybe_caption( $image_id, $size = 'post-thumbnail', $alt = null, $fig_class = null, $fig_id = null ) {
+function pilau_image_maybe_caption( $image_id, $size = 'post-thumbnail', $alt = null, $fig_class = null, $fig_id = null, $link = null ) {
 
 	// Try to get image
 	if ( ! ctype_digit( $image_id ) )
@@ -111,8 +112,16 @@ function pilau_image_maybe_caption( $image_id, $size = 'post-thumbnail', $alt = 
 		echo ' id="' . esc_attr( $fig_id ) . '"';
 	echo '>';
 
+	// Link?
+	if ( $link )
+		echo '<a href="' . esc_url( $link ) . '">';
+
 	// Image
 	echo '<img src="' . pilau_get_image_url( $image_id, $size ) . '" width="' . esc_attr( $image_width ) . '" height="' . esc_attr( $image_height ) . '" alt="' . esc_attr( $image_alt ) . '">';
+
+	// Link?
+	if ( $link )
+		echo '</a>';
 
 	// Caption?
 	if ( $image->post_excerpt ) {
