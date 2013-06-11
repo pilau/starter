@@ -102,7 +102,7 @@ function pilau_image_maybe_caption( $image_id, $size = 'post-thumbnail', $alt = 
 	}
 	if ( ! is_null( $alt ) ) {
 		$image_alt = $alt;
-	} else if ( ! $image_alt = get_post_meta( $image_id, '_wp_attachment_image_alt' )[0] ) {
+	} else if ( ! $image_alt = array_shift( get_post_meta( $image_id, '_wp_attachment_image_alt' ) ) ) {
 		$image_alt = $image->post_title;
 	}
 
