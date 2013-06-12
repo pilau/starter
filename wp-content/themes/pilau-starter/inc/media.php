@@ -106,7 +106,7 @@ function pilau_image_maybe_caption( $image_id, $size = 'post-thumbnail', $alt = 
 		echo '<a href="' . esc_url( $link ) . '">';
 
 	// Image
-	pilau_img_defer_load( $image_id, $size, $alt, $defer );
+	pilau_img_defer_load( $image_id, $size, $alt, array(), $defer );
 
 	// Link?
 	if ( $link )
@@ -127,13 +127,13 @@ function pilau_image_maybe_caption( $image_id, $size = 'post-thumbnail', $alt = 
  *
  * @since	Pilau_Starter 0.1
  * @link	http://24ways.org/2010/speed-up-your-site-with-delayed-content/
- * @param	mixed	$image	Either an attachment ID, or an array with 'width', 'height', 'src', 'alt'
+ * @param	mixed	$image	Either an attachment ID, or an array with 'width', 'height', 'src'
  * @param	string	$size	Size of the image (if attachment ID is passed); defaults to 'post-thumbnail'
  * @param	string	$alt	Alternate text for the image; defaults to image alt or post title
  * @param	bool	$defer	Defaults to false
  * @return	void
  */
-function pilau_img_defer_load( $image, $size = 'post-thumbnail', $alt = null, $defer = false ) {
+function pilau_img_defer_load( $image, $size = 'post-thumbnail', $alt = null, $class = array(), $defer = false ) {
 
 	// Initialize
 	if ( ! is_array( $image ) && $image_meta = wp_get_attachment_metadata( $image ) ) {
@@ -152,6 +152,8 @@ function pilau_img_defer_load( $image, $size = 'post-thumbnail', $alt = null, $d
 		} else if ( ! $image['alt'] = array_shift( get_post_meta( $image_id, '_wp_attachment_image_alt' ) ) ) {
 			$image['alt'] = get_the_title( $image_id );
 		}
+	} else {
+		$image['alt'] = is_null( $alt ) ? '' : $alt;
 	}
 
 	// Output?
@@ -162,7 +164,7 @@ function pilau_img_defer_load( $image, $size = 'post-thumbnail', $alt = null, $d
 		} else {
 			echo 'src="' . esc_url( $image['src'] ) . '"';
 		}
-		echo ' width="' . esc_attr( $image['width'] ) . '" height="' . esc_attr( $image['height'] ) . '" alt="' . esc_attr( $image['alt'] ) . '">';
+		echo ' class="' . implode( ' ', $class ) . '" width="' . esc_attr( $image['width'] ) . '" height="' . esc_attr( $image['height'] ) . '" alt="' . esc_attr( $image['alt'] ) . '">';
 	}
 
 }
