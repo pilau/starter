@@ -38,7 +38,7 @@ function pilau_video_or_image( $url, $alt = '' ) {
 	$url_parts = parse_url( $url );
 	if ( $url_parts['host'] == $_SERVER['HTTP_HOST'] && file_exists( ABSPATH . trim( $url_parts['path'], '/' ) ) ) {
 		// Image
-		return '<img src="' . esc_url( $url ) . '" alt="' . esc_attr( $alt ) . '" />';
+		return '<img src="' . esc_url( $url ) . '" alt="' . esc_attr( $alt ) . '">';
 	} else {
 		// Video?
 		return wp_oembed_get( $url );

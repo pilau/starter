@@ -228,7 +228,7 @@ function pilau_plugins_page() {
 									<?php
 									if ( $plugin_installed ) {
 										// Already installed
-										echo '<img src="/wp-admin/images/yes.png" alt="' . __( 'Already installed' ) . '" />';
+										echo '<img src="/wp-admin/images/yes.png" alt="' . __( 'Already installed' ) . '">';
 									} else {
 										// Not installed, checkbox default determined by status
 										echo '<input type="checkbox" name="installed_' . $plugin_key . '" id="installed_' . $plugin_key . '"';
@@ -242,7 +242,7 @@ function pilau_plugins_page() {
 									<?php
 									if ( $plugin_installed && $plugin_activated ) {
 										// Already activated
-										echo '<img src="/wp-admin/images/yes.png" alt="' . __( 'Already activated' ) . '" />';
+										echo '<img src="/wp-admin/images/yes.png" alt="' . __( 'Already activated' ) . '">';
 									} else {
 										// Not activated, checkbox default determined by status
 										echo '<input type="checkbox" name="activated_' . $plugin_key . '" id="activated_' . $plugin_key . '"';
