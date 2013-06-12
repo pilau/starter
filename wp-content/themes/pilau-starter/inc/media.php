@@ -80,12 +80,13 @@ function pilau_image_attributes( $attr, $attachment ) {
  * @param	array|string	$fig_class		Class(es) for the <figure> tag
  * @param	string			$fig_id			ID for the <figure> tag
  * @param	string			$link			Optional link to wrap around image
+ * @param	bool			$defer			Optional deferred loading
  * @return	void
  */
-function pilau_image_maybe_caption( $image_id, $size = 'post-thumbnail', $alt = null, $fig_class = null, $fig_id = null, $link = null ) {
+function pilau_image_maybe_caption( $image_id, $size = 'post-thumbnail', $alt = null, $fig_class = null, $fig_id = null, $link = null, $defer = false ) {
 
 	// Try to get image
-	if ( ! ctype_digit( $image_id ) )
+	if ( ! is_int( $image_id ) && ! ctype_digit( $image_id ) )
 		return;
 	$image = get_post( $image_id );
 	if ( ! $image )
@@ -93,18 +94,6 @@ function pilau_image_maybe_caption( $image_id, $size = 'post-thumbnail', $alt = 
 
 	// Initialize
 	$fig_class = (array) $fig_class;
-	$image_meta = wp_get_attachment_metadata( $image_id );
-	$image_width = $image_meta['width'];
-	$image_height = $image_meta['height'];
-	if ( array_key_exists( $size, $image_meta['sizes'] ) ) {
-		$image_width = $image_meta['sizes'][ $size ]['width'];
-		$image_height = $image_meta['sizes'][ $size ]['height'];
-	}
-	if ( ! is_null( $alt ) ) {
-		$image_alt = $alt;
-	} else if ( ! $image_alt = array_shift( get_post_meta( $image_id, '_wp_attachment_image_alt' ) ) ) {
-		$image_alt = $image->post_title;
-	}
 
 	// Start output
 	echo '<figure class="' . esc_attr( implode( ' ', $fig_class ) ) . '"';
@@ -117,7 +106,7 @@ function pilau_image_maybe_caption( $image_id, $size = 'post-thumbnail', $alt = 
 		echo '<a href="' . esc_url( $link ) . '">';
 
 	// Image
-	echo '<img src="' . pilau_get_image_url( $image_id, $size ) . '" width="' . esc_attr( $image_width ) . '" height="' . esc_attr( $image_height ) . '" alt="' . esc_attr( $image_alt ) . '">';
+	pilau_img_defer_load( $image_id, $size, $alt, $defer );
 
 	// Link?
 	if ( $link )
@@ -129,5 +118,50 @@ function pilau_image_maybe_caption( $image_id, $size = 'post-thumbnail', $alt = 
 	}
 
 	echo '</figure>';
+
+}
+
+
+/**
+ * Ouput an image, with optional deferred loading
+ *
+ * @link	http://24ways.org/2010/speed-up-your-site-with-delayed-content/
+ * @param	mixed	$image	Either an attachment ID, or an array with 'width', 'height', 'src', 'alt'
+ * @param	string	$size	Size of the image (if attachment ID is passed); defaults to 'post-thumbnail'
+ * @param	string	$alt	Alternate text for the image; defaults to image alt or post title
+ * @param	bool	$defer	Defaults to false
+ * @return	void
+ */
+function pilau_img_defer_load( $image, $size = 'post-thumbnail', $alt = null, $defer = false ) {
+
+	// Initialize
+	if ( ! is_array( $image ) && $image_meta = wp_get_attachment_metadata( $image ) ) {
+		$image_id = $image;
+		$image = array(
+			'width'		=> $image_meta['width'],
+			'height'	=> $image_meta['height'],
+			'src'		=> pilau_get_image_url( $image_id, $size )
+		);
+		if ( array_key_exists( $size, $image_meta['sizes'] ) ) {
+			$image['width'] = $image_meta['sizes'][ $size ]['width'];
+			$image['height'] = $image_meta['sizes'][ $size ]['height'];
+		}
+		if ( ! is_null( $alt ) ) {
+			$image['alt'] = $alt;
+		} else if ( ! $image['alt'] = array_shift( get_post_meta( $image_id, '_wp_attachment_image_alt' ) ) ) {
+			$image['alt'] = get_the_title( $image_id );
+		}
+	}
+
+	// Output?
+	if ( is_array( $image ) ) {
+		echo '<img ';
+		if ( $defer ) {
+			echo 'data-defer-src="' . esc_url( $image['src'] ) . '" src="' . get_stylesheet_directory_uri() . '/img/placeholder.gif"';
+		} else {
+			echo 'src="' . esc_url( $image['src'] ) . '"';
+		}
+		echo ' width="' . esc_attr( $image['width'] ) . '" height="' . esc_attr( $image['height'] ) . '" alt="' . esc_attr( $image['alt'] ) . '">';
+	}
 
 }

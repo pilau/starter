@@ -6,7 +6,8 @@
 /** Trigger when DOM has loaded */
 jQuery( document ).ready( function( $ ) {
 	var placeholders = $( '[placeholder]' ),
-		cn = $( '#cookie-notice' );
+		cn = $( '#cookie-notice' ),
+		di = $( 'img[data-defer-src]' );
 
 
 	/** JS-dependent elements */
@@ -60,6 +61,16 @@ jQuery( document ).ready( function( $ ) {
 		});
 	}
 
+
+	/**
+	 * Load deferred images
+	 * @link	http://24ways.org/2010/speed-up-your-site-with-delayed-content/
+	 */
+	if ( di.length ) {
+		di.each( function() {
+			$( this ).attr( 'src', $( this ).data( 'defer-src' ) );
+		});
+	}
 
 });
 
