@@ -17,8 +17,6 @@
 
 		<?php while ( have_posts() ) : the_post(); ?>
 
-			<?php pilau_image_maybe_caption( 6, 'medium', null, null, null, null, true ); ?>
-
 			<?php the_content(); ?>
 
 		<?php endwhile; ?>
