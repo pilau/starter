@@ -73,7 +73,7 @@ function pilau_image_attributes( $attr, $attachment ) {
 /**
  * Output an image with optional caption, using <figure> and <figcaption> tags
  *
- * @since	SLTaylor 0.1
+ * @since	Pilau_Starter 0.1
  * @param	int				$image_id		ID of the image
  * @param	string			$size			Size of the image; defaults to 'post-thumbnail'
  * @param	string			$alt			Alternate text for the image; defaults to image alt or post title
@@ -125,6 +125,7 @@ function pilau_image_maybe_caption( $image_id, $size = 'post-thumbnail', $alt = 
 /**
  * Ouput an image, with optional deferred loading
  *
+ * @since	Pilau_Starter 0.1
  * @link	http://24ways.org/2010/speed-up-your-site-with-delayed-content/
  * @param	mixed	$image	Either an attachment ID, or an array with 'width', 'height', 'src', 'alt'
  * @param	string	$size	Size of the image (if attachment ID is passed); defaults to 'post-thumbnail'
