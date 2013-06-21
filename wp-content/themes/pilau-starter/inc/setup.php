@@ -160,25 +160,27 @@ function pilau_scripts_to_footer() {
  *
  * @since	Pilau_Starter 0.1
  */
-if ( ! is_admin() && ! pilau_is_login_page() )
-	add_action( 'wp_enqueue_scripts', 'pilau_enqueue_scripts', 10 );
+add_action( 'wp_enqueue_scripts', 'pilau_enqueue_scripts', 10 );
 function pilau_enqueue_scripts() {
+	// This test is done here because applying the test to the hook breaks due to pilau_is_login_page() not being defined yet...
+	if ( ! is_admin() && ! pilau_is_login_page() ) {
 
-	wp_enqueue_script( 'jquery' );
-	wp_enqueue_script( 'pilau-global', get_stylesheet_directory_uri() . '/js/global.js', array( 'jquery' ), '1.0' );
+		wp_enqueue_script( 'jquery' );
+		wp_enqueue_script( 'pilau-global', get_stylesheet_directory_uri() . '/js/global.js', array( 'jquery' ), '1.0' );
 
-	/*
-	 * Comment reply script - adjust the conditional if you need comments on post types other than 'post'
-	 */
-	if ( defined( 'PILAU_USE_COMMENTS' ) && PILAU_USE_COMMENTS && is_single() && comments_open() && get_option( 'thread_comments' ) )
-		wp_enqueue_script( 'comment-reply' );
+		/*
+		 * Comment reply script - adjust the conditional if you need comments on post types other than 'post'
+		 */
+		if ( defined( 'PILAU_USE_COMMENTS' ) && PILAU_USE_COMMENTS && is_single() && comments_open() && get_option( 'thread_comments' ) )
+			wp_enqueue_script( 'comment-reply' );
 
-	/*
-	 * Use this to pass the AJAX URL to the client when using AJAX
-	 * @link	http://wp.smashingmagazine.com/2011/10/18/how-to-use-ajax-in-wordpress/
-	 */
-	//wp_localize_script( 'pilau-global', 'pilau_global', array( 'ajaxurl' => admin_url( 'admin-ajax.php', PILAU_REQUEST_PROTOCOL ) ) );
+		/*
+		 * Use this to pass the AJAX URL to the client when using AJAX
+		 * @link	http://wp.smashingmagazine.com/2011/10/18/how-to-use-ajax-in-wordpress/
+		 */
+		//wp_localize_script( 'pilau-global', 'pilau_global', array( 'ajaxurl' => admin_url( 'admin-ajax.php', PILAU_REQUEST_PROTOCOL ) ) );
 
+	}
 }
 
 
@@ -192,19 +194,21 @@ function pilau_enqueue_scripts() {
  *
  * @since	Pilau_Starter 0.1
  */
-if ( ! is_admin() && ! pilau_is_login_page() )
-	add_action( 'wp_enqueue_scripts', 'pilau_enqueue_styles', 10 );
+add_action( 'wp_enqueue_scripts', 'pilau_enqueue_styles', 10 );
 function pilau_enqueue_styles() {
-	global $wp_styles; // In case we need IE-only styles with conditional wrapper
+	// This test is done here because applying the test to the hook breaks due to pilau_is_login_page() not being defined yet...
+	if ( ! is_admin() && ! pilau_is_login_page() ) {
+		global $wp_styles; // In case we need IE-only styles with conditional wrapper
 
-	wp_enqueue_style( 'pilau-main', get_stylesheet_directory_uri() . '/styles/main.css', array( 'html5-reset', 'wp-core', 'pilau-classes' ), '1.0' );
-	wp_enqueue_style( 'pilau-print', get_stylesheet_directory_uri() . '/styles/print.css', array( 'html5-reset', 'wp-core', 'pilau-classes' ), '1.0' );
+		wp_enqueue_style( 'pilau-main', get_stylesheet_directory_uri() . '/styles/main.css', array( 'html5-reset', 'wp-core', 'pilau-classes' ), '1.0' );
+		wp_enqueue_style( 'pilau-print', get_stylesheet_directory_uri() . '/styles/print.css', array( 'html5-reset', 'wp-core', 'pilau-classes' ), '1.0' );
 
-	// IE-only styles
-	// BEWARE: When using Better WordPress Minify plugin, these appear before the other CSS files in the header
-	//wp_enqueue_style( 'pilau-ie', get_stylesheet_directory_uri() . '/styles/ie.css', array( 'html5-reset', 'wp-core', 'pilau-classes' ), '1.0' );
-	//$wp_styles->add_data( 'pilau-ie', 'conditional', 'lt IE 9' );
+		// IE-only styles
+		// BEWARE: When using Better WordPress Minify plugin, these appear before the other CSS files in the header
+		//wp_enqueue_style( 'pilau-ie', get_stylesheet_directory_uri() . '/styles/ie.css', array( 'html5-reset', 'wp-core', 'pilau-classes' ), '1.0' );
+		//$wp_styles->add_data( 'pilau-ie', 'conditional', 'lt IE 9' );
 
+	}
 }
 
 
