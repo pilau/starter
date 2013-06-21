@@ -9,7 +9,7 @@
 
 /*
  * Conditional HTML classes for IE / JS targetting
- * @link http://paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/
+ * @link http://paulirish.com/2008/conditional-stylesheets-vs-styles-hacks-answer-neither/
  */
 ?><!DOCTYPE html>
 <!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7 ie6" <?php language_attributes(); ?>> <![endif]-->
@@ -55,7 +55,7 @@
 	* Remember to update the version appended here if you upgrade!
 	*/
 	?>
-	<script src="<?php echo get_template_directory_uri() . '/js/modernizr.js?ver=2.6.1'; ?>"></script>
+	<script src="<?php echo get_stylesheet_directory_uri() . '/js/modernizr.js?ver=2.6.1'; ?>"></script>
 
 </head>
 <body <?php body_class(); ?> role="document">

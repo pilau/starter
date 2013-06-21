@@ -1,12 +1,13 @@
 /*
 Theme Name:		Pilau Starter
 Theme URI:		https://github.com/pilau/starter
-Description:	A custom theme built using Pilau Starter.
+Description:	A custom theme built using Pilau Starter. Child theme of Pilau Base.
 Author:			Pilau
 Version:		0.1
 Author URI:		http://pilaubase.com/
+Template:		pilau-base
 
-CSS for this theme is written using LESS, compiled by WP-LESS
-Use css/ for any plain CSS, less/ for LESS files - enqueue both in the usual way
+- All styles - CSS, LESS or SASS - are in the /styles/ folder
+- Transpilation of LESS or SASS should be done locally
 
 */

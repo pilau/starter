@@ -13,30 +13,8 @@
  *
  * @since	Pilau_Starter 0.1
  */
-add_action( 'after_setup_theme', 'pilau_setup' );
+add_action( 'after_setup_theme', 'pilau_setup', 10 );
 function pilau_setup() {
-	global $WPLessPlugin, $pilau_theme_options, $pilau_wp_plugins;
-
-	/*
-	 * Theme options (not settings page)
-	 */
-	$pilau_theme_options = get_option( 'pilau_theme_options', array() );
-	if ( ! is_array( $pilau_theme_options ) || empty( $pilau_theme_options ) ) {
-
-		// First time theme has been activated
-		$pilau_theme_options = array(
-			'plugins_installer_run'		=> false,
-			'plugins_nag_dismissed'		=> false,
-			'settings_script_run'		=> false,
-			'settings_nag_dismissed'	=> false
-		);
-		update_option( 'settings_script_run', $pilau_theme_options );
-
-	}
-
-	/* Get WP-LESS to compile and cache all styles */
-	add_action( 'wp_print_styles', 'pilau_process_less' );
-	add_action( 'admin_print_styles', 'pilau_process_less' );
 
 	/* Enable shortcodes in widgets */
 	add_filter( 'widget_text', 'do_shortcode' );
@@ -69,23 +47,6 @@ function pilau_setup() {
 	) );
 	*/
 
-	/*
-	 * Refresh
-	 *
-	 * The 'refresh' query parameter should be picked up by any theme caching mechanisms.
-	 * This is to hook into any caching plugins, to refresh them too.
-	 *
-	 * TODO:	QuickCache not working, and possibly no longer supported - look into other plugins?
-	 * http://wordpress.org/support/topic/plugin-quick-cache-speed-without-compromise-is-quick-cache-plugin-still-supported?replies=1
-	 */
-	/*
-	if ( PILAU_FRONT_OR_AJAX && isset( $_GET['refresh'] ) ) {
-		if ( defined( 'WS_PLUGIN__QCACHE_VERSION' ) ) {
-			// Quick Cache plugin
-		}
-	}
-	*/
-
 }
 
 
@@ -112,25 +73,6 @@ function pilau_cookie_notice() {
 
 
 /**
- * Process LESS files
- *
- * Forces WP-LESS compilation on every dev request, to make sure changes to imported
- * (non-enqueued) LESS files come through without having to manually change something
- * to force it.
- * @link	http://wordpress.org/support/topic/plugin-wp-less-updating-cache-when-imported-files-change
- *
- * @since	Pilau_Starter 0.1
- * @uses	$WPLessPlugin
- * @uses	WP_LOCAL_DEV
- * @return	void
- */
-function pilau_process_less() {
-	global $WPLessPlugin;
-	$WPLessPlugin->processStylesheets( WP_LOCAL_DEV );
-}
-
-
-/**
  * Manage core taxonomies
  *
  * @since	Pilau_Starter 0.1
@@ -149,15 +91,6 @@ function pilau_core_taxonomies() {
 		unset( $wp_taxonomies['post_tag'] );
 
 }
-
-
-/**
- * Blank default nav menu
- *
- * @link	http://www.rlmseo.com/blog/cutom-navigation-menus-in-wordpress-3-0/
- * @since	Pilau_Starter 0.1
- */
-function default_nav_menu() { return ''; }
 
 
 /**
@@ -228,11 +161,11 @@ function pilau_scripts_to_footer() {
  * @since	Pilau_Starter 0.1
  */
 if ( ! is_admin() && ! pilau_is_login_page() )
-	add_action( 'wp_enqueue_scripts', 'pilau_enqueue_scripts' );
+	add_action( 'wp_enqueue_scripts', 'pilau_enqueue_scripts', 10 );
 function pilau_enqueue_scripts() {
 
 	wp_enqueue_script( 'jquery' );
-	wp_enqueue_script( 'pilau-global', get_template_directory_uri() . '/js/global.js', array( 'jquery' ), '1.0' );
+	wp_enqueue_script( 'pilau-global', get_stylesheet_directory_uri() . '/js/global.js', array( 'jquery' ), '1.0' );
 
 	/*
 	 * Comment reply script - adjust the conditional if you need comments on post types other than 'post'
@@ -260,19 +193,16 @@ function pilau_enqueue_scripts() {
  * @since	Pilau_Starter 0.1
  */
 if ( ! is_admin() && ! pilau_is_login_page() )
-	add_action( 'wp_enqueue_scripts', 'pilau_enqueue_styles' );
+	add_action( 'wp_enqueue_scripts', 'pilau_enqueue_styles', 10 );
 function pilau_enqueue_styles() {
 	global $wp_styles; // In case we need IE-only styles with conditional wrapper
 
-	wp_enqueue_style( 'html5-reset', get_template_directory_uri() . '/css/html5-reset.css', array(), '1.0' );
-	wp_enqueue_style( 'wp-core', get_template_directory_uri() . '/css/wp-core.css', array(), '1.0' );
-	wp_enqueue_style( 'pilau-classes', get_template_directory_uri() . '/css/classes.css', array(), '1.0' );
-	wp_enqueue_style( 'pilau-main', get_template_directory_uri() . '/less/main.less', array( 'html5-reset', 'wp-core', 'pilau-classes' ), '1.0' );
-	wp_enqueue_style( 'pilau-print', get_template_directory_uri() . '/less/print.less', array( 'html5-reset', 'wp-core', 'pilau-classes' ), '1.0' );
+	wp_enqueue_style( 'pilau-main', get_stylesheet_directory_uri() . '/styles/main.css', array( 'html5-reset', 'wp-core', 'pilau-classes' ), '1.0' );
+	wp_enqueue_style( 'pilau-print', get_stylesheet_directory_uri() . '/styles/print.css', array( 'html5-reset', 'wp-core', 'pilau-classes' ), '1.0' );
 
 	// IE-only styles
 	// BEWARE: When using Better WordPress Minify plugin, these appear before the other CSS files in the header
-	//wp_enqueue_style( 'pilau-ie', get_template_directory_uri() . '/less/ie.less', array( 'html5-reset', 'wp-core', 'pilau-classes' ), '1.0' );
+	//wp_enqueue_style( 'pilau-ie', get_stylesheet_directory_uri() . '/styles/ie.css', array( 'html5-reset', 'wp-core', 'pilau-classes' ), '1.0' );
 	//$wp_styles->add_data( 'pilau-ie', 'conditional', 'lt IE 9' );
 
 }
@@ -285,41 +215,5 @@ function pilau_enqueue_styles() {
  */
 //add_action( 'login_head', 'pilau_login_styles_scripts', 10000 );
 function pilau_login_styles_scripts() { ?>
-	<link rel="stylesheet" href="<?php echo get_template_directory_uri() . '/css/wp-login.css'; ?>">
+	<link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri() . '/styles/wp-login.css'; ?>">
 <?php }
-
-
-/*
- * Filters to tidy up core WP stuff
- */
-
-/**
- * Remove unnecessary title attributes from page list links
- *
- * @since	Pilau_Starter 0.1
- */
-add_filter( 'wp_list_pages', 'pilau_remove_title_attributes' );
-function pilau_remove_title_attributes( $input ) {
-	return preg_replace( '/\s*title\s*=\s*(["\']).*?\1/', '', $input );
-}
-
-/**
- * Remove unnecessary attributes from nav menu items
- * Note that this will remove any custom classes added in
- * the "CSS Classes (optional) field in nav menus
- * if they start with "menu-item"
- *
- * @since	Pilau_Starter 0.1
- * @link	http://codex.wordpress.org/Function_Reference/wp_nav_menu#Menu_Item_CSS_Classes
- */
-add_filter( 'nav_menu_item_id', '__return_empty_array', 10000 );
-add_filter( 'nav_menu_css_class', 'pilau_nav_menu_css_classes', 10000, 3 );
-function pilau_nav_menu_css_classes( $classes, $item, $args ) {
-	$new_classes = array();
-	foreach ( $classes as $class ) {
-		// We're only keeping classes that indicate location - all others seem redundant
-		if ( ! ( strlen( $class ) > 8 && substr( $class, 0, 9 ) == 'menu-item' ) && ( strpos( $class, 'page' ) === false || strpos( $class, 'ancestor' ) !== false ) )
-			$new_classes[] = $class;
-	}
-	return $new_classes;
-}

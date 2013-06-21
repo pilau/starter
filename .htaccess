@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------------
 # Password protection only on staging server
-# @link http://css-tricks.com/snippets/htaccess/allow-single-url/#comment-75659
+# @link http://styles-tricks.com/snippets/htaccess/allow-single-url/#comment-75659
 # ----------------------------------------------------------------------
 
 #SetEnvIf Host [staging-server-domain] passreq

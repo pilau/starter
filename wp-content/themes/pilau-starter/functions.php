@@ -4,6 +4,11 @@
 /**
  * Configuration and functions
  *
+ * As part of a child theme, this functions.php file will be loaded BEFORE the functions.php
+ * file of the parent theme (Pilau Base). Any functions or constants defined in the parent
+ * can be overridden in the child.
+ * @link	http://codex.wordpress.org/Child_Themes#Using_functions.php
+ *
  * @package	Pilau_Starter
  * @since	0.1
  *
@@ -41,6 +46,15 @@ define( 'PILAU_USE_CATEGORIES', false );
 define( 'PILAU_USE_TAGS', false );
 
 /**
+ * Ignore updates for inactive plugins?
+ *
+ * @since	Pilau_Starter 0.1
+ */
+if ( ! defined( 'PILAU_IGNORE_UPDATES_FOR_INACTIVE_PLUGINS' ) ) {
+	define( 'PILAU_IGNORE_UPDATES_FOR_INACTIVE_PLUGINS', true );
+}
+
+/**
  * Use the Pilau plugins page? (unfinished)
  *
  * @since	Pilau_Starter 0.1
@@ -69,62 +83,12 @@ define( 'PILAU_USE_COOKIE_NOTICE', false );
 define( 'PILAU_SLUG_LENGTH', 8 );
 
 
-/* Automatic constants - can be configured but do this with care! */
-
-/**
- * Flag for requests from front, or AJAX - is_admin() returns true for AJAX
- * because the AJAX script is in /wp-admin/
- *
- * @since Pilau_Starter 0.1
- */
-define( 'PILAU_FRONT_OR_AJAX', ! is_admin() || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) );
-
-/**
- * Store the protocol of the current request
- *
- * @since	Pilau_Starter 0.1
- */
-define( 'PILAU_REQUEST_PROTOCOL', isset( $_SERVER[ 'HTTPS' ] ) ? 'https' : 'http' );
-
-/**
- * Store the top-level slug
- *
- * @since	Pilau_Starter 0.1
- */
-define( 'PILAU_TOP_LEVEL_SLUG', reset( explode( '/', trim( $_SERVER['REQUEST_URI'], '/' ) ) ) );
-
-
 /**
  * PHP settings
  */
 
 /** Default timezone */
 date_default_timezone_set( 'Europe/London' );
-
-
-/**
- * Security
- *
- * @since	Pilau_Starter 0.1
- */
-require( dirname( __FILE__ ) . '/inc/security.php' );
-
-
-/**
- * Functions library
- *
- * @since	Pilau_Starter 0.1
- */
-require( dirname( __FILE__ ) . '/inc/lib.php' );
-
-
-/**
- * WP-LESS CSS compilation
- *
- * @since	Pilau_Starter 0.1
- */
-global $WPLessPlugin;
-require( dirname( __FILE__ ) . '/inc/wp-less/bootstrap-for-theme.php' );
 
 
 /**
@@ -150,14 +114,6 @@ require( dirname( __FILE__ ) . '/inc/setup.php' );
  * @since	Pilau_Starter 0.1
  */
 require( dirname( __FILE__ ) . '/inc/header.php');
-
-
-/**
- * Content functionality
- *
- * @since	Pilau_Starter 0.1
- */
-require( dirname( __FILE__ ) . '/inc/content.php');
 
 
 /**

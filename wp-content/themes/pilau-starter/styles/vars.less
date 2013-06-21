@@ -2,7 +2,6 @@
 
 LESS variables and mixins
 - Include at the top of other LESS files
-- Don't enqueue this file to be output as CSS! There's no CSS here, folks.
 - Try to name vars with their type at the start, e.g. @color-background. This
   can help with IDE auto-completion.
 
@@ -45,7 +44,7 @@ LESS variables and mixins
 }
 
 // Inline block with IE 7 hack
-.InlineBlock {
+.InlineBlock() {
 	display: inline-block;
 	zoom: 1;
 	*display: inline;
@@ -69,7 +68,7 @@ Transparent background
 
 /*
 Drop shadow
-@link	http://css-tricks.com/snippets/css/useful-css3-less-mixins/
+@link	http://styles-tricks.com/snippets/styles/useful-css3-less-mixins/
 */
 .DropShadow ( @x: 2px, @y: 2px, @blur: 2px, @spread: 0, @alpha: 0.25 ) {
 	-webkit-box-shadow: @x @y @blur @spread rgba( 0, 0, 0, @alpha );
@@ -79,7 +78,7 @@ Drop shadow
 
 /*
 Gradient backgrounds with fallback image
-@link	http://css-tricks.com/css3-gradients/
+@link	http://styles-tricks.com/css3-gradients/
 */
 .GradientBackgroundVertical( @top-color, @bottom-color, @image-url, @image-pos-x: 0, @image-pos-y: 0 ) {
 	background-color: @bottom-color; /* fallback/image non-cover color */
