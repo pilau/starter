@@ -85,9 +85,10 @@ define( 'PILAU_SLUG_LENGTH', 8 );
 /*
  * Constants not intended for configuration
  *
- * These are defined in the child theme functions.php, because that is loaded first, even
- * though they are not intended to be changed. They may get used before this functions.php
- * is loaded - but they are still defined here as a fall-back.
+ * These are defined here, because this functions.php is loaded before the parent's
+ * functions.php. Even though they are not intended to be changed, and rightfully live
+ * in the parent theme (where they are defined as a fall-back), they may get used before
+ * the parent's functions.php is loaded.
  */
 
 /**
