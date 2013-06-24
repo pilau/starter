@@ -82,6 +82,42 @@ define( 'PILAU_USE_COOKIE_NOTICE', false );
  */
 define( 'PILAU_SLUG_LENGTH', 8 );
 
+/*
+ * Constants not intended for configuration
+ *
+ * These are defined in the child theme functions.php, because that is loaded first, even
+ * though they are not intended to be changed. They may get used before this functions.php
+ * is loaded - but they are still defined here as a fall-back.
+ */
+
+/**
+ * Flag for requests from front, or AJAX - is_admin() returns true for AJAX
+ * because the AJAX script is in /wp-admin/
+ *
+ * @since	Pilau_Base 0.1
+ */
+if ( ! defined( 'PILAU_FRONT_OR_AJAX' ) ) {
+	define( 'PILAU_FRONT_OR_AJAX', ! is_admin() || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) );
+}
+
+/**
+ * Store the protocol of the current request
+ *
+ * @since	Pilau_Base 0.1
+ */
+if ( ! defined( 'PILAU_REQUEST_PROTOCOL' ) ) {
+	define( 'PILAU_REQUEST_PROTOCOL', isset( $_SERVER[ 'HTTPS' ] ) ? 'https' : 'http' );
+}
+
+/**
+ * Store the top-level slug
+ *
+ * @since	Pilau_Base 0.1
+ */
+if ( ! defined( 'PILAU_TOP_LEVEL_SLUG' ) ) {
+	define( 'PILAU_TOP_LEVEL_SLUG', reset( explode( '/', trim( $_SERVER['REQUEST_URI'], '/' ) ) ) );
+}
+
 
 /**
  * PHP settings
@@ -189,5 +225,6 @@ require( dirname( __FILE__ ) . '/inc/wp-toolbar.php' );
  *
  * @since	Pilau_Starter 0.1
  */
-if ( ! PILAU_FRONT_OR_AJAX )
+if ( ! PILAU_FRONT_OR_AJAX ) {
 	require( dirname( __FILE__ ) . '/inc/admin.php' );
+}
