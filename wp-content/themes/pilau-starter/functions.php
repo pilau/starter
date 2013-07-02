@@ -139,6 +139,12 @@ date_default_timezone_set( 'Europe/London' );
  */
 require( dirname( __FILE__ ) . '/inc/setup.php' );
 
+/**
+ * Functions library
+ *
+ * @since	Pilau_Starter 0.1
+ */
+require( dirname( __FILE__ ) . '/inc/lib.php' );
 
 /**
  * Header modifications
@@ -152,14 +158,12 @@ require( dirname( __FILE__ ) . '/inc/setup.php' );
  */
 require( dirname( __FILE__ ) . '/inc/header.php');
 
-
 /**
  * Media functionality
  *
  * @since	Pilau_Starter 0.1
  */
 require( dirname( __FILE__ ) . '/inc/media.php');
-
 
 /**
  * Custom management of feeds
@@ -168,7 +172,6 @@ require( dirname( __FILE__ ) . '/inc/media.php');
  */
 require( dirname( __FILE__ ) . '/inc/feeds.php');
 
-
 /**
  * Custom post types
  *
@@ -176,14 +179,12 @@ require( dirname( __FILE__ ) . '/inc/feeds.php');
  */
 //require( dirname( __FILE__ ) . '/inc/custom-post-types.php' );
 
-
 /**
  * Custom taxonomies
  *
  * @since	Pilau_Starter 0.1
  */
 //require( dirname( __FILE__ ) . '/inc/custom-taxonomies.php' );
-
 
 /**
  * Custom meta fields
@@ -194,14 +195,12 @@ require( dirname( __FILE__ ) . '/inc/feeds.php');
  */
 require( dirname( __FILE__ ) . '/inc/custom-fields.php' );
 
-
 /**
  * Shortcodes
  *
  * @since	Pilau_Starter 0.1
  */
 //require( dirname( __FILE__ ) . '/inc/shortcodes.php' );
-
 
 /**
  * Widgets and sidebars
@@ -210,14 +209,12 @@ require( dirname( __FILE__ ) . '/inc/custom-fields.php' );
  */
 require( dirname( __FILE__ ) . '/inc/widgets.php' );
 
-
 /**
  * WordPress toolbar customization (formerly admin bar)
  *
  * @since	Pilau_Starter 0.1
  */
 require( dirname( __FILE__ ) . '/inc/wp-toolbar.php' );
-
 
 /**
  * Admin stuff

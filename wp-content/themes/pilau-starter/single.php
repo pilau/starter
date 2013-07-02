@@ -17,7 +17,13 @@
 
 		<article id="post-<?php the_ID(); ?>" <?php post_class(); ?> role="article">
 
-			<h1><?php the_title(); ?></h1>
+			<header>
+
+				<h1><?php the_title(); ?></h1>
+
+				<p class="post-meta"><?php pilau_post_date(); ?></p>
+
+			</header>
 
 			<div class="post-content">
 				<?php the_content(); ?>
