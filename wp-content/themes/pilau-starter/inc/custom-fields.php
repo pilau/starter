@@ -5,7 +5,7 @@
  * Custom meta fields for posts and users
  *
  * Depends on the Developer's Custom Fields plugin
- * @link http://sltaylor.co.uk/wordpress/plugins/slt-custom-fields/docs/
+ * @link http://sltaylor.co.uk/wordpress/developers-custom-fields-docs/
  *
  * @package	Pilau_Starter
  * @since	0.1

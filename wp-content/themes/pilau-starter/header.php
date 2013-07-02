@@ -105,8 +105,11 @@ if ( PILAU_USE_COOKIE_NOTICE && ! isset( $_COOKIE['pilau_cookie_notice'] ) ) { ?
 
 <?php
 
-/* Breadcrumbs */
-if ( ! is_front_page() )
-	pilau_breadcrumbs();
-
+/* Breadcrumbs - NEEDS ENABLING AND CONFIGURING ON PLUGIN SETTINGS PAGE, SEO > Internal links
+if ( ! is_front_page() && function_exists( 'yoast_breadcrumb' ) ) {
+	echo '<p id="breadcrumbs">';
+	yoast_breadcrumb();
+	echo '</p>';
+}
+ */
 
