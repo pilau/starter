@@ -95,7 +95,7 @@ define( 'PILAU_SLUG_LENGTH', 8 );
  * Flag for requests from front, or AJAX - is_admin() returns true for AJAX
  * because the AJAX script is in /wp-admin/
  *
- * @since	Pilau_Base 0.1
+ * @since	Pilau_Starter 0.1
  */
 if ( ! defined( 'PILAU_FRONT_OR_AJAX' ) ) {
 	define( 'PILAU_FRONT_OR_AJAX', ! is_admin() || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) );
@@ -104,7 +104,7 @@ if ( ! defined( 'PILAU_FRONT_OR_AJAX' ) ) {
 /**
  * Store the protocol of the current request
  *
- * @since	Pilau_Base 0.1
+ * @since	Pilau_Starter 0.1
  */
 if ( ! defined( 'PILAU_REQUEST_PROTOCOL' ) ) {
 	define( 'PILAU_REQUEST_PROTOCOL', isset( $_SERVER[ 'HTTPS' ] ) ? 'https' : 'http' );
@@ -113,10 +113,19 @@ if ( ! defined( 'PILAU_REQUEST_PROTOCOL' ) ) {
 /**
  * Store the top-level slug
  *
- * @since	Pilau_Base 0.1
+ * @since	Pilau_Starter 0.1
  */
 if ( ! defined( 'PILAU_TOP_LEVEL_SLUG' ) ) {
 	define( 'PILAU_TOP_LEVEL_SLUG', reset( explode( '/', trim( $_SERVER['REQUEST_URI'], '/' ) ) ) );
+}
+
+/**
+ * Placeholder GIF URL (used for deferred loading of images)
+ *
+ * @since	Pilau_Starter 0.1
+ */
+if ( ! defined( 'PILAU_PLACEHOLDER_GIF_URL' ) ) {
+	define( 'PILAU_PLACEHOLDER_GIF_URL', get_template_directory_uri() . '/img/placeholder.gif' );
 }
 
 
