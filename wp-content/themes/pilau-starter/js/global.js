@@ -3,6 +3,13 @@
  * Global JavaScript
  */
 
+/**
+ * Flags for throttling window scroll and resize event functionality
+ * @link	http://ejohn.org/blog/learning-from-twitter/
+ */
+var pilau_did_resize = false;
+var pilau_did_scroll = false;
+
 /** Trigger when DOM has loaded */
 jQuery( document ).ready( function( $ ) {
 	var placeholders = $( '[placeholder]' ),
@@ -77,8 +84,31 @@ jQuery( document ).ready( function( $ ) {
 
 /** Trigger when window resizes
 jQuery( window ).resize( function( $ ) {
-
+	pilau_did_resize = true;
 });
+setInterval( function() {
+	if ( pilau_did_resize ) {
+		pilau_did_resize = false;
+
+		// Do stuff here
+
+	}
+}, 250 );
+ */
+
+
+/** Trigger when window scrolls
+jQuery( window ).scroll( function( $ ) {
+	pilau_did_scroll = true;
+});
+setInterval( function() {
+	if ( pilau_did_scroll ) {
+		pilau_did_scroll = false;
+
+		// Do stuff here
+
+	}
+}, 250 );
  */
 
 
