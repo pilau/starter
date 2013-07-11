@@ -122,6 +122,9 @@ function pilau_setup_after_post() {
 	//if ( PILAU_CURRENT_PAGE_ID && function_exists( 'slt_cf_all_field_values' ) )
 	//	$pilau_custom_fields = slt_cf_all_field_values( 'post', $current_page_id );
 
+	// De-activate removal of menu item IDs from Pilau Base
+	//remove_filter( 'nav_menu_item_id', '__return_empty_array', 10000 );
+
 }
 
 
