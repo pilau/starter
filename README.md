@@ -13,7 +13,7 @@ However, we're very happy if anyone finds our work of use! If you feel like cont
 
 Pilau is split into a parent theme (Base) and a child theme (Starter) so that Base can be released on the wordpress.org themes repository, allowing easy updates to the core functionality in base (especially security measures and basic functions).
 
-For documentation, [check out the wiki](https://github.com/pilau/starter/wiki).
+For documentation, [check out the wiki](https://github.com/pilau/starter/wiki/_pages).
 
 For more on Pilau: <http://pilaubase.com/>
 
