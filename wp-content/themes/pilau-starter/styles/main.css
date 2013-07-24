@@ -106,7 +106,7 @@ a.block-wrapper:focus p.more {
 /* Media queries for small screens / mobile devices
 --------------------------------------------------------------------------------*/
 @media only screen and (max-width: 480px) {
-  .not-mobile {
+  .hide-for-mobile {
     display: none;
   }
 }
@@ -114,5 +114,7 @@ a.block-wrapper:focus p.more {
   
 }
 @media only screen and (min-width: 960px) {
-  
+  .hide-for-desktop {
+    display: none;
+  }
 }

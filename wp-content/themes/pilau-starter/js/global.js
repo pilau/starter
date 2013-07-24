@@ -71,10 +71,20 @@ jQuery( document ).ready( function( $ ) {
 
 	/**
 	 * Load deferred images
+	 *
+	 * You can trigger JS functions when the deferred image has loaded like this:
+	 * <img src="<?php echo PILAU_PLACEHOLDER_GIF_URL; ?>" data-defer-src="<?php echo $image_id; ?>" data-defer-callback="my_callback_function" alt="">
+	 *
 	 * @link	http://24ways.org/2010/speed-up-your-site-with-delayed-content/
 	 */
 	if ( di.length ) {
 		di.each( function() {
+			var el = $( this );
+			var cb = el.data( 'defer-callback' );
+			if ( typeof cb !== 'undefined' ) {
+				// Attach callback function to load event
+				el.on( 'load', window[ cb ] );
+			}
 			$( this ).attr( 'src', $( this ).data( 'defer-src' ) );
 		});
 	}
