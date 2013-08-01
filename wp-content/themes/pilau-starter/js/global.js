@@ -85,7 +85,7 @@ jQuery( document ).ready( function( $ ) {
 				// Attach callback function to load event
 				el.on( 'load', window[ cb ] );
 			}
-			$( this ).attr( 'src', $( this ).data( 'defer-src' ) );
+			el.attr( 'src', el.data( 'defer-src' ) );
 		});
 	}
 

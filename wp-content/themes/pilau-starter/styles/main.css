@@ -52,9 +52,13 @@ a:active {
   position: relative;
   top: 1px;
 }
+/*
+Note that color:inherit was used on this to keep text the same colour as normal.
+However, inherit isn't supported by IE7, so we may as well apply the specific
+colour for every element with .block-wrapper...
+*/
 a.block-wrapper {
   display: block;
-  color: inherit;
   text-decoration: none;
 }
 a.block-wrapper:active {
