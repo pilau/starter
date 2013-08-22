@@ -156,6 +156,15 @@ require( dirname( __FILE__ ) . '/inc/setup.php' );
 require( dirname( __FILE__ ) . '/inc/lib.php' );
 
 /**
+ * AJAX functionality
+ *
+ * @since	Pilau_Starter 0.1
+ */
+if ( PILAU_FRONT_OR_AJAX ) {
+	require( dirname( __FILE__ ) . '/inc/ajax.php' );
+}
+
+/**
  * Header modifications
  *
  * - Clean up core stuff

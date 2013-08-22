@@ -1,7 +1,7 @@
-
 /**
  * Global JavaScript
  */
+
 
 /**
  * Flags for throttling window scroll and resize event functionality
@@ -10,11 +10,13 @@
 var pilau_did_resize = false;
 var pilau_did_scroll = false;
 
+
 /** Trigger when DOM has loaded */
 jQuery( document ).ready( function( $ ) {
 	var placeholders = $( '[placeholder]' ),
 		cn = $( '#cookie-notice' ),
 		di = $( 'img[data-defer-src]' );
+		op = $( 'li#older-posts' );
 
 
 	/** JS-dependent elements */
@@ -88,6 +90,74 @@ jQuery( document ).ready( function( $ ) {
 			el.attr( 'src', el.data( 'defer-src' ) );
 		});
 	}
+
+
+	/**
+	 * AJAX "more posts" loading
+	 */
+	if ( op.length ) {
+
+		op.on( 'click', 'a', function() {
+			var vars, iefix;
+
+			// Initialize vars
+			vars = {
+				'action':			'pilau_get_more_posts',
+				'post_type':		pilau_ajax_more_data.post_type,
+				'orderby':		    pilau_ajax_more_data.orderby,
+				'order':		    pilau_ajax_more_data.order,
+				'taxonomy':			pilau_ajax_more_data.taxonomy,
+				'term_id':			pilau_ajax_more_data.term_id,
+				'posts_per_page':	pilau_ajax_more_data.posts_per_page,
+				'offset':			$( this ).parent().siblings( 'li' ).length
+			};
+			for ( var key in pilau_ajax_more_data.is_vars ) {
+				vars['is_'+key] = pilau_ajax_more_data.is_vars[key];
+			}
+
+			// Get posts
+			$.post(
+				pilau_global.ajaxurl,
+				vars,
+				function( data ) {
+					var i, first_post_id;
+					//console.log( data );
+
+					// Remove "last" class from current last post
+					op.prev().removeClass( 'last' );
+
+					// Insert and reveal posts
+					i = 0;
+					$( 'body' ).append( '<div id="_ieAjaxFix" style="display:none"></div>' );
+					iefix = $( "#_ieAjaxFix" );
+
+					// Match li.hentry, the only class applied to all items by get_post_class()
+					iefix.html( data ).find( "li.hentry" ).each( function() {
+						var el = $( this );
+						if ( i == 0 ) {
+							first_post_id = el.attr( "id" );
+						}
+						el.hide().insertBefore( 'li#older-posts' ).slideDown( 600 );
+						i++;
+					});
+					iefix.remove();
+
+					// Get rid of more posts link if there's no more
+					if ( op.siblings( 'li' ).length >= pilau_ajax_more_data.found_posts ) {
+						op.fadeOut( 1000 );
+					}
+
+					// Scroll to right place
+					//$( 'html, body' ).delay( 1000 ).animate( { scrollTop: $( "#" + first_post_id ).offset().top }, 1000 );
+
+				}
+			);
+
+			return false;
+		});
+
+	}
+
 
 });
 

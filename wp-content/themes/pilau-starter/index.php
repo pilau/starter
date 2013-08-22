@@ -17,11 +17,17 @@
 
 	<?php if ( have_posts() ) : ?>
 
-		<?php while ( have_posts() ) : the_post(); ?>
+		<ul>
 
-			<?php get_template_part( 'loop', get_post_format() ); ?>
+			<?php while ( have_posts() ) : the_post(); ?>
 
-		<?php endwhile; ?>
+				<?php get_template_part( 'loop', get_post_format() ); ?>
+
+			<?php endwhile; ?>
+
+			<?php pilau_more_posts_link( get_home_url() ); ?>
+
+		</ul>
 
 	<?php endif; ?>
 

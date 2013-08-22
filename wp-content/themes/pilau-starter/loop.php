@@ -12,22 +12,26 @@
 
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class( array( 'make-link' ) ); ?> role="article">
+<li id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
-	<header>
+	<article role="article"><a class="block-wrapper" href="<?php the_permalink(); ?>" rel="bookmark">
 
-		<h1><a href="<?php the_permalink(); ?>" rel="bookmark" class="make-link-target"><?php the_title(); ?></a></h1>
+		<header>
 
-		<?php if ( get_post_type() == 'post' ) : ?>
-			<p class="post-meta">
-				<?php the_time( get_option( 'date_format' ) ); ?>
-			</p>
-		<?php endif; ?>
+			<h1><?php the_title(); ?></h1>
 
-	</header>
+			<?php if ( get_post_type() == 'post' ) : ?>
+				<p class="post-meta">
+					<?php the_time( get_option( 'date_format' ) ); ?>
+				</p>
+			<?php endif; ?>
 
-	<div class="post-extract">
-		<?php echo pilau_content(); ?>
-	</div><!-- .post-extract -->
+		</header>
 
-</article><!-- #post-<?php the_ID(); ?> -->
+		<div class="post-extract">
+			<?php echo pilau_content(); ?>
+		</div><!-- .post-extract -->
+
+	</a></article><!-- #post-<?php the_ID(); ?> -->
+
+</li>
