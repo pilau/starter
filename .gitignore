@@ -12,11 +12,6 @@
 !/wp-config.php
 !/wp-content/mu-plugins/
 !/wp-content/themes/
-wp-content/themes/*
-!/wp-content/themes/pilau-starter/
-
-# Uncomment to version Pilau Base parent theme
-#!/wp-content/themes/pilau-base/
 
 # Uncomment to version plugins
 #!/wp-content/plugins/
