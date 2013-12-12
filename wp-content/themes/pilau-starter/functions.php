@@ -82,6 +82,13 @@ define( 'PILAU_USE_COOKIE_NOTICE', false );
  */
 define( 'PILAU_SLUG_LENGTH', 8 );
 
+/**
+ * Home page ID
+ *
+ * @since	Pilau_Starter 0.1
+ */
+define( 'PILAU_HOME_PAGE_ID', 2 );
+
 /*
  * Constants not intended for configuration
  *
