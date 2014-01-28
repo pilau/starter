@@ -89,6 +89,10 @@ if ( file_exists( dirname( __FILE__ ) . '/wp-config-local.php' ) ) {
 			/** Flag the remote environment */
 			define( 'PILAU_REMOTE_ENV', 'production' );
 
+			/** WP Super Cache */
+			define( 'WP_CACHE', true );
+			define( 'WPCACHEHOME', '/var/www/vhosts/????/httpdocs/wp-content/plugins/wp-super-cache/' );
+
 			break;
 
 	}
