@@ -108,6 +108,8 @@ jQuery( document ).ready( function( $ ) {
 				'order':		    pilau_ajax_more_data.order,
 				'taxonomy':			pilau_ajax_more_data.taxonomy,
 				'term_id':			pilau_ajax_more_data.term_id,
+				'meta_key':			pilau_ajax_more_data.meta_key,
+				'meta_value':		pilau_ajax_more_data.meta_value,
 				'posts_per_page':	pilau_ajax_more_data.posts_per_page,
 				'offset':			$( this ).parent().siblings( 'li' ).length
 			};

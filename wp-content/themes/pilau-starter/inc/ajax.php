@@ -31,10 +31,13 @@
  * @param	array	$custom_vars		Custom variables
  * @param	object	$query				The query object (default: $wp_query)
  * @param	array	$exclude			Post IDs to exclude
- * @param	string	$orderby			Field to order by
+ * @param	string	$orderby			Field to order by (default: 'date')
+ * @param	string	$order				Order (default: 'DESC')
+ * @param	string	$meta_key			Meta key
+ * @param	string	$meta_value			Meta value
  * @return	void
  */
-function pilau_more_posts_link( $base_url = '/', $post_type = 'post', $older_label = null, $newer_label = null, $taxonomies = array(), $posts_per_page = null, $show_more_label = null, $custom_vars = array(), &$query = null, $exclude = array(), $orderby = 'date' ) {
+function pilau_more_posts_link( $base_url = '/', $post_type = 'post', $older_label = null, $newer_label = null, $taxonomies = array(), $posts_per_page = null, $show_more_label = null, $custom_vars = array(), &$query = null, $exclude = array(), $orderby = 'date', $order = 'DESC', $meta_key = null, $meta_value = null ) {
 	global $wp_query;
 
 	// Initialize
@@ -57,11 +60,6 @@ function pilau_more_posts_link( $base_url = '/', $post_type = 'post', $older_lab
 	$page = $query->query_vars["paged"];
 	if ( ! $page ) {
 		$page = 1;
-	}
-	if ( $orderby == 'title' ) {
-		$order = 'ASC';
-	} else {
-		$order = 'DESC';
 	}
 	$qs = $_SERVER["QUERY_STRING"] ? "?" . $_SERVER["QUERY_STRING"] : "";
 
@@ -92,6 +90,8 @@ function pilau_more_posts_link( $base_url = '/', $post_type = 'post', $older_lab
 						'term_id':		'<?php echo $tax['terms']; ?>',
 					<?php }
 				} ?>
+				'meta_key':			'<?php echo $meta_key; ?>',
+				'meta_value':		'<?php echo $meta_value; ?>',
 				'found_posts':		<?php echo $query->found_posts; ?>,
 				'posts_per_page':	<?php echo $posts_per_page; ?>,
 				'orderby':	        '<?php echo $orderby; ?>',
@@ -145,13 +145,30 @@ function pilau_get_more_posts_ajax() {
 		'orderby'           => $_REQUEST['orderby'],
 		'order'             => $_REQUEST['order']
 	);
+	$tax_query = array();
+	$meta_query = array();
 
-	if ( $_REQUEST['taxonomy'] && $_REQUEST['term_id'] ) {
-		$args['tax_query'] = array( array(
+	// Taxonomy query?
+	if ( isset( $_REQUEST['taxonomy'] ) && $_REQUEST['taxonomy'] && $_REQUEST['term_id'] && $_REQUEST['term_id'] ) {
+		$tax_query[] = array(
 			'taxonomy'	=> $_REQUEST['taxonomy'],
 			'field'		=> 'id',
 			'terms'		=> $_REQUEST['term_id']
-		));
+		);
+	}
+	if ( $tax_query ) {
+		$args['tax_query'] = $tax_query;
+	}
+
+	// Meta query?
+	if ( isset( $_REQUEST['meta_key'] ) && $_REQUEST['meta_key'] && $_REQUEST['meta_value'] && $_REQUEST['meta_value'] ) {
+		$meta_query[] = array(
+			'key'		=> $_REQUEST['meta_key'],
+			'value'		=> $_REQUEST['meta_value']
+		);
+	}
+	if ( $meta_query ) {
+		$args['meta_query'] = $meta_query;
 	}
 
 	// Get posts
@@ -166,7 +183,7 @@ function pilau_get_more_posts_ajax() {
 	// Build output
 	while ( $pilau_loop->have_posts() ) {
 		$pilau_loop->the_post();
-		get_template_part( 'loop' );
+		get_template_part( 'loop', $_REQUEST['post_type'] );
 	}
 
 	// Reset and exit
