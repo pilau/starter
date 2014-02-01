@@ -123,7 +123,8 @@ if ( ! defined( 'PILAU_REQUEST_PROTOCOL' ) ) {
  * @since	Pilau_Starter 0.1
  */
 if ( ! defined( 'PILAU_TOP_LEVEL_SLUG' ) ) {
-	define( 'PILAU_TOP_LEVEL_SLUG', reset( explode( '/', trim( $_SERVER['REQUEST_URI'], '/' ) ) ) );
+	$pilau_top_level_slug = explode( '/', trim( $_SERVER['REQUEST_URI'], '/' ) );
+	define( 'PILAU_TOP_LEVEL_SLUG', reset( $pilau_top_level_slug ) );
 }
 
 /**
