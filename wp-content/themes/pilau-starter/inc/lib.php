@@ -45,3 +45,36 @@ function pilau_share_icons( $global = false ) {
 	</ul>
 <?php
 }
+
+
+/**
+ * Generate teaser text
+ *
+ * Tries to get WP SEO meta description; uses automated extract as fallback
+ *
+ * @since	CfHE 0.1
+ *
+ * @param	int		$post_id	Defaults to ID of post in current loop
+ * @param	int		$max_words	For extract, maximum words
+ * @param	int		$max_paras	For extract, maximum paragraphs
+ * @param	bool	$strip_tags	For extract, strip tags?
+ * @return	string
+ */
+function pilau_teaser_text( $post_id = null, $max_words = 30, $max_paras = 0, $strip_tags = true ) {
+	$teaser = '';
+
+	// Default post ID
+	if ( ! $post_id ) {
+		$post_id = get_the_ID();
+	}
+
+	// If there's no meta description...
+	if ( ( ! function_exists( 'wpseo_get_value' ) || ! ( $teaser = trim( wpseo_get_value( 'metadesc' ) ) ) ) && function_exists( 'pilau_extract' ) ) {
+
+		// Get content
+		$teaser = pilau_extract( get_post_field( 'post_content', $post_id ), $max_words, $max_paras, $strip_tags );
+
+	}
+
+	return $teaser;
+}
