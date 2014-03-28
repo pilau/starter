@@ -14,63 +14,68 @@
  * Output as last <li> in list of posts. Includes non-JS basic pagination fallback links.
  * Currently only works with one list of posts per page.
  *
+ * Arguments for the $args array are:
+ *
+ * 'base_url' (string) - The base URL for the posts listing (default: '/')
+ * 'post_type' (string) - The post type (default: 'post')
+ * 'older_label' (string) - Label for older posts non-JS fallback (default: 'Older posts')
+ * 'newer_label' (string) - Label for newer posts (default: 'Newer posts')
+ * 'taxonomies' (array) - Taxonomies (optional)
+ * 'posts_per_page' (int) - Number of posts per (default: get_option( 'posts_per_page' ) )
+ * 'show_more_label' (string) - Label for showing more (default: 'Show more')
+ * 'custom_vars' (array) - Custom variables (optional)
+ * 'query' (object) - The query object (default: $wp_query)
+ * 'exclude' (array) - Post IDs to exclude (optional)
+ * 'orderby' (string) - Field to order by (default: 'date')
+ * 'order' (string) - Order (default: 'DESC')
+ * 'meta_query' (array) - Meta query (currently only supports keys and string values) (optional)
+ *
  * @since	Pilau_Starter 0.1
  * @uses	$wp_query
  * @uses	get_option()
  * @uses	esc_attr()
  * @uses	wp_kses()
  * @uses	esc_js()
- *
- * @param	string	$base_url			The base URL for the posts listing
- * @param	string	$post_type			The post type
- * @param	string	$older_label		Label for older posts non-JS fallback (default: 'Older posts')
- * @param	string	$newer_label		Label for newer posts (default: 'Newer posts')
- * @param	array	$taxonomies			Taxonomies
- * @param	int		$posts_per_page		Number of posts per (default: get_option( 'posts_per_page' ) )
- * @param	string	$show_more_label	Label for showing more (default: 'Show more')
- * @param	array	$custom_vars		Custom variables
- * @param	object	$query				The query object (default: $wp_query)
- * @param	array	$exclude			Post IDs to exclude
- * @param	string	$orderby			Field to order by (default: 'date')
- * @param	string	$order				Order (default: 'DESC')
- * @param	array	$meta_query			Meta query (currently only supports keys and string values)
  * @return	void
  */
-function pilau_more_posts_link( $base_url = '/', $post_type = 'post', $older_label = null, $newer_label = null, $taxonomies = array(), $posts_per_page = null, $show_more_label = null, $custom_vars = array(), &$query = null, $exclude = array(), $orderby = 'date', $order = 'DESC', $meta_query = null ) {
+function pilau_more_posts_link( $args = null ) {
 	global $wp_query;
 
+	// Defaults
+	$defaults = array(
+		'base_url' 			=> '/',
+		'post_type'			=> 'post',
+		'older_label'		=> __( 'Older posts' ),
+		'newer_label'		=> __( 'Newer posts' ),
+		'taxonomies'		=> null,
+		'posts_per_page'	=> get_option( 'posts_per_page' ),
+		'show_more_label'	=> __( 'Show more' ),
+		'custom_vars'		=> null,
+		'query'				=> $wp_query,
+		'exclude'			=> null,
+		'orderby'			=> 'date',
+		'order'				=> 'DESC',
+		'meta_query'		=> null
+	);
+	$r = wp_parse_args( $args, $defaults );
+
 	// Initialize
-	$base_url = trailingslashit( $base_url );
-	if ( $older_label == null ) {
-		$older_label = __( "Older posts" );
-	}
-	if ( $newer_label == null ) {
-		$newer_label = __( "Newer posts" );
-	}
-	if ( $show_more_label == null ) {
-		$show_more_label = __( "Show more" );
-	}
-	if ( $posts_per_page == null ) {
-		$posts_per_page = get_option( 'posts_per_page' );
-	}
-	if ( ! $query ) {
-		$query =& $wp_query;
-	}
-	$page = $query->query_vars["paged"];
+	$r['base_url'] = trailingslashit( $r['base_url'] );
+	$page = $r['query']->query_vars["paged"];
 	if ( ! $page ) {
 		$page = 1;
 	}
 	$qs = $_SERVER["QUERY_STRING"] ? "?" . $_SERVER["QUERY_STRING"] : "";
 
 	// This whole thing is only necessary if there's more found posts than posts per page
-	if ( $query->found_posts > $query->query_vars["posts_per_page"] ) {
+	if ( $r['query']->found_posts > $r['query']->query_vars["posts_per_page"] ) {
 
 		// Fallback links
-		if ( $page < $query->max_num_pages ) {
-			echo '<li id="older-posts" class="more-posts"><a href="' . esc_attr( $base_url . 'page/' . ( $page + 1 ) . '/' . $qs ) . '">' . wp_kses( $older_label, array() ) . '</a></li>';
+		if ( $page < $r['query']->max_num_pages ) {
+			echo '<li id="older-posts" class="more-posts"><a href="' . esc_attr( $r['base_url'] . 'page/' . ( $page + 1 ) . '/' . $qs ) . '">' . wp_kses( $r['older_label'], array() ) . '</a></li>';
 		}
 		if ( $page > 1 ) {
-			echo '<li id="newer-posts" class="more-posts"><a href="' . esc_attr( $base_url . 'page/' . ( $page - 1 ) . '/' . $qs ) . '">' . wp_kses( $newer_label, array() ) . '</a></li>';
+			echo '<li id="newer-posts" class="more-posts"><a href="' . esc_attr( $r['base_url'] . 'page/' . ( $page - 1 ) . '/' . $qs ) . '">' . wp_kses( $r['newer_label'], array() ) . '</a></li>';
 		}
 
 		// Some JS
@@ -78,36 +83,38 @@ function pilau_more_posts_link( $base_url = '/', $post_type = 'post', $older_lab
 		<script>
 
 			// Replace 'older posts' label with 'show 'more'
-			jQuery( 'li#older-posts' ).find( 'a' ).text( '<?php echo wp_kses( $show_more_label, array() ); ?>' );
+			jQuery( 'li#older-posts' ).find( 'a' ).text( '<?php echo wp_kses( $r['show_more_label'], array() ); ?>' );
 
 			// Vars to pass through for AJAX use
 			var pilau_ajax_more_data = {
-				'post_type':		'<?php echo $post_type; ?>',
+				'post_type':		'<?php echo $r['post_type']; ?>',
 				<?php
-				if ( isset( $taxonomies ) && is_array( $taxonomies ) && ! empty( $taxonomies ) ) {
-					foreach( $taxonomies as $tax ) {
+				if ( isset( $r['taxonomies'] ) && is_array( $r['taxonomies'] ) && ! empty( $r['taxonomies'] ) ) {
+					foreach( $r['taxonomies'] as $tax ) {
 						?>'taxonomy':	'<?php echo $tax['taxonomy']; ?>',
 						'term_id':		'<?php echo $tax['terms']; ?>',
 					<?php }
 				}
-				if ( isset( $meta_query ) && is_array( $meta_query ) && ! empty( $meta_query ) ) {
-					for( $i = 0; $i < count( $meta_query ); $i++ ) {
-						?>'meta_query_<?php echo $i; ?>_key':	'<?php echo $meta_query[ $i ]['key']; ?>',
-						'meta_query_<?php echo $i; ?>_value':	'<?php echo $meta_query[ $i ]['value']; ?>',
+				if ( isset( $r['meta_query'] ) && is_array( $r['meta_query'] ) && ! empty( $r['meta_query'] ) ) {
+					for( $i = 0; $i < count( $r['meta_query'] ); $i++ ) {
+						?>'meta_query_<?php echo $i; ?>_key':	'<?php echo $r['meta_query'][ $i ]['key']; ?>',
+						'meta_query_<?php echo $i; ?>_value':	'<?php echo $r['meta_query'][ $i ]['value']; ?>',
 					<?php }
 				}
 				?>
-				'found_posts':		<?php echo $query->found_posts; ?>,
-				'posts_per_page':	<?php echo $posts_per_page; ?>,
-				'orderby':	        '<?php echo $orderby; ?>',
-				'order':	        '<?php echo $order; ?>',
-				'offset':           <?php echo $posts_per_page; ?>,
-				'post__not_in':		'<?php echo implode( ",", $exclude ); ?>',
+				'found_posts':		<?php echo $r['query']->found_posts; ?>,
+				'posts_per_page':	<?php echo $r['posts_per_page']; ?>,
+				'orderby':	        '<?php echo $r['orderby']; ?>',
+				'order':	        '<?php echo $r['order']; ?>',
+				'offset':           <?php echo $r['posts_per_page']; ?>,
+				<?php if ( is_array( $r['exclude'] ) ) { ?>
+				'post__not_in':		'<?php echo implode( ",", $r['exclude'] ); ?>',
+				<?php } ?>
 				'is_vars': {
 					<?php
 					// Pass through conditional variables from query
 					$is_vars = array( 'archive', 'date', 'year', 'month', 'day', 'time', 'author', 'category', 'tag', 'tax', 'search', 'home', 'posts_page', 'post_type_archive' );
-					$array_query = (array) $query;
+					$array_query = (array) $r['query'];
 					foreach ( $is_vars as $is_var ) {
 						echo "'$is_var': " . ( $array_query['is_' . $is_var] ? 'true' : 'false' );
 						if ( $is_var != $is_vars[ count( $is_vars ) -1 ] ) {
@@ -116,10 +123,10 @@ function pilau_more_posts_link( $base_url = '/', $post_type = 'post', $older_lab
 					}
 					?>
 				}<?php
-				if ( ! empty( $custom_vars) ) {
+				if ( ! empty( $r['custom_vars']) ) {
 					echo ",\n";
 					echo "'custom_vars': {\n";
-					foreach ( $custom_vars as $custom_var_key => $custom_var_value )
+					foreach ( $r['custom_vars'] as $custom_var_key => $custom_var_value )
 						echo "'" . esc_js( $custom_var_key ) . "': '" . esc_js( $custom_var_value ) . "',\n";
 					echo "}";
 				}

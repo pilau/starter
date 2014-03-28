@@ -25,7 +25,13 @@
 
 			<?php endwhile; ?>
 
-			<?php pilau_more_posts_link( get_home_url() ); ?>
+			<?php
+
+			pilau_more_posts_link( array(
+				'base_url'	=> get_home_url()
+			));
+
+			?>
 
 		</ul>
 
