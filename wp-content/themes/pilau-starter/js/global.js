@@ -98,7 +98,7 @@ jQuery( document ).ready( function( $ ) {
 	if ( op.length ) {
 
 		op.on( 'click', 'a', function() {
-			var vars, iefix;
+			var i, vars, iefix;
 
 			// Initialize vars
 			vars = {
@@ -108,11 +108,15 @@ jQuery( document ).ready( function( $ ) {
 				'order':		    pilau_ajax_more_data.order,
 				'taxonomy':			pilau_ajax_more_data.taxonomy,
 				'term_id':			pilau_ajax_more_data.term_id,
-				'meta_key':			pilau_ajax_more_data.meta_key,
-				'meta_value':		pilau_ajax_more_data.meta_value,
 				'posts_per_page':	pilau_ajax_more_data.posts_per_page,
 				'offset':			$( this ).parent().siblings( 'li' ).length
 			};
+			i = 0;
+			while ( typeof pilau_ajax_more_data['meta_query_' + i + '_key'] != 'undefined' && typeof pilau_ajax_more_data['meta_query_' + i + '_value'] != 'undefined' ) {
+				vars['meta_query_' + i + '_key'] = pilau_ajax_more_data['meta_query_' + i + '_key'];
+				vars['meta_query_' + i + '_value'] = pilau_ajax_more_data['meta_query_' + i + '_value'];
+				i++;
+			}
 			for ( var key in pilau_ajax_more_data.is_vars ) {
 				vars['is_'+key] = pilau_ajax_more_data.is_vars[key];
 			}
