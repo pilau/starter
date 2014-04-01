@@ -27,9 +27,7 @@
 
 			<?php
 
-			pilau_more_posts_link( array(
-				'base_url'	=> get_home_url()
-			));
+			pilau_more_posts_link();
 
 			?>
 

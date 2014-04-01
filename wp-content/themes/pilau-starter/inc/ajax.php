@@ -16,23 +16,17 @@
  *
  * Arguments for the $args array are:
  *
- * 'base_url' (string) - The base URL for the posts listing (default: '/')
- * 'post_type' (string) - The post type (default: 'post')
+ * 'base_url' (string) - The base URL for the posts listing (default: get_home_url())
  * 'older_label' (string) - Label for older posts non-JS fallback (default: 'Older posts')
  * 'newer_label' (string) - Label for newer posts (default: 'Newer posts')
- * 'taxonomies' (array) - Taxonomies (optional)
- * 'posts_per_page' (int) - Number of posts per (default: get_option( 'posts_per_page' ) )
  * 'show_more_label' (string) - Label for showing more (default: 'Show more')
  * 'custom_vars' (array) - Custom variables (optional)
  * 'query' (object) - The query object (default: $wp_query)
- * 'exclude' (array) - Post IDs to exclude (optional)
- * 'orderby' (string) - Field to order by (default: 'date')
- * 'order' (string) - Order (default: 'DESC')
- * 'meta_query' (array) - Meta query (currently only supports keys and string values) (optional)
  *
  * @since	Pilau_Starter 0.1
  * @uses	$wp_query
  * @uses	get_option()
+ * @uses	get_home_url()
  * @uses	esc_attr()
  * @uses	wp_kses()
  * @uses	esc_js()
@@ -43,21 +37,20 @@ function pilau_more_posts_link( $args = null ) {
 
 	// Defaults
 	$defaults = array(
-		'base_url' 			=> '/',
-		'post_type'			=> 'post',
+		'base_url' 			=> get_home_url(),
 		'older_label'		=> __( 'Older posts' ),
 		'newer_label'		=> __( 'Newer posts' ),
-		'taxonomies'		=> null,
-		'posts_per_page'	=> get_option( 'posts_per_page' ),
 		'show_more_label'	=> __( 'Show more' ),
 		'custom_vars'		=> null,
-		'query'				=> $wp_query,
-		'exclude'			=> null,
-		'orderby'			=> 'date',
-		'order'				=> 'DESC',
-		'meta_query'		=> null
+		'query'				=> $wp_query
 	);
 	$r = wp_parse_args( $args, $defaults );
+	$post_type = $r['query']->query_vars["post_type"] ? $r['query']->query_vars["post_type"] : 'post';
+	$tax_queries = isset( $r['query']->tax_query->queries ) && is_array( $r['query']->tax_query->queries ) && ! empty( $r['query']->tax_query->queries ) ? $r['query']->tax_query->queries : null;
+	$meta_queries = isset( $r['query']->meta_query->queries ) && is_array( $r['query']->meta_query->queries ) && ! empty( $r['query']->meta_query->queries ) ? $r['query']->meta_query->queries : null;
+	$posts_per_page = ! empty( $r['query']->query_vars["posts_per_page"] ) ? $r['query']->query_vars["posts_per_page"] : -1;
+	$orderby = ! empty( $r['query']->query_vars["orderby"] ) ? $r['query']->query_vars["orderby"] : 'date';
+	$order = ! empty( $r['query']->query_vars["order"] ) ? $r['query']->query_vars["order"] : 'DESC';
 
 	// Initialize
 	$r['base_url'] = trailingslashit( $r['base_url'] );
@@ -68,7 +61,7 @@ function pilau_more_posts_link( $args = null ) {
 	$qs = $_SERVER["QUERY_STRING"] ? "?" . $_SERVER["QUERY_STRING"] : "";
 
 	// This whole thing is only necessary if there's more found posts than posts per page
-	if ( $r['query']->found_posts > $r['query']->query_vars["posts_per_page"] ) {
+	if ( $r['query']->found_posts > $posts_per_page ) {
 
 		// Fallback links
 		if ( $page < $r['query']->max_num_pages ) {
@@ -87,37 +80,49 @@ function pilau_more_posts_link( $args = null ) {
 
 			// Vars to pass through for AJAX use
 			var pilau_ajax_more_data = {
-				'post_type':		'<?php echo $r['post_type']; ?>',
-				<?php
-				if ( isset( $r['taxonomies'] ) && is_array( $r['taxonomies'] ) && ! empty( $r['taxonomies'] ) ) {
-					foreach( $r['taxonomies'] as $tax ) {
-						?>'taxonomy':	'<?php echo $tax['taxonomy']; ?>',
-						'term_id':		'<?php echo $tax['terms']; ?>',
-					<?php }
-				}
-				if ( isset( $r['meta_query'] ) && is_array( $r['meta_query'] ) && ! empty( $r['meta_query'] ) ) {
-					for( $i = 0; $i < count( $r['meta_query'] ); $i++ ) {
-						?>'meta_query_<?php echo $i; ?>_key':	'<?php echo $r['meta_query'][ $i ]['key']; ?>',
-						'meta_query_<?php echo $i; ?>_value':	'<?php echo $r['meta_query'][ $i ]['value']; ?>',
-					<?php }
-				}
-				?>
+				'post_type':		'<?php echo $post_type; ?>',
 				'found_posts':		<?php echo $r['query']->found_posts; ?>,
-				'posts_per_page':	<?php echo $r['posts_per_page']; ?>,
-				'orderby':	        '<?php echo $r['orderby']; ?>',
-				'order':	        '<?php echo $r['order']; ?>',
-				'offset':           <?php echo $r['posts_per_page']; ?>,
-				<?php if ( is_array( $r['exclude'] ) ) { ?>
-				'post__not_in':		'<?php echo implode( ",", $r['exclude'] ); ?>',
-				<?php } ?>
-				'is_vars': {
+				'posts_per_page':	<?php echo $posts_per_page; ?>,
+				'orderby':	        '<?php echo $orderby; ?>',
+				'order':	        '<?php echo $order; ?>',
+				<?php if ( $tax_queries ) { ?>
+				'tax_query':	[
+					<?php foreach ( $tax_queries as $tax_query ) {
+						?> {
+						'taxonomy':		'<?php echo $tax_query['taxonomy']; ?>',
+						'field':		'<?php echo $tax_query['field']; ?>',
+						'terms':		<?php
+							$terms = (array) $tax_query['terms'];
+							if ( $tax_query['field'] == 'id' ) {
+								echo implode( ',', $terms );
+							} else {
+								echo "'" . implode( "','", $terms ) . "'";
+							}
+						?>
+					},
+					<?php } ?>
+				],<?php }
+				if ( $meta_queries ) { ?>
+				'meta_query':	[
+					<?php foreach ( $meta_queries as $meta_query ) {
+						?> {
+						'key':		'<?php echo $meta_query['key']; ?>'
+						<?php if ( $meta_query['value'] ) { ?>,
+						'value':	'<?php echo $meta_query['value']; ?>'
+						<?php } ?>
+					},
+					<?php } ?>
+				],<?php }
+				if ( is_array( $r['query']->query_vars['post__not_in'] ) && $r['query']->query_vars['post__not_in'] ) {
+				?>'post__not_in':		[ <?php echo implode( ',', $r['query']->query_vars['post__not_in'] ); ?> ],
+				<?php }
+				?>'is_vars': {
 					<?php
 					// Pass through conditional variables from query
 					$is_vars = array( 'archive', 'date', 'year', 'month', 'day', 'time', 'author', 'category', 'tag', 'tax', 'search', 'home', 'posts_page', 'post_type_archive' );
-					$array_query = (array) $r['query'];
 					foreach ( $is_vars as $is_var ) {
-						echo "'$is_var': " . ( $array_query['is_' . $is_var] ? 'true' : 'false' );
-						if ( $is_var != $is_vars[ count( $is_vars ) -1 ] ) {
+						echo "'$is_var': " . ( $r['query']->{'is_'.$is_var} ? 'true' : 'false' );
+						if ( $is_var != $is_vars[ count( $is_vars ) - 1 ] ) {
 							echo ',';
 						}
 					}
@@ -126,16 +131,19 @@ function pilau_more_posts_link( $args = null ) {
 				if ( ! empty( $r['custom_vars']) ) {
 					echo ",\n";
 					echo "'custom_vars': {\n";
-					foreach ( $r['custom_vars'] as $custom_var_key => $custom_var_value )
+					foreach ( $r['custom_vars'] as $custom_var_key => $custom_var_value ) {
 						echo "'" . esc_js( $custom_var_key ) . "': '" . esc_js( $custom_var_value ) . "',\n";
-					echo "}";
+					}
+					echo "\n}";
 				}
-				?>
-			};
+			echo "\n}";
+			?>
 
 		</script>
 
-	<?php }
+	<?php
+
+	}
 
 }
 
@@ -147,46 +155,28 @@ function pilau_get_more_posts_ajax() {
 
 	// Initialize
 	ob_end_clean();
+	//print_r( $_REQUEST, false ); exit;
 
 	$args = array(
 		'post_type'			=> $_REQUEST['post_type'],
 		'posts_per_page'	=> $_REQUEST['posts_per_page'],
 		'offset'			=> $_REQUEST['offset'],
-		'post__not_in'		=> explode( ',', $_REQUEST['post__not_in'] ),
+		'post__not_in'		=> $_REQUEST['post__not_in'],
 		'post_status'		=> 'publish',
 		'orderby'           => $_REQUEST['orderby'],
 		'order'             => $_REQUEST['order']
 	);
-
-	// Taxonomy query?
-	$tax_query = array();
-	if ( isset( $_REQUEST['taxonomy'] ) && $_REQUEST['taxonomy'] && isset( $_REQUEST['term_id'] ) && $_REQUEST['term_id'] ) {
-		$tax_query[] = array(
-			'taxonomy'	=> $_REQUEST['taxonomy'],
-			'field'		=> 'id',
-			'terms'		=> $_REQUEST['term_id']
-		);
+	if ( isset( $_REQUEST['tax_query'] ) ) {
+		$args['tax_query'] = $_REQUEST['tax_query'];
 	}
-	if ( $tax_query ) {
-		$args['tax_query'] = $tax_query;
+	if ( isset( $_REQUEST['meta_query'] ) ) {
+		$args['meta_query'] = $_REQUEST['meta_query'];
 	}
-
-	// Meta query?
-	$meta_query = array();
-	$i = 0;
-	while ( isset( $_REQUEST['meta_query_' . $i . '_key'] ) && $_REQUEST['meta_query_' . $i . '_key'] && isset( $_REQUEST['meta_query_' . $i . '_value'] ) && $_REQUEST['meta_query_' . $i . '_value'] ) {
-		$meta_query[] = array(
-			'key'		=> $_REQUEST['meta_query_' . $i . '_key'],
-			'value'		=> $_REQUEST['meta_query_' . $i . '_value']
-		);
-		$i++;
-	}
-	if ( $meta_query ) {
-		$args['meta_query'] = $meta_query;
-	}
+	//print_r( $args, false ); exit;
 
 	// Get posts
 	$pilau_loop = new WP_Query( $args );
+	//print_r( $pilau_loop, false ); exit;
 
 	// Force any conditional query variables
 	foreach ( $_REQUEST as $key => $value ) {

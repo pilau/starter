@@ -97,36 +97,22 @@ jQuery( document ).ready( function( $ ) {
 	 */
 	if ( op.length ) {
 
-		op.on( 'click', 'a', function() {
-			var i, vars, iefix;
+		op.on( 'click', 'a', function( e ) {
+			var vars;
+			e.preventDefault();
 
 			// Initialize vars
-			vars = {
-				'action':			'pilau_get_more_posts',
-				'post_type':		pilau_ajax_more_data.post_type,
-				'orderby':		    pilau_ajax_more_data.orderby,
-				'order':		    pilau_ajax_more_data.order,
-				'taxonomy':			pilau_ajax_more_data.taxonomy,
-				'term_id':			pilau_ajax_more_data.term_id,
-				'posts_per_page':	pilau_ajax_more_data.posts_per_page,
-				'offset':			$( this ).parent().siblings( 'li' ).length
-			};
-			i = 0;
-			while ( typeof pilau_ajax_more_data['meta_query_' + i + '_key'] != 'undefined' && typeof pilau_ajax_more_data['meta_query_' + i + '_value'] != 'undefined' ) {
-				vars['meta_query_' + i + '_key'] = pilau_ajax_more_data['meta_query_' + i + '_key'];
-				vars['meta_query_' + i + '_value'] = pilau_ajax_more_data['meta_query_' + i + '_value'];
-				i++;
-			}
-			for ( var key in pilau_ajax_more_data.is_vars ) {
-				vars['is_'+key] = pilau_ajax_more_data.is_vars[key];
-			}
+			vars = pilau_ajax_more_data;
+			vars['action'] = 'pilau_get_more_posts';
+			vars['offset'] = $( this ).parent().siblings( 'li' ).length;
+			//console.log( vars );
 
 			// Get posts
 			$.post(
 				pilau_global.ajaxurl,
 				vars,
 				function( data ) {
-					var i, first_post_id;
+					var i, first_post_id, iefix;
 					//console.log( data );
 
 					// Remove "last" class from current last post
@@ -159,7 +145,6 @@ jQuery( document ).ready( function( $ ) {
 				}
 			);
 
-			return false;
 		});
 
 	}
