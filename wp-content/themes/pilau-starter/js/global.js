@@ -3,6 +3,17 @@
  */
 
 
+// Declare variables that need to be accessed in various contexts
+var pilau_body; // The body
+var pilau_bps = {
+	'full':		1000, // This and above is "full width"
+	'tablet':	640 // This and above is "tablet width"; below is "mobile"
+};
+var pilau_vw; // Viewport width
+var pilau_full; // "Full width" flag
+var pilau_tablet; // "Tablet width" flag
+var pilau_mobile; // "Mobile width" flag
+
 /**
  * Flags for throttling window scroll and resize event functionality
  * @link	http://ejohn.org/blog/learning-from-twitter/
@@ -17,6 +28,11 @@ jQuery( document ).ready( function( $ ) {
 		cn = $( '#cookie-notice' ),
 		di = $( 'img[data-defer-src]' );
 		op = $( 'li#older-posts' );
+	pilau_body = $( 'body' );
+	pilau_vw = $( window ).width();
+	pilau_full = pilau_vw >= pilau_bps.full;
+	pilau_tablet = pilau_vw >= pilau_bps.tablet && pilau_vw < pilau_bps.tablet;
+	pilau_mobile = pilau_vw < pilau_bps.tablet;
 
 
 	/** JS-dependent elements */
@@ -120,7 +136,7 @@ jQuery( document ).ready( function( $ ) {
 
 					// Insert and reveal posts
 					i = 0;
-					$( 'body' ).append( '<div id="_ieAjaxFix" style="display:none"></div>' );
+					pilau_body.append( '<div id="_ieAjaxFix" style="display:none"></div>' );
 					iefix = $( "#_ieAjaxFix" );
 
 					// Match li.hentry, the only class applied to all items by get_post_class()
@@ -222,7 +238,7 @@ function pilau_preloader_place( e ) {
 			'left':			l,
 			'margin-left':	0,
 			'margin-right':	0
-		}).appendTo( 'body' );
+		}).appendTo( pilau_body );
 
 	}
 
@@ -237,7 +253,7 @@ function pilau_preloader_place( e ) {
  */
 function pilau_preloader_remove( e ) {
 	if ( typeof e == 'undefined' )
-		e = 'body';
+		e = pilau_body;
 	jQuery( 'img.preloader', e ).remove();
 }
 

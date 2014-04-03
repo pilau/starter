@@ -129,30 +129,36 @@ form {
 }
 
 
-/* Media queries for small screens / mobile devices
+/* Media queries
 --------------------------------------------------------------------------------*/
 
-// "Mobile" width or less
-@media only screen and ( max-width: 480px ) {
-
-	.hide-for-mobile {
-		display: none;
-	}
-
-}
-
-// Larger than "mobile"
-@media only screen and ( min-width: 481px ) {
-
-
-}
-
 // At least "full" width
-@media only screen and ( min-width: 960px ) {
-
+@media only screen and ( min-width: @breakpoint-full ) {
 	.hide-for-desktop {
 		display: none;
 	}
-
-
 }
+
+// Less than "full" width
+@media only screen and ( max-width: ( @breakpoint-full - 1px ) ) {
+}
+
+// "Tablet" width
+@media only screen and ( min-width: @breakpoint-tablet ) and ( max-width: ( @breakpoint-full - 1px ) ) {
+	.hide-for-tablet {
+		display: none;
+	}
+}
+
+// Larger than "mobile"
+@media only screen and ( min-width: @breakpoint-tablet ) {
+}
+
+// "Mobile" width
+@media only screen and ( max-width: ( @breakpoint-tablet - 1px ) ) {
+	.hide-for-mobile {
+		display: none;
+	}
+}
+
+
