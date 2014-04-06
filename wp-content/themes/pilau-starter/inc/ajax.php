@@ -51,6 +51,9 @@ function pilau_more_posts_link( $args = null ) {
 	$posts_per_page = ! empty( $r['query']->query_vars["posts_per_page"] ) ? $r['query']->query_vars["posts_per_page"] : -1;
 	$orderby = ! empty( $r['query']->query_vars["orderby"] ) ? $r['query']->query_vars["orderby"] : 'date';
 	$order = ! empty( $r['query']->query_vars["order"] ) ? $r['query']->query_vars["order"] : 'DESC';
+	$meta_key = ! empty( $r['query']->query_vars["meta_key"] ) ? $r['query']->query_vars["meta_key"] : null;
+	$meta_value = ! empty( $r['query']->query_vars["meta_value"] ) ? $r['query']->query_vars["meta_value"] : null;
+	$s = ! empty( $r['query']->query_vars["s"] ) ? $r['query']->query_vars["s"] : null;
 
 	// Initialize
 	$r['base_url'] = trailingslashit( $r['base_url'] );
@@ -85,6 +88,9 @@ function pilau_more_posts_link( $args = null ) {
 				'posts_per_page':	<?php echo $posts_per_page; ?>,
 				'orderby':	        '<?php echo $orderby; ?>',
 				'order':	        '<?php echo $order; ?>',
+				'meta_key':	        '<?php echo $meta_key; ?>',
+				'meta_value':		'<?php echo $meta_value; ?>',
+				's':		        '<?php echo $s; ?>',
 				<?php if ( $tax_queries ) { ?>
 				'tax_query':	[
 					<?php foreach ( $tax_queries as $tax_query ) {
@@ -163,8 +169,11 @@ function pilau_get_more_posts_ajax() {
 		'offset'			=> $_REQUEST['offset'],
 		'post__not_in'		=> $_REQUEST['post__not_in'],
 		'post_status'		=> 'publish',
-		'orderby'           => $_REQUEST['orderby'],
-		'order'             => $_REQUEST['order']
+		'orderby'			=> $_REQUEST['orderby'],
+		'order'				=> $_REQUEST['order'],
+		'meta_key'			=> $_REQUEST['meta_key'],
+		'meta_value'		=> $_REQUEST['meta_value'],
+		's'      			=> $_REQUEST['s'],
 	);
 	if ( isset( $_REQUEST['tax_query'] ) ) {
 		$args['tax_query'] = $_REQUEST['tax_query'];
@@ -180,8 +189,9 @@ function pilau_get_more_posts_ajax() {
 
 	// Force any conditional query variables
 	foreach ( $_REQUEST as $key => $value ) {
-		if ( strlen( $key ) > 3 && substr( $key, 0, 3 ) == 'is_' )
+		if ( strlen( $key ) > 3 && substr( $key, 0, 3 ) == 'is_' ) {
 			$wp_query->$key = $value;
+		}
 	}
 
 	// Build output
