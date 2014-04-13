@@ -17,7 +17,9 @@
 
 		<?php while ( have_posts() ) : the_post(); ?>
 
-			<?php the_content(); ?>
+			<div class="post-content">
+				<?php the_content(); ?>
+			</div>
 
 		<?php endwhile; ?>
 
