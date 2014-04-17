@@ -199,6 +199,15 @@ setInterval( function() {
  */
 
 
+/**
+ * Sample function with jQuery shortcut included
+ * I always forget this simple syntax!
+ */
+function pilau_sample_jquery_shortcut_function() { jQuery( function($) {
+
+});}
+
+
 /*
  * Helper functions
  */
