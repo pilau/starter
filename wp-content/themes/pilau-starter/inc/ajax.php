@@ -79,7 +79,7 @@ function pilau_more_posts_link( $args = null ) {
 		<script>
 
 			// Replace 'older posts' label with 'show 'more'
-			jQuery( 'li#older-posts' ).find( 'a' ).text( '<?php echo wp_kses( $r['show_more_label'], array() ); ?>' );
+			jQuery( 'li#older-posts' ).find( 'a' ).html( '<?php echo wp_kses( $r['show_more_label'], array( 'span' => array( 'class' => array() ), 'i' => array( 'class' => array() ), 'b' => array( 'class' => array() ) ) ); ?>' );
 
 			// Vars to pass through for AJAX use
 			var pilau_ajax_more_data = {
