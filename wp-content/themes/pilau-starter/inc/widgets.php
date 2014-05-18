@@ -40,12 +40,15 @@ function pilau_unregister_widgets() {
 	unregister_widget( 'WP_Widget_Meta' );
 	unregister_widget( 'WP_Widget_Recent_Posts' );
 	unregister_widget( 'WP_Widget_RSS' );
-	if ( ! PILAU_USE_TAGS )
+	if ( ! PILAU_USE_TAGS ) {
 		unregister_widget( 'WP_Widget_Tag_Cloud' );
-	if ( ! PILAU_USE_CATEGORIES )
+	}
+	if ( ! PILAU_USE_CATEGORIES ) {
 		unregister_widget( 'WP_Widget_Categories' );
-	if ( ! PILAU_USE_COMMENTS )
+	}
+	if ( ! PILAU_USE_COMMENTS ) {
 		unregister_widget( 'WP_Widget_Recent_Comments' );
+	}
 	//unregister_widget( 'WP_Widget_Search' );
 	//unregister_widget( 'WP_Widget_Text' );
 	//unregister_widget( 'WP_Widget_Pages' );
@@ -60,8 +63,9 @@ function pilau_unregister_widgets() {
  * @since	Pilau_Starter 0.1
  * @uses	pilau_obfuscate_email()
  */
-if ( function_exists( 'slt_obfuscate_email' ) )
+if ( function_exists( 'slt_obfuscate_email' ) ) {
 	add_filter( 'widget_text', 'pilau_widget_email_obfuscation' );
+}
 function slt_widget_email_obfuscation( $text ) {
 	return preg_replace_callback( '/[\._a-zA-Z0-9-]+@[\._a-zA-Z0-9-]+/i', create_function( '$matches', 'return pilau_obfuscate_email( $matches[0] );' ), $text );
 }

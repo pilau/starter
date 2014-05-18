@@ -75,8 +75,9 @@ function pilau_admin_notices() {
  */
 //add_action( 'admin_notices', 'pilau_check_current_screen' );
 function pilau_check_current_screen() {
-	if ( ! is_admin() || ! current_user_can( 'update_core' ) )
+	if ( ! is_admin() || ! current_user_can( 'update_core' ) ) {
 		return;
+	}
 	global $current_screen;
 	echo '<pre>'; print_r( $current_screen ); echo '</pre>';
 }
@@ -94,12 +95,14 @@ function pilau_admin_menus() {
 	***************************************************************************/
 
 	// Links
-	if ( ! PILAU_USE_LINKS )
+	if ( ! PILAU_USE_LINKS ) {
 		remove_menu_page( 'link-manager.php' );
+	}
 
 	// Comments
-	if ( ! PILAU_USE_COMMENTS )
+	if ( ! PILAU_USE_COMMENTS ) {
 		remove_menu_page( 'edit-comments.php' );
+	}
 
 	// Menu for all settings
 	//add_options_page( __('All Settings'), __('All Settings'), 'manage_options', 'options.php' );
@@ -223,8 +226,9 @@ function pilau_admin_columns( $cols ) {
 	// Override WordPress SEO plugin stuff
 	if ( defined( 'WPSEO_VERSION' ) ) {
 		foreach ( array( /*'wpseo-score',*/ 'wpseo-title', 'wpseo-metadesc', 'wpseo-focuskw' ) as $wp_seo_col ) {
-			if ( isset( $cols[ $wp_seo_col ] ) )
+			if ( isset( $cols[ $wp_seo_col ] ) ) {
 				unset( $cols[ $wp_seo_col ] );
+			}
 		}
 	}
 
@@ -298,13 +302,15 @@ add_filter( 'get_user_option_managenav-menuscolumnshidden', 'pilau_nav_menus_col
 function pilau_nav_menus_columns_hidden( $result ) {
 
 	/** Description always on */
-	if ( is_array( $result ) && in_array( 'description', $result ) )
+	if ( is_array( $result ) && in_array( 'description', $result ) ) {
 		unset( $result[ array_search( 'description', $result ) ] );
+	}
 
 	/** Classes always on
-	if ( is_array( $result ) && in_array( 'styles-classes', $result ) )
+	if ( is_array( $result ) && in_array( 'styles-classes', $result ) ) {
 		unset( $result[ array_search( 'styles-classes', $result ) ] );
-	 */
+	}
+	*/
 
 	return $result;
 }
