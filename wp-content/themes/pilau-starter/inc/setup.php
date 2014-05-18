@@ -15,6 +15,7 @@
  */
 add_action( 'after_setup_theme', 'pilau_setup', 10 );
 function pilau_setup() {
+	global $pilau_site_settings;
 
 	/* Enable shortcodes in widgets */
 	add_filter( 'widget_text', 'do_shortcode' );
@@ -45,6 +46,10 @@ function pilau_setup() {
 	register_nav_menus( array(
 		'nav_main'		=> __( 'Main navigation' )
 	) );
+	*/
+
+	/* Site settings
+	$pilau_site_settings = get_option( 'pilau_site_settings' );
 	*/
 
 }
