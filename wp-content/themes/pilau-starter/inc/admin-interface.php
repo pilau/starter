@@ -246,16 +246,20 @@ function pilau_admin_columns( $cols ) {
  * Customize default tiny MCE buttons
  *
  * @since	Pilau_Starter 0.1
- * @link	http://wpengineer.com/customize-wordpress-wysiwyg-editor/
- * @link	http://wiki.moxiecode.com/index.php/TinyMCE:Control_reference
+ * @link	http://wordpress.stackexchange.com/questions/141534/how-to-customize-tinymce4-in-wp-3-9-the-old-way-for-styles-and-formats-doesnt
  */
 add_filter( 'tiny_mce_before_init', 'pilau_tinymce_buttons' );
 function pilau_tinymce_buttons( $init_array ) {
+	//echo '<pre>'; print_r( $init_array ); echo '</pre>'; exit;
 
-	$init_array['theme_advanced_blockformats'] = 'p,h2,h3';
-	$init_array['theme_advanced_disable'] = 'forecolor,strikethrough,justifyleft,justifyright,justifyfull,underline,media';
+	// Limit block-level formats
+	$init_array['block_formats'] = 'Paragraph=p;Heading 2=h2;Heading 3=h3;Heading 4=h4';
+
+	// Redo toolbars
+	$init_array['toolbar1'] = 'formatselect,bullist,numlist,blockquote,hr,wp_more,bold,italic,link,unlink,pastetext,removeformat,charmap,spellchecker,wp_fullscreen,undo,redo,wp_help';
+	$init_array['toolbar2'] = '';
+
 	return $init_array;
-
 }
 
 
