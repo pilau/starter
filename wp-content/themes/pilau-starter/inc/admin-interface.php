@@ -118,6 +118,12 @@ function pilau_admin_menus() {
 	$submenu['edit.php'][10][0] = 'Add News';
 	$submenu['edit.php'][16][0] = 'News Tags';
 
+	/* Register new menus
+	***************************************************************************/
+
+	// Site settings
+	//add_options_page( get_bloginfo( 'name' ) . ' ' . __( 'settings' ), get_bloginfo( 'name' ) . ' ' . __( 'settings' ), 'manage_options', 'pilau-site-settings', 'pilau_site_settings_admin_page' );
+
 }
 
 
@@ -313,4 +319,74 @@ function pilau_nav_menus_columns_hidden( $result ) {
 	*/
 
 	return $result;
+}
+
+
+/**
+ * Site settings admin page
+ *
+ * @since	Pilau_Starter 0.1
+ */
+function pilau_site_settings_admin_page() {
+	$settings = get_option( 'pilau_site_settings' );
+
+	// Output
+	?>
+
+	<div class="wrap">
+
+		<h2><?php echo get_bloginfo( 'name' ) . ' ' . __( 'settings' ); ?></h2>
+
+		<?php if ( isset( $_GET['done'] ) ) { ?>
+			<div class="updated"><p><strong><?php _e( 'Settings updated successfully.' ); ?></strong></p></div>
+		<?php } ?>
+
+		<form method="post" action="">
+
+			<?php wp_nonce_field( 'pilau-site-settings', 'pilau_site_settings_admin_nonce' ); ?>
+
+			<h3><?php _e( 'Settings' ); ?></h3>
+			<table class="form-table">
+				<tbody>
+					<tr valign="top">
+						<th scope="row"><label for="pilau-setting"><?php _e( 'Setting' ); ?></label></th>
+						<td><input type="text" name="setting" id="pilau-setting" value="<?php esc_attr_e( $settings['setting'] ); ?>" class="regular-text"></td>
+					</tr>
+				</tbody>
+			</table>
+
+			<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes"></p>
+
+		</form>
+
+	</div>
+
+<?php
+
+}
+
+
+/**
+ * Process site settings
+ *
+ * @since	Pilau_Starter 0.1
+ */
+//add_action( 'admin_init', 'pilau_site_settings_admin_page_process' );
+function pilau_site_settings_admin_page_process() {
+
+	// Submitted?
+	if ( isset( $_POST['pilau_site_settings_admin_nonce'] ) && check_admin_referer( 'pilau-site-settings', 'pilau_site_settings_admin_nonce' ) ) {
+
+		// Gather into array
+		$settings = array();
+		$settings['setting'] = sanitize_text_field( $_POST['setting'] );
+
+		// Save as option
+		update_option( 'pilau_site_settings', $settings );
+
+		// Redirect
+		wp_redirect( admin_url( 'options-general.php?page=pilau-site-settings&done=1' ) );
+
+	}
+
 }
