@@ -15,6 +15,7 @@
  */
 add_action( 'after_setup_theme', 'pilau_setup', 10 );
 function pilau_setup() {
+	global $pilau_site_settings;
 
 	/* Enable shortcodes in widgets */
 	add_filter( 'widget_text', 'do_shortcode' );
@@ -45,6 +46,10 @@ function pilau_setup() {
 	register_nav_menus( array(
 		'nav_main'		=> __( 'Main navigation' )
 	) );
+	*/
+
+	/* Site settings
+	$pilau_site_settings = get_option( 'pilau_site_settings' );
 	*/
 
 }
@@ -110,10 +115,11 @@ function pilau_setup_after_post() {
 	 * Set to false if the current view isn't related to a singular post or page.
 	 */
 	$current_page_id = false;
-	if ( is_home() && ! is_front_page() )
+	if ( is_home() && ! is_front_page() ) {
 		$current_page_id = get_option( 'page_for_posts' );
-	else if ( is_singular() )
+	} else if ( is_singular() ) {
 		$current_page_id = $post->ID;
+	}
 	define( 'PILAU_CURRENT_PAGE_ID', $current_page_id );
 
 	/*
@@ -174,8 +180,9 @@ function pilau_enqueue_scripts() {
 		/*
 		 * Comment reply script - adjust the conditional if you need comments on post types other than 'post'
 		 */
-		if ( defined( 'PILAU_USE_COMMENTS' ) && PILAU_USE_COMMENTS && is_single() && comments_open() && get_option( 'thread_comments' ) )
+		if ( defined( 'PILAU_USE_COMMENTS' ) && PILAU_USE_COMMENTS && is_single() && comments_open() && get_option( 'thread_comments' ) ) {
 			wp_enqueue_script( 'comment-reply' );
+		}
 
 		/*
 		 * Use this to pass the AJAX URL to the client when using AJAX

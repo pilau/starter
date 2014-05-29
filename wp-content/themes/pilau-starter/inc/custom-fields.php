@@ -18,13 +18,15 @@
  * @uses slt_cf_register_box()
  * @since	Pilau_Starter 0.1
  */
-if ( function_exists( 'slt_cf_register_box') )
+if ( function_exists( 'slt_cf_register_box') ) {
 	add_action( 'init', 'pilau_register_custom_fields', 5 );
+}
 function pilau_register_custom_fields() {
 
 	// Use custom fields for Admin Columns
-	if ( class_exists( 'Codepress_Admin_Columns' ) )
+	if ( class_exists( 'Codepress_Admin_Columns' ) ) {
 		add_filter( 'cpac_use_hidden_custom_fields', '__return_true' );
+	}
 
 	/*
 	slt_cf_register_box( array(
