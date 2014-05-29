@@ -339,7 +339,7 @@ function pilau_site_settings_admin_page() {
 
 	<div class="wrap">
 
-		<h2><?php echo get_bloginfo( 'name' ) . ' ' . __( 'settings' ); ?></h2>
+		<h2><?php echo get_admin_page_title(); ?></h2>
 
 		<?php if ( isset( $_GET['done'] ) ) { ?>
 			<div class="updated"><p><strong><?php _e( 'Settings updated successfully.' ); ?></strong></p></div>
