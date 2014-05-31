@@ -29,9 +29,10 @@ function pilau_register_post_types() {
 			),
 			'public'			=> true,
 			'menu_position'		=> 20,
+			'menu_icon'			=> 'dashicons-portfolio', // @link http://melchoyce.github.io/dashicons/
 			'supports'			=> array( 'title', 'editor', 'custom-fields', 'thumbnail', 'revisions' ),
 			'taxonomies'		=> array( 'projecttype' ),
-			'rewrite'			=> array( 'slug' => 'projects', 'with_front' => false )
+			'rewrite'			=> array( 'slug' => 'project', 'with_front' => false )
 		)
 	);
 	*/
