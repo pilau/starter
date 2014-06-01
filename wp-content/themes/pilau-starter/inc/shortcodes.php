@@ -19,8 +19,10 @@
  */
 add_shortcode( 'anchor', 'pilau_anchor_link_shortcode' );
 function pilau_anchor_link_shortcode( $atts ) {
-	extract( shortcode_atts( array( "id" => '' ), $atts ) );
-	return '<a name="' . $id . '"></a>';
+	$a = shortcode_atts( array(
+		'id' => '',
+	), $atts );
+	return '<a name="' . $a['id'] . '"></a>';
 }
 
 
@@ -31,9 +33,11 @@ function pilau_anchor_link_shortcode( $atts ) {
  * @link	http://crowdfavorite.com/wordpress/plugins/expiring-content-shortcode/
  */
 add_shortcode( 'expires', 'pilau_expire_content_shortcode' );
-function pilau_expire_content_shortcode( $args = array(), $content = '' ) {
-	extract( shortcode_atts( array( 'on' => 'tomorrow' ), $args ) );
-	if ( strtotime( $on ) > time() ) {
+function pilau_expire_content_shortcode( $atts = array(), $content = '' ) {
+	$a = shortcode_atts( array(
+		'on' => 'tomorrow',
+	), $atts );
+	if ( strtotime( $a['on'] ) > time() ) {
 		return $content;
 	}
 	return '';
