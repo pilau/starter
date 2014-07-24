@@ -24,6 +24,14 @@
 </IfModule>
 
 # ----------------------------------------------------------------------
+# Redirects
+# ----------------------------------------------------------------------
+
+# These are to redirect CPT "root" URLs to the relevant listing pages
+#RewriteCond %{REQUEST_URI} ^/project[/]?$
+#RewriteRule (.*) /projects/ [R=301,L]
+
+# ----------------------------------------------------------------------
 # Force no www or force www (see http://no-www.org/)
 # ONLY USE ONE!
 # ----------------------------------------------------------------------

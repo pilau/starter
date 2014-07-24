@@ -11,6 +11,9 @@ add_action( 'init', 'pilau_register_post_types', 0 );
 function pilau_register_post_types() {
 
 	/*
+	NOTE: When defining a rewrite slug for a CPT, make it as short as possible.
+	Then use the redirects in .htaccess to redirect this slug with no CPT postname
+	to the actual listing page URL.
 	register_post_type(
 		'project', array(
 			'labels'				=> array(
