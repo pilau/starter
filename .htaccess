@@ -24,6 +24,22 @@
 </IfModule>
 
 # ----------------------------------------------------------------------
+# Holding page management
+# ----------------------------------------------------------------------
+
+# An IP address to allow past holding page
+#RewriteCond %{REMOTE_ADDR} !^xx\.xx\.xx\.xx
+# Allow any images on the holding page through
+#RewriteCond %{REQUEST_FILENAME} !\.(gif|jpe?g|png)$
+# Allow favicons
+#RewriteCond %{REQUEST_URI} !^/favicon.ico [NC]
+#RewriteCond %{REQUEST_URI} !^/apple-touch-icon.png [NC]
+# Allow the holding page
+#RewriteCond %{REQUEST_URI} !^/503.php [NC]
+# Everything else gets the holding page
+#RewriteRule .* /503.php [L]
+
+# ----------------------------------------------------------------------
 # Redirects
 # ----------------------------------------------------------------------
 
