@@ -44,6 +44,19 @@
 	wp_head();
 
 	/*
+	 * Picturefill
+	 * @link	http://scottjehl.github.io/picturefill/
+	 *
+	 * Not currently enqueued because I want to use async, and I'm not yet sure about how
+	 * async will play with enqueuing and concatenation...
+	 * @link
+	 *
+	<script src="<?php echo get_stylesheet_directory_uri() . '/js/picturefill.js?ver=2.1.0'; ?>" async="async"></script>
+	 */
+	?>
+	<?php
+
+	/*
 	* Modernizr custom build - must be in the header
 	*
 	* For features in this build, and for customizing it further, check the build URL in modernizr.js
