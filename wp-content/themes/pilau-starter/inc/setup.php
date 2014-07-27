@@ -135,28 +135,6 @@ function pilau_setup_after_post() {
 
 
 /**
- * Move scripts to the footer for better performance
- * @link	http://developer.yahoo.com/performance/rules.html#js_bottom
- *
- * You may want to disable this if you have jQuery you want to run within the page,
- * as it loads.
- *
- * Code from @link http://www.prelovac.com/vladimir/wordpress-plugins/footer-javascript
- *
- * @since	Pilau_Starter 0.1
- */
-add_action( 'after_theme_setup', 'pilau_scripts_to_footer' );
-function pilau_scripts_to_footer() {
-	remove_action( 'wp_head', 'wp_print_scripts' );
-	remove_action( 'wp_head', 'wp_print_head_scripts', 9 );
-	remove_action( 'wp_head', 'wp_enqueue_scripts', 1 );
-	add_action( 'wp_footer', 'wp_print_scripts', 5 );
-	add_action( 'wp_footer', 'wp_enqueue_scripts', 5 );
-	add_action( 'wp_footer', 'wp_print_head_scripts', 5 );
-}
-
-
-/**
  * Manage scripts for the front-end
  *
  * Always use the $ver parameter when registering or enqueuing styles or scripts, and
