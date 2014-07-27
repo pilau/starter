@@ -76,6 +76,13 @@ define( 'PILAU_USE_SETTINGS_SCRIPT', false );
 define( 'PILAU_USE_COOKIE_NOTICE', false );
 
 /**
+ * Picturefill for responsive image sizes?
+ *
+ * @since	Pilau_Starter 0.1
+ */
+define( 'PILAU_USE_PICTUREFILL', false );
+
+/**
  * Maximum length of slugs in words
  *
  * @since	Pilau_Starter 0.1
