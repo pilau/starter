@@ -142,24 +142,26 @@ function pilau_setup_after_post() {
  * (Actually this is made redundant by using Better WordPress Minify, with its
  * appended parameter - but this is a good habit to get into ;-)
  *
- * The Modernizr script has to be included in the header, so in case pilau_scripts_to_footer()
- * is used to move scripts to the footer, Modernizr is hard-coded into header.php
- *
  * @since	Pilau_Starter 0.1
  */
-add_action( 'wp_enqueue_scripts', 'pilau_enqueue_scripts', 10 );
+add_action( 'wp_enqueue_scripts', 'pilau_enqueue_scripts', 0 );
 function pilau_enqueue_scripts() {
 	// This test is done here because applying the test to the hook breaks due to pilau_is_login_page() not being defined yet...
 	if ( ! is_admin() && ! pilau_is_login_page() ) {
 
+		/*
+		 * Note: All scripts are set to enqueue in footer, but jQuery would require some de-registering
+		 * and re-registering trickery to get that in the footer safely. For now, Better WordPress Minify
+		 * is used to manage putting scripts in the footer.
+		 */
 		wp_enqueue_script( 'jquery' );
-		wp_enqueue_script( 'pilau-global', get_stylesheet_directory_uri() . '/js/global.js', array( 'jquery' ), '1.0' );
+		wp_enqueue_script( 'pilau-global', get_stylesheet_directory_uri() . '/js/global.js', array( 'jquery' ), '1.0', true );
 
 		/*
 		 * Comment reply script - adjust the conditional if you need comments on post types other than 'post'
 		 */
 		if ( defined( 'PILAU_USE_COMMENTS' ) && PILAU_USE_COMMENTS && is_single() && comments_open() && get_option( 'thread_comments' ) ) {
-			wp_enqueue_script( 'comment-reply' );
+			wp_enqueue_script( 'comment-reply', false, array(), false, true );
 		}
 
 		/*
