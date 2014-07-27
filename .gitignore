@@ -13,7 +13,8 @@
 !/wp-content/mu-plugins/
 
 # Delete these lines to version all themes
-#!/wp-content/themes/
+!/wp-content/themes/
+/wp-content/themes/*
 !/wp-content/themes/pilau-starter/
 
 # Uncomment to version plugins
