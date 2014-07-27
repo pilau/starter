@@ -5,14 +5,15 @@
 
 // Declare variables that need to be accessed in various contexts
 var pilau_body; // The body
+// Breakpoints
 var pilau_bps = {
-	'full':		1000, // This and above is "full width"
-	'tablet':	640 // This and above is "tablet width"; below is "mobile"
+	'large':	1000, // This and above is "large"
+	'medium':	640 // This and above is "medium"; below is "small"
 };
 var pilau_vw; // Viewport width
-var pilau_full; // "Full width" flag
-var pilau_tablet; // "Tablet width" flag
-var pilau_mobile; // "Mobile width" flag
+var pilau_vw_large;
+var pilau_vw_medium;
+var pilau_vw_small;
 
 /**
  * Flags for throttling window scroll and resize event functionality
@@ -30,9 +31,9 @@ jQuery( document ).ready( function( $ ) {
 		op = $( 'li#older-posts' );
 	pilau_body = $( 'body' );
 	pilau_vw = $( window ).width();
-	pilau_full = pilau_vw >= pilau_bps.full;
-	pilau_tablet = pilau_vw >= pilau_bps.tablet && pilau_vw < pilau_bps.tablet;
-	pilau_mobile = pilau_vw < pilau_bps.tablet;
+	pilau_vw_large = pilau_vw >= pilau_bps.large;
+	pilau_vw_medium = pilau_vw >= pilau_bps.medium && pilau_vw < pilau_bps.medium;
+	pilau_vw_small = pilau_vw < pilau_bps.small;
 
 
 	/** JS-dependent elements */
