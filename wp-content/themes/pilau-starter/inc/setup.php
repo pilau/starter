@@ -99,6 +99,32 @@ function pilau_core_taxonomies() {
 
 
 /**
+ * Rename "Posts" in post type object to "News"
+ *
+ * @since	Pilau_Starter 0.1
+ */
+add_action( 'init', 'pilau_change_post_object_label' );
+function pilau_change_post_object_label() {
+	global $wp_post_types;
+	$post = &$wp_post_types['post'];
+	$post->label = 'News';
+	$post->labels->name = 'News';
+	$post->labels->singular_name = 'News';
+	$post->labels->add_new = 'Add News';
+	$post->labels->add_new_item = 'Add News';
+	$post->labels->edit_item = 'Edit News';
+	$post->labels->new_item = 'News';
+	$post->labels->view_item = 'View News';
+	$post->labels->search_items = 'Search News';
+	$post->labels->not_found = 'No News found';
+	$post->labels->not_found_in_trash = 'No News found in Trash';
+	$post->labels->all_items = 'All News';
+	$post->labels->menu_name = 'News';
+	$post->labels->name_admin_bar = 'News';
+}
+
+
+/**
  * Set up that needs to happen when $post object is ready
  *
  * @since	Pilau_Starter 0.1
