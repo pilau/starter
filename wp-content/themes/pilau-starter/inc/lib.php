@@ -69,7 +69,7 @@ function pilau_teaser_text( $post_id = null, $max_words = 30, $max_paras = 0, $s
 	}
 
 	// If there's no meta description...
-	if ( ( ! function_exists( 'wpseo_get_value' ) || ! ( $teaser = trim( wpseo_get_value( 'metadesc' ) ) ) ) && function_exists( 'pilau_extract' ) ) {
+	if ( ( ! class_exists( 'WPSEO_Meta' ) || ! ( $teaser = trim( WPSEO_Meta::get_value( 'metadesc' ) ) ) ) && function_exists( 'pilau_extract' ) ) {
 
 		// Get content
 		$teaser = pilau_extract( get_post_field( 'post_content', $post_id ), $max_words, $max_paras, $strip_tags );
