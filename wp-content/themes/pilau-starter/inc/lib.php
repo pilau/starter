@@ -93,6 +93,24 @@ function pilau_tweets( $max = 4 ) {
 
 
 /**
+ * Create Twitter follow link
+ *
+ * @since	Pilau_Starter 0.1
+ * @param	string		$user
+ * @return	string
+ */
+function pilau_twitter_follow_link( $user = null ) {
+
+	if ( ! $user && defined( 'PILAU_TWITTER_SCREEN_NAME' ) && PILAU_TWITTER_SCREEN_NAME ) {
+		$user = PILAU_TWITTER_SCREEN_NAME;
+	}
+
+	return 'https://twitter.com/intent/user?screen_name=' . $user;
+
+}
+
+
+/**
  * Generate teaser text
  *
  * Tries to get WP SEO meta description; uses automated extract as fallback
