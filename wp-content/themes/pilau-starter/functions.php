@@ -83,6 +83,13 @@ define( 'PILAU_USE_COOKIE_NOTICE', false );
 define( 'PILAU_USE_PICTUREFILL', false );
 
 /**
+ * Twitter screen name
+ *
+ * @since	Pilau_Starter 0.1
+ */
+define( 'PILAU_TWITTER_SCREEN_NAME', '' );
+
+/**
  * Maximum length of slugs in words
  *
  * @since	Pilau_Starter 0.1

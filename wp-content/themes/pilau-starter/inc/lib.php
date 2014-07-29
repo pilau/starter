@@ -48,6 +48,51 @@ function pilau_share_icons( $global = false ) {
 
 
 /**
+ * Output tweets
+ *
+ * @since	Pilau_Starter 0.1
+ *
+ * @param	int		$max
+ * @return	void
+ */
+function pilau_tweets( $max = 4 ) {
+	if ( function_exists( 'getTweets' ) && defined( 'PILAU_TWITTER_SCREEN_NAME' ) && PILAU_TWITTER_SCREEN_NAME ) {
+
+		// Get tweets
+		$tweets = getTweets( $max, false, array( 'include_rts' => true ) );
+		if ( $tweets && ! array_key_exists( 'error', $tweets ) ) {
+
+			echo '<ul class="tweets">';
+
+			foreach ( $tweets as $tweet ) {
+				//echo '<pre>'; print_r( $tweet ); echo '</pre>';
+				$tweet_date = explode( ' ', $tweet['created_at'] );
+				$tweet_time = implode( ':', array_slice( explode( ':', $tweet_date[3] ), 0, 2 ) );
+				$tweet_text = $tweet['text'];
+				if ( isset( $tweet['retweeted_status']['text'] ) ) {
+					$tweet_text = 'RT: ' . $tweet['retweeted_status']['text'];
+					//$screen_name = $tweet['entities']['user_mentions'][0]['screen_name'];
+				}
+				echo '<li><p class="tweet-date"><a href="' . pilau_construct_website_url( 'twitter', PILAU_TWITTER_SCREEN_NAME ) . '/status/' . $tweet['id_str'] . '" title="Link to this tweet">' . $tweet_time . ' ' . $tweet_date[2] . ' ' . $tweet_date[1] . ' ' . $tweet_date[5] . '</a></p><p class="tweet-text"><a class="user-link" href="' . pilau_construct_website_url( 'twitter', PILAU_TWITTER_SCREEN_NAME ) . '">@' . PILAU_TWITTER_SCREEN_NAME . '</a>: ' . pilau_link_urls( esc_html( $tweet_text ) ) . '</p></li>';
+			}
+
+			echo '</ul>';
+
+		} else {
+
+			echo '<p><em>Tweets coming soon...</em></p>';
+
+		}
+
+	} else {
+
+		echo '<p><em>Tweets coming soon...</em></p>';
+
+	}
+}
+
+
+/**
  * Generate teaser text
  *
  * Tries to get WP SEO meta description; uses automated extract as fallback
