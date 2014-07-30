@@ -111,6 +111,24 @@ function pilau_twitter_follow_link( $user = null ) {
 
 
 /**
+ * Create Google map link
+ *
+ * @since	Pilau_Starter 0.1
+ * @param	string		$location
+ * @return	string
+ */
+function pilau_google_map_link( $location ) {
+	$link = '';
+
+	if ( $location && is_string( $location ) ) {
+		$link = 'https://maps.google.co.uk/?q=' . urlencode( $location );
+	}
+
+	return $link;
+}
+
+
+/**
  * Generate teaser text
  *
  * Tries to get WP SEO meta description; uses automated extract as fallback
