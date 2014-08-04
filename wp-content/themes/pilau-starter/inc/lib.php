@@ -199,3 +199,31 @@ function pilau_file_type_icon( $type ) {
 	// Return full URL
 	return trailingslashit( get_stylesheet_directory_uri() ) . 'img/icons/file-' . $icon_file_suffix . '.png';
 }
+
+
+/**
+ * Allow the multiplication of posts in query results for testing purposes
+ *
+ * @since	Pilau_Starter 0.1
+ */
+add_filter( 'the_posts', 'pilau_multiply_posts', 10, 2 );
+function pilau_multiply_posts( $posts, $query ) {
+
+	// Is the query set to multiply
+	if ( isset( $query->query['pilau_multiply'] ) && $query->query['pilau_multiply'] ) {
+
+		// Store original set of posts
+		$posts_original = $posts;
+
+		// Multiply
+		for ( $i = 1; $i < $query->query['pilau_multiply']; $i++ ) {
+			$posts = array_merge( $posts, $posts_original );
+		}
+
+		// Adjust count
+		$query->found_posts = count( $posts );
+
+	}
+
+	return $posts;
+}
