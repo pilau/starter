@@ -114,6 +114,10 @@ jQuery( document ).ready( function( $ ) {
 	 */
 	if ( op.length ) {
 
+		// Replace label
+		op.find( 'a' ).html( pilau_ajax_more_data.show_more_label );
+
+		// Click event
 		op.on( 'click', 'a', function( e ) {
 			var vars;
 			e.preventDefault();
