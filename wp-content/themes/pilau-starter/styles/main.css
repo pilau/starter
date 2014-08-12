@@ -52,6 +52,10 @@ a:active {
   position: relative;
   top: 1px;
 }
+a:active.no-button-effect {
+  position: inherit;
+  top: inherit;
+}
 /*
 Note that color:inherit was used on this to keep text the same colour as normal.
 However, inherit isn't supported by IE7, so we may as well apply the specific
@@ -75,6 +79,22 @@ form input[type=submit],
 form input[type=button] {
   -webkit-appearance: none;
 }
+/* Global JS stuff
+--------------------------------------------------------------------------------*/
+.js img.preloader {
+  position: absolute;
+  z-index: 999999;
+  top: 50%;
+  left: 50%;
+  margin-top: -17px;
+  margin-left: -17px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: 0 0 1px 2px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 0 0 1px 2px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 1px 2px rgba(0, 0, 0, 0.4);
+}
 /* Header
 -------------------------------------------------------------------------------*/
 /* Content
@@ -95,22 +115,6 @@ form input[type=button] {
 -------------------------------------------------------------------------------*/
 /* Footer
 -------------------------------------------------------------------------------*/
-/* Global JS stuff
---------------------------------------------------------------------------------*/
-.js img.preloader {
-  position: absolute;
-  z-index: 999999;
-  top: 50%;
-  left: 50%;
-  margin-top: -17px;
-  margin-left: -17px;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-  -webkit-box-shadow: 0 0 1px 2px rgba(0, 0, 0, 0.4);
-  -moz-box-shadow: 0 0 1px 2px rgba(0, 0, 0, 0.4);
-  box-shadow: 0 0 1px 2px rgba(0, 0, 0, 0.4);
-}
 /* Media queries
 --------------------------------------------------------------------------------*/
 @media only screen and (min-width: 1000px) {
