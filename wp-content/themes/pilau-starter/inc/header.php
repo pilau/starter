@@ -77,7 +77,15 @@ function pilau_head() {
  *
  * @since	Pilau_Starter 0.1
  */
-//add_filter( 'body_class', 'pilau_body_class' );
+add_filter( 'body_class', 'pilau_body_class' );
 function pilau_body_class( $classes ) {
+
+	// Signal environment for server-dependent CSS
+	if ( WP_LOCAL_DEV ) {
+		$classes[] = 'env-local';
+	} else {
+		$classes[] = 'env-' . PILAU_REMOTE_ENV;
+	}
+
 	return $classes;
 }
