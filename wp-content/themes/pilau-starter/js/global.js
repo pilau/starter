@@ -36,6 +36,12 @@ jQuery( document ).ready( function( $ ) {
 	pilau_vw_small = pilau_vw < pilau_bps.small;
 
 
+	/** Hack for IE10 styling */
+	if ( /MSIE 10\.\d+;/.test( navigator.userAgent ) ) {
+		$( 'html' ).addClass( 'ie10' ).addClass( 'lt-ie11' );
+	}
+
+
 	/** JS-dependent elements */
 	$( '.remove-if-js' ).remove();
 
