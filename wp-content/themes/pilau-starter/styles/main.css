@@ -43,7 +43,7 @@ body {
   box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.25);
 }
 /* Hide images with deferred sources if not JS */
-.no-js img[data-defer-src] {
+html.no-js img[data-defer-src] {
   display: none !important;
 }
 /* Links
@@ -81,7 +81,7 @@ form input[type=button] {
 }
 /* Global JS stuff
 --------------------------------------------------------------------------------*/
-.js img.preloader {
+html.js img.preloader {
   position: absolute;
   z-index: 999999;
   top: 50%;

@@ -22,7 +22,7 @@ body { text-align: center; }
 }
 
 /* Hide images with deferred sources if not JS */
-.no-js img[data-defer-src] { display: none !important; }
+html.no-js img[data-defer-src] { display: none !important; }
 
 
 /* Links
@@ -74,7 +74,7 @@ form {
 /* Global JS stuff
 --------------------------------------------------------------------------------*/
 
-.js {
+html.js {
 
 	img.preloader {
 		position: absolute;
@@ -118,7 +118,7 @@ form {
 /* Home page
 -------------------------------------------------------------------------------*/
 
-.home {
+body.home {
 
 
 
