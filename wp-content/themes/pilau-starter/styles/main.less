@@ -135,36 +135,11 @@ form {
 }
 
 
-/* Media queries
+/* Responsive
 --------------------------------------------------------------------------------*/
-
-// At least "large" width
-@media only screen and ( min-width: @breakpoint-large ) {
-	.hide-for-large {
-		display: none;
-	}
-}
-
-// Less than "large" width
-@media only screen and ( max-width: ( @breakpoint-large - 1px ) ) {
-}
-
-// "Medium" width
-@media only screen and ( min-width: @breakpoint-medium ) and ( max-width: ( @breakpoint-large - 1px ) ) {
-	.hide-for-medium {
-		display: none;
-	}
-}
-
-// Larger than "small"
-@media only screen and ( min-width: @breakpoint-medium ) {
-}
-
-// "Small" width
-@media only screen and ( max-width: ( @breakpoint-medium - 1px ) ) {
-	.hide-for-small {
-		display: none;
-	}
-}
+@import 'responsive.less';
 
 
+/* IE hacks
+--------------------------------------------------------------------------------*/
+@import 'ie.less';
