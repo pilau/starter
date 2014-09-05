@@ -4,6 +4,7 @@
 
 
 // Declare variables that need to be accessed in various contexts
+var pilau_html; // The html
 var pilau_body; // The body
 // Breakpoints
 var pilau_bps = {
@@ -29,6 +30,7 @@ jQuery( document ).ready( function( $ ) {
 		cn = $( '#cookie-notice' ),
 		di = $( 'img[data-defer-src]' );
 		op = $( 'li#older-posts' );
+	pilau_html = $( 'html' );
 	pilau_body = $( 'body' );
 	pilau_vw = $( window ).width();
 	pilau_vw_large = pilau_vw >= pilau_bps.large;
@@ -36,9 +38,12 @@ jQuery( document ).ready( function( $ ) {
 	pilau_vw_small = pilau_vw < pilau_bps.small;
 
 
-	/** Hack for IE10 styling */
-	if ( /MSIE 10\.\d+;/.test( navigator.userAgent ) ) {
-		$( 'html' ).addClass( 'ie10' ).addClass( 'lt-ie11' );
+	/** Hack for IE10 styling (conditional comments not supported) */
+	if ( /MSIE 10\.\d+;/.test( navigator.userAgent ) || /Trident/.test( navigator.userAgent ) ) {
+		pilau_html.addClass( 'ie' );
+		if ( /MSIE 10\.\d+;/.test( navigator.userAgent ) ) {
+			pilau_html.addClass( 'lt-ie11' );
+		}
 	}
 
 
