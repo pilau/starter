@@ -40,7 +40,7 @@ function pilau_register_custom_fields() {
 				'label'			=> 'Sample',
 				'description'	=> 'Some hints for the user.',
 				'type'			=> 'text',
-				'scope'			=>	array( 'post', 'page' ),
+				'scope'			=> array( 'post', 'page' ),
 				'capabilities'	=> array( 'edit_posts', 'edit_pages' )
 			)
 		)
