@@ -48,6 +48,41 @@ function pilau_share_icons( $global = false ) {
 
 
 /**
+ * Create plain share URLs for different social media services
+ *
+ * @since	Pilau_Starter 0.1
+ *
+ * @param	string	$service	'facebook' | 'twitter' | 'google+'
+ * @param	string	$url		Defaults to current URL
+ * @return	string
+ */
+function pilau_share_url( $service, $url = null ) {
+	$share_url = '';
+
+	if ( ! $url ) {
+		$url = get_permalink();
+	}
+
+	switch ( $service ) {
+		case 'facebook': {
+			$share_url = 'https://www.facebook.com/sharer/sharer.php?u=' . urlencode( $url );
+			break;
+		}
+		case 'twitter': {
+			$share_url = 'https://twitter.com/home?status=' . urlencode( $url );
+			break;
+		}
+		case 'google+': {
+			$share_url = 'https://plus.google.com/share?url=' . urlencode( $url );
+			break;
+		}
+	}
+
+	return $share_url;
+}
+
+
+/**
  * Output tweets
  *
  * @since	Pilau_Starter 0.1
