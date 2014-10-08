@@ -114,6 +114,9 @@ function pilau_more_posts_link( $args = null ) {
 						<?php if ( $meta_query['value'] ) { ?>,
 						'value':	'<?php echo $meta_query['value']; ?>'
 						<?php } ?>
+						<?php if ( $meta_query['compare'] ) { ?>,
+						'compare':	'<?php echo $meta_query['compare']; ?>'
+						<?php } ?>
 					},
 					<?php } ?>
 				],<?php }
