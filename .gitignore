@@ -1,4 +1,7 @@
-# Ignore WP core local dev stuff
+# Don't let the Pilau init file get committed here
+pilau-init.php
+
+# WP core local dev stuff
 /wp-admin/*
 /wp-content/*
 /wp-includes/*

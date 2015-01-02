@@ -3,7 +3,7 @@
 /**
  * Theme header
  *
- * @package	Pilau_Starter
+ * @package	[[theme-phpdoc-name]]
  * @since	0.1
  */
 
@@ -63,7 +63,7 @@ if ( PILAU_USE_COOKIE_NOTICE && ! isset( $_COOKIE['pilau_cookie_notice'] ) ) { ?
 		<div class="wrapper">
 			<div class="text">
 				<p><strong>This site uses cookies.</strong></p>
-				<p>By continuing to browse the site you are agreeing to our use of cookies. To find out more <a href="/privacy-policy/">read our privacy policy</a>.</p>
+				<p>By continuing to browse the site you are agreeing to our use of cookies. To find out more <a href="/privacy/">read our privacy policy</a>.</p>
 			</div>
 			<p class="close"><a href="?close-cookie-notice=1">Close</a></p>
 		</div>

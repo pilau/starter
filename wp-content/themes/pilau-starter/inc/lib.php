@@ -3,7 +3,7 @@
 /**
  * Library of general helper functions
  *
- * @package	Pilau_Starter
+ * @package	[[theme-phpdoc-name]]
  * @since	0.1
  */
 
@@ -11,7 +11,7 @@
 /**
  * Output post date
  *
- * @since	Pilau_Starter 0.1
+ * @since	[[theme-phpdoc-name]] 0.1
  * @uses	the_time()
  * @return	void
  */
@@ -23,7 +23,7 @@ function pilau_post_date() { ?>
 /**
  * Output social media icons
  *
- * @since	Pilau_Starter 0.1
+ * @since	[[theme-phpdoc-name]] 0.1
  *
  * @param	bool	$global		Global style?
  * @return	void
@@ -36,12 +36,12 @@ function pilau_share_icons( $global = false ) {
 	?>
 	<ul>
 		<li class="facebook img-rep"><span class="st_facebook_custom" tabindex="0" title="<?php _e( 'Share on Facebook' ); ?>"<?php echo $url; ?>>Facebook</span></li>
-		<li class="twitter img-rep"><span class="st_twitter_custom" st_via="[Twitter username]" tabindex="0" title="<?php _e( 'Share on Twitter' ); ?>"<?php echo $url; ?>>Twitter</span></li>
+		<li class="twitter img-rep"><span class="st_twitter_custom" st_via="<?php echo PILAU_TWITTER_SCREEN_NAME; ?>" tabindex="0" title="<?php _e( 'Share on Twitter' ); ?>"<?php echo $url; ?>>Twitter</span></li>
 		<li class="google img-rep"><span class="st_plusone_custom" tabindex="0" title="<?php _e( 'Share on Google Plus' ); ?>"<?php echo $url; ?>>Google+</span></li>
 		<?php if ( ! $global ) { ?>
 			<li class="email img-rep"><span class="st_email_custom" tabindex="0" title="<?php _e( 'Share by email' ); ?>"<?php echo $url; ?>>Email</span></li>
 		<?php } ?>
-		<li class="share img-rep"><span class="st_sharethis_custom" st_via="[Twitter username]" tabindex="0" title="<?php _e( 'More sharing options...' ); ?>"<?php echo $url; ?>>More sharing...</span></li>
+		<li class="share img-rep"><span class="st_sharethis_custom" st_via="<?php echo PILAU_TWITTER_SCREEN_NAME; ?>" tabindex="0" title="<?php _e( 'More sharing options...' ); ?>"<?php echo $url; ?>>More sharing...</span></li>
 	</ul>
 <?php
 }
@@ -50,7 +50,7 @@ function pilau_share_icons( $global = false ) {
 /**
  * Create plain share URLs for different social media services
  *
- * @since	Pilau_Starter 0.1
+ * @since	[[theme-phpdoc-name]] 0.1
  *
  * @param	string	$service	'facebook' | 'twitter' | 'google+'
  * @param	string	$url		Defaults to current URL
@@ -85,7 +85,7 @@ function pilau_share_url( $service, $url = null ) {
 /**
  * Output tweets
  *
- * @since	Pilau_Starter 0.1
+ * @since	[[theme-phpdoc-name]] 0.1
  *
  * @param	int		$max
  * @return	void
@@ -130,7 +130,7 @@ function pilau_tweets( $max = 4 ) {
 /**
  * Create Twitter follow link
  *
- * @since	Pilau_Starter 0.1
+ * @since	[[theme-phpdoc-name]] 0.1
  * @param	string		$user
  * @return	string
  */
@@ -141,14 +141,13 @@ function pilau_twitter_follow_link( $user = null ) {
 	}
 
 	return 'https://twitter.com/intent/user?screen_name=' . $user;
-
 }
 
 
 /**
  * Create Google map link
  *
- * @since	Pilau_Starter 0.1
+ * @since	[[theme-phpdoc-name]] 0.1
  * @param	string		$location
  * @return	string
  */
@@ -168,7 +167,7 @@ function pilau_google_map_link( $location ) {
  *
  * Tries to get WP SEO meta description; uses automated extract as fallback
  *
- * @since	Pilau_Starter 0.1
+ * @since	[[theme-phpdoc-name]] 0.1
  *
  * @param	int		$post_id	Defaults to ID of post in current loop
  * @param	int		$max_words	For extract, maximum words
@@ -199,7 +198,7 @@ function pilau_teaser_text( $post_id = null, $max_words = 30, $max_paras = 0, $s
 /**
  * Convert mime type to icon URL
  *
- * @since	Pilau_Starter 0.1
+ * @since	[[theme-phpdoc-name]] 0.1
  *
  * @param	string	$type
  * @return	string
@@ -239,7 +238,7 @@ function pilau_file_type_icon( $type ) {
 /**
  * Allow the multiplication of posts in query results for testing purposes
  *
- * @since	Pilau_Starter 0.1
+ * @since	[[theme-phpdoc-name]] 0.1
  */
 add_filter( 'the_posts', 'pilau_multiply_posts', 10, 2 );
 function pilau_multiply_posts( $posts, $query ) {

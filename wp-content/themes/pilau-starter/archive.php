@@ -3,7 +3,7 @@
 /**
  * Default archive index
  *
- * @package	Pilau_Starter
+ * @package	[[theme-phpdoc-name]]
  * @since	0.1
  */
 

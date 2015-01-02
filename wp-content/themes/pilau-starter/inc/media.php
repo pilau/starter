@@ -3,7 +3,7 @@
 /**
  * Media functions
  *
- * @package	Pilau_Starter
+ * @package	[[theme-phpdoc-name]]
  * @since	0.1
  */
 
@@ -46,7 +46,7 @@ function pilau_img_caption_shortcode_filter( $val, $attr, $content = null ) {
 /**
  * Add classes to post images
  *
- * @since	Pilau_Starter 0.1
+ * @since	[[theme-phpdoc-name]] 0.1
  */
 add_filter( 'get_image_tag_class', 'pilau_post_image_classes' );
 function pilau_post_image_classes( $class ) {
@@ -58,7 +58,7 @@ function pilau_post_image_classes( $class ) {
 /**
  * Manage default WP image attributes
  *
- * @since	Pilau_Starter 0.1
+ * @since	[[theme-phpdoc-name]] 0.1
  */
 add_filter( 'wp_get_attachment_image_attributes', 'pilau_image_attributes', 10, 2 );
 function pilau_image_attributes( $attr, $attachment ) {

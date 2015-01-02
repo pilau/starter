@@ -6,7 +6,7 @@
  * Most of our projects have an extract on the listing page rather than
  * listing whole posts; this template is geared to reflect that.
  *
- * @package	Pilau_Starter
+ * @package	[[theme-phpdoc-name]]
  * @since	0.1
  */
 

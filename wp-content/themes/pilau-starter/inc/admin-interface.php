@@ -3,7 +3,7 @@
 /**
  * Admin interface customization
  *
- * @package	Pilau_Starter
+ * @package	[[theme-phpdoc-name]]
  * @since	0.1
  */
 
@@ -11,7 +11,7 @@
 /**
  * Admin interface initialization
  *
- * @since	Pilau_Starter 0.1
+ * @since	[[theme-phpdoc-name]] 0.1
  */
 add_action( 'admin_init', 'pilau_admin_interface_init' );
 function pilau_admin_interface_init() {
@@ -25,7 +25,7 @@ function pilau_admin_interface_init() {
 	/* Disable post format UI
 	 * @link	http://wordpress.org/extend/plugins/disable-post-format-ui/
 	 */
-	add_filter( 'enable_post_format_ui', '__return_false' );
+	//add_filter( 'enable_post_format_ui', '__return_false' );
 
 	/* Set up inline hints for image sizes */
 	//add_filter( 'admin_post_thumbnail_html', 'pilau_inline_image_size_featured', 10, 2 );
@@ -47,7 +47,7 @@ function pilau_admin_interface_init() {
 /**
  * Admin scripts and styles
  *
- * @since	Pilau_Starter 0.1
+ * @since	[[theme-phpdoc-name]] 0.1
  */
 //add_action( 'admin_enqueue_scripts', 'pilau_admin_enqueue_scripts_styles', 10 );
 function pilau_admin_enqueue_scripts_styles() {
@@ -61,7 +61,7 @@ function pilau_admin_enqueue_scripts_styles() {
 /**
  * Admin notices
  *
- * @since	Pilau_Starter 0.1
+ * @since	[[theme-phpdoc-name]] 0.1
  */
 //add_action( 'admin_notices', 'pilau_admin_notices', 10 );
 function pilau_admin_notices() {
@@ -71,7 +71,7 @@ function pilau_admin_notices() {
 /**
  * Test output of $current_screen
  *
- * @since	Pilau_Starter 0.1
+ * @since	[[theme-phpdoc-name]] 0.1
  */
 //add_action( 'admin_notices', 'pilau_check_current_screen' );
 function pilau_check_current_screen() {
@@ -86,10 +86,11 @@ function pilau_check_current_screen() {
 /**
  * Admin menus
  *
- * @since	Pilau_Starter 0.1
+ * @since	[[theme-phpdoc-name]] 0.1
  */
 add_action( 'admin_menu', 'pilau_admin_menus', 10 );
 function pilau_admin_menus() {
+	global $menu, $submenu;
 
 	/* Customize standard menus
 	***************************************************************************/
@@ -112,11 +113,12 @@ function pilau_admin_menus() {
 	 * Most of our projects have "News", not "Blog"
 	 * @link http://new2wp.com/snippet/change-wordpress-posts-post-type-news/
 	 */
-	global $menu, $submenu;
-	$menu[5][0] = 'News';
-	$submenu['edit.php'][5][0] = 'News';
-	$submenu['edit.php'][10][0] = 'Add News';
-	$submenu['edit.php'][16][0] = 'News Tags';
+	if ( PILAU_RENAME_POSTS_NEWS ) {
+		$menu[5][0] = 'News';
+		$submenu['edit.php'][5][0] = 'News';
+		$submenu['edit.php'][10][0] = 'Add News';
+		$submenu['edit.php'][16][0] = 'News Tags';
+	}
 
 	/* Register new menus
 	***************************************************************************/
@@ -130,9 +132,9 @@ function pilau_admin_menus() {
 /**
  * Remove meta boxes
  *
- * @since	Pilau_Starter 0.1
+ * @since	[[theme-phpdoc-name]] 0.1
  */
-//add_action( 'add_meta_boxes', 'pilau_remove_meta_boxes', 10 );
+add_action( 'add_meta_boxes', 'pilau_remove_meta_boxes', 10 );
 function pilau_remove_meta_boxes() {
 
 	/* Publish */
@@ -168,7 +170,7 @@ function pilau_remove_meta_boxes() {
 /**
  * Inline image hints for Featured Image box
  *
- * @since	Pilau_Starter 0.1
+ * @since	[[theme-phpdoc-name]] 0.1
  * @param	string	$content
  * @return	string
  */
@@ -223,7 +225,7 @@ function pilau_admin_columns( $cols ) {
 /**
  * Customize default tiny MCE buttons
  *
- * @since	Pilau_Starter 0.1
+ * @since	[[theme-phpdoc-name]] 0.1
  * @link	http://wordpress.stackexchange.com/questions/141534/how-to-customize-tinymce4-in-wp-3-9-the-old-way-for-styles-and-formats-doesnt
  */
 add_filter( 'tiny_mce_before_init', 'pilau_tinymce_buttons' );
@@ -244,7 +246,7 @@ function pilau_tinymce_buttons( $init_array ) {
 /**
  * Disable editor for home page
  *
- * @since	Pilau_Starter 0.1
+ * @since	[[theme-phpdoc-name]] 0.1
  */
 //add_action( 'admin_head', 'pilau_disable_home_editor' );
 function pilau_disable_home_editor() {
@@ -258,23 +260,23 @@ function pilau_disable_home_editor() {
 /**
  * Disable default dashboard widgets
  *
- * @since	Pilau_Starter 0.1
+ * @since	[[theme-phpdoc-name]] 0.1
  * @link	http://codex.wordpress.org/Dashboard_Widgets_API
  */
 add_action( 'wp_dashboard_setup', 'pilau_disable_default_dashboard_widgets', 10 );
 function pilau_disable_default_dashboard_widgets() {
 
-	remove_meta_box( 'dashboard_plugins', 'dashboard', 'normal' );
-	remove_meta_box( 'dashboard_quick_press', 'dashboard', 'side' );
-	remove_meta_box( 'dashboard_primary', 'dashboard', 'side' ); /* WordPress blog */
-	remove_meta_box( 'dashboard_secondary', 'dashboard', 'side' ); /* Other WordPress News */
+	//remove_meta_box( 'dashboard_plugins', 'dashboard', 'normal' );
+	//remove_meta_box( 'dashboard_quick_press', 'dashboard', 'side' );
+	//remove_meta_box( 'dashboard_primary', 'dashboard', 'side' ); /* WordPress blog */
+	//remove_meta_box( 'dashboard_secondary', 'dashboard', 'side' ); /* Other WordPress News */
 	/**
 	 * NOTE: Right now is removed largely because this theme can be set to disable
 	 * core taxonomies (i.e. categories or tags) - and the core Right now widget
 	 * doesn't test to see if the taxonomies exist before outputting their details.
 	 * @todo Come up with a good replacement "overview" widget
 	 */
-	remove_meta_box( 'dashboard_right_now', 'dashboard', 'normal' );
+	//remove_meta_box( 'dashboard_right_now', 'dashboard', 'normal' );
 	//remove_meta_box( 'dashboard_incoming_links', 'dashboard', 'normal' );
 	//remove_meta_box( 'dashboard_recent_drafts', 'dashboard', 'normal' );
 
@@ -284,7 +286,7 @@ function pilau_disable_default_dashboard_widgets() {
 /**
  * Menus hidden columns
  *
- * @since	Pilau_Starter 0.1
+ * @since	[[theme-phpdoc-name]] 0.1
  */
 add_filter( 'get_user_option_managenav-menuscolumnshidden', 'pilau_nav_menus_columns_hidden' );
 function pilau_nav_menus_columns_hidden( $result ) {
@@ -307,7 +309,7 @@ function pilau_nav_menus_columns_hidden( $result ) {
 /**
  * Site settings admin page
  *
- * @since	Pilau_Starter 0.1
+ * @since	[[theme-phpdoc-name]] 0.1
  */
 function pilau_site_settings_admin_page() {
 	$settings = get_option( 'pilau_site_settings' );
@@ -351,7 +353,7 @@ function pilau_site_settings_admin_page() {
 /**
  * Process site settings
  *
- * @since	Pilau_Starter 0.1
+ * @since	[[theme-phpdoc-name]] 0.1
  */
 //add_action( 'admin_init', 'pilau_site_settings_admin_page_process' );
 function pilau_site_settings_admin_page_process() {

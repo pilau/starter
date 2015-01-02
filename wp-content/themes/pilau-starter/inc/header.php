@@ -6,7 +6,7 @@
  *
  * Includes dynamic additions to the header, any title manipulation, extensions to default WP classes for body and posts, etc.
  *
- * @package	Pilau_Starter
+ * @package	[[theme-phpdoc-name]]
  * @since	0.1
  */
 
@@ -14,7 +14,7 @@
 /**
  * Clean up WP header stuff
  *
- * @since	Pilau_Starter 0.1
+ * @since	[[theme-phpdoc-name]] 0.1
  */
 add_action( 'template_redirect', 'pilau_cleanup_head' );
 function pilau_cleanup_head() {
@@ -45,7 +45,7 @@ function pilau_cleanup_head() {
 /**
  * Header stuff
  *
- * @since	Pilau_Starter 0.1
+ * @since	[[theme-phpdoc-name]] 0.1
  */
 add_action( 'wp_head', 'pilau_head' );
 function pilau_head() {
@@ -75,7 +75,7 @@ function pilau_head() {
 /**
  * Add custom classes to the array of body classes
  *
- * @since	Pilau_Starter 0.1
+ * @since	[[theme-phpdoc-name]] 0.1
  */
 add_filter( 'body_class', 'pilau_body_class' );
 function pilau_body_class( $classes ) {

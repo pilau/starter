@@ -1,21 +1,24 @@
-# ----------------------------------------------------------------------
-# Password protection only on staging server
-# @link http://styles-tricks.com/snippets/htaccess/allow-single-url/#comment-75659
-# ----------------------------------------------------------------------
+## ----------------------------------------------------------------------
+## Password protection only on staging server
+## @link http://styles-tricks.com/snippets/htaccess/allow-single-url/#comment-75659
+## ----------------------------------------------------------------------
+# staging-password
 
-#SetEnvIf Host [staging-server-domain] passreq
-#AuthType Basic
-#AuthName "Staging Server"
-#AuthUserFile [staging-server-path-to-web-root]/.htpasswd
-#Require valid-user
-#Order allow,deny
-#Allow from all
-#Deny from env=passreq
-#Satisfy any
+#<IfModule mod_authn_core.c>
+	#SetEnvIf Host [[staging-domain]] passreq
+	#AuthType Basic
+	#AuthName "Staging Server"
+	#AuthUserFile [[staging-path]]/.htpasswd
+	#Require valid-user
+	#Order allow,deny
+	#Allow from all
+	#Deny from env=passreq
+	#Satisfy any
+#</IfModule>
 
-# ----------------------------------------------------------------------
-# Rewriting
-# ----------------------------------------------------------------------
+## ----------------------------------------------------------------------
+## Rewriting
+## ----------------------------------------------------------------------
 
 <IfModule mod_rewrite.c>
 	Options +FollowSymLinks
@@ -23,51 +26,51 @@
 	RewriteBase /
 </IfModule>
 
-# ----------------------------------------------------------------------
-# Holding page management
-# ----------------------------------------------------------------------
+## ----------------------------------------------------------------------
+## Holding page management
+## ----------------------------------------------------------------------
+# holding-page
 
-# An IP address to allow past holding page
-#RewriteCond %{REMOTE_ADDR} !^xx\.xx\.xx\.xx
-# Allow any images on the holding page through
-#RewriteCond %{REQUEST_FILENAME} !\.(gif|jpe?g|png)$
-# Allow favicons
-#RewriteCond %{REQUEST_URI} !^/favicon.ico [NC]
-#RewriteCond %{REQUEST_URI} !^/apple-touch-icon.png [NC]
-# Allow the holding page
-#RewriteCond %{REQUEST_URI} !^/503.php [NC]
-# Everything else gets the holding page
-#RewriteRule .* /503.php [L]
-
-# ----------------------------------------------------------------------
-# Redirects
-# ----------------------------------------------------------------------
-
-# These are to redirect CPT "root" URLs to the relevant listing pages
-#RewriteCond %{REQUEST_URI} ^/project[/]?$
-#RewriteRule (.*) /projects/ [R=301,L]
-
-# ----------------------------------------------------------------------
-# Force no www or force www (see http://no-www.org/)
-# ONLY USE ONE!
-# ----------------------------------------------------------------------
-
-# Force no www
 #<IfModule mod_rewrite.c>
-#	RewriteCond %{HTTP_HOST} ^www\.domain\.org\.uk$ [NC]
-#	RewriteRule ^(.*)$ http://domain.org.uk/$1 [R=301,L]
+	# An IP address to allow past holding page
+	#RewriteCond %{REMOTE_ADDR} !^[[holding-page-ip-escaped]]
+	# Allow any images on the holding page through
+	#RewriteCond %{REQUEST_FILENAME} !\.(gif|jpe?g|png)$
+	# Allow favicons not covered by image rule through
+	#RewriteCond %{REQUEST_URI} !^/browserconfig\.xml [NC]
+	#RewriteCond %{REQUEST_URI} !^/favicon\.ico [NC]
+	# Allow the holding page
+	#RewriteCond %{REQUEST_URI} !^/503.php [NC]
+	# Everything else gets the holding page
+	#RewriteRule .* /503.php [L]
 #</IfModule>
 
-# Force www
+## ----------------------------------------------------------------------
+## Redirects
+## ----------------------------------------------------------------------
+# redirects
+
 #<IfModule mod_rewrite.c>
-#	RewriteCond %{HTTP_HOST} ^domain\.org\.uk$ [NC]
-#	RewriteRule ^(.*)$ http://www.domain.org.uk/$1 [R=301,L]
+	# These are to redirect CPT "root" URLs to the relevant listing pages
+	#RewriteCond %{REQUEST_URI} ^/project[/]?$
+	#RewriteRule (.*) /projects/ [R=301,L]
 #</IfModule>
 
-# ----------------------------------------------------------------------
-# Gzip compression
-# @link
-# ----------------------------------------------------------------------
+## ----------------------------------------------------------------------
+## Force no www or force www (see http://no-www.org/)
+## ONLY USE ONE!
+## ----------------------------------------------------------------------
+# force-www
+
+#<IfModule mod_rewrite.c>
+	#RewriteCond %{HTTP_HOST} ^[[production-domain-to-be-redirected-escaped]]$ [NC]
+	#RewriteRule ^(.*)$ http://[[production-domain]]$1 [R=301,L]
+#</IfModule>
+
+## ----------------------------------------------------------------------
+## Gzip compression
+## @link
+## ----------------------------------------------------------------------
 
 <IfModule mod_deflate.c>
 
@@ -113,16 +116,16 @@
 
 </IfModule>
 
-# ----------------------------------------------------------------------
-# Content types
-# ----------------------------------------------------------------------
+## ----------------------------------------------------------------------
+## Content types
+## ----------------------------------------------------------------------
 
 # For polyfill scripts
 AddType text/x-component .htc
 
-# ----------------------------------------------------------------------
-# Basic security
-# ----------------------------------------------------------------------
+## ----------------------------------------------------------------------
+## Basic security
+## ----------------------------------------------------------------------
 
 # Prevent directory listing
 IndexIgnore *
@@ -145,20 +148,20 @@ IndexIgnore *
 	deny from all
 </Files>
 
-# ----------------------------------------------------------------------
-# PHP settings
-# ----------------------------------------------------------------------
+## ----------------------------------------------------------------------
+## PHP settings
+## ----------------------------------------------------------------------
 
 #php_value upload_max_filesize 20M
 #php_value post_max_size 20M
 #php_value max_execution_time 200
 #php_value max_input_time 200
 
-# ----------------------------------------------------------------------
-# HTTP headers
-# @link http://www.456bereastreet.com/archive/201103/x-ua-compatible_and_html5/
-# @link https://github.com/h5bp/html5-boilerplate/blob/master/.htaccess
-# ----------------------------------------------------------------------
+## ----------------------------------------------------------------------
+## HTTP headers
+## @link http://www.456bereastreet.com/archive/201103/x-ua-compatible_and_html5/
+## @link https://github.com/h5bp/html5-boilerplate/blob/master/.htaccess
+## ----------------------------------------------------------------------
 
 <IfModule mod_headers.c>
 	Header set X-UA-Compatible "IE=Edge,chrome=1"
@@ -168,18 +171,18 @@ IndexIgnore *
 	</FilesMatch>
 </IfModule>
 
-# ----------------------------------------------------------------------
-# WordPress rewriting
-# ----------------------------------------------------------------------
+## ----------------------------------------------------------------------
+## WordPress rewriting
+## ----------------------------------------------------------------------
 
 # BEGIN WordPress
 <IfModule mod_rewrite.c>
-RewriteEngine On
-RewriteBase /
-RewriteRule ^index\.php$ - [L]
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . /index.php [L]
+	RewriteEngine On
+	RewriteBase /
+	RewriteRule ^index\.php$ - [L]
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule . /index.php [L]
 </IfModule>
 
 # END WordPress

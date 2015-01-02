@@ -29,13 +29,13 @@ if ( file_exists( dirname( __FILE__ ) . '/wp-config-local.php' ) ) {
 
 	switch ( $_SERVER['HTTP_HOST'] ) {
 
-		case "????":
+		case "[[staging-domain]]":
 			/**
 			 * Staging server settings
 			 */
-			define( 'DB_NAME', '????' );
-			define( 'DB_USER', '????' );
-			define( 'DB_PASSWORD', '????' );
+			define( 'DB_NAME', '[[staging-db-name]]' );
+			define( 'DB_USER', '[[staging-db-user]]' );
+			define( 'DB_PASSWORD', '[[staging-db-password]]' );
 			define( 'DB_HOST', 'localhost' );
 			define( 'DB_CHARSET', 'utf8' );
 			define( 'DB_COLLATE', '' );
@@ -45,15 +45,15 @@ if ( file_exists( dirname( __FILE__ ) . '/wp-config-local.php' ) ) {
 			define( 'SCRIPT_DEBUG', false );
 			define( 'SAVEQUERIES', false );
 			// Does your server need an FTP connection for one-click updates?
-			define( 'FTP_HOST', '' );
-			define( 'FTP_USER', '' );
-			define( 'FTP_PASS', '' );
+			define( 'FTP_HOST', '[[staging-ftp-host]]' );
+			define( 'FTP_USER', '[[staging-ftp-user]]' );
+			define( 'FTP_PASS', '[[staging-ftp-password]]' );
 			define( 'WP_POST_REVISIONS', 3 );
 			define( 'AUTOSAVE_INTERVAL', 60 );
 			//define( 'EMPTY_TRASH_DAYS', 30 ); // Set to 0 to disable trash
 			//define( 'WP_MEMORY_LIMIT', '64M' );
 			//define( 'FORCE_SSL_ADMIN', true );
-			$table_prefix  = 'wp_';
+			$table_prefix  = '[[db-prefix]]';
 
 			/** Flag the remote environment */
 			define( 'PILAU_REMOTE_ENV', 'staging' );
@@ -64,9 +64,9 @@ if ( file_exists( dirname( __FILE__ ) . '/wp-config-local.php' ) ) {
 			/**
 			 * Production server settings
 			 */
-			define( 'DB_NAME', '????' );
-			define( 'DB_USER', '????' );
-			define( 'DB_PASSWORD', '????' );
+			define( 'DB_NAME', '[[production-db-name]]' );
+			define( 'DB_USER', '[[production-db-user]]' );
+			define( 'DB_PASSWORD', '[[production-db-password]]' );
 			define( 'DB_HOST', 'localhost' );
 			define( 'DB_CHARSET', 'utf8' );
 			define( 'DB_COLLATE', '' );
@@ -76,22 +76,22 @@ if ( file_exists( dirname( __FILE__ ) . '/wp-config-local.php' ) ) {
 			define( 'SCRIPT_DEBUG', false );
 			define( 'SAVEQUERIES', false );
 			// Does your server need an FTP connection for one-click updates?
-			define( 'FTP_HOST', '' );
-			define( 'FTP_USER', '' );
-			define( 'FTP_PASS', '' );
+			define( 'FTP_HOST', '[[production-ftp-host]]' );
+			define( 'FTP_USER', '[[production-ftp-user]]' );
+			define( 'FTP_PASS', '[[production-ftp-password]]' );
 			define( 'WP_POST_REVISIONS', 3 );
 			define( 'AUTOSAVE_INTERVAL', 60 );
 			//define( 'EMPTY_TRASH_DAYS', 30 ); // Set to 0 to disable trash
 			//define( 'WP_MEMORY_LIMIT', '64M' );
 			//define( 'FORCE_SSL_ADMIN', true );
-			$table_prefix  = 'wp_';
+			$table_prefix  = '[[db-prefix]]';
 
 			/** Flag the remote environment */
 			define( 'PILAU_REMOTE_ENV', 'production' );
 
 			/** WP Super Cache */
 			define( 'WP_CACHE', true );
-			define( 'WPCACHEHOME', '/var/www/vhosts/????/httpdocs/wp-content/plugins/wp-super-cache/' );
+			define( 'WPCACHEHOME', '[[production-path]]/wp-content/plugins/wp-super-cache/' );
 
 			break;
 
@@ -110,15 +110,7 @@ define( 'DISALLOW_FILE_EDIT', true );
  *
  * @since 2.6.0
  */
-define('AUTH_KEY',         '????');
-define('SECURE_AUTH_KEY',  '????');
-define('LOGGED_IN_KEY',    '????');
-define('NONCE_KEY',        '????');
-define('AUTH_SALT',        '????');
-define('SECURE_AUTH_SALT', '????');
-define('LOGGED_IN_SALT',   '????');
-define('NONCE_SALT',       '????');
-
+//[[config-keys-salts]]
 /**#@-*/
 
 /**

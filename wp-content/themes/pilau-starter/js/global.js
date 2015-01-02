@@ -291,7 +291,7 @@ function pilau_preloader_remove( e ) {
  * jQuery.get( pilau_global.ajax_url, { action: 'pilau_ajax_action' }, function( r ) { ... }).error( function( e ) { pilau_ajax_error( e ); });
  * </code>
  *
- * @since	Pilau_Starter 0.1
+ * @since	[[theme-phpdoc-name]] 0.1
  * @param	{object}	e	The error response
  * @return	void
  */

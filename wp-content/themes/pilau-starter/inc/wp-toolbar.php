@@ -3,11 +3,11 @@
 /**
  * WordPress Toolbar customization (formerly admin bar)
  *
- * @package	Pilau_Starter
+ * @package	[[theme-phpdoc-name]]
  * @since	0.1
  * @link	http://www.sitepoint.com/change-wordpress-33-toolbar/
  */
-add_action( 'admin_bar_menu', 'pilau_customize_toolbar', 100000 );
+//add_action( 'admin_bar_menu', 'pilau_customize_toolbar', 100000 );
 function pilau_customize_toolbar( $toolbar ) {
 
 	/* Remove themes */
