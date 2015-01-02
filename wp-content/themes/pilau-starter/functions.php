@@ -25,13 +25,6 @@
 define( 'PILAU_USE_COMMENTS', false );
 
 /**
- * Global flag for activating links
- *
- * @since	[[theme-phpdoc-name]] 0.1
- */
-define( 'PILAU_USE_LINKS', false );
-
-/**
  * Global flag for activating categories
  *
  * @since	[[theme-phpdoc-name]] 0.1

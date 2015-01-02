@@ -95,11 +95,6 @@ function pilau_admin_menus() {
 	/* Customize standard menus
 	***************************************************************************/
 
-	// Links
-	if ( ! PILAU_USE_LINKS ) {
-		remove_menu_page( 'link-manager.php' );
-	}
-
 	// Comments
 	if ( ! PILAU_USE_COMMENTS ) {
 		remove_menu_page( 'edit-comments.php' );
