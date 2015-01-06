@@ -146,6 +146,17 @@ date_default_timezone_set( 'Europe/London' );
 
 
 /**
+ * TMG Plugin Activation
+ *
+ * Manages required / recommended plugins
+ *
+ * @link	http://tgmpluginactivation.com/
+ *
+ * @since	[[theme-phpdoc-name]] 0.1
+ */
+require( dirname( __FILE__ ) . '/inc/class-tgm-plugin-activation.php' );
+
+/**
  * Set up theme
  *
  * - Set up theme features, nav menus
