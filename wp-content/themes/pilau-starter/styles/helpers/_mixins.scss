@@ -1,0 +1,30 @@
+/*
+ * Mixins
+ *
+ * - Use CamelCaps to distinguish from normal CSS selectors and classes
+ */
+
+// Sometimes it's necessary to add clearfix to something in CSS rather than add the class in HTML...
+@mixin ClearFix() {
+	zoom: 1;
+	&:before, &:after {
+		content: "\0020";
+		display: block;
+		height: 0;
+		overflow: hidden;
+	}
+	&:after { clear: both; }
+}
+
+/*
+Transparent background
+@link	http://stackoverflow.com/a/8009864/1087660
+*/
+@mixin TransparentBackground( $color, $alpha ) {
+	$rgba: rgba( $color, $alpha );
+	$ie-hex-str: ie-hex-str( $rgba );
+	background-color: transparent;
+	background-color: $rgba;
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#{$ie-hex-str},endColorstr=#{$ie-hex-str});
+	zoom: 1;
+}

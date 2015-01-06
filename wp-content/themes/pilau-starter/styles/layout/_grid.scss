@@ -1,0 +1,11 @@
+/*
+ * Layout grid
+ */
+
+body { text-align: center; }
+
+.wrapper {
+	width: $width-wrapper;
+	margin: 0 auto;
+	text-align: left;
+}

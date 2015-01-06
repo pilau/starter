@@ -237,6 +237,9 @@ function pilau_enqueue_scripts() {
 		 */
 		wp_enqueue_script( 'jquery' );
 		wp_enqueue_script( 'pilau-global', get_stylesheet_directory_uri() . '/js/global.js', array( 'jquery' ), '1.0', true );
+		if ( PILAU_USE_PICTUREFILL ) {
+			wp_enqueue_script( 'picturefill', get_template_directory_uri() . '/js/picturefill.min.js', array(), '2.1.0', true );
+		}
 
 		/*
 		 * Comment reply script - adjust the conditional if you need comments on post types other than 'post'
@@ -269,15 +272,9 @@ add_action( 'wp_enqueue_scripts', 'pilau_enqueue_styles', 10 );
 function pilau_enqueue_styles() {
 	// This test is done here because applying the test to the hook breaks due to pilau_is_login_page() not being defined yet...
 	if ( ! is_admin() && ! pilau_is_login_page() ) {
-		global $wp_styles; // In case we need IE-only styles with conditional wrapper
 
-		wp_enqueue_style( 'pilau-main', get_stylesheet_directory_uri() . '/styles/main.css', array( 'html5-reset', 'wp-core', 'pilau-classes' ), '1.0' );
-		wp_enqueue_style( 'pilau-print', get_stylesheet_directory_uri() . '/styles/print.css', array( 'html5-reset', 'wp-core', 'pilau-classes' ), '1.0' );
-
-		// IE-only styles
-		// BEWARE: When using Better WordPress Minify plugin, these appear before the other CSS files in the header
-		//wp_enqueue_style( 'pilau-ie', get_stylesheet_directory_uri() . '/styles/ie.css', array( 'html5-reset', 'wp-core', 'pilau-classes' ), '1.0' );
-		//$wp_styles->add_data( 'pilau-ie', 'conditional', 'lt IE 9' );
+		wp_enqueue_style( 'pilau-main', get_stylesheet_directory_uri() . '/styles/main.css', array(), '1.0' );
+		wp_enqueue_style( 'pilau-print', get_stylesheet_directory_uri() . '/styles/print.css', array(), '1.0' );
 
 	}
 }
