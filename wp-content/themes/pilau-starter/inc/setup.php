@@ -64,10 +64,7 @@ add_action( 'tgmpa_register', 'pilau_register_required_plugins' );
 function pilau_register_required_plugins() {
 
 	// Try to get plugin infos stored by pilau-init
-	if ( file_exists( ABSPATH . '.pi-plugin-infos' ) ) {
-
-		// Set plugin infos
-		$plugins = unserialize( file_get_contents( ABSPATH . '.pi-plugin-infos' ) );
+	if ( $plugin_infos = get_option( 'pi_plugin_infos' ) ) {
 
 		// Config options
 		$config = array(
@@ -101,7 +98,7 @@ function pilau_register_required_plugins() {
 		);
 
 		// Do it
-		tgmpa( $plugins, $config );
+		tgmpa( $plugin_infos, $config );
 
 	}
 

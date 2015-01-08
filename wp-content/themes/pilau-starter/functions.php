@@ -159,13 +159,16 @@ require( dirname( __FILE__ ) . '/inc/class-tgm-plugin-activation.php' );
 /**
  * Set up theme
  *
- * - Set up theme features, nav menus
- * - $post-based initialization
- * - Enqueue scripts and styles for front-end and login
- *
  * @since	[[theme-phpdoc-name]] 0.1
  */
 require( dirname( __FILE__ ) . '/inc/setup.php' );
+
+/**
+ * Configuration (deferred from Pilau Init)
+ *
+ * @since	[[theme-phpdoc-name]] 0.1
+ */
+require( dirname( __FILE__ ) . '/inc/config.php' );
 
 /**
  * Functions library
