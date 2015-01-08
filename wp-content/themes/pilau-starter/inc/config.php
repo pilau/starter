@@ -30,80 +30,92 @@ function pilau_activated_plugin( $plugin ) {
 			$plugin_slug = $plugin_parts[0];
 		}
 
-		// Check according to plugin slug
-		switch( $plugin_slug ) {
+		// Is this the first time the plugin's been activated?
+		if ( ! isset( $plugins_config['activated_once'][ $plugin_slug ] ) ) {
 
-			// Members
-			case 'members': {
+			// Check according to plugin slug
+			switch( $plugin_slug ) {
 
-				// Create Super Editor role?
-				if ( ! empty( $plugins_config['members-super-editor'] ) && $plugins_config['members-super-editor'] ) {
-					add_role(
-						'super_editor',
-						__( 'Super Editor' ),
-						array(
-							'activate_plugins' => false,
-							'add_users' => true,
-							'create_roles' => false,
-							'create_users' => true,
-							'delete_others_pages' => true,
-							'delete_others_posts' => true,
-							'delete_pages' => true,
-							'delete_plugins' => false,
-							'delete_posts' => true,
-							'delete_private_pages' => true,
-							'delete_private_posts' => true,
-							'delete_published_pages' => true,
-							'delete_published_posts' => true,
-							'delete_roles' => false,
-							'delete_themes' => false,
-							'delete_users' => true,
-							'edit_dashboard' => true,
-							'edit_files' => false,
-							'edit_others_pages' => true,
-							'edit_others_posts' => true,
-							'edit_pages' => true,
-							'edit_plugins' => false,
-							'edit_posts' => true,
-							'edit_private_pages' => true,
-							'edit_private_posts' => true,
-							'edit_published_pages' => true,
-							'edit_published_posts' => true,
-							'edit_roles' => false,
-							'edit_theme_options' => true,
-							'edit_themes' => false,
-							'edit_users' => true,
-							'export' => true,
-							'import' => true,
-							'install_plugins' => false,
-							'install_themes' => false,
-							'list_roles' => false,
-							'list_users' => true,
-							'manage_categories' => true,
-							'manage_links' => true,
-							'manage_options' => true,
-							'moderate_comments' => true,
-							'promote_users' => true,
-							'publish_pages' => true,
-							'publish_posts' => true,
-							'read' => true,
-							'read_private_pages' => true,
-							'read_private_posts' => true,
-							'remove_users' => true,
-							'restrict_content' => true,
-							'switch_themes' => false,
-							'unfiltered_html' => true,
-							'unfiltered_upload' => true,
-							'update_core' => false,
-							'update_plugins' => false,
-							'update_themes' => false,
-							'upload_files' => true,
-						)
-					);
+				// Members
+				case 'members': {
+
+					// Create Super Editor role?
+					if ( ! empty( $plugins_config['members-super-editor'] ) && $plugins_config['members-super-editor'] ) {
+						add_role(
+							'super_editor',
+							__( 'Super Editor' ),
+							array(
+								'activate_plugins' => false,
+								'add_users' => true,
+								'create_roles' => false,
+								'create_users' => true,
+								'delete_others_pages' => true,
+								'delete_others_posts' => true,
+								'delete_pages' => true,
+								'delete_plugins' => false,
+								'delete_posts' => true,
+								'delete_private_pages' => true,
+								'delete_private_posts' => true,
+								'delete_published_pages' => true,
+								'delete_published_posts' => true,
+								'delete_roles' => false,
+								'delete_themes' => false,
+								'delete_users' => true,
+								'edit_dashboard' => true,
+								'edit_files' => false,
+								'edit_others_pages' => true,
+								'edit_others_posts' => true,
+								'edit_pages' => true,
+								'edit_plugins' => false,
+								'edit_posts' => true,
+								'edit_private_pages' => true,
+								'edit_private_posts' => true,
+								'edit_published_pages' => true,
+								'edit_published_posts' => true,
+								'edit_roles' => false,
+								'edit_theme_options' => true,
+								'edit_themes' => false,
+								'edit_users' => true,
+								'export' => true,
+								'import' => true,
+								'install_plugins' => false,
+								'install_themes' => false,
+								'list_roles' => false,
+								'list_users' => true,
+								'manage_categories' => true,
+								'manage_links' => true,
+								'manage_options' => true,
+								'moderate_comments' => true,
+								'promote_users' => true,
+								'publish_pages' => true,
+								'publish_posts' => true,
+								'read' => true,
+								'read_private_pages' => true,
+								'read_private_posts' => true,
+								'remove_users' => true,
+								'restrict_content' => true,
+								'switch_themes' => false,
+								'unfiltered_html' => true,
+								'unfiltered_upload' => true,
+								'update_core' => false,
+								'update_plugins' => false,
+								'update_themes' => false,
+								'upload_files' => true,
+							)
+						);
+					}
+
+					break;
 				}
 
-				break;
 			}
+
+			// Signal that this plugin has been activated once
+			if ( ! isset( $plugins_config['activated_once'] ) ) {
+				$plugins_config['activated_once'] = array();
+			}
+			$plugins_config['activated_once'][ $plugin_slug ] = true;
+			update_option( 'pi_plugins_config', $plugins_config );
 
 		}
 
