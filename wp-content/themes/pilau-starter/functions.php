@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * Configuration and functions
  *

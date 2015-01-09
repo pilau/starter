@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * Header modifications
  *
@@ -11,12 +10,12 @@
  */
 
 
+add_action( 'template_redirect', 'pilau_cleanup_head' );
 /**
  * Clean up WP header stuff
  *
  * @since	[[theme-phpdoc-name]] 0.1
  */
-add_action( 'template_redirect', 'pilau_cleanup_head' );
 function pilau_cleanup_head() {
 
 	/* Remove generator meta tags */
@@ -42,12 +41,12 @@ function pilau_cleanup_head() {
 }
 
 
+add_action( 'wp_head', 'pilau_head' );
 /**
  * Header stuff
  *
  * @since	[[theme-phpdoc-name]] 0.1
  */
-add_action( 'wp_head', 'pilau_head' );
 function pilau_head() {
 	global $cpage, $post;
 
@@ -72,12 +71,12 @@ function pilau_head() {
 }
 
 
+add_filter( 'body_class', 'pilau_body_class' );
 /**
  * Add custom classes to the array of body classes
  *
  * @since	[[theme-phpdoc-name]] 0.1
  */
-add_filter( 'body_class', 'pilau_body_class' );
 function pilau_body_class( $classes ) {
 
 	// Signal environment for server-dependent CSS

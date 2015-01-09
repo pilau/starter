@@ -1,5 +1,6 @@
 <?php
 
+//add_action( 'admin_bar_menu', 'pilau_customize_toolbar', 100000 );
 /**
  * WordPress Toolbar customization (formerly admin bar)
  *
@@ -7,7 +8,6 @@
  * @since	0.1
  * @link	http://www.sitepoint.com/change-wordpress-33-toolbar/
  */
-//add_action( 'admin_bar_menu', 'pilau_customize_toolbar', 100000 );
 function pilau_customize_toolbar( $toolbar ) {
 
 	/* Remove themes */

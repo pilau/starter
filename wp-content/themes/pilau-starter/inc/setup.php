@@ -8,12 +8,12 @@
  */
 
 
+add_action( 'after_setup_theme', 'pilau_setup', 10 );
 /**
  * Set up theme
  *
  * @since	[[theme-phpdoc-name]] 0.1
  */
-add_action( 'after_setup_theme', 'pilau_setup', 10 );
 function pilau_setup() {
 	global $pilau_site_settings;
 
@@ -25,6 +25,18 @@ function pilau_setup() {
 	 * @see inc/feeds.php
 	 */
 	remove_theme_support( 'automatic-feed-links' );
+
+	/*
+	 * Override main image size settings
+	 * These shouldn't be set via admin!
+	 */
+	add_filter( 'option_thumbnail_size_w', function() { return 100; } );
+	add_filter( 'option_thumbnail_size_h', function() { return 100; } );
+	add_filter( 'option_thumbnail_crop', function() { return 1; } );
+	add_filter( 'option_medium_size_w', function() { return 250; } );
+	add_filter( 'option_medium_size_h', function() { return 0; } );
+	add_filter( 'option_large_size_w', function() { return 800; } );
+	add_filter( 'option_large_size_h', function() { return 0; } );
 
 	/* Featured image */
 	add_theme_support( 'post-thumbnails' );
@@ -105,14 +117,15 @@ function pilau_register_required_plugins() {
 }
 
 
+if ( PILAU_USE_COOKIE_NOTICE ) {
+	add_action( 'init', 'pilau_cookie_notice' );
+}
 /**
  * Cookie notice handling
  *
  * @since	[[theme-phpdoc-name]] 0.1
  * @todo	Implement more sophisticated cookie handling (JS?) to hide notice for users who have disabled cookies
  */
-if ( PILAU_USE_COOKIE_NOTICE )
-	add_action( 'init', 'pilau_cookie_notice' );
 function pilau_cookie_notice() {
 
 	// Check for this domain in referrer
@@ -127,35 +140,37 @@ function pilau_cookie_notice() {
 }
 
 
+add_action( 'init', 'pilau_core_taxonomies' );
 /**
  * Manage core taxonomies
  *
  * @since	[[theme-phpdoc-name]] 0.1
  * @link	http://w4dev.com/wp/remove-taxonomy/
  */
-add_action( 'init', 'pilau_core_taxonomies' );
 function pilau_core_taxonomies() {
 	global $wp_taxonomies;
 
 	/* Disable categories? */
-	if ( taxonomy_exists( 'category' ) && ! PILAU_USE_CATEGORIES )
+	if ( taxonomy_exists( 'category' ) && ! PILAU_USE_CATEGORIES ) {
 		unset( $wp_taxonomies['category'] );
+	}
 
 	/* Disable tags? */
-	if ( taxonomy_exists( 'post_tag' ) && ! PILAU_USE_TAGS )
+	if ( taxonomy_exists( 'post_tag' ) && ! PILAU_USE_TAGS ) {
 		unset( $wp_taxonomies['post_tag'] );
+	}
 
 }
 
 
+if ( PILAU_RENAME_POSTS_NEWS ) {
+	add_action( 'init', 'pilau_change_post_object_label' );
+}
 /**
  * Rename "Posts" in post type object to "News"
  *
  * @since	[[theme-phpdoc-name]] 0.1
  */
-if ( PILAU_RENAME_POSTS_NEWS ) {
-	add_action( 'init', 'pilau_change_post_object_label' );
-}
 function pilau_change_post_object_label() {
 	global $wp_post_types;
 	$post = &$wp_post_types['post'];
@@ -176,12 +191,12 @@ function pilau_change_post_object_label() {
 }
 
 
+add_action( 'template_redirect', 'pilau_setup_after_post' );
 /**
  * Set up that needs to happen when $post object is ready
  *
  * @since	[[theme-phpdoc-name]] 0.1
  */
-add_action( 'template_redirect', 'pilau_setup_after_post' );
 function pilau_setup_after_post() {
 	global $pilau_custom_fields, $post;
 	$pilau_custom_fields = array();
@@ -203,8 +218,9 @@ function pilau_setup_after_post() {
 	/*
 	 * Get all custom fields for current post
 	 */
-	//if ( PILAU_CURRENT_PAGE_ID && function_exists( 'slt_cf_all_field_values' ) )
+	//if ( PILAU_CURRENT_PAGE_ID && function_exists( 'slt_cf_all_field_values' ) ) {
 	//	$pilau_custom_fields = slt_cf_all_field_values( 'post', $current_page_id );
+	//}
 
 	// De-activate removal of menu item IDs from Pilau Base
 	//remove_filter( 'nav_menu_item_id', '__return_empty_array', 10000 );
@@ -212,6 +228,7 @@ function pilau_setup_after_post() {
 }
 
 
+add_action( 'wp_enqueue_scripts', 'pilau_enqueue_scripts', 0 );
 /**
  * Manage scripts for the front-end
  *
@@ -222,7 +239,6 @@ function pilau_setup_after_post() {
  *
  * @since	[[theme-phpdoc-name]] 0.1
  */
-add_action( 'wp_enqueue_scripts', 'pilau_enqueue_scripts', 0 );
 function pilau_enqueue_scripts() {
 	// This test is done here because applying the test to the hook breaks due to pilau_is_login_page() not being defined yet...
 	if ( ! is_admin() && ! pilau_is_login_page() ) {
@@ -255,6 +271,7 @@ function pilau_enqueue_scripts() {
 }
 
 
+add_action( 'wp_enqueue_scripts', 'pilau_enqueue_styles', 10 );
 /**
  * Manage styles for the front-end
  *
@@ -265,7 +282,6 @@ function pilau_enqueue_scripts() {
  *
  * @since	[[theme-phpdoc-name]] 0.1
  */
-add_action( 'wp_enqueue_scripts', 'pilau_enqueue_styles', 10 );
 function pilau_enqueue_styles() {
 	// This test is done here because applying the test to the hook breaks due to pilau_is_login_page() not being defined yet...
 	if ( ! is_admin() && ! pilau_is_login_page() ) {
@@ -277,12 +293,12 @@ function pilau_enqueue_styles() {
 }
 
 
+//add_action( 'login_head', 'pilau_login_styles_scripts', 10000 );
 /**
  * Login styles and scripts
  *
  * @since	[[theme-phpdoc-name]] 0.1
  */
-//add_action( 'login_head', 'pilau_login_styles_scripts', 10000 );
 function pilau_login_styles_scripts() { ?>
 	<link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri() . '/styles/wp-login.css'; ?>">
 <?php }

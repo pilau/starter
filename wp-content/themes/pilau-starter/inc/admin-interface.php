@@ -8,12 +8,12 @@
  */
 
 
+add_action( 'admin_init', 'pilau_admin_interface_init' );
 /**
  * Admin interface initialization
  *
  * @since	[[theme-phpdoc-name]] 0.1
  */
-add_action( 'admin_init', 'pilau_admin_interface_init' );
 function pilau_admin_interface_init() {
 
 	/* Enable HTML markup in user profiles */
@@ -44,12 +44,12 @@ function pilau_admin_interface_init() {
 }
 
 
+//add_action( 'admin_enqueue_scripts', 'pilau_admin_enqueue_scripts_styles', 10 );
 /**
  * Admin scripts and styles
  *
  * @since	[[theme-phpdoc-name]] 0.1
  */
-//add_action( 'admin_enqueue_scripts', 'pilau_admin_enqueue_scripts_styles', 10 );
 function pilau_admin_enqueue_scripts_styles() {
 
 	wp_enqueue_style( 'pilau-admin-css', get_stylesheet_directory_uri() . '/styles/wp-admin.css', array(), '1.0' );
@@ -58,22 +58,22 @@ function pilau_admin_enqueue_scripts_styles() {
 }
 
 
+//add_action( 'admin_notices', 'pilau_admin_notices', 10 );
 /**
  * Admin notices
  *
  * @since	[[theme-phpdoc-name]] 0.1
  */
-//add_action( 'admin_notices', 'pilau_admin_notices', 10 );
 function pilau_admin_notices() {
 
 }
 
+//add_action( 'admin_notices', 'pilau_check_current_screen' );
 /**
  * Test output of $current_screen
  *
  * @since	[[theme-phpdoc-name]] 0.1
  */
-//add_action( 'admin_notices', 'pilau_check_current_screen' );
 function pilau_check_current_screen() {
 	if ( ! is_admin() || ! current_user_can( 'update_core' ) ) {
 		return;
@@ -83,12 +83,12 @@ function pilau_check_current_screen() {
 }
 
 
+add_action( 'admin_menu', 'pilau_admin_menus', 10 );
 /**
  * Admin menus
  *
  * @since	[[theme-phpdoc-name]] 0.1
  */
-add_action( 'admin_menu', 'pilau_admin_menus', 10 );
 function pilau_admin_menus() {
 	global $menu, $submenu;
 
@@ -124,12 +124,12 @@ function pilau_admin_menus() {
 }
 
 
+add_action( 'add_meta_boxes', 'pilau_remove_meta_boxes', 10 );
 /**
  * Remove meta boxes
  *
  * @since	[[theme-phpdoc-name]] 0.1
  */
-add_action( 'add_meta_boxes', 'pilau_remove_meta_boxes', 10 );
 function pilau_remove_meta_boxes() {
 
 	/* Publish */
@@ -145,13 +145,13 @@ function pilau_remove_meta_boxes() {
 	//remove_meta_box( 'slugdiv', 'post', 'normal' );
 
 	/* Excerpt */
-	//remove_meta_box( 'postexcerpt', 'post', 'normal' );
+	remove_meta_box( 'postexcerpt', 'post', 'normal' );
 
 	/* Post format */
 	//remove_meta_box( 'formatdiv', 'post', 'normal' );
 
 	/* Trackbacks */
-	//remove_meta_box( 'trackbacksdiv', 'post', 'normal' );
+	remove_meta_box( 'trackbacksdiv', 'post', 'normal' );
 
 	/* Featured image */
 	//remove_meta_box( 'postimagediv', 'post', 'side' );
@@ -189,8 +189,9 @@ function pilau_inline_image_size_featured( $content ) {
 			break;
 	}
 
-	if ( $hint )
+	if ( $hint ) {
 		$content = '<p><i>' . $hint . '</i></p>' . $content;
+	}
 
 	return $content;
 }
@@ -217,13 +218,13 @@ function pilau_admin_columns( $cols ) {
 }
 
 
+add_filter( 'tiny_mce_before_init', 'pilau_tinymce_buttons' );
 /**
  * Customize default tiny MCE buttons
  *
  * @since	[[theme-phpdoc-name]] 0.1
  * @link	http://wordpress.stackexchange.com/questions/141534/how-to-customize-tinymce4-in-wp-3-9-the-old-way-for-styles-and-formats-doesnt
  */
-add_filter( 'tiny_mce_before_init', 'pilau_tinymce_buttons' );
 function pilau_tinymce_buttons( $init_array ) {
 	//echo '<pre>'; print_r( $init_array ); echo '</pre>'; exit;
 
@@ -238,12 +239,12 @@ function pilau_tinymce_buttons( $init_array ) {
 }
 
 
+//add_action( 'admin_head', 'pilau_disable_home_editor' );
 /**
  * Disable editor for home page
  *
  * @since	[[theme-phpdoc-name]] 0.1
  */
-//add_action( 'admin_head', 'pilau_disable_home_editor' );
 function pilau_disable_home_editor() {
 	global $post;
 	if ( $post->ID == PILAU_HOME_PAGE_ID ) {
@@ -252,13 +253,13 @@ function pilau_disable_home_editor() {
 }
 
 
+add_action( 'wp_dashboard_setup', 'pilau_disable_default_dashboard_widgets', 10 );
 /**
  * Disable default dashboard widgets
  *
  * @since	[[theme-phpdoc-name]] 0.1
  * @link	http://codex.wordpress.org/Dashboard_Widgets_API
  */
-add_action( 'wp_dashboard_setup', 'pilau_disable_default_dashboard_widgets', 10 );
 function pilau_disable_default_dashboard_widgets() {
 
 	//remove_meta_box( 'dashboard_plugins', 'dashboard', 'normal' );
@@ -278,12 +279,12 @@ function pilau_disable_default_dashboard_widgets() {
 }
 
 
+add_filter( 'get_user_option_managenav-menuscolumnshidden', 'pilau_nav_menus_columns_hidden' );
 /**
  * Menus hidden columns
  *
  * @since	[[theme-phpdoc-name]] 0.1
  */
-add_filter( 'get_user_option_managenav-menuscolumnshidden', 'pilau_nav_menus_columns_hidden' );
 function pilau_nav_menus_columns_hidden( $result ) {
 
 	/** Description always on */
@@ -345,12 +346,12 @@ function pilau_site_settings_admin_page() {
 }
 
 
+//add_action( 'admin_init', 'pilau_site_settings_admin_page_process' );
 /**
  * Process site settings
  *
  * @since	[[theme-phpdoc-name]] 0.1
  */
-//add_action( 'admin_init', 'pilau_site_settings_admin_page_process' );
 function pilau_site_settings_admin_page_process() {
 
 	// Submitted?

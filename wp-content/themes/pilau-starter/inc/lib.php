@@ -85,6 +85,8 @@ function pilau_share_url( $service, $url = null ) {
 /**
  * Output tweets
  *
+ * Works with oAuth Twitter Feed for Developers plugin
+ *
  * @since	[[theme-phpdoc-name]] 0.1
  *
  * @param	int		$max
@@ -195,52 +197,12 @@ function pilau_teaser_text( $post_id = null, $max_words = 30, $max_paras = 0, $s
 }
 
 
-/**
- * Convert mime type to icon URL
- *
- * @since	[[theme-phpdoc-name]] 0.1
- *
- * @param	string	$type
- * @return	string
- */
-function pilau_file_type_icon( $type ) {
-	$icon_file_suffix = 'unknown';
-
-	// Make the type simple
-	$type = pilau_simple_file_type( $type );
-
-	// Determine the icon
-	switch ( strtolower( $type ) ) {
-		case 'doc':
-		case 'pdf':
-		case 'txt':
-		case 'xls':
-		case 'zip':
-			$icon_file_suffix = $type;
-			break;
-		case 'mp3':
-		case 'wav':
-			$icon_file_suffix = 'audio';
-			break;
-		case 'mp4':
-		case 'mov':
-		case 'avi':
-		case 'mkv':
-			$icon_file_suffix = 'video';
-			break;
-	}
-
-	// Return full URL
-	return trailingslashit( get_stylesheet_directory_uri() ) . 'img/icons/file-' . $icon_file_suffix . '.png';
-}
-
-
+add_filter( 'the_posts', 'pilau_multiply_posts', 10, 2 );
 /**
  * Allow the multiplication of posts in query results for testing purposes
  *
  * @since	[[theme-phpdoc-name]] 0.1
  */
-add_filter( 'the_posts', 'pilau_multiply_posts', 10, 2 );
 function pilau_multiply_posts( $posts, $query ) {
 
 	// Is the query set to multiply

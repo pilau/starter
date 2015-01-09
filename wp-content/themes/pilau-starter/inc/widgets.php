@@ -8,12 +8,12 @@
  */
 
 
+add_action( 'widgets_init', 'pilau_register_sidebars' );
 /**
  * Register sidebars
  *
  * @since	[[theme-phpdoc-name]] 0.1
  */
-add_action( 'widgets_init', 'pilau_register_sidebars' );
 function pilau_register_sidebars() {
 
 	/* Primary sidebar */
@@ -29,12 +29,12 @@ function pilau_register_sidebars() {
 }
 
 
+add_action( 'widgets_init', 'pilau_unregister_widgets', 1 );
 /**
  * Unregister some default widgets
  *
  * @since	[[theme-phpdoc-name]] 0.1
  */
-add_action( 'widgets_init', 'pilau_unregister_widgets', 1 );
 function pilau_unregister_widgets() {
 	unregister_widget( 'WP_Widget_Links' );
 	unregister_widget( 'WP_Widget_Meta' );
@@ -57,15 +57,15 @@ function pilau_unregister_widgets() {
 }
 
 
+if ( function_exists( 'slt_obfuscate_email' ) ) {
+	add_filter( 'widget_text', 'pilau_widget_email_obfuscation' );
+}
 /**
  * Obfuscate emails in widgets
  *
  * @since	[[theme-phpdoc-name]] 0.1
  * @uses	pilau_obfuscate_email()
  */
-if ( function_exists( 'slt_obfuscate_email' ) ) {
-	add_filter( 'widget_text', 'pilau_widget_email_obfuscation' );
-}
 function slt_widget_email_obfuscation( $text ) {
 	return preg_replace_callback( '/[\._a-zA-Z0-9-]+@[\._a-zA-Z0-9-]+/i', create_function( '$matches', 'return pilau_obfuscate_email( $matches[0] );' ), $text );
 }

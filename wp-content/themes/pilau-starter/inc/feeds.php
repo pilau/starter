@@ -11,6 +11,7 @@
  */
 
 
+add_action( 'wp_head', 'pilau_feed_links' );
 /**
  * Pilau feed links
  *
@@ -23,7 +24,6 @@
  *
  * @since	[[theme-phpdoc-name]] 0.1
  */
-add_action( 'wp_head', 'pilau_feed_links' );
 function pilau_feed_links() {
 
 	$defaults = array(

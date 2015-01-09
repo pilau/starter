@@ -8,6 +8,11 @@
  */
 
 add_action( 'init', 'pilau_register_taxonomies', 0 );
+/**
+ * Register custom taxonomies
+ *
+ * @since	0.1
+ */
 function pilau_register_taxonomies() {
 
 	/*

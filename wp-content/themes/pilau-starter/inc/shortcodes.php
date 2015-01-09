@@ -11,13 +11,13 @@
  */
 
 
+//add_shortcode( 'anchor', 'pilau_anchor_link_shortcode' );
 /**
  * Anchor link
  *
  * @since	[[theme-phpdoc-name]] 0.1
  * @uses	shortcode_atts()
  */
-//add_shortcode( 'anchor', 'pilau_anchor_link_shortcode' );
 function pilau_anchor_link_shortcode( $atts ) {
 	$a = shortcode_atts( array(
 		'id' => '',
@@ -26,13 +26,13 @@ function pilau_anchor_link_shortcode( $atts ) {
 }
 
 
+//add_shortcode( 'expires', 'pilau_expire_content_shortcode' );
 /**
  * Expire content
  *
  * @since	[[theme-phpdoc-name]] 0.1
  * @link	http://crowdfavorite.com/wordpress/plugins/expiring-content-shortcode/
  */
-//add_shortcode( 'expires', 'pilau_expire_content_shortcode' );
 function pilau_expire_content_shortcode( $atts = array(), $content = '' ) {
 	$a = shortcode_atts( array(
 		'on' => 'tomorrow',

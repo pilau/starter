@@ -12,15 +12,15 @@
  */
 
 
+if ( function_exists( 'slt_cf_register_box') ) {
+	add_action( 'init', 'pilau_register_custom_fields', 5 );
+}
 /**
  * Register custom fields
  *
  * @uses slt_cf_register_box()
  * @since	[[theme-phpdoc-name]] 0.1
  */
-if ( function_exists( 'slt_cf_register_box') ) {
-	add_action( 'init', 'pilau_register_custom_fields', 5 );
-}
 function pilau_register_custom_fields() {
 
 	// Use custom fields for Admin Columns
