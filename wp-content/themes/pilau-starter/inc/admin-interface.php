@@ -109,10 +109,10 @@ function pilau_admin_menus() {
 	 * @link http://new2wp.com/snippet/change-wordpress-posts-post-type-news/
 	 */
 	if ( PILAU_RENAME_POSTS_NEWS ) {
+		//echo '<pre>'; print_r( $menu ); echo '</pre>';
+		//echo '<pre>'; print_r( $submenu ); echo '</pre>'; exit;
 		$menu[5][0] = 'News';
-		$submenu['edit.php'][5][0] = 'News';
-		$submenu['edit.php'][10][0] = 'Add News';
-		$submenu['edit.php'][16][0] = 'News Tags';
+		$submenu['edit.php'][5][0] = 'All News';
 	}
 
 	/* Register new menus
