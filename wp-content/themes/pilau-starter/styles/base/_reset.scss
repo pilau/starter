@@ -158,8 +158,10 @@ html.no-js img[data-defer-src] { display: none !important; }
 /* Don't display at all */
 .no-js .hide-if-no-js, .js .hide-if-js { display: none; }
 
-/* Text meant only for screen readers
-@link http://adaptivethemes.com/comment/1386 */
+/*
+Text meant only for screen readers
+@link   http://adaptivethemes.com/comment/1386
+*/
 .assistive-text {
 	clip: rect( 1px, 1px, 1px, 1px );
 	position: absolute !important;
@@ -193,18 +195,18 @@ Image replacement basics - just add dimensions and an image!
 }
 
 // Generic responsive stuff
-@media only screen and ( min-width: $breakpoint-large ) {
-	.hide-for-large {
+@include Desktop {
+	.hide-for-desktop {
 		display: none;
 	}
 }
-@media only screen and ( min-width: $breakpoint-medium ) and ( max-width: ( $breakpoint-large - 1px ) ) {
-	.hide-for-medium {
+@include Tablet {
+	.hide-for-tablet {
 		display: none;
 	}
 }
-@media only screen and ( max-width: ( $breakpoint-medium - 1px ) ) {
-	.hide-for-small {
+@include Mobile {
+	.hide-for-mobile {
 		display: none;
 	}
 }
