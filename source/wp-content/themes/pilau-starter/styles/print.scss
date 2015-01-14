@@ -1,0 +1,60 @@
+/* Import variables */
+@import 'helpers/_variables.scss';
+
+/* Print styles
+-------------------------------------------------------------------------------*/
+
+@media print {
+
+	/* Reset from http://www.1stwebdesigner.com/design/snippets-html5-boilerplate/ */
+	* {
+		background: transparent !important;
+		color: #444 !important;
+		text-shadow: none;
+	}
+	a, a:visited {
+		color: #444 !important;
+		text-decoration: underline;
+	}
+	a:after { content: " (" attr(href) ")"; }
+	abbr:after { content: " (" attr(title) ")"; }
+	.ir a:after { content: ""; }  /* Don't show links for images */
+	pre, blockquote {
+		border: 1px solid #999;
+		page-break-inside: avoid;
+	}
+	img { page-break-inside: avoid; }
+	@page { margin: 0.5cm; }
+	p, h2, h3 {
+		orphans: 3;
+		widows: 3;
+	}
+	h2, h3 { page-break-after: avoid; }
+
+	/* Pilau stuff */
+
+	.print-only { display: block; }
+	.noprint { display: none; }
+
+	body {
+		font: 12pt/130% Georgia, Times, "Times New Roman", serif;
+		background: #fff;
+		color: #000;
+	}
+	a {
+		color: #369;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	a img { border: none; }
+	p, ul, ol, dl { margin: 0 0 1em 0; }
+	dt { font-weight: bold; }
+	dd { padding: 0; margin: 0 0 .5em 0; }
+	ul, ol { padding: 0 2em; }
+	blockquote { margin: 1.5em 3em; font-size: .9em; font-style: italic; }
+	code { font: 1em "Courier New", Courier, monospace; }
+	hr { margin: 1em 0; }
+
+}
+
+

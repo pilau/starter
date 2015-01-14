@@ -1,0 +1,17 @@
+/*
+ * Global SASS variables
+ *
+ * - Try to name vars with their type at the start, e.g. @color-background. This
+ * can help with IDE auto-completion.
+*/
+
+/* Fonts */
+$font-stack-regular: Helvetica, Arial, sans-serif;
+
+/* Colours */
+$color-background: #fff;
+$color-body-text: #333;
+
+/* Measurements */
+$breakpoint-large: 1000px;
+$breakpoint-medium: 640px;

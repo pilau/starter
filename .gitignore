@@ -1,29 +1,28 @@
 # Don't let the Pilau init file get committed here
 pilau-init.php
 
-# WP core local dev stuff
-/wp-admin/*
-/wp-content/*
-/wp-includes/*
-/index.php
-/license.txt
-/readme.html
-/wp-*.php
-/xmlrpc.php
+#
+
+# WP core
+/public/wp-admin/*
+/public/wp-content/*
+/public/wp-includes/*
+/public/index.php
+/public/license.txt
+/public/readme.html
+/public/wp-*.php
+/public/xmlrpc.php
 
 # Exceptions
-!/wp-config.php
-!/wp-content/mu-plugins/
+!/public/wp-config.php
+!/public/wp-content/mu-plugins/
 
 # Delete these lines to version all themes
-!/wp-content/themes/
-/wp-content/themes/*
-!/wp-content/themes/pilau-starter/
+!/public/wp-content/themes/
+/public/wp-content/themes/*
+!/public/wp-content/themes/pilau-starter/
 
-# Uncomment to version plugins
-#!/wp-content/plugins/
-# And make sure to exclude any caches inside plugin folders
-#/wp-content/plugins/bwp-minify/cache/*
+# Plugins not versioned in order to use InfiniteWP
 
 # Interconnect IT WP data migration script - http://interconnectit.com/124/search-and-replace-for-wordpress-databases/
 searchreplacedb2.php
