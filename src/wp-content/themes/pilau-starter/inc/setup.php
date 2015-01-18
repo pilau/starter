@@ -250,9 +250,6 @@ function pilau_enqueue_scripts() {
 		 */
 		wp_enqueue_script( 'jquery' );
 		wp_enqueue_script( 'pilau-global', get_stylesheet_directory_uri() . '/js/global.js', array( 'jquery' ), '1.0', true );
-		if ( PILAU_USE_PICTUREFILL ) {
-			wp_enqueue_script( 'picturefill', get_template_directory_uri() . '/js/picturefill.min.js', array(), '2.1.0', true );
-		}
 
 		/*
 		 * Comment reply script - adjust the conditional if you need comments on post types other than 'post'

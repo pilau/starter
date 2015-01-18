@@ -1,7 +1,14 @@
+# Ignore node module to avoid clutter in the git repo
+# Use npm install to get local copies of all required packages
+/node_modules/
+
 # Don't let the Pilau init file get committed here
 pilau-init.php
 
-#
+# Ignore node module to avoid clutter in the git repo
+# Use npm install to get local copies of all required packages
+/node_modules/
+npm-debug.log
 
 # WP core
 /public/wp-admin/*
