@@ -37,6 +37,15 @@
 	<link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
 
 	<?php
+	/*
+	 * livereload
+	 * @link	https://github.com/gruntjs/grunt-contrib-watch/blob/master/docs/watch-examples.md#enabling-live-reload-in-your-html
+	 */
+	if ( WP_LOCAL_DEV ) { ?>
+		<script src="//127.0.0.1:35729/livereload.js"></script>
+	<?php } ?>
+
+	<?php
 
 	/*
 	 * For any HTML header code that requires PHP processing, hook to wp_head

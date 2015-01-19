@@ -1,21 +1,18 @@
 module.exports = function(grunt) {
 
-
 	// Set some vars
 	var themeName  = '<%= pkg.name %>';
-	var devDir  = 'src/';
-	var distDir = 'public/';
+	var srcDir  = 'src/';
+	var publicDir = 'public/';
 	var themeDir = 'wp-content/themes/' + themeName + '/';
-	var devThemeDir = devDir + themeDir;
-	var distThemeDir = distDir + themeDir;
+	var srcThemeDir = srcDir + themeDir;
+	var publicThemeDir = publicDir + themeDir;
 
 	// Set up the CSS files object
 	var sassFilesObject = {};
-	sassFilesObject[distThemeDir + 'styles/admin.css'] = devThemeDir + 'styles/admin.scss';
-	sassFilesObject[distThemeDir + 'styles/main.css'] = devThemeDir + 'styles/main.scss';
-	sassFilesObject[distThemeDir + 'styles/print.css'] = devThemeDir + 'styles/print.scss';
-
-
+	sassFilesObject[publicThemeDir + 'styles/admin.css'] = srcThemeDir + 'styles/admin.scss';
+	sassFilesObject[publicThemeDir + 'styles/main.css'] = srcThemeDir + 'styles/main.scss';
+	sassFilesObject[publicThemeDir + 'styles/print.css'] = srcThemeDir + 'styles/print.scss';
 
 	// Load NPM tasks
 	require( 'matchdep' ).filterDev( 'grunt-*' ).forEach( grunt.loadNpmTasks );
@@ -27,10 +24,10 @@ module.exports = function(grunt) {
 	grunt.registerTask( 'js_changed',			['copy:js'] );
 	grunt.registerTask( 'root_changed',			['copy:root'] );
 
-	// Other custom tasks
+	// Default tasks
 	grunt.registerTask( 'default', ['watch'] );
 
-	// Define tasks
+	// Config tasks
 	grunt.initConfig({
 
 		// Read in the grunt modules
@@ -57,8 +54,8 @@ module.exports = function(grunt) {
 			default: {
 				expand: true,
 				flatten: true,
-				src: distThemeDir + '/styles/*.css',
-				dest: distThemeDir + '/styles/',
+				src: publicThemeDir + '/styles/*.css',
+				dest: publicThemeDir + '/styles/',
 			},
 		},
 
@@ -67,33 +64,33 @@ module.exports = function(grunt) {
 			php: {
 				files: [{
 					expand: true,
-					cwd: devThemeDir,
+					cwd: srcThemeDir,
 					src: ['**/*.php'],
-					dest: distThemeDir,
+					dest: publicThemeDir,
 				}],
 			},
 			img: {
 				files: [{
 					expand: true,
-					cwd: devThemeDir,
+					cwd: srcThemeDir,
 					src: ['**/*.gif', '**/*.jpg', '**/*.gif', '**/*.svg'],
-					dest: distThemeDir,
+					dest: publicThemeDir,
 				}],
 			},
 			js: {
 				files: [{
 					expand: true,
-					cwd: devThemeDir,
+					cwd: srcThemeDir,
 					src: ['**/*.js'],
-					dest: distThemeDir,
+					dest: publicThemeDir,
 				}],
 			},
 			root: {
 				files: [{
 					expand: true,
-					cwd: devDir,
+					cwd: srcDir,
 					src: ['*'],
-					dest: distDir,
+					dest: publicDir,
 				}],
 			},
 		},
@@ -101,28 +98,31 @@ module.exports = function(grunt) {
 		// Watch for changes
 		watch: {
 			styles: {
-				files: [devThemeDir + 'styles/*.scss'],
-				tasks: ['styles_changed']
+				files: [srcThemeDir + 'styles/*.scss'],
+				tasks: ['styles_changed'],
+			},
+			livereload: {
+				files: [publicDir + '**/*'],
+				options: { livereload: true },
 			},
 			php: {
-				files: [devThemeDir + '**/*.php'],
+				files: [srcThemeDir + '**/*.php'],
 				tasks: ['php_changed']
 			},
 			img: {
-				files: [devDir + '**/*.png', devDir + '**/*.jpg', devDir + '**/*.gif', devDir + '**/*.svg' ],
-				tasks: ['img_changed']
+				files: [srcDir + '**/*.png', srcDir + '**/*.jpg', srcDir + '**/*.gif', srcDir + '**/*.svg' ],
+				tasks: ['img_changed'],
 			},
 			js: {
-				files: [devDir + '**/*.js'],
-				tasks: ['js_changed']
+				files: [srcDir + '**/*.js'],
+				tasks: ['js_changed'],
 			},
 			root: {
-				files:	[devDir + '*.php', devDir + '*.txt', devDir + '.ht*'],
+				files:	[srcDir + '*.php', srcDir + '*.txt', srcDir + '.ht*'],
 				tasks:	['root_changed'],
 			},
 		}
 
 	});
-
 
 };
