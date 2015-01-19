@@ -140,18 +140,6 @@ ol { padding-left: 2em; }
 
 time { white-space: nowrap; }
 
-/* Post content */
-.post-content {
-
-	ul {
-		padding-left: 2em;
-		list-style: disc;
-	}
-
-	p, blockquote, dl, ol, ul, table { margin-bottom: 1em; }
-
-}
-
 /* Hide images with deferred sources if not JS */
 html.no-js img[data-defer-src] { display: none !important; }
 
