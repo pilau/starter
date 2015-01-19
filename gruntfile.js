@@ -16,6 +16,20 @@ module.exports = function(grunt) {
 	sassFilesObject[distThemeDir + 'styles/print.css'] = devThemeDir + 'styles/print.scss';
 
 
+
+	// Load NPM tasks
+	require( 'matchdep' ).filterDev( 'grunt-*' ).forEach( grunt.loadNpmTasks );
+
+	// Register watch-related tasks
+	grunt.registerTask( 'styles_changed',		['sass', 'autoprefixer'] );
+	grunt.registerTask( 'php_changed',			['copy:php'] );
+	grunt.registerTask( 'img_changed',			['copy:img'] );
+	grunt.registerTask( 'js_changed',			['copy:js'] );
+	grunt.registerTask( 'root_changed',			['copy:root'] );
+
+	// Other custom tasks
+	grunt.registerTask( 'default', ['watch'] );
+
 	// Define tasks
 	grunt.initConfig({
 
@@ -31,6 +45,21 @@ module.exports = function(grunt) {
 			default: {
 				files: sassFilesObject
 			}
+		},
+
+		// Autoprefixer
+		autoprefixer: {
+			options: {
+				browsers: ['last 2 versions', 'ie >= 8',],
+				cascade: false,
+				map: true,
+			},
+			default: {
+				expand: true,
+				flatten: true,
+				src: distThemeDir + '/styles/*.css',
+				dest: distThemeDir + '/styles/',
+			},
 		},
 
 		// Copy to public
@@ -73,7 +102,7 @@ module.exports = function(grunt) {
 		watch: {
 			styles: {
 				files: [devThemeDir + 'styles/*.scss'],
-				tasks: ['sass']
+				tasks: ['styles_changed']
 			},
 			php: {
 				files: [devThemeDir + '**/*.php'],
@@ -94,19 +123,6 @@ module.exports = function(grunt) {
 		}
 
 	});
-
-
-	// Load NPM tasks
-	require( 'matchdep' ).filterDev( 'grunt-*' ).forEach( grunt.loadNpmTasks );
-
-	// Register watch-related tasks
-	grunt.registerTask( 'php_changed',			['copy:php'] );
-	grunt.registerTask( 'img_changed',			['copy:img'] );
-	grunt.registerTask( 'js_changed',			['copy:js'] );
-	grunt.registerTask( 'root_changed',			['copy:root'] );
-
-	// Other custom tasks
-	grunt.registerTask( 'default', ['watch'] );
 
 
 };
