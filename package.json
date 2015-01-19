@@ -1,18 +1,19 @@
 {
-	"name": "pilau-starter",
-	"version": "0.1.0",
-	"themeName": "Pilau Starter",
-	"author": "Steve Taylor",
-	"private": true,
-	"devDependencies": {
-		"grunt":                  "~0.4.2",
-		"grunt-contrib-clean":    "~0.5.0",
-		"grunt-contrib-copy":     "~0.4.0",
-		"grunt-contrib-imagemin": "~0.2.1",
-		"grunt-contrib-watch":    "~0.6.0",
-		"grunt-sass":             "~0.12.1",
-		"grunt-autoprefixer":     "~1.0.1",
-		"grunt-notify":           "~0.2.17",
-		"time-grunt":             "~0.3.2"
-	}
+  "name": "pilau-starter",
+  "version": "0.1.0",
+  "themeName": "Pilau Starter",
+  "author": "Steve Taylor",
+  "private": true,
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-autoprefixer": "~1.0.1",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-copy": "~0.4.0",
+    "grunt-contrib-imagemin": "~0.2.1",
+    "grunt-contrib-watch": "~0.6.0",
+    "grunt-notify": "~0.2.17",
+    "grunt-sass": "~0.12.1",
+    "matchdep": "^0.3.0",
+    "time-grunt": "~0.3.2"
+  }
 }

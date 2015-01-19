@@ -3,18 +3,17 @@ module.exports = function(grunt) {
 
 	// Set some vars
 	var themeName  = '<%= pkg.name %>';
-	var devDir  = 'src';
-	var distDir = 'public';
-	var themeDir = 'wp-content/themes/' + themeName;
-	var devThemeDir = devDir + '/' + themeDir;
-	var distThemeDir = distDir + '/' + themeDir;
-	var rootFiles = [ '.htaccess', '.htpasswd', '503.php', 'robots.txt', 'wp-config.php' ];
+	var devDir  = 'src/';
+	var distDir = 'public/';
+	var themeDir = 'wp-content/themes/' + themeName + '/';
+	var devThemeDir = devDir + themeDir;
+	var distThemeDir = distDir + themeDir;
 
 	// Set up the CSS files object
 	var sassFilesObject = {};
-	sassFilesObject[distThemeDir + '/styles/admin.css'] = devThemeDir + '/styles/admin.scss';
-	sassFilesObject[distThemeDir + '/styles/main.css'] = devThemeDir + '/styles/main.scss';
-	sassFilesObject[distThemeDir + '/styles/print.css'] = devThemeDir + '/styles/print.scss';
+	sassFilesObject[distThemeDir + 'styles/admin.css'] = devThemeDir + 'styles/admin.scss';
+	sassFilesObject[distThemeDir + 'styles/main.css'] = devThemeDir + 'styles/main.scss';
+	sassFilesObject[distThemeDir + 'styles/print.css'] = devThemeDir + 'styles/print.scss';
 
 
 	// Define tasks
@@ -39,31 +38,32 @@ module.exports = function(grunt) {
 			php: {
 				files: [{
 					expand: true,
-					cwd: devDir,
+					cwd: devThemeDir,
 					src: ['**/*.php'],
-					dest: distDir,
+					dest: distThemeDir,
 				}],
 			},
 			img: {
 				files: [{
 					expand: true,
-					cwd: devDir,
+					cwd: devThemeDir,
 					src: ['**/*.gif', '**/*.jpg', '**/*.gif', '**/*.svg'],
-					dest: distDir,
+					dest: distThemeDir,
 				}],
 			},
 			js: {
 				files: [{
 					expand: true,
-					cwd: devDir,
+					cwd: devThemeDir,
 					src: ['**/*.js'],
-					dest: distDir,
+					dest: distThemeDir,
 				}],
 			},
 			root: {
 				files: [{
+					expand: true,
 					cwd: devDir,
-					src: rootFiles,
+					src: ['*'],
 					dest: distDir,
 				}],
 			},
@@ -72,24 +72,23 @@ module.exports = function(grunt) {
 		// Watch for changes
 		watch: {
 			styles: {
-				files: [devThemeDir + '/styles/*.scss'],
+				files: [devThemeDir + 'styles/*.scss'],
 				tasks: ['sass']
 			},
 			php: {
-				files: [devThemeDir + '/**/*.php'],
+				files: [devThemeDir + '**/*.php'],
 				tasks: ['php_changed']
 			},
 			img: {
-				files: [devDir + '/**/*.png', devDir + '/**/*.jpg', devDir + '/**/*.gif', devDir + '/**/*.svg' ],
+				files: [devDir + '**/*.png', devDir + '**/*.jpg', devDir + '**/*.gif', devDir + '**/*.svg' ],
 				tasks: ['img_changed']
 			},
 			js: {
-				files: [devDir + '/**/*.js'],
+				files: [devDir + '**/*.js'],
 				tasks: ['js_changed']
 			},
 			root: {
-				cwd:	devDir,
-				files:	rootFiles,
+				files:	[devDir + '*.php', devDir + '*.txt', devDir + '.ht*'],
 				tasks:	['root_changed'],
 			},
 		}
@@ -98,9 +97,7 @@ module.exports = function(grunt) {
 
 
 	// Load NPM tasks
-	grunt.loadNpmTasks( 'grunt-sass' );
-	grunt.loadNpmTasks( 'grunt-contrib-copy' );
-	grunt.loadNpmTasks( 'grunt-contrib-watch' );
+	require( 'matchdep' ).filterDev( 'grunt-*' ).forEach( grunt.loadNpmTasks );
 
 	// Register watch-related tasks
 	grunt.registerTask( 'php_changed',			['copy:php'] );
@@ -108,7 +105,8 @@ module.exports = function(grunt) {
 	grunt.registerTask( 'js_changed',			['copy:js'] );
 	grunt.registerTask( 'root_changed',			['copy:root'] );
 
-	grunt.registerTask( 'dev', ['sass'] );
+	// Other custom tasks
+	grunt.registerTask( 'default', ['watch'] );
 
 
 };
