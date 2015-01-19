@@ -3,7 +3,7 @@
 /**
  * Theme footer
  *
- * @package	[[theme-phpdoc-name]]
+ * @package	Pilau_Starter
  * @since	0.1
  */
 

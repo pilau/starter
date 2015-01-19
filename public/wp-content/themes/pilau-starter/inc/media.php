@@ -3,7 +3,7 @@
 /**
  * Media functions
  *
- * @package	[[theme-phpdoc-name]]
+ * @package	Pilau_Starter
  * @since	0.1
  */
 
@@ -47,7 +47,7 @@ add_filter( 'get_image_tag_class', 'pilau_post_image_classes' );
 /**
  * Add classes to post images
  *
- * @since	[[theme-phpdoc-name]] 0.1
+ * @since	Pilau_Starter 0.1
  */
 function pilau_post_image_classes( $class ) {
 	$class .= ' wp-image';
@@ -59,7 +59,7 @@ add_filter( 'wp_get_attachment_image_attributes', 'pilau_image_attributes', 10, 
 /**
  * Manage default WP image attributes
  *
- * @since	[[theme-phpdoc-name]] 0.1
+ * @since	Pilau_Starter 0.1
  */
 function pilau_image_attributes( $attr, $attachment ) {
 	unset( $attr['title'] );

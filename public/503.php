@@ -29,7 +29,7 @@ header('Retry-After: 3600');
 
 <div id="wrapper">
 
-	<h1>[[site-title]]: [[production-domain]]</h1>
+	<h1>Pilau Starter: [[production-domain]]</h1>
 
 	<p><strong>Site maintenance in progress</strong></p>
 

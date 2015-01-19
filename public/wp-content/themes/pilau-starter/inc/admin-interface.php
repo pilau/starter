@@ -3,7 +3,7 @@
 /**
  * Admin interface customization
  *
- * @package	[[theme-phpdoc-name]]
+ * @package	Pilau_Starter
  * @since	0.1
  */
 
@@ -12,7 +12,7 @@ add_action( 'admin_init', 'pilau_admin_interface_init' );
 /**
  * Admin interface initialization
  *
- * @since	[[theme-phpdoc-name]] 0.1
+ * @since	Pilau_Starter 0.1
  */
 function pilau_admin_interface_init() {
 
@@ -48,7 +48,7 @@ function pilau_admin_interface_init() {
 /**
  * Admin scripts and styles
  *
- * @since	[[theme-phpdoc-name]] 0.1
+ * @since	Pilau_Starter 0.1
  */
 function pilau_admin_enqueue_scripts_styles() {
 
@@ -62,7 +62,7 @@ function pilau_admin_enqueue_scripts_styles() {
 /**
  * Admin notices
  *
- * @since	[[theme-phpdoc-name]] 0.1
+ * @since	Pilau_Starter 0.1
  */
 function pilau_admin_notices() {
 
@@ -72,7 +72,7 @@ function pilau_admin_notices() {
 /**
  * Test output of $current_screen
  *
- * @since	[[theme-phpdoc-name]] 0.1
+ * @since	Pilau_Starter 0.1
  */
 function pilau_check_current_screen() {
 	if ( ! is_admin() || ! current_user_can( 'update_core' ) ) {
@@ -87,7 +87,7 @@ add_action( 'admin_menu', 'pilau_admin_menus', 10 );
 /**
  * Admin menus
  *
- * @since	[[theme-phpdoc-name]] 0.1
+ * @since	Pilau_Starter 0.1
  */
 function pilau_admin_menus() {
 	global $menu, $submenu;
@@ -128,7 +128,7 @@ add_action( 'add_meta_boxes', 'pilau_remove_meta_boxes', 10 );
 /**
  * Remove meta boxes
  *
- * @since	[[theme-phpdoc-name]] 0.1
+ * @since	Pilau_Starter 0.1
  */
 function pilau_remove_meta_boxes() {
 
@@ -165,7 +165,7 @@ function pilau_remove_meta_boxes() {
 /**
  * Inline image hints for Featured Image box
  *
- * @since	[[theme-phpdoc-name]] 0.1
+ * @since	Pilau_Starter 0.1
  * @param	string	$content
  * @return	string
  */
@@ -222,7 +222,7 @@ add_filter( 'tiny_mce_before_init', 'pilau_tinymce_buttons' );
 /**
  * Customize default tiny MCE buttons
  *
- * @since	[[theme-phpdoc-name]] 0.1
+ * @since	Pilau_Starter 0.1
  * @link	http://wordpress.stackexchange.com/questions/141534/how-to-customize-tinymce4-in-wp-3-9-the-old-way-for-styles-and-formats-doesnt
  */
 function pilau_tinymce_buttons( $init_array ) {
@@ -243,7 +243,7 @@ function pilau_tinymce_buttons( $init_array ) {
 /**
  * Disable editor for home page
  *
- * @since	[[theme-phpdoc-name]] 0.1
+ * @since	Pilau_Starter 0.1
  */
 function pilau_disable_home_editor() {
 	global $post;
@@ -257,7 +257,7 @@ add_action( 'wp_dashboard_setup', 'pilau_disable_default_dashboard_widgets', 10 
 /**
  * Disable default dashboard widgets
  *
- * @since	[[theme-phpdoc-name]] 0.1
+ * @since	Pilau_Starter 0.1
  * @link	http://codex.wordpress.org/Dashboard_Widgets_API
  */
 function pilau_disable_default_dashboard_widgets() {
@@ -283,7 +283,7 @@ add_filter( 'get_user_option_managenav-menuscolumnshidden', 'pilau_nav_menus_col
 /**
  * Menus hidden columns
  *
- * @since	[[theme-phpdoc-name]] 0.1
+ * @since	Pilau_Starter 0.1
  */
 function pilau_nav_menus_columns_hidden( $result ) {
 
@@ -305,7 +305,7 @@ function pilau_nav_menus_columns_hidden( $result ) {
 /**
  * Site settings admin page
  *
- * @since	[[theme-phpdoc-name]] 0.1
+ * @since	Pilau_Starter 0.1
  */
 function pilau_site_settings_admin_page() {
 	$settings = get_option( 'pilau_site_settings' );
@@ -350,7 +350,7 @@ function pilau_site_settings_admin_page() {
 /**
  * Process site settings
  *
- * @since	[[theme-phpdoc-name]] 0.1
+ * @since	Pilau_Starter 0.1
  */
 function pilau_site_settings_admin_page_process() {
 

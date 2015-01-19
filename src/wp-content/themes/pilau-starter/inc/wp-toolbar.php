@@ -4,7 +4,7 @@
 /**
  * WordPress Toolbar customization (formerly admin bar)
  *
- * @package	[[theme-phpdoc-name]]
+ * @package	Pilau_Starter
  * @since	0.1
  * @link	http://www.sitepoint.com/change-wordpress-33-toolbar/
  */

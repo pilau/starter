@@ -7,7 +7,7 @@
  * Then use the redirects in .htaccess to redirect this slug with no CPT postname
  * to the actual listing page URL.
  *
- * @package	[[theme-phpdoc-name]]
+ * @package	Pilau_Starter
  * @since	0.1
  */
 

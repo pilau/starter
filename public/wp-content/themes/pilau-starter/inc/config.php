@@ -3,7 +3,7 @@
 /**
  * Configuration (deferred from Pilau Init)
  *
- * @package	[[theme-phpdoc-name]]
+ * @package	Pilau_Starter
  * @since	0.2
  */
 

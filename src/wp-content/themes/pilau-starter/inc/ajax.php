@@ -3,7 +3,7 @@
 /**
  * AJAX functionality
  *
- * @package	[[theme-phpdoc-name]]
+ * @package	Pilau_Starter
  * @since	0.1
  */
 
@@ -23,7 +23,7 @@
  * 'custom_vars' (array) - Custom variables (optional)
  * 'query' (object) - The query object (default: $wp_query)
  *
- * @since	[[theme-phpdoc-name]] 0.1
+ * @since	Pilau_Starter 0.1
  * @uses	$wp_query
  * @uses	get_option()
  * @uses	get_home_url()

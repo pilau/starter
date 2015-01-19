@@ -7,7 +7,7 @@
  * Depends on the Developer's Custom Fields plugin
  * @link http://sltaylor.co.uk/wordpress/developers-custom-fields-docs/
  *
- * @package	[[theme-phpdoc-name]]
+ * @package	Pilau_Starter
  * @since	0.1
  */
 
@@ -19,7 +19,7 @@ if ( function_exists( 'slt_cf_register_box') ) {
  * Register custom fields
  *
  * @uses slt_cf_register_box()
- * @since	[[theme-phpdoc-name]] 0.1
+ * @since	Pilau_Starter 0.1
  */
 function pilau_register_custom_fields() {
 
@@ -53,7 +53,7 @@ function pilau_register_custom_fields() {
 /**
  * Custom field checker
  *
- * @since	[[theme-phpdoc-name]] 0.1
+ * @since	Pilau_Starter 0.1
 
  * @param	string	$field	The field name to check
  * @param	mixed	$value	The value to check against (returns true if the field value is equivalent)

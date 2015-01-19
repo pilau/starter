@@ -291,7 +291,7 @@ function pilau_preloader_remove( e ) {
  * jQuery.get( pilau_global.ajax_url, { action: 'pilau_ajax_action' }, function( r ) { ... }).error( function( e ) { pilau_ajax_error( e ); });
  * </code>
  *
- * @since	[[theme-phpdoc-name]] 0.1
+ * @since	Pilau_Starter 0.1
  * @param	{object}	e	The error response
  * @return	void
  */
@@ -303,7 +303,7 @@ function pilau_ajax_error( e ) {
 /**
  * Get a part of a string
  *
- * @since	[[theme-phpdoc-name]] 0.1
+ * @since	Pilau_Starter 0.1
  * @param	{string}		s		The string
  * @param	{number|string}	i		The numeric index, or 'first' or 'last' (default 'last')
  * @param	{string}		sep		The character used a separator in the passed string (default '-')

@@ -8,7 +8,7 @@
  * can be overridden in the child.
  * @link	http://codex.wordpress.org/Child_Themes#Using_functions.php
  *
- * @package	[[theme-phpdoc-name]]
+ * @package	Pilau_Starter
  * @since	0.1
  *
  */

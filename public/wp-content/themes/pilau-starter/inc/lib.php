@@ -3,7 +3,7 @@
 /**
  * Library of general helper functions
  *
- * @package	[[theme-phpdoc-name]]
+ * @package	Pilau_Starter
  * @since	0.1
  */
 
@@ -11,7 +11,7 @@
 /**
  * Output post date
  *
- * @since	[[theme-phpdoc-name]] 0.1
+ * @since	Pilau_Starter 0.1
  * @uses	the_time()
  * @return	void
  */
@@ -23,7 +23,7 @@ function pilau_post_date() { ?>
 /**
  * Output social media icons
  *
- * @since	[[theme-phpdoc-name]] 0.1
+ * @since	Pilau_Starter 0.1
  *
  * @param	bool	$global		Global style?
  * @return	void
@@ -50,7 +50,7 @@ function pilau_share_icons( $global = false ) {
 /**
  * Create plain share URLs for different social media services
  *
- * @since	[[theme-phpdoc-name]] 0.1
+ * @since	Pilau_Starter 0.1
  *
  * @param	string	$service	'facebook' | 'twitter' | 'google+'
  * @param	string	$url		Defaults to current URL
@@ -87,7 +87,7 @@ function pilau_share_url( $service, $url = null ) {
  *
  * Works with oAuth Twitter Feed for Developers plugin
  *
- * @since	[[theme-phpdoc-name]] 0.1
+ * @since	Pilau_Starter 0.1
  *
  * @param	int		$max
  * @return	void
@@ -132,7 +132,7 @@ function pilau_tweets( $max = 4 ) {
 /**
  * Create Twitter follow link
  *
- * @since	[[theme-phpdoc-name]] 0.1
+ * @since	Pilau_Starter 0.1
  * @param	string		$user
  * @return	string
  */
@@ -149,7 +149,7 @@ function pilau_twitter_follow_link( $user = null ) {
 /**
  * Create Google map link
  *
- * @since	[[theme-phpdoc-name]] 0.1
+ * @since	Pilau_Starter 0.1
  * @param	string		$location
  * @return	string
  */
@@ -169,7 +169,7 @@ function pilau_google_map_link( $location ) {
  *
  * Tries to get WP SEO meta description; uses automated extract as fallback
  *
- * @since	[[theme-phpdoc-name]] 0.1
+ * @since	Pilau_Starter 0.1
  *
  * @param	int		$post_id	Defaults to ID of post in current loop
  * @param	int		$max_words	For extract, maximum words
@@ -201,7 +201,7 @@ add_filter( 'the_posts', 'pilau_multiply_posts', 10, 2 );
 /**
  * Allow the multiplication of posts in query results for testing purposes
  *
- * @since	[[theme-phpdoc-name]] 0.1
+ * @since	Pilau_Starter 0.1
  */
 function pilau_multiply_posts( $posts, $query ) {
 

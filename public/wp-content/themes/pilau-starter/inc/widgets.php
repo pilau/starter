@@ -3,7 +3,7 @@
 /**
  * Widgets and sidebars
  *
- * @package	[[theme-phpdoc-name]]
+ * @package	Pilau_Starter
  * @since	0.1
  */
 
@@ -12,7 +12,7 @@ add_action( 'widgets_init', 'pilau_register_sidebars' );
 /**
  * Register sidebars
  *
- * @since	[[theme-phpdoc-name]] 0.1
+ * @since	Pilau_Starter 0.1
  */
 function pilau_register_sidebars() {
 
@@ -33,7 +33,7 @@ add_action( 'widgets_init', 'pilau_unregister_widgets', 1 );
 /**
  * Unregister some default widgets
  *
- * @since	[[theme-phpdoc-name]] 0.1
+ * @since	Pilau_Starter 0.1
  */
 function pilau_unregister_widgets() {
 	unregister_widget( 'WP_Widget_Links' );
@@ -63,7 +63,7 @@ if ( function_exists( 'slt_obfuscate_email' ) ) {
 /**
  * Obfuscate emails in widgets
  *
- * @since	[[theme-phpdoc-name]] 0.1
+ * @since	Pilau_Starter 0.1
  * @uses	pilau_obfuscate_email()
  */
 function slt_widget_email_obfuscation( $text ) {

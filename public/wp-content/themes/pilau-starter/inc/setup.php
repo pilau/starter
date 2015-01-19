@@ -3,7 +3,7 @@
 /**
  * Initial theme setup
  *
- * @package	[[theme-phpdoc-name]]
+ * @package	Pilau_Starter
  * @since	0.1
  */
 
@@ -12,7 +12,7 @@ add_action( 'after_setup_theme', 'pilau_setup', 10 );
 /**
  * Set up theme
  *
- * @since	[[theme-phpdoc-name]] 0.1
+ * @since	Pilau_Starter 0.1
  */
 function pilau_setup() {
 	global $pilau_site_settings;
@@ -71,7 +71,7 @@ add_action( 'tgmpa_register', 'pilau_register_required_plugins' );
 /**
  * Register the required plugins for this theme
  *
- * @since	[[theme-phpdoc-name]] 0.1
+ * @since	Pilau_Starter 0.1
  */
 function pilau_register_required_plugins() {
 
@@ -123,7 +123,7 @@ if ( PILAU_USE_COOKIE_NOTICE ) {
 /**
  * Cookie notice handling
  *
- * @since	[[theme-phpdoc-name]] 0.1
+ * @since	Pilau_Starter 0.1
  * @todo	Implement more sophisticated cookie handling (JS?) to hide notice for users who have disabled cookies
  */
 function pilau_cookie_notice() {
@@ -144,7 +144,7 @@ add_action( 'init', 'pilau_core_taxonomies' );
 /**
  * Manage core taxonomies
  *
- * @since	[[theme-phpdoc-name]] 0.1
+ * @since	Pilau_Starter 0.1
  * @link	http://w4dev.com/wp/remove-taxonomy/
  */
 function pilau_core_taxonomies() {
@@ -169,7 +169,7 @@ if ( PILAU_RENAME_POSTS_NEWS ) {
 /**
  * Rename "Posts" in post type object to "News"
  *
- * @since	[[theme-phpdoc-name]] 0.1
+ * @since	Pilau_Starter 0.1
  */
 function pilau_change_post_object_label() {
 	global $wp_post_types;
@@ -195,7 +195,7 @@ add_action( 'template_redirect', 'pilau_setup_after_post' );
 /**
  * Set up that needs to happen when $post object is ready
  *
- * @since	[[theme-phpdoc-name]] 0.1
+ * @since	Pilau_Starter 0.1
  */
 function pilau_setup_after_post() {
 	global $pilau_custom_fields, $post;
@@ -237,7 +237,7 @@ add_action( 'wp_enqueue_scripts', 'pilau_enqueue_scripts', 0 );
  * (Actually this is made redundant by using Better WordPress Minify, with its
  * appended parameter - but this is a good habit to get into ;-)
  *
- * @since	[[theme-phpdoc-name]] 0.1
+ * @since	Pilau_Starter 0.1
  */
 function pilau_enqueue_scripts() {
 	// This test is done here because applying the test to the hook breaks due to pilau_is_login_page() not being defined yet...
@@ -277,7 +277,7 @@ add_action( 'wp_enqueue_scripts', 'pilau_enqueue_styles', 10 );
  * (Actually this is made redundant by using Better WordPress Minify, with its
  * appended parameter - but this is a good habit to get into ;-)
  *
- * @since	[[theme-phpdoc-name]] 0.1
+ * @since	Pilau_Starter 0.1
  */
 function pilau_enqueue_styles() {
 	// This test is done here because applying the test to the hook breaks due to pilau_is_login_page() not being defined yet...
@@ -294,7 +294,7 @@ function pilau_enqueue_styles() {
 /**
  * Login styles and scripts
  *
- * @since	[[theme-phpdoc-name]] 0.1
+ * @since	Pilau_Starter 0.1
  */
 function pilau_login_styles_scripts() { ?>
 	<link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri() . '/styles/wp-login.css'; ?>">

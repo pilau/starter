@@ -6,7 +6,7 @@
  * For details on how to completely control WordPress feeds, see:
  * @link http://www.456bereastreet.com/archive/201103/controlling_and_customising_rss_feeds_in_wordpress/
  *
- * @package	[[theme-phpdoc-name]]
+ * @package	Pilau_Starter
  * @since	0.1
  */
 
@@ -22,7 +22,7 @@ add_action( 'wp_head', 'pilau_feed_links' );
  * To properly remove it:
  * @link http://www.456bereastreet.com/archive/201103/controlling_and_customising_rss_feeds_in_wordpress/
  *
- * @since	[[theme-phpdoc-name]] 0.1
+ * @since	Pilau_Starter 0.1
  */
 function pilau_feed_links() {
 
