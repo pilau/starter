@@ -136,6 +136,10 @@ input[type=button] {width: auto; overflow: visible;}
 /* Pilau additions
 -------------------------------------------------------------------------------*/
 
+body {
+	font: 1em/1.4 'Droid Sans', sans-serif;
+}
+
 ol { padding-left: 2em; }
 
 time { white-space: nowrap; }

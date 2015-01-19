@@ -8,6 +8,7 @@ module.exports = function(grunt) {
 	var themeDir = 'wp-content/themes/' + themeName;
 	var devThemeDir = devDir + '/' + themeDir;
 	var distThemeDir = distDir + '/' + themeDir;
+	var rootFiles = [ '.htaccess', '.htpasswd', '503.php', 'robots.txt', 'wp-config.php' ];
 
 	// Set up the CSS files object
 	var sassFilesObject = {};
@@ -33,22 +34,80 @@ module.exports = function(grunt) {
 			}
 		},
 
+		// Copy to public
+		copy: {
+			php: {
+				files: [{
+					expand: true,
+					cwd: devDir,
+					src: ['**/*.php'],
+					dest: distDir,
+				}],
+			},
+			img: {
+				files: [{
+					expand: true,
+					cwd: devDir,
+					src: ['**/*.gif', '**/*.jpg', '**/*.gif', '**/*.svg'],
+					dest: distDir,
+				}],
+			},
+			js: {
+				files: [{
+					expand: true,
+					cwd: devDir,
+					src: ['**/*.js'],
+					dest: distDir,
+				}],
+			},
+			root: {
+				files: [{
+					cwd: devDir,
+					src: rootFiles,
+					dest: distDir,
+				}],
+			},
+		},
+
 		// Watch for changes
 		watch: {
 			styles: {
-				files: devThemeDir + '/styles/*.scss',
+				files: [devThemeDir + '/styles/*.scss'],
 				tasks: ['sass']
-			}
+			},
+			php: {
+				files: [devThemeDir + '/**/*.php'],
+				tasks: ['php_changed']
+			},
+			img: {
+				files: [devDir + '/**/*.png', devDir + '/**/*.jpg', devDir + '/**/*.gif', devDir + '/**/*.svg' ],
+				tasks: ['img_changed']
+			},
+			js: {
+				files: [devDir + '/**/*.js'],
+				tasks: ['js_changed']
+			},
+			root: {
+				cwd:	devDir,
+				files:	rootFiles,
+				tasks:	['root_changed'],
+			},
 		}
 
 	});
 
 
-	// Load tasks
+	// Load NPM tasks
 	grunt.loadNpmTasks( 'grunt-sass' );
+	grunt.loadNpmTasks( 'grunt-contrib-copy' );
 	grunt.loadNpmTasks( 'grunt-contrib-watch' );
 
-	// Register tasks
+	// Register watch-related tasks
+	grunt.registerTask( 'php_changed',			['copy:php'] );
+	grunt.registerTask( 'img_changed',			['copy:img'] );
+	grunt.registerTask( 'js_changed',			['copy:js'] );
+	grunt.registerTask( 'root_changed',			['copy:root'] );
+
 	grunt.registerTask( 'dev', ['sass'] );
 
 

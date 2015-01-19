@@ -33,6 +33,9 @@
  	<!-- Use something like http://realfavicongenerator.net/ -->
 	*/ ?>
 
+	<?php /* Fonts */ ?>
+	<link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
+
 	<?php
 
 	/*
