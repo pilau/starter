@@ -23,12 +23,12 @@ add_filter( 'wp_title', 'pilau_404_title', 10000, 3 );
 
 <?php get_header(); ?>
 
-<div id="content" role="main">
+<main role="main">
+	<div class="wrap">
 
-	<?php pilau_not_found( __( 'Page not found' ) ); ?>
+		<?php pilau_not_found( __( 'Page not found' ) ); ?>
 
-</div>
-
-<?php get_sidebar( 'primary' ); ?>
+	</div>
+</main>
 
 <?php get_footer(); ?>

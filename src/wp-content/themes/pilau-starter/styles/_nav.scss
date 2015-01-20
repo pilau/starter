@@ -1,0 +1,15 @@
+/*
+* Navigation
+*/
+
+.nav {
+	padding: 1em 0;
+	.menu-item {
+		display: inline-block;
+		margin: 0 $gutter-small;
+		a {
+			color: #000;
+			text-transform: uppercase;
+		}
+	}
+}

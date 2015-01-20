@@ -9,7 +9,7 @@
 
 ?>
 
-<div id="sidebar" role="complementary">
+<div class="sidebar-main" role="complementary">
 
 	<?php dynamic_sidebar( 'primary-sidebar' ); ?>
 

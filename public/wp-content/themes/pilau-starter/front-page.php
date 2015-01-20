@@ -11,22 +11,22 @@
 
 <?php get_header(); ?>
 
-<div id="content" role="main">
+<main role="main" id="content">
+	<div class="wrap">
 
-	<?php if ( have_posts() ) : ?>
+		<?php if ( have_posts() ) : ?>
 
-		<?php while ( have_posts() ) : the_post(); ?>
+			<?php while ( have_posts() ) : the_post(); ?>
 
-			<div class="post-content">
-				<?php the_content(); ?>
-			</div>
+				<div class="editor-content">
+					<?php the_content(); ?>
+				</div>
 
-		<?php endwhile; ?>
+			<?php endwhile; ?>
 
-	<?php endif; ?>
+		<?php endif; ?>
 
-</div>
-
-<?php get_sidebar( 'primary' ); ?>
+	</div>
+</main>
 
 <?php get_footer(); ?>

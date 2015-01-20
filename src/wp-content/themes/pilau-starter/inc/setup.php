@@ -54,11 +54,10 @@ function pilau_setup() {
 	/*
 	 * Register nav menus
 	 */
-	/*
 	register_nav_menus( array(
-		'nav_main'		=> __( 'Main navigation' )
-	) );
-	*/
+		'nav_header'	=> __( 'Header navigation' ),
+		'nav_footer'	=> __( 'Footer navigation' ),
+	));
 
 	/* Site settings
 	$pilau_site_settings = get_option( 'pilau_site_settings' );

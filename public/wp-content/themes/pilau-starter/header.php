@@ -65,14 +65,16 @@
 </head>
 <body <?php body_class(); ?> role="document">
 
+
 <?php /* Upgrade notice for IE 7 and below */ ?>
 <!--[if lt IE 8]><p class="upgrade-browser">Please note that this site does not support Internet Explorer 7 and below. Neither does Microsoft! <a href="http://browsehappy.com/">Please upgrade to a modern browser</a> if possible, or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this and other sites in your current browser.</p><![endif]-->
+
 
 <?php
 /* Cookie notice */
 if ( PILAU_USE_COOKIE_NOTICE && ! isset( $_COOKIE['pilau_cookie_notice'] ) ) { ?>
 	<div id="cookie-notice">
-		<div class="wrapper">
+		<div class="wrap">
 			<div class="text">
 				<p><strong>This site uses cookies.</strong></p>
 				<p>By continuing to browse the site you are agreeing to our use of cookies. To find out more <a href="/privacy/">read our privacy policy</a>.</p>
@@ -82,37 +84,37 @@ if ( PILAU_USE_COOKIE_NOTICE && ! isset( $_COOKIE['pilau_cookie_notice'] ) ) { ?
 	</div>
 <?php } ?>
 
-<?php /* Wrapper class used for layouts that need sections to be wider than the rest of the layout (i.e. with multiple wrappers */ ?>
-<div class="wrapper">
 
-<?php /* Minimal header - adapt as necessary */ ?>
-<header id="header" role="banner">
+<header class="header-main" role="banner">
 
-	<h1 class="site-title"><a href="<?php echo home_url( '/' ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
-	<p class="site-description"><?php bloginfo( 'description' ); ?></p>
+	<div class="header-branding">
+		<div class="wrap">
+			<h1 class="site-title"><a href="<?php echo home_url( '/' ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
+			<p class="site-description"><?php bloginfo( 'description' ); ?></p>
+		</div>
+	</div>
 
-	<nav role="navigation" id="nav-main">
-		<h1 class="assistive-text"><?php _e( 'Menu' ); ?></h1>
-		<p class="assistive-text skip-link"><a href="#content"><?php _e( 'Skip to content' ); ?></a></p>
-		<ul>
-			<?php
-			wp_list_pages( array(
-				'depth'			=> 1,
-				'sort_column'	=> 'menu_order',
-				'child_of'		=> 0,
-				'exclude'		=> get_option( 'page_on_front' ),
-				'title_li'		=> ''
-			)); ?>
-		</ul>
+	<nav role="navigation">
+		<div class="wrap">
+			<h1 class="assistive-text"><?php _e( 'Menu' ); ?></h1>
+			<p class="assistive-text skip-link"><a href="#content"><?php _e( 'Skip to content' ); ?></a></p>
+			<ul class="nav nav-header">
+				<?php
+				echo pilau_menu_without_containers( 'Header navigation' );
+				?>
+			</ul>
+
+		</div>
 	</nav>
 
-</header><!-- #header -->
+</header>
+
 
 <?php
 
 /* Breadcrumbs - NEEDS ENABLING AND CONFIGURING ON PLUGIN SETTINGS PAGE, SEO > Internal links
 if ( ! is_front_page() && function_exists( 'yoast_breadcrumb' ) ) {
-	echo '<p id="breadcrumbs">';
+	echo '<p class="breadcrumbs">';
 	yoast_breadcrumb();
 	echo '</p>';
 }

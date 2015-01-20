@@ -4,7 +4,21 @@
 * Basic grid based on @link http://cobyism.com/gridism/
 */
 
-body { text-align: center; }
+body {
+    text-align: center;
+}
+
+main {
+    margin: $gutter-large 0;
+}
+
+/* Wrap */
+.wrap {
+    width: 100%;
+    max-width: $breakpoint-large;
+    margin: 0 auto;
+    text-align: left;
+}
 
 /* Set up some rules to govern the grid */
 .row {
@@ -31,13 +45,6 @@ body { text-align: center; }
 .no-gutters .col,
 .col.no-gutters {
     padding: 0 !important;
-}
-
-/* Wrapping at a maximum width is optional */
-.wrap .row,
-.row.wrap {
-    max-width: $breakpoint-large;
-    margin: 0 auto;
 }
 
 /* Width classes also have shorthand versions numbered as fractions

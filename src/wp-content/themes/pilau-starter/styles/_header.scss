@@ -1,0 +1,23 @@
+/*
+* Main header
+*/
+
+.header-main {
+	margin: 0 0 $gutter-large;
+	nav {
+		background: #eee;
+	}
+}
+
+.header-branding {
+	padding: $gutter-small 0;
+}
+.site-title {
+	margin: 0;
+	font-size: 3em;
+}
+.site-description {
+	font-size: .9em;
+	color: #999;
+}
+

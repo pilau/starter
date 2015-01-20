@@ -1,26 +1,36 @@
 
-// "Press button" effect
-a:active {
-	position: relative;
-	top: 1px;
-	&.no-button-effect {
-		position: inherit;
-		top: inherit;
-	}
-}
-
-// Anchors that wrap block-level elements
-a.block-wrapper {
-	display: block;
+a {
+	color: #006699;
 	text-decoration: none;
-	color: inherit;
-	&:active { // This effect can cause weird issues when anchor wraps blocks
-		position: static;
-		top: 0;
-	}
+
 	&:hover, &:focus {
-		.more {
-			text-decoration: underline;
+		text-decoration: underline;
+	}
+
+	// "Press button" effect
+	&:active {
+		position: relative;
+		top: 1px;
+		&.no-button-effect {
+			position: inherit;
+			top: inherit;
 		}
 	}
+
+	// Wrapping block-level elements
+	&.block-wrap {
+		display: block;
+		text-decoration: none;
+		color: inherit;
+		&:active { // This effect can cause weird issues when anchor wraps blocks
+			position: static;
+			top: 0;
+		}
+		&:hover, &:focus {
+			.more {
+				text-decoration: underline;
+			}
+		}
+	}
+
 }

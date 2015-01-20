@@ -9,13 +9,17 @@
 
 ?>
 
-<footer id="footer" role="contentinfo">
+<footer class="footer-main" role="contentinfo">
+	<div class="wrap">
 
-	<p>Footer</p>
+		<ul class="nav nav-footer">
+			<?php
+			echo pilau_menu_without_containers( 'Footer navigation' );
+			?>
+		</ul>
 
-</footer><!-- #footer -->
-
-</div><!-- .wrapper -->
+	</div>
+</footer>
 
 <?php wp_footer(); ?>
 

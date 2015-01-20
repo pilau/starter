@@ -11,30 +11,30 @@
 
 <?php get_header(); ?>
 
-<div id="content" role="main">
+<main role="main" id="content">
+	<div class="wrap">
 
-	<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+		<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 
-		<article id="post-<?php the_ID(); ?>" <?php post_class(); ?> role="article">
+			<article <?php post_class(); ?> role="article">
 
-			<header>
+				<header>
 
-				<h1><?php the_title(); ?></h1>
+					<h1><?php the_title(); ?></h1>
 
-				<p class="post-meta"><?php pilau_post_date(); ?></p>
+					<p class="post-meta"><?php pilau_post_date(); ?></p>
 
-			</header>
+				</header>
 
-			<div class="post-content">
-				<?php the_content(); ?>
-			</div>
+				<div class="editor-content">
+					<?php the_content(); ?>
+				</div>
 
-		</article><!-- #post-<?php the_ID(); ?> -->
+			</article>
 
-	<?php endwhile; endif; ?>
+		<?php endwhile; endif; ?>
 
-</div>
-
-<?php get_sidebar( 'primary' ); ?>
+	</div>
+</main>
 
 <?php get_footer(); ?>

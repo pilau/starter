@@ -11,32 +11,32 @@
 
 <?php get_header(); ?>
 
-<div id="content" role="main">
+<main role="main" id="content">
+	<div class="wrap">
 
-	<h1><?php _e( 'News' ) ?></h1>
+		<h1><?php _e( 'News' ) ?></h1>
 
-	<?php if ( have_posts() ) : ?>
+		<?php if ( have_posts() ) : ?>
 
-		<ul>
+			<ul>
 
-			<?php while ( have_posts() ) : the_post(); ?>
+				<?php while ( have_posts() ) : the_post(); ?>
 
-				<?php get_template_part( 'loop', get_post_format() ); ?>
+					<?php get_template_part( 'loop', get_post_format() ); ?>
 
-			<?php endwhile; ?>
+				<?php endwhile; ?>
 
-			<?php
+				<?php
 
-			pilau_more_posts_link();
+				pilau_more_posts_link();
 
-			?>
+				?>
 
-		</ul>
+			</ul>
 
-	<?php endif; ?>
+		<?php endif; ?>
 
-</div>
-
-<?php get_sidebar( 'primary' ); ?>
+	</div>
+</main>
 
 <?php get_footer(); ?>

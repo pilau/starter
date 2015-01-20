@@ -12,9 +12,9 @@
 
 ?>
 
-<li id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+<li <?php post_class(); ?>>
 
-	<article role="article"><a class="block-wrapper" href="<?php the_permalink(); ?>" rel="bookmark">
+	<article role="article"><a class="block-wrap" href="<?php the_permalink(); ?>" rel="bookmark">
 
 		<header>
 
@@ -28,10 +28,10 @@
 
 		</header>
 
-		<div class="post-extract">
+		<div class="teaser">
 			<?php echo pilau_content(); ?>
-		</div><!-- .post-extract -->
+		</div>
 
-	</a></article><!-- #post-<?php the_ID(); ?> -->
+	</a></article>
 
 </li>
