@@ -14,11 +14,11 @@
 
 <li <?php post_class(); ?>>
 
-	<article role="article"><a class="block-wrap" href="<?php the_permalink(); ?>" rel="bookmark">
+	<article role="article"><a class="link-block" href="<?php the_permalink(); ?>" rel="bookmark">
 
 		<header>
 
-			<h1><?php the_title(); ?></h1>
+			<h1 class="heading-loop"><?php the_title(); ?></h1>
 
 			<?php if ( get_post_type() == 'post' ) : ?>
 				<p class="post-meta">

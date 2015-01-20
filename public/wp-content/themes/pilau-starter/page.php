@@ -18,7 +18,7 @@
 
 			<article <?php post_class(); ?> role="article">
 
-				<h1><?php the_title(); ?></h1>
+				<h1 class="heading-main"><?php the_title(); ?></h1>
 
 				<div class="editor-content">
 					<?php the_content(); ?>

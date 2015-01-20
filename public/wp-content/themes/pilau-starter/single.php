@@ -20,7 +20,7 @@
 
 				<header>
 
-					<h1><?php the_title(); ?></h1>
+					<h1 class="heading-main"><?php the_title(); ?></h1>
 
 					<p class="post-meta"><?php pilau_post_date(); ?></p>
 

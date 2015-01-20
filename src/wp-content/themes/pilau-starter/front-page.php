@@ -12,7 +12,7 @@
 <?php get_header(); ?>
 
 <main role="main" id="content">
-	<div class="wrap">
+	<div class="wrap hide-for-mobile">
 
 		<?php if ( have_posts() ) : ?>
 

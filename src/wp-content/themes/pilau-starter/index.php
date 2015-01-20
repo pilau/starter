@@ -14,11 +14,11 @@
 <main role="main" id="content">
 	<div class="wrap">
 
-		<h1><?php _e( 'News' ) ?></h1>
+		<h1 class="heading-main"><?php _e( 'News' ) ?></h1>
 
 		<?php if ( have_posts() ) : ?>
 
-			<ul>
+			<ul class="list-blog">
 
 				<?php while ( have_posts() ) : the_post(); ?>
 
