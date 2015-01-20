@@ -10,15 +10,15 @@ module.exports = function(grunt) {
 
 	// Set up the CSS files object
 	var sassFilesObject = {};
-	sassFilesObject[publicThemeDir + 'styles/admin.css'] = srcThemeDir + 'styles/admin.scss';
-	sassFilesObject[publicThemeDir + 'styles/main.css'] = srcThemeDir + 'styles/main.scss';
-	sassFilesObject[publicThemeDir + 'styles/print.css'] = srcThemeDir + 'styles/print.scss';
+	sassFilesObject[publicThemeDir + 'styles/admin.css'] = publicThemeDir + 'styles/admin.scss';
+	sassFilesObject[publicThemeDir + 'styles/main.css'] = publicThemeDir + 'styles/main.scss';
+	sassFilesObject[publicThemeDir + 'styles/print.css'] = publicThemeDir + 'styles/print.scss';
 
 	// Load NPM tasks
 	require( 'matchdep' ).filterDev( 'grunt-*' ).forEach( grunt.loadNpmTasks );
 
 	// Register watch-related tasks
-	grunt.registerTask( 'styles_changed',		['sass', 'autoprefixer'] );
+	grunt.registerTask( 'styles_changed',		['copy:styles', 'sass', 'autoprefixer'] );
 	grunt.registerTask( 'php_changed',			['copy:php'] );
 	grunt.registerTask( 'img_changed',			['copy:img'] );
 	grunt.registerTask( 'js_changed',			['copy:js'] );
@@ -61,6 +61,14 @@ module.exports = function(grunt) {
 
 		// Copy to public
 		copy: {
+			styles: {
+				files: [{
+					expand: true,
+					cwd: srcThemeDir,
+					src: ['**/*.css', '**/*.scss'],
+					dest: publicThemeDir,
+				}],
+			},
 			php: {
 				files: [{
 					expand: true,

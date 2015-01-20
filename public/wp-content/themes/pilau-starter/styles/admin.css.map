@@ -1,7 +1,7 @@
 {
   "version": 3,
   "file": "",
-  "sources": ["../../../../../src/wp-content/themes/pilau-starter/styles/admin.scss"],
+  "sources": ["admin.scss"],
   "names": [],
   "mappings": ""
 }
