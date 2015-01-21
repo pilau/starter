@@ -38,21 +38,19 @@
 # Holding page management
 # ----------------------------------------------------------------------
 
-# holding-page-start
-##<IfModule mod_rewrite.c>
+#<IfModule mod_rewrite.c>
 	# An IP address to allow past holding page
-	##RewriteCond %{REMOTE_ADDR} !^[[holding-page-ip-escaped]]
+	#RewriteCond %{REMOTE_ADDR} !^[[holding-page-ip-escaped]]
 	# Allow any images on the holding page through
-	##RewriteCond %{REQUEST_FILENAME} !\.(gif|jpe?g|png)$
+	#RewriteCond %{REQUEST_FILENAME} !\.(gif|jpe?g|png)$
 	# Allow favicons not covered by image rule through
-	##RewriteCond %{REQUEST_URI} !^/browserconfig\.xml [NC]
-	##RewriteCond %{REQUEST_URI} !^/favicon\.ico [NC]
+	#RewriteCond %{REQUEST_URI} !^/browserconfig\.xml [NC]
+	#RewriteCond %{REQUEST_URI} !^/favicon\.ico [NC]
 	# Allow the holding page
-	##RewriteCond %{REQUEST_URI} !^/503.php [NC]
+	#RewriteCond %{REQUEST_URI} !^/503.php [NC]
 	# Everything else gets the holding page
-	##RewriteRule .* /503.php [L]
-##</IfModule>
-# holding-page-end
+	#RewriteRule .* /503.php [L]
+#</IfModule>
 
 # ----------------------------------------------------------------------
 # Redirects
