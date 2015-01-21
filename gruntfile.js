@@ -26,6 +26,7 @@ module.exports = function(grunt) {
 
 	// Default tasks
 	grunt.registerTask( 'default', ['watch'] );
+	grunt.registerTask( 'init', ['copy:styles', 'sass', 'autoprefixer', 'copy:php', 'copy:img', 'copy:js', 'copy:root'] );
 
 	// Config tasks
 	grunt.initConfig({
@@ -96,6 +97,7 @@ module.exports = function(grunt) {
 			root: {
 				files: [{
 					expand: true,
+					dot: true,
 					cwd: srcDir,
 					src: ['*'],
 					dest: publicDir,
