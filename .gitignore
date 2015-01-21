@@ -1,7 +1,3 @@
-# Ignore node module to avoid clutter in the git repo
-# Use npm install to get local copies of all required packages
-/node_modules/
-
 # Don't let the Pilau init file get committed here
 pilau-init.php
 
@@ -10,24 +6,25 @@ pilau-init.php
 /node_modules/
 npm-debug.log
 
+# For development of Pilau Starter itself, ignore whole of /public
+/public/
+
+# These lines will be uncommented by Pilau Init
 # WP core
-/public/wp-admin/*
-/public/wp-content/*
-/public/wp-includes/*
-/public/index.php
-/public/license.txt
-/public/readme.html
-/public/wp-*.php
-/public/xmlrpc.php
-
+#/public/wp-admin/*
+#/public/wp-content/*
+#/public/wp-includes/*
+#/public/index.php
+#/public/license.txt
+#/public/readme.html
+#/public/wp-*.php
+#/public/xmlrpc.php
 # Exceptions
-!/public/wp-config.php
-!/public/wp-content/mu-plugins/
-
-# Delete these lines to version all themes
-!/public/wp-content/themes/
-/public/wp-content/themes/*
-!/public/wp-content/themes/pilau-starter/
+#!/public/wp-config.php
+#!/public/wp-content/mu-plugins/
+#!/public/wp-content/themes/
+#/public/wp-content/themes/*
+#!/public/wp-content/themes/pilau-starter/
 
 # Plugins not versioned in order to use InfiniteWP
 
