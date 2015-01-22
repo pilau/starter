@@ -119,7 +119,15 @@ function pilau_admin_menus() {
 	***************************************************************************/
 
 	// Site settings
-	//add_options_page( get_bloginfo( 'name' ) . ' ' . __( 'settings' ), get_bloginfo( 'name' ) . ' ' . __( 'settings' ), 'manage_options', 'pilau-site-settings', 'pilau_site_settings_admin_page' );
+	/*
+	add_options_page(
+		get_bloginfo( 'name' ) . ' ' . __( 'settings' ),
+		get_bloginfo( 'name' ) . ' ' . __( 'settings' ),
+		'manage_options',
+		'pilau-site-settings',
+		'pilau_site_settings_admin_page'
+	);
+	*/
 
 }
 
