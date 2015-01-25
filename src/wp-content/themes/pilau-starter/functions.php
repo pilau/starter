@@ -62,6 +62,19 @@ if ( ! defined( 'PILAU_PLACEHOLDER_GIF_URL' ) ) {
 
 
 /**
+ * Checks for plugins
+ *
+ * For precautionary tests when using plugin functions. Every use of a plugin
+ * function should be wrapped by a test, just in case for some unforeseen
+ * reason the plugin isn't installed and activated.
+ */
+define( 'PILAU_PLUGIN_EXISTS_DEVELOPERS_CUSTOM_FIELDS', function_exists( 'slt_cf_field_key' ) );
+define( 'PILAU_PLUGIN_EXISTS_ADMIN_COLUMNS', class_exists( 'Codepress_Admin_Columns' ) );
+define( 'PILAU_PLUGIN_EXISTS_TWITTER_FEED', function_exists( 'getTweets' ) );
+define( 'PILAU_PLUGIN_EXISTS_WPSEO', function_exists( 'getTweets' ) );
+
+
+/**
  * PHP settings
  */
 

@@ -93,7 +93,7 @@ function pilau_share_url( $service, $url = null ) {
  * @return	void
  */
 function pilau_tweets( $max = 4 ) {
-	if ( function_exists( 'getTweets' ) && defined( 'PILAU_TWITTER_SCREEN_NAME' ) && PILAU_TWITTER_SCREEN_NAME ) {
+	if ( PILAU_PLUGIN_EXISTS_TWITTER_FEED && defined( 'PILAU_TWITTER_SCREEN_NAME' ) && PILAU_TWITTER_SCREEN_NAME ) {
 
 		// Get tweets
 		$tweets = getTweets( $max, false, array( 'include_rts' => true ) );
@@ -186,7 +186,7 @@ function pilau_teaser_text( $post_id = null, $max_words = 30, $max_paras = 0, $s
 	}
 
 	// If there's no meta description...
-	if ( ( ! class_exists( 'WPSEO_Meta' ) || ! ( $teaser = trim( WPSEO_Meta::get_value( 'metadesc' ) ) ) ) && function_exists( 'pilau_extract' ) ) {
+	if ( ( ! PILAU_PLUGIN_EXISTS_WPSEO || ! ( $teaser = trim( WPSEO_Meta::get_value( 'metadesc' ) ) ) ) && function_exists( 'pilau_extract' ) ) {
 
 		// Get content
 		$teaser = pilau_extract( get_post_field( 'post_content', $post_id ), $max_words, $max_paras, $strip_tags );

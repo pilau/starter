@@ -217,7 +217,7 @@ function pilau_setup_after_post() {
 	/*
 	 * Get all custom fields for current post
 	 */
-	//if ( PILAU_CURRENT_PAGE_ID && function_exists( 'slt_cf_all_field_values' ) ) {
+	//if ( PILAU_CURRENT_PAGE_ID && PILAU_PLUGIN_EXISTS_DEVELOPERS_CUSTOM_FIELDS ) {
 	//	$pilau_custom_fields = slt_cf_all_field_values( 'post', $current_page_id );
 	//}
 
