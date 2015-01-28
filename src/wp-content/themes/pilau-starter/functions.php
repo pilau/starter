@@ -20,7 +20,9 @@
 
 define( 'PILAU_USE_COMMENTS', false );
 define( 'PILAU_USE_CATEGORIES', false );
+define( 'PILAU_HIDE_CATEGORIES', true ); // Sometimes disabling a taxonomy completely causes issues
 define( 'PILAU_USE_TAGS', false );
+define( 'PILAU_HIDE_TAGS', true ); // Sometimes disabling a taxonomy completely causes issues
 define( 'PILAU_IGNORE_UPDATES_FOR_INACTIVE_PLUGINS', true );
 define( 'PILAU_USE_COOKIE_NOTICE', false );
 define( 'PILAU_TWITTER_SCREEN_NAME', '' );

@@ -40,10 +40,10 @@ function pilau_unregister_widgets() {
 	unregister_widget( 'WP_Widget_Meta' );
 	unregister_widget( 'WP_Widget_Recent_Posts' );
 	unregister_widget( 'WP_Widget_RSS' );
-	if ( ! PILAU_USE_TAGS ) {
+	if ( ! PILAU_USE_TAGS || PILAU_HIDE_TAGS ) {
 		unregister_widget( 'WP_Widget_Tag_Cloud' );
 	}
-	if ( ! PILAU_USE_CATEGORIES ) {
+	if ( ! PILAU_USE_CATEGORIES || PILAU_HIDE_CATEGORIES ) {
 		unregister_widget( 'WP_Widget_Categories' );
 	}
 	if ( ! PILAU_USE_COMMENTS ) {

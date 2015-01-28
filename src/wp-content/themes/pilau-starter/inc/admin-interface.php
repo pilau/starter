@@ -100,6 +100,14 @@ function pilau_admin_menus() {
 		remove_menu_page( 'edit-comments.php' );
 	}
 
+	// Core taxonomies
+	if ( ! PILAU_USE_CATEGORIES || PILAU_HIDE_CATEGORIES ) {
+		remove_submenu_page( 'edit.php', 'edit-tags.php?taxonomy=category' );
+	}
+	if ( ! PILAU_USE_TAGS || PILAU_HIDE_TAGS ) {
+		remove_submenu_page( 'edit.php', 'edit-tags.php?taxonomy=post_tag' );
+	}
+
 	// Menu for all settings
 	//add_options_page( __('All Settings'), __('All Settings'), 'manage_options', 'options.php' );
 
