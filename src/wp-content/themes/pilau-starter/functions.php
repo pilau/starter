@@ -74,6 +74,7 @@ define( 'PILAU_PLUGIN_EXISTS_DEVELOPERS_CUSTOM_FIELDS', function_exists( 'slt_cf
 define( 'PILAU_PLUGIN_EXISTS_ADMIN_COLUMNS', class_exists( 'Codepress_Admin_Columns' ) );
 define( 'PILAU_PLUGIN_EXISTS_TWITTER_FEED', function_exists( 'getTweets' ) );
 define( 'PILAU_PLUGIN_EXISTS_WPSEO', function_exists( 'getTweets' ) );
+define( 'PILAU_PLUGIN_EXISTS_GRAVITY_FORMS', class_exists( 'GFAPI' ) );
 
 
 /**
