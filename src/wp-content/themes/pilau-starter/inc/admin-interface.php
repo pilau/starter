@@ -52,8 +52,8 @@ function pilau_admin_interface_init() {
  */
 function pilau_admin_enqueue_scripts_styles() {
 
-	wp_enqueue_style( 'pilau-admin-css', get_stylesheet_directory_uri() . '/styles/wp-admin.css', array(), '1.0' );
-	wp_enqueue_script( 'pilau-admin-js', get_stylesheet_directory_uri() . '/js/wp-admin.js', array(), '1.0' );
+	wp_enqueue_style( 'pilau-admin-css', get_stylesheet_directory_uri() . '/styles/admin.css', array(), '1.0' );
+	wp_enqueue_script( 'pilau-admin-js', get_stylesheet_directory_uri() . '/js/admin.js', array(), '1.0' );
 
 }
 
