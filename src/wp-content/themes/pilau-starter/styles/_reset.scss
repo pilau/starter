@@ -131,8 +131,10 @@ input[type=button] {width: auto; overflow: visible;}
 /* Pilau additions
 -------------------------------------------------------------------------------*/
 
+/* Basic spacing */
+p, ul, ol, dl, blockquote, table, form, h1, h2, h3, h4, h5, h6 { margin-bottom: 1em; }
+li, dt, dd { margin-bottom: .5em; }
 ol { padding-left: 2em; }
-
 time { white-space: nowrap; }
 
 /* Hide images with deferred sources if not JS */
