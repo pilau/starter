@@ -22,7 +22,7 @@ jQuery( document ).ready( function( $ ) {
 	 * If the form's hidden fields are changed dynamically, they need to trigger the
 	 * change event specifically, e.g. $( 'input#id' ).val( 'test' ).trigger( 'change' )
 	 *
-	 * @since	Pilau_Base 0.2
+	 * @since	Pilau_Starter 0.2
 	 */
 	if ( fwic.length ) {
 		$( ':input', fwic ).on( 'change', function() {
@@ -36,6 +36,37 @@ jQuery( document ).ready( function( $ ) {
 			window.onbeforeunload = null;
 		});
 	}
+
+
+	/**
+	 * Taxonomy validation?
+	 *
+	 * When registering a taxonomy, use the following custom arguments:
+	 * (bool) pilau_required
+	 * (bool) pilau_multiple
+	 *
+	 * @since   Pilau_Starter 0.2
+	 */
+	$( '.categorydiv' ).on( 'click', 'input:checkbox', function( e ) {
+		var el = $( this );
+		var id_parts = el.attr( 'id' ).split( '-' );
+		var tax = id_parts[1];
+		var checked = el.parents( '.categorychecklist' ).find( ':checked' );
+
+		if ( typeof pilau_admin[ tax + '_multiple' ] != 'undefined' && pilau_admin[ tax + '_multiple' ] == '' && checked.length > 1 ) {
+			// Only one can be selected
+			checked.prop( 'checked', false );
+			el.prop( 'checked', true );
+
+		} else if ( typeof pilau_admin[ tax + '_required' ] != 'undefined' && pilau_admin[ tax + '_required' ] == '1' && checked.length == 0 ) {
+
+			// Required, none selected
+			alert( 'Please select at least one term from this taxonomy.' );
+			el.prop( 'checked', true );
+
+		}
+
+	});
 
 
 });

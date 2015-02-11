@@ -44,16 +44,41 @@ function pilau_admin_interface_init() {
 }
 
 
-//add_action( 'admin_enqueue_scripts', 'pilau_admin_enqueue_scripts_styles', 10 );
+add_action( 'admin_enqueue_scripts', 'pilau_admin_enqueue_scripts_styles', 10 );
 /**
  * Admin scripts and styles
  *
  * @since	Pilau_Starter 0.1
  */
 function pilau_admin_enqueue_scripts_styles() {
+	global $current_screen;
 
 	wp_enqueue_style( 'pilau-admin-css', get_stylesheet_directory_uri() . '/styles/admin.css', array(), '1.0' );
 	wp_enqueue_script( 'pilau-admin-js', get_stylesheet_directory_uri() . '/js/admin.js', array(), '1.0' );
+
+	// Anything to pass to admin JS?
+	$admin_js_vars = array();
+
+	/*
+	 * Check post edit screens for taxonomies with JS validation rules
+	 *
+	 * When registering a taxonomy, use the following custom arguments:
+	 * (bool) pilau_required
+	 * (bool) pilau_multiple
+	 */
+	$taxonomies = get_taxonomies( array( 'public' => true ), 'objects' );
+	foreach ( $taxonomies as $taxonomy ) {
+		if ( in_array( $current_screen->post_type, $taxonomy->object_type ) ) {
+			foreach ( array( 'required', 'multiple' ) as $arg ) {
+				$admin_js_vars[ $taxonomy->name . '_' . $arg ] = ! empty( $taxonomy->{'pilau_' . $arg} );
+			}
+		}
+	}
+
+	// Pass through?
+	if ( ! empty( $admin_js_vars ) ) {
+		wp_localize_script( 'pilau-admin-js', 'pilau_admin', $admin_js_vars );
+	}
 
 }
 
