@@ -1,0 +1,13 @@
+/*
+ * Typography
+ */
+
+// Basics
+body {
+	font: 1.2em/1.6 'Droid Sans', sans-serif;
+	color: #666;
+}
+
+/* Standardise */
+pre, code, kbd, samp { font-family: monospace, sans-serif; }
+strong { font-weight: bold; }

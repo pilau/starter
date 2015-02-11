@@ -92,17 +92,12 @@ table {font-size: inherit; font: 100%;}
 
 small {font-size: 85%;}
 
-strong {font-weight: bold;}
-
 td, td img {vertical-align: top;}
 
 /* Make sure sup and sub don't mess with your line-heights http://gist.github.com/413930 */
 sub, sup {font-size: 75%; line-height: 0; position: relative;}
 sup {top: -0.5em;}
 sub {bottom: -0.25em;}
-
-/* standardize any monospaced elements */
-pre, code, kbd, samp {font-family: monospace, sans-serif;}
 
 /* hand cursor on clickable elements */
 .clickable,
@@ -135,11 +130,6 @@ input[type=button] {width: auto; overflow: visible;}
 
 /* Pilau additions
 -------------------------------------------------------------------------------*/
-
-body {
-	font: 1.2em/1.6 'Droid Sans', sans-serif;
-	color: #666;
-}
 
 ol { padding-left: 2em; }
 
