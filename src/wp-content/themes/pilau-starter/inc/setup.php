@@ -63,6 +63,14 @@ function pilau_setup() {
 	$pilau_site_settings = get_option( 'pilau_site_settings' );
 	*/
 
+	/*
+	 * Developer's Custom Fields
+	 */
+	if ( PILAU_PLUGIN_EXISTS_DEVELOPERS_CUSTOM_FIELDS ) {
+		// Easily sortable date format default
+		slt_cf_setting( 'datepicker_default_format', 'yy/mm/dd' );
+	}
+
 }
 
 
