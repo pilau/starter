@@ -69,4 +69,25 @@ jQuery( document ).ready( function( $ ) {
 	});
 
 
+	/**
+	 * Remove term parent selection if pilau_hierarchical is false
+	 *
+	 * When registering a taxonomy, use the following custom arguments:
+	 * (bool) pilau_hierarchical
+	 *
+	 * @since   Walsingham 0.1
+	 */
+	if ( b.hasClass( 'edit-tags-php' ) ) {
+		var tax = $( 'input[name=taxonomy]' ).val();
+
+		if ( typeof tax == 'string' && typeof pilau_admin[ tax + '_hierarchical' ] != 'undefined' && pilau_admin[ tax + '_hierarchical' ] == '' ) {
+			$( '.term-parent-wrap' ).css({
+				position:   'absolute',
+				visibility: 'hidden'
+			});
+		}
+
+	}
+
+
 });

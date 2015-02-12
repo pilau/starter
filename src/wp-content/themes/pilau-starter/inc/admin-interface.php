@@ -63,13 +63,15 @@ function pilau_admin_enqueue_scripts_styles() {
 	 * Check post edit screens for taxonomies with JS validation rules
 	 *
 	 * When registering a taxonomy, use the following custom arguments:
-	 * (bool) pilau_required
-	 * (bool) pilau_multiple
+	 * (bool)	pilau_required (when true, tries to force the selection of at least one term)
+	 * (bool)	pilau_multiple (when false, tries to make sure no more than one term can be selected)
+	 * (bool)	pilau_hierarchical (when false, hides the Parent drop-down if hierarchical is true;
+	 * 			useful if you want categories-style interface without actual hierarchy)
 	 */
 	$taxonomies = get_taxonomies( array( 'public' => true ), 'objects' );
 	foreach ( $taxonomies as $taxonomy ) {
 		if ( in_array( $current_screen->post_type, $taxonomy->object_type ) ) {
-			foreach ( array( 'required', 'multiple' ) as $arg ) {
+			foreach ( array( 'required', 'multiple', 'hierarchical' ) as $arg ) {
 				$admin_js_vars[ $taxonomy->name . '_' . $arg ] = ! empty( $taxonomy->{'pilau_' . $arg} );
 			}
 		}
