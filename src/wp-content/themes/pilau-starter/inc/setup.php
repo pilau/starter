@@ -71,6 +71,16 @@ function pilau_setup() {
 		slt_cf_setting( 'datepicker_default_format', 'yy/mm/dd' );
 	}
 
+	/*
+	 * Virtual post hierarchy
+	 *
+	 * To situate non-page post types within the page hierarchy:
+	 * [post_type]	=> array( [parent ID], [grandparent ID], etc. )
+	 */
+	$pilau_vph = array(
+
+	);
+
 }
 
 
@@ -205,7 +215,7 @@ add_action( 'template_redirect', 'pilau_setup_after_post' );
  * @since	Pilau_Starter 0.1
  */
 function pilau_setup_after_post() {
-	global $pilau_custom_fields, $post;
+	global $pilau_custom_fields, $pilau_vph, $post;
 	$pilau_custom_fields = array();
 
 	/*
@@ -225,11 +235,21 @@ function pilau_setup_after_post() {
 	/*
 	 * Determine top-level page
 	$top_level_page_id = null;
-	$post_ancestors = get_post_ancestors( $post );
-	if ( empty( $post_ancestors ) ) {
-		$top_level_page_id = PILAU_PAGE_ID_CURRENT;
-	} else {
-		$top_level_page_id = array_pop( $post_ancestors );
+	switch ( get_post_type() ) {
+		case 'page': {
+			$post_ancestors = get_post_ancestors( $post );
+			if ( empty( $post_ancestors ) ) {
+				$top_level_page_id = PILAU_PAGE_ID_CURRENT;
+			} else {
+				$top_level_page_id = array_pop( $post_ancestors );
+			}
+			break;
+		}
+		default: {
+			// Use virtual post hierarchy for non-pages
+			$top_level_page_id = array_pop( $pilau_vph[ get_post_type() ] );
+			break;
+		}
 	}
 	define( 'PILAU_PAGE_ID_TOP_LEVEL', $top_level_page_id );
 	 */

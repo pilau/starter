@@ -8,6 +8,42 @@
  */
 
 
+add_filter( 'nav_menu_css_class', 'wals_nav_menu_css_class', 10, 2 );
+/**
+ * Custom classes for nav menus
+ *
+ * @since	0.2
+ */
+function wals_nav_menu_css_class( $classes, $item ) {
+
+	// Flag ancestors of CPTs
+	if ( get_post_type() != 'page' && pilau_is_ancestor( $item->object_id ) ) {
+		$classes[] = 'current-menu-ancestor';
+	}
+
+	return $classes;
+}
+
+
+/**
+ * Check if a given page is an ancestor of the current page, accounting for CPTs
+ *
+ * @since	0.2
+ * @param	int		$page_id
+ * @return	bool
+ */
+function pilau_is_ancestor( $page_id ) {
+	global $pilau_vph;
+	$is_ancestor = false;
+	if ( get_post_type() == 'page' ) {
+		$is_ancestor = in_array( $page_id, get_post_ancestors( PILAU_PAGE_ID_CURRENT ) );
+	} else {
+		$is_ancestor = in_array( $page_id, $pilau_vph[ get_post_type() ] );
+	}
+	return $is_ancestor;
+}
+
+
 /**
  * Output post date
  *

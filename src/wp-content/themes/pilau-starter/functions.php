@@ -27,7 +27,7 @@ define( 'PILAU_IGNORE_UPDATES_FOR_INACTIVE_PLUGINS', true );
 define( 'PILAU_USE_COOKIE_NOTICE', false );
 define( 'PILAU_TWITTER_SCREEN_NAME', '' );
 define( 'PILAU_SLUG_LENGTH', 8 );
-define( 'PILAU_HOME_PAGE_ID', 2 );
+define( 'PILAU_PAGE_ID_HOME', 2 );
 define( 'PILAU_RENAME_POSTS_NEWS', true );
 
 
