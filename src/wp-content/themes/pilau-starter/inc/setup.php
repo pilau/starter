@@ -214,20 +214,32 @@ function pilau_setup_after_post() {
 	 * This may not be $post->ID, if we're on the blog home page.
 	 * Set to false if the current view isn't related to a singular post or page.
 	 */
-	$current_page_id = false;
+	$current_page_id = null;
 	if ( is_home() && ! is_front_page() ) {
 		$current_page_id = get_option( 'page_for_posts' );
 	} else if ( is_singular() ) {
 		$current_page_id = $post->ID;
 	}
-	define( 'PILAU_CURRENT_PAGE_ID', $current_page_id );
+	define( 'PILAU_PAGE_ID_CURRENT', $current_page_id );
+
+	/*
+	 * Determine top-level page
+	$top_level_page_id = null;
+	$post_ancestors = get_post_ancestors( $post );
+	if ( empty( $post_ancestors ) ) {
+		$top_level_page_id = PILAU_PAGE_ID_CURRENT;
+	} else {
+		$top_level_page_id = array_pop( $post_ancestors );
+	}
+	define( 'PILAU_PAGE_ID_TOP_LEVEL', $top_level_page_id );
+	 */
 
 	/*
 	 * Get all custom fields for current post
+	if ( PILAU_PAGE_ID_CURRENT && PILAU_PLUGIN_EXISTS_DEVELOPERS_CUSTOM_FIELDS ) {
+		$pilau_custom_fields = slt_cf_all_field_values( 'post', $current_page_id );
+	}
 	 */
-	//if ( PILAU_CURRENT_PAGE_ID && PILAU_PLUGIN_EXISTS_DEVELOPERS_CUSTOM_FIELDS ) {
-	//	$pilau_custom_fields = slt_cf_all_field_values( 'post', $current_page_id );
-	//}
 
 	// De-activate removal of menu item IDs from Pilau Base
 	//remove_filter( 'nav_menu_item_id', '__return_empty_array', 10000 );
