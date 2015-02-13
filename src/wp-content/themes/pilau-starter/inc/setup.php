@@ -241,13 +241,13 @@ function pilau_setup_after_post() {
 			if ( empty( $post_ancestors ) ) {
 				$top_level_page_id = PILAU_PAGE_ID_CURRENT;
 			} else {
-				$top_level_page_id = array_pop( $post_ancestors );
+				$top_level_page_id = $post_ancestors[ count( $post_ancestors ) - 1 ];
 			}
 			break;
 		}
 		default: {
 			// Use virtual post hierarchy for non-pages
-			$top_level_page_id = array_pop( $pilau_vph[ get_post_type() ] );
+			$top_level_page_id = $pilau_vph[ get_post_type() ][ count( $pilau_vph[ get_post_type() ] ) - 1 ];
 			break;
 		}
 	}
