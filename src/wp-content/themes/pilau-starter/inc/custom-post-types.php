@@ -100,11 +100,9 @@ function pilau_define_cpt_ancestors() {
  */
 function pilau_get_cpt_ancestors( $post ) {
 	global $pilau_cpt_ancestors;
-
-	if ( ! is_int( $post ) || ! is_object( $post ) || ! array_key_exists( get_post_type( $post ), $pilau_cpt_ancestors ) ) {
+	if ( ( ! is_int( $post ) && ! is_object( $post ) ) || ! array_key_exists( get_post_type( $post ), $pilau_cpt_ancestors ) ) {
 		return array();
 	}
-
 	return $pilau_cpt_ancestors[ get_post_type( $post ) ];
 }
 
@@ -129,10 +127,17 @@ function pilau_is_ancestor( $page_id ) {
 
 /**
  * Back link for single post
+ *
+ * @since	0.1
+ * @param	string	$link_text
+ * @return	void
  */
-function pilau_post_back_link() {
+function pilau_post_back_link( $link_text = null ) {
 	global $post;
-	echo '<p class="post-back-link"><a href="' . get_permalink( pilau_get_cpt_ancestors( $post )[0] ) . '">&laquo; ' . __( 'Back' ) . '</a></p>';
+	if ( ! $link_text ) {
+		$link_text = __( 'Back' );
+	}
+	echo '<p class="post-back-link"><a href="' . get_permalink( pilau_get_cpt_ancestors( $post )[0] ) . '">&laquo; ' . $link_text . '</a></p>';
 }
 
 
