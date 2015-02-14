@@ -11,6 +11,7 @@
  * @since	0.1
  */
 
+
 add_action( 'init', 'pilau_register_post_types', 0 );
 /**
  * Register custom post types
@@ -65,4 +66,85 @@ function pilau_register_post_types() {
 	//[[custom-post-types]]
 
 
+}
+
+
+/* Managing CPT ancestors
+ *****************************************************************************************/
+
+
+add_action( 'after_setup_theme', 'pilau_define_cpt_ancestors' );
+/**
+ * Define CPT ancestors
+ *
+ * To situate non-page post types within the page hierarchy:
+ * [post_type]	=> array( [parent ID], [grandparent ID], etc. )
+ *
+ * Also includes post, as a non-hierarchical core post type
+ *
+ * @since	0.2
+ */
+function pilau_define_cpt_ancestors() {
+	global $pilau_cpt_ancestors;
+	$pilau_cpt_ancestors = array(
+	);
+}
+
+
+/**
+ * Get the ancestors of a CPT
+ *
+ * @since	0.2
+ * @param	int|WP_Post		$post	Post ID or post object
+ * @return	array
+ */
+function pilau_get_cpt_ancestors( $post ) {
+	global $pilau_cpt_ancestors;
+
+	if ( ! is_int( $post ) || ! is_object( $post ) || ! array_key_exists( get_post_type( $post ), $pilau_cpt_ancestors ) ) {
+		return array();
+	}
+
+	return $pilau_cpt_ancestors[ get_post_type( $post ) ];
+}
+
+
+/**
+ * Check if a given page is an ancestor of the current page, accounting for CPTs
+ *
+ * @since	0.2
+ * @param	int		$page_id
+ * @return	bool
+ */
+function pilau_is_ancestor( $page_id ) {
+	$is_ancestor = false;
+	if ( get_post_type() == 'page' ) {
+		$is_ancestor = in_array( $page_id, get_post_ancestors( PILAU_PAGE_ID_CURRENT ) );
+	} else {
+		$is_ancestor = in_array( $page_id, pilau_get_cpt_ancestors( PILAU_PAGE_ID_CURRENT ) );
+	}
+	return $is_ancestor;
+}
+
+
+/**
+ * Back link for single post
+ */
+function pilau_post_back_link() {
+	global $post;
+	echo '<p class="post-back-link"><a href="' . get_permalink( pilau_get_cpt_ancestors( $post )[0] ) . '">&laquo; ' . __( 'Back' ) . '</a></p>';
+}
+
+
+add_filter( 'nav_menu_css_class', 'pilau_cpt_nav_menu_css_class', 10, 2 );
+/**
+ * Custom classes for nav menus
+ *
+ * @since	0.1
+ */
+function pilau_cpt_nav_menu_css_class( $classes, $item ) {
+	if ( get_post_type() != 'page' && pilau_is_ancestor( $item->object_id ) ) {
+		$classes[] = 'current-menu-ancestor';
+	}
+	return $classes;
 }
