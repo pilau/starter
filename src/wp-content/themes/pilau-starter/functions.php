@@ -102,6 +102,7 @@ require( dirname( __FILE__ ) . '/inc/custom-taxonomies.php' );
 require( dirname( __FILE__ ) . '/inc/custom-fields.php' );
 require( dirname( __FILE__ ) . '/inc/shortcodes.php' );
 require( dirname( __FILE__ ) . '/inc/widgets.php' );
+require( dirname( __FILE__ ) . '/inc/filtering.php');
 require( dirname( __FILE__ ) . '/inc/wp-toolbar.php' );
 if ( ! PILAU_FRONT_OR_AJAX ) {
 	require( dirname( __FILE__ ) . '/inc/admin.php' );
