@@ -16,10 +16,10 @@ add_action( 'widgets_init', 'pilau_register_sidebars' );
  */
 function pilau_register_sidebars() {
 
-	/* Primary sidebar */
+	/* Default sidebar */
 	register_sidebar( array(
-		'id'				=> 'primary-sidebar',
-		'name'				=> __( 'Primary sidebar' ),
+		'id'				=> 'default-sidebar',
+		'name'				=> __( 'Default' ),
 		'before_widget'		=> '<aside id="%1$s" class="widget %2$s">',
 		'after_widget'		=> '</aside>',
 		'before_title'		=> '<h2 class="widget-title">',
@@ -29,13 +29,17 @@ function pilau_register_sidebars() {
 }
 
 
-add_action( 'widgets_init', 'pilau_unregister_widgets', 1 );
+add_action( 'widgets_init', 'pilau_register_widgets', 1 );
 /**
- * Unregister some default widgets
+ * Register / unregister widgets
  *
- * @since	Pilau_Starter 0.1
+ * @since	Walsingham 0.1
  */
-function pilau_unregister_widgets() {
+function pilau_register_widgets() {
+
+	/*
+	 * Unregister some default widgets
+	 */
 	unregister_widget( 'WP_Widget_Links' );
 	unregister_widget( 'WP_Widget_Meta' );
 	unregister_widget( 'WP_Widget_Recent_Posts' );
@@ -54,6 +58,12 @@ function pilau_unregister_widgets() {
 	//unregister_widget( 'WP_Widget_Pages' );
 	//unregister_widget( 'WP_Widget_Calendar' );
 	//unregister_widget( 'WP_Widget_Archives' );
+
+	/*
+	 * Register custom widgets
+	 */
+	//register_widget( 'pilau_ExampleWidget' );
+
 }
 
 
@@ -68,4 +78,68 @@ if ( function_exists( 'slt_obfuscate_email' ) ) {
  */
 function slt_widget_email_obfuscation( $text ) {
 	return preg_replace_callback( '/[\._a-zA-Z0-9-]+@[\._a-zA-Z0-9-]+/i', create_function( '$matches', 'return pilau_obfuscate_email( $matches[0] );' ), $text );
+}
+
+
+/**
+ * Example widget
+ *
+ * @since	0.1
+ */
+class pilau_ExampleWidget extends WP_Widget {
+
+	// Initialise
+	function pilau_ExampleWidget() {
+		$this->WP_Widget(
+			'pilau-example',
+			'Example',
+			array(
+				'classname'		=> 'pilau-widget-example',
+				'description'	=> 'Example widget'
+			)
+		);
+	}
+
+	// Admin form
+	function form( $instance ) {
+		$defaults = array(
+			'title'		=> __( 'An example' )
+		);
+		$instance = wp_parse_args( (array) $instance, $defaults );
+
+		?>
+		<p>
+			<label for="<?php echo $this->get_field_id( 'title' ); ?>">Title (optional)</label>
+			<input type="text" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo $instance['title']; ?>" style="width:90%;" />
+		</p>
+		<p>
+			<label for="<?php echo $this->get_field_id( 'content' ); ?>">Content</label>
+			<textarea id="<?php echo $this->get_field_id( 'content' ); ?>" name="<?php echo $this->get_field_name( 'content' ); ?>" style="width:90%;"><?php echo esc_textarea( $instance['content'] ); ?></textarea>
+		</p>
+		<?php
+
+	}
+
+	// Update
+	function update( $new_instance, $old_instance ) {
+		$instance = $old_instance;
+		$instance['title'] = strip_tags( $new_instance['title'] );
+		$instance['content'] = strip_tags( $new_instance['content'] );
+		return $instance;
+	}
+
+	// Display
+	function widget( $args, $instance ) {
+		extract( $args );
+		$title = apply_filters( 'widget_title', $instance['title'] );
+		echo $before_widget;
+		if ( $title ) {
+			echo $before_title . esc_html( $title ) . $after_title;
+		}
+		if ( $content ) {
+			echo '<p>' . esc_html( $content ) . '</p>';
+		}
+		echo $after_widget;
+	}
+
 }
