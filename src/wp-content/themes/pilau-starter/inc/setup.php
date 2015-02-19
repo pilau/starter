@@ -35,8 +35,10 @@ function pilau_setup() {
 	add_filter( 'option_thumbnail_crop', function() { return 1; } );
 	add_filter( 'option_medium_size_w', function() { return 250; } );
 	add_filter( 'option_medium_size_h', function() { return 0; } );
+	add_filter( 'option_medium_crop', function() { return 0; } );
 	add_filter( 'option_large_size_w', function() { return 800; } );
 	add_filter( 'option_large_size_h', function() { return 0; } );
+	add_filter( 'option_large_crop', function() { return 0; } );
 
 	/* Featured image */
 	add_theme_support( 'post-thumbnails' );
