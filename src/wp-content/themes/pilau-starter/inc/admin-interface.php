@@ -154,7 +154,6 @@ function pilau_admin_menus() {
 	***************************************************************************/
 
 	// Site settings
-	/*
 	add_options_page(
 		get_bloginfo( 'name' ) . ' ' . __( 'settings' ),
 		get_bloginfo( 'name' ) . ' ' . __( 'settings' ),
@@ -162,7 +161,6 @@ function pilau_admin_menus() {
 		'pilau-site-settings',
 		'pilau_site_settings_admin_page'
 	);
-	*/
 
 }
 
@@ -368,13 +366,33 @@ function pilau_site_settings_admin_page() {
 
 			<?php wp_nonce_field( 'pilau-site-settings', 'pilau_site_settings_admin_nonce' ); ?>
 
-			<h3><?php _e( 'Settings' ); ?></h3>
+			<h3><?php _e( 'Contact details' ); ?></h3>
 			<table class="form-table">
 				<tbody>
-					<tr valign="top">
-						<th scope="row"><label for="pilau-setting"><?php _e( 'Setting' ); ?></label></th>
-						<td><input type="text" name="setting" id="pilau-setting" value="<?php esc_attr_e( $settings['setting'] ); ?>" class="regular-text"></td>
-					</tr>
+				<tr valign="top">
+					<th scope="row">
+						<label for="pilau_contact_phone"><?php _e( 'Phone number' ); ?></label>
+					</th>
+					<td>
+						<input type="text" name="contact_phone" id="pilau_contact_phone" value="<?php echo $settings['contact_phone']; ?>">
+					</td>
+				</tr>
+				<tr valign="top">
+					<th scope="row">
+						<label for="pilau_contact_email"><?php _e( 'Email address' ); ?></label>
+					</th>
+					<td>
+						<input type="text" name="contact_email" id="pilau_contact_email" value="<?php echo $settings['contact_email']; ?>">
+					</td>
+				</tr>
+				<tr valign="top">
+					<th scope="row">
+						<label for="pilau_contact_postal_address"><?php _e( 'Postal address' ); ?></label>
+					</th>
+					<td>
+						<textarea name="contact_postal_address" id="pilau_contact_postal_address" rows="6" cols="30"><?php echo esc_textarea( $settings['contact_postal_address'] ); ?></textarea>
+					</td>
+				</tr>
 				</tbody>
 			</table>
 
@@ -402,7 +420,9 @@ function pilau_site_settings_admin_page_process() {
 
 		// Gather into array
 		$settings = array();
-		$settings['setting'] = sanitize_text_field( $_POST['setting'] );
+		$settings['contact_phone'] = strip_tags( $_POST['contact_phone'] );
+		$settings['contact_postal_address'] = strip_tags( $_POST['contact_postal_address'] );
+		$settings['contact_email'] = sanitize_email( $_POST['contact_email'] );
 
 		// Save as option
 		update_option( 'pilau_site_settings', $settings );

@@ -61,9 +61,10 @@ function pilau_setup() {
 		//'nav_footer' => __( 'Footer navigation' ),
 	));
 
-	/* Site settings
-	$pilau_site_settings = get_option( 'pilau_site_settings' );
+	/*
+	 * Site settings
 	*/
+	$pilau_site_settings = get_option( 'pilau_site_settings' );
 
 	/*
 	 * Filtering (see inc/filtering.php)
