@@ -30,15 +30,15 @@ function pilau_setup() {
 	 * Override main image size settings
 	 * These shouldn't be set via admin!
 	 */
-	add_filter( 'option_thumbnail_size_w', function() { return 100; } );
-	add_filter( 'option_thumbnail_size_h', function() { return 100; } );
-	add_filter( 'option_thumbnail_crop', function() { return 1; } );
-	add_filter( 'option_medium_size_w', function() { return 250; } );
-	add_filter( 'option_medium_size_h', function() { return 0; } );
-	add_filter( 'option_medium_crop', function() { return 0; } );
-	add_filter( 'option_large_size_w', function() { return 800; } );
-	add_filter( 'option_large_size_h', function() { return 0; } );
-	add_filter( 'option_large_crop', function() { return 0; } );
+	add_filter( 'option_thumbnail_size_w',	function() { return 100; } );
+	add_filter( 'option_thumbnail_size_h',	function() { return 100; } );
+	add_filter( 'option_thumbnail_crop',	function() { return 1; } );
+	add_filter( 'option_medium_size_w',		function() { return 250; } );
+	add_filter( 'option_medium_size_h',		function() { return 0; } );
+	add_filter( 'option_medium_crop',		function() { return 0; } );
+	add_filter( 'option_large_size_w',		function() { return 800; } );
+	add_filter( 'option_large_size_h',		function() { return 0; } );
+	add_filter( 'option_large_crop',		function() { return 0; } );
 
 	/* Featured image */
 	add_theme_support( 'post-thumbnails' );
@@ -193,20 +193,20 @@ if ( PILAU_RENAME_POSTS_NEWS ) {
 function pilau_change_post_object_label() {
 	global $wp_post_types;
 	$post = &$wp_post_types['post'];
-	$post->label = 'News';
-	$post->labels->name = 'News';
-	$post->labels->singular_name = 'News';
-	$post->labels->add_new = 'Add News';
-	$post->labels->add_new_item = 'Add News';
-	$post->labels->edit_item = 'Edit News';
-	$post->labels->new_item = 'News';
-	$post->labels->view_item = 'View News';
-	$post->labels->search_items = 'Search News';
-	$post->labels->not_found = 'No News found';
-	$post->labels->not_found_in_trash = 'No News found in Trash';
-	$post->labels->all_items = 'All News';
-	$post->labels->menu_name = 'News';
-	$post->labels->name_admin_bar = 'News';
+	$post->label =						'News';
+	$post->labels->name =				'News';
+	$post->labels->singular_name =		'News';
+	$post->labels->add_new =			'Add News';
+	$post->labels->add_new_item =		'Add News';
+	$post->labels->edit_item =			'Edit News';
+	$post->labels->new_item =			'News';
+	$post->labels->view_item =			'View News';
+	$post->labels->search_items =		'Search News';
+	$post->labels->not_found =			'No News found';
+	$post->labels->not_found_in_trash =	'No News found in Trash';
+	$post->labels->all_items =			'All News';
+	$post->labels->menu_name =			'News';
+	$post->labels->name_admin_bar =		'News';
 }
 
 
