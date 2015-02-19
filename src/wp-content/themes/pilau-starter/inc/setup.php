@@ -15,7 +15,7 @@ add_action( 'after_setup_theme', 'pilau_setup', 10 );
  * @since	Pilau_Starter 0.1
  */
 function pilau_setup() {
-	global $pilau_site_settings;
+	global $pilau_site_settings, $pilau_filters;
 
 	/* Enable shortcodes in widgets */
 	add_filter( 'widget_text', 'do_shortcode' );
@@ -66,22 +66,17 @@ function pilau_setup() {
 	*/
 
 	/*
+	 * Filtering (see inc/filtering.php)
+	 */
+	$pilau_filters = array();
+
+	/*
 	 * Developer's Custom Fields
 	 */
 	if ( PILAU_PLUGIN_EXISTS_DEVELOPERS_CUSTOM_FIELDS ) {
 		// Easily sortable date format default
 		slt_cf_setting( 'datepicker_default_format', 'yy/mm/dd' );
 	}
-
-	/*
-	 * Virtual post hierarchy
-	 *
-	 * To situate non-page post types within the page hierarchy:
-	 * [post_type]	=> array( [parent ID], [grandparent ID], etc. )
-	 */
-	$pilau_vph = array(
-
-	);
 
 }
 
