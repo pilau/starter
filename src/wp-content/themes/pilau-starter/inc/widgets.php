@@ -76,7 +76,7 @@ if ( function_exists( 'slt_obfuscate_email' ) ) {
  * @since	Pilau_Starter 0.1
  * @uses	pilau_obfuscate_email()
  */
-function slt_widget_email_obfuscation( $text ) {
+function pilau_widget_email_obfuscation( $text ) {
 	return preg_replace_callback( '/[\._a-zA-Z0-9-]+@[\._a-zA-Z0-9-]+/i', create_function( '$matches', 'return pilau_obfuscate_email( $matches[0] );' ), $text );
 }
 
