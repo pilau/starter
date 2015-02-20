@@ -3,3 +3,29 @@ Any styles for WordPress admin
 */
 
 
+// Widgets
+.pilau-widget-heading {
+	padding-bottom: .4em;
+	border-bottom: 1px dotted #ccc;
+	margin: 1.7em 0 .85em;
+	font-size: 1.1em;
+}
+.pilau-widget-field {
+	margin: 1em 0;
+	label {
+		display: block;
+		margin-bottom: .3em;
+	}
+	input[type=text], textarea {
+		width: 100%;
+	}
+	.note {
+		margin: .3em 0 1em !important;
+		font-size: .85em;
+		line-height: 1.7;
+		code {
+			padding: .1em .3em;
+			font-size: 1em;
+		}
+	}
+}

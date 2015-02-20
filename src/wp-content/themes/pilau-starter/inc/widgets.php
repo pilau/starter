@@ -108,14 +108,14 @@ class pilau_ExampleWidget extends WP_Widget {
 		$instance = wp_parse_args( (array) $instance, $defaults );
 
 		?>
-		<p>
+		<div class="pilau-widget-field">
 			<label for="<?php echo $this->get_field_id( 'title' ); ?>">Title (optional)</label>
-			<input type="text" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo $instance['title']; ?>" style="width:90%;" />
-		</p>
-		<p>
+			<input type="text" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo $instance['title']; ?>" />
+		</div>
+		<div class="pilau-widget-field">
 			<label for="<?php echo $this->get_field_id( 'content' ); ?>">Content</label>
-			<textarea id="<?php echo $this->get_field_id( 'content' ); ?>" name="<?php echo $this->get_field_name( 'content' ); ?>" style="width:90%;"><?php echo esc_textarea( $instance['content'] ); ?></textarea>
-		</p>
+			<textarea id="<?php echo $this->get_field_id( 'content' ); ?>" name="<?php echo $this->get_field_name( 'content' ); ?>"><?php echo esc_textarea( $instance['content'] ); ?></textarea>
+		</div>
 		<?php
 
 	}
@@ -136,8 +136,8 @@ class pilau_ExampleWidget extends WP_Widget {
 		if ( $title ) {
 			echo $before_title . esc_html( $title ) . $after_title;
 		}
-		if ( $content ) {
-			echo '<p>' . esc_html( $content ) . '</p>';
+		if ( $instance['content'] ) {
+			echo '<p>' . esc_html( $instance['content'] ) . '</p>';
 		}
 		echo $after_widget;
 	}
