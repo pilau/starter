@@ -88,7 +88,9 @@ function slt_widget_email_obfuscation( $text ) {
  */
 class pilau_ExampleWidget extends WP_Widget {
 
-	// Initialise
+	/**
+	 * Initialise
+	 */
 	function pilau_ExampleWidget() {
 		$this->WP_Widget(
 			'pilau-example',
@@ -100,7 +102,9 @@ class pilau_ExampleWidget extends WP_Widget {
 		);
 	}
 
-	// Admin form
+	/**
+	 * Admin form
+	 */
 	function form( $instance ) {
 		$defaults = array(
 			'title'		=> __( 'An example' )
@@ -120,7 +124,9 @@ class pilau_ExampleWidget extends WP_Widget {
 
 	}
 
-	// Update
+	/**
+	 * Update
+	 */
 	function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 		$instance['title'] = strip_tags( $new_instance['title'] );
@@ -128,7 +134,9 @@ class pilau_ExampleWidget extends WP_Widget {
 		return $instance;
 	}
 
-	// Display
+	/**
+	 * Display
+	 */
 	function widget( $args, $instance ) {
 		extract( $args );
 		$title = apply_filters( 'widget_title', $instance['title'] );

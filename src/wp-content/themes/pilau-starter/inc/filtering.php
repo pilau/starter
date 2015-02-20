@@ -53,7 +53,7 @@ function pilau_filter_select( $var, $label, $var_type = 'taxonomy', $show_all = 
 		switch ( $var_type ) {
 
 			case 'taxonomy': {
-				$terms = get_terms( $var );
+				$terms = get_terms( str_replace( '-', '_', $var ) );
 				foreach ( $terms as $term ) {
 					echo '<option value="' . $term->term_id . '"' . selected( $pilau_filters[ $var ], $term->term_id, false ) . '>' . $term->name . '</option>';
 				}
@@ -62,7 +62,7 @@ function pilau_filter_select( $var, $label, $var_type = 'taxonomy', $show_all = 
 
 			case 'post_type': {
 				$posts = get_posts( array(
-					'post_type'			=> $var,
+					'post_type'			=> str_replace( '-', '_', $var ),
 					'posts_per_page'	=> -1,
 					'orderby'			=> 'title',
 					'order'				=> 'ASC',
@@ -76,6 +76,61 @@ function pilau_filter_select( $var, $label, $var_type = 'taxonomy', $show_all = 
 		?>
 
 	</select>
+
+<?php
+}
+
+
+/**
+ * Output checkboxes for a filter
+ *
+ * @since	0.2
+ * @param	string	$var
+ * @param	string	$legend
+ * @param	string	$var_type	'taxonomy' | 'post_type'
+ * @return	void
+ */
+function pilau_filter_checkboxes( $var, $legend, $var_type = 'taxonomy' ) {
+	global $pilau_filters;
+
+	// Output
+	?>
+
+	<fieldset class="filter-checkboxes">
+
+		<legend><?php echo $legend; ?></legend>
+
+		<ul class="filter-checkboxes-list">
+
+			<?php
+			switch ( $var_type ) {
+
+				case 'taxonomy': {
+					$terms = get_terms( str_replace( '-', '_', $var ) );
+					foreach ( $terms as $term ) {
+						echo '<label for="' . $var . '-' . $term->term_id . '"><input type="checkbox" name="' . $var . '[]" id="' . $var . '-' . $term->term_id . '" value="' . $term->term_id . '" ' . pilau_checked( $pilau_filters[ $var ], $term->term_id, false ) . '> ' . $term->name . '</label> ';
+					}
+					break;
+				}
+
+				case 'post_type': {
+					$posts = get_posts( array(
+						'post_type'			=> str_replace( '-', '_', $var ),
+						'posts_per_page'	=> -1,
+						'orderby'			=> 'title',
+						'order'				=> 'ASC',
+					));
+					foreach ( $posts as $post ) {
+						echo '<label for="' . $var . '-' . $post->ID . '"><input type="checkbox" name="' . $var . '[]" id="' . $var . '-' . $post->ID . '" value="' . $post->ID . '" ' . pilau_checked( $pilau_filters[ $var ], $post->ID, false ) . '> ' . get_the_title( $post ) . '</label> ';
+					}
+				}
+
+			}
+			?>
+
+		</ul>
+
+	</fieldset>
 
 <?php
 }
