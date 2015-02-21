@@ -62,7 +62,7 @@ function pilau_register_widgets() {
 	/*
 	 * Register custom widgets
 	 */
-	//register_widget( 'pilau_ExampleWidget' );
+	//register_widget( 'Pilau_Widget_Example' );
 
 }
 
@@ -86,12 +86,12 @@ function pilau_widget_email_obfuscation( $text ) {
  *
  * @since	0.1
  */
-class pilau_ExampleWidget extends WP_Widget {
+class Pilau_Widget_Example extends WP_Widget {
 
 	/**
 	 * Initialise
 	 */
-	function pilau_ExampleWidget() {
+	function Pilau_Widget_Example() {
 		$this->WP_Widget(
 			'pilau-example',
 			'Example',
