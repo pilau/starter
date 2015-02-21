@@ -280,15 +280,15 @@ function pilau_tinymce_buttons( $init_array ) {
 }
 
 
-//add_action( 'admin_head', 'pilau_disable_home_editor' );
+add_action( 'admin_head', 'pilau_disable_content_editor' );
 /**
- * Disable editor for home page
+ * Disable editor for certain pages
  *
  * @since	Pilau_Starter 0.1
  */
-function pilau_disable_home_editor() {
+function pilau_disable_content_editor() {
 	global $post;
-	if ( $post->ID == PILAU_HOME_PAGE_ID ) {
+	if ( in_array( $post->ID, array( PILAU_HOME_PAGE_ID ) ) ) {
 		remove_post_type_support( 'page', 'editor' );
 	}
 }
