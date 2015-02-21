@@ -407,7 +407,7 @@ function pilau_site_settings_admin_page() {
 }
 
 
-//add_action( 'admin_init', 'pilau_site_settings_admin_page_process' );
+add_action( 'admin_init', 'pilau_site_settings_admin_page_process' );
 /**
  * Process site settings
  *
