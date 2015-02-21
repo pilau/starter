@@ -8,7 +8,7 @@
  */
 
 
-add_action( 'after_setup_theme', 'pilau_setup', 10 );
+add_action( 'after_setup_theme', 'pilau_setup' );
 /**
  * Set up theme
  *
@@ -25,27 +25,6 @@ function pilau_setup() {
 	 * @see inc/feeds.php
 	 */
 	remove_theme_support( 'automatic-feed-links' );
-
-	/*
-	 * Override main image size settings
-	 * These shouldn't be set via admin!
-	 */
-	add_filter( 'option_thumbnail_size_w',	function() { return 100; } );
-	add_filter( 'option_thumbnail_size_h',	function() { return 100; } );
-	add_filter( 'option_thumbnail_crop',	function() { return 1; } );
-	add_filter( 'option_medium_size_w',		function() { return 250; } );
-	add_filter( 'option_medium_size_h',		function() { return 0; } );
-	add_filter( 'option_medium_crop',		function() { return 0; } );
-	add_filter( 'option_large_size_w',		function() { return 800; } );
-	add_filter( 'option_large_size_h',		function() { return 0; } );
-	add_filter( 'option_large_crop',		function() { return 0; } );
-
-	/* Featured image */
-	add_theme_support( 'post-thumbnails' );
-	//set_post_thumbnail_size( 203, 161 ); // default Post Thumbnail dimensions
-
-	/* Set custom image sizes */
-	//add_image_size( 'image-banner', 250, 0, false );
 
 	/*
 	 * Post formats - may be useful for some blog-heavy projects
