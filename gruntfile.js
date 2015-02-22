@@ -82,7 +82,7 @@ module.exports = function(grunt) {
 				files: [{
 					expand: true,
 					cwd: srcThemeDir,
-					src: ['**/*.gif', '**/*.jpg', '**/*.gif', '**/*.svg'],
+					src: ['**/*.gif', '**/*.jpg', '**/*.png', '**/*.svg'],
 					dest: publicThemeDir,
 				}],
 			},
