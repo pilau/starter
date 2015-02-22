@@ -137,7 +137,8 @@ function pilau_post_back_link( $link_text = null ) {
 	if ( ! $link_text ) {
 		$link_text = __( 'Back' );
 	}
-	echo '<p class="post-back-link"><a href="' . get_permalink( pilau_get_cpt_ancestors( $post )[0] ) . '">&laquo; ' . $link_text . '</a></p>';
+	$ancestors = pilau_get_cpt_ancestors( $post );
+	echo '<p class="post-back-link"><a href="' . get_permalink( $ancestors[0] ) . '">&laquo; ' . $link_text . '</a></p>';
 }
 
 
