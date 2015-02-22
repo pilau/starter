@@ -1,8 +1,8 @@
 /*
-* Generic styles
-*
-* - Anything site-wide which doesn't logically fit into another partial
-*/
+ * Generic styles
+ *
+ * - Anything site-wide which doesn't logically fit into another partial
+ */
 
 
 /*
@@ -41,7 +41,7 @@ html.no-js img[data-defer-src] { display: none !important; }
 /*
  * Image replacement - just add dimensions and an image!
  * @link	http://www.zeldman.com/2012/03/01/replacing-the-9999px-hack-new-image-replacement/
-*/
+ */
 .img-rep {
 	text-indent: 100%;
 	white-space: nowrap;
@@ -56,7 +56,6 @@ html.no-js img[data-defer-src] { display: none !important; }
 /*
  * Headings
  */
-
 h1 {
 	margin: 0 0 1em;
 	font-size: 2em;
