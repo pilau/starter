@@ -8,6 +8,22 @@ body {
 	color: #666;
 }
 
-/* Standardise */
+// Standardise
 pre, code, kbd, samp { font-family: monospace, sans-serif; }
 strong { font-weight: bold; }
+
+// Basic spacing
+p, ul, ol, dl, blockquote, table, form, h1, h2, h3, h4, h5, h6 { margin-bottom: 1em; }
+li, dt, dd { margin-bottom: .5em; }
+ol { padding-left: 2em; }
+time { white-space: nowrap; }
+.notop {
+	margin-top: 0 !important;
+	padding-top: 0 !important;
+}
+.nobottom {
+	margin-bottom: 0 !important;
+	padding-bottom: 0 !important;
+}
+
+

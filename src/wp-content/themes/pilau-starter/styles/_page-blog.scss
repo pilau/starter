@@ -7,22 +7,23 @@ body.blog {
 
 }
 
-.list-blog {
+// Loop listing
+.posts-lists {
 	.link-block {
 		padding: 1em;
 		&:hover, &:focus {
 			background-color: #cef;
 		}
 	}
-	.post {
+	.post-item {
 		margin: 0 0 $gutter-small;
-		.heading-loop {
-			font-size: 1.5em;
-		}
-		.post-meta {
-			margin-bottom: $gutter-small;
-			color: #999;
-			font-size: .85em;
-		}
+	}
+	.loop-heading {
+		font-size: 1.5em;
+	}
+	.loop-meta {
+		margin-bottom: $gutter-small;
+		color: #999;
+		font-size: .85em;
 	}
 }

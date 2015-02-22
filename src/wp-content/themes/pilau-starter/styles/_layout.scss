@@ -1,16 +1,18 @@
 /*
-* Layout
-*/
+ * Layout
+ */
+
 
 body {
     text-align: center;
 }
-
 main {
     margin: $gutter-large 0;
 }
+.clear { clear: both; }
+.center { text-align: center; }
 
-/* Wrap */
+// Wrap to constrain width
 .wrap {
     width: 100%;
     max-width: $breakpoint-large;
