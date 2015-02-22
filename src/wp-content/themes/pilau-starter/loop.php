@@ -12,26 +12,28 @@
 
 ?>
 
-<li <?php post_class(); ?>>
+<li <?php post_class( 'post-item' ); ?>>
 
-	<article role="article"><a class="link-block" href="<?php the_permalink(); ?>" rel="bookmark">
+	<article role="article">
+		<a class="link-block" href="<?php the_permalink(); ?>" rel="bookmark">
 
-		<header>
+			<header>
 
-			<h1 class="heading-loop"><?php the_title(); ?></h1>
+				<h1 class="loop-heading"><?php the_title(); ?></h1>
 
-			<?php if ( get_post_type() == 'post' ) : ?>
-				<p class="post-meta">
-					<?php the_time( get_option( 'date_format' ) ); ?>
-				</p>
-			<?php endif; ?>
+				<?php if ( get_post_type() == 'post' ) : ?>
+					<p class="loop-meta">
+						<?php the_time( get_option( 'date_format' ) ); ?>
+					</p>
+				<?php endif; ?>
 
-		</header>
+			</header>
 
-		<div class="teaser">
-			<?php echo pilau_content(); ?>
-		</div>
+			<div class="editor-content loop-content">
+				<?php echo pilau_content(); ?>
+			</div>
 
-	</a></article>
+		</a>
+	</article>
 
 </li>

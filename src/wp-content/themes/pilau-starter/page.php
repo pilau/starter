@@ -17,11 +17,11 @@
 
 		<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 
-			<article <?php post_class(); ?> role="article">
+			<article <?php post_class( 'content-body' ); ?> role="article">
 
-				<h1 class="heading-main"><?php the_title(); ?></h1>
+				<h1 class="main-heading"><?php the_title(); ?></h1>
 
-				<div class="editor-content">
+				<div class="editor-content main-content">
 					<?php the_content(); ?>
 				</div>
 

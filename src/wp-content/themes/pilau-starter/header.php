@@ -66,6 +66,9 @@
 <body <?php body_class(); ?> role="document">
 
 
+<p class="assistive-text skip-link"><a href="#content"><?php _e( 'Skip to main content' ); ?></a></p>
+
+
 <?php /* Upgrade notice for IE 7 and below */ ?>
 <!--[if lt IE 8]><p class="upgrade-browser">Please note that this site does not support Internet Explorer 7 and below. Neither does Microsoft! <a href="http://browsehappy.com/">Please upgrade to a modern browser</a> if possible, or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this and other sites in your current browser.</p><![endif]-->
 
@@ -96,8 +99,6 @@ if ( PILAU_USE_COOKIE_NOTICE && ! isset( $_COOKIE['pilau_cookie_notice'] ) ) { ?
 
 	<nav role="navigation">
 		<div class="wrap">
-			<h1 class="assistive-text"><?php _e( 'Menu' ); ?></h1>
-			<p class="assistive-text skip-link"><a href="#content"><?php _e( 'Skip to content' ); ?></a></p>
 			<ul class="nav nav-header">
 				<?php
 				echo pilau_menu_without_containers( 'Header navigation' );

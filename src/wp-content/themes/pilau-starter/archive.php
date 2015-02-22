@@ -24,7 +24,7 @@ if ( ! is_month() ) {
 
 		<?php if ( have_posts() ) : ?>
 
-			<h1 class="heading-main"><?php printf( __( 'Monthly archives: %s' ), '<span>' . get_the_date( 'F Y' ) . '</span>' ); ?></h1>
+			<h1 class="main-heading"><?php printf( __( 'Monthly archives: %s' ), '<span>' . get_the_date( 'F Y' ) . '</span>' ); ?></h1>
 
 			<?php while ( have_posts() ) : the_post(); ?>
 
