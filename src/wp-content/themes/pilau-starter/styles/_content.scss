@@ -2,6 +2,11 @@
 * Editor content and other general content styles
 */
 
+.heading-main {
+	margin: 0 0 $gutter-medium;
+	font-size: 2em;
+}
+
 .editor-content {
 
 	ul {
@@ -11,9 +16,4 @@
 
 	p, blockquote, dl, ol, ul, table { margin-bottom: 1em; }
 
-}
-
-.heading-main {
-	margin: 0 0 $gutter-medium;
-	font-size: 2em;
 }
