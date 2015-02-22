@@ -8,22 +8,22 @@ body.blog {
 }
 
 // Loop listing
-.posts-lists {
+.posts-list {
 	.link-block {
 		padding: 1em;
 		&:hover, &:focus {
 			background-color: #cef;
 		}
 	}
-	.post-item {
-		margin: 0 0 $gutter-small;
-	}
-	.loop-heading {
-		font-size: 1.5em;
-	}
-	.loop-meta {
-		margin-bottom: $gutter-small;
-		color: #999;
-		font-size: .85em;
-	}
+}
+.posts-item {
+	margin: 0 0 $gutter-small;
+}
+.loop-heading {
+	font-size: 1.5em;
+}
+.loop-meta {
+	margin-bottom: $gutter-small;
+	color: #999;
+	font-size: .85em;
 }

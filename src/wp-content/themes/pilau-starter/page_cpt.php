@@ -35,7 +35,7 @@ $pilau_cpts = get_posts( array(
 				<ul class="cpts-list">
 					<?php
 					foreach( $pilau_cpts as $pilau_cpt ) {
-						echo '<li class="cpt-item"><a href="' . get_permalink( $pilau_cpt ) . '">' . get_the_title( $pilau_cpt ) . '</a></li>';
+						echo '<li class="cpts-item"><a href="' . get_permalink( $pilau_cpt ) . '">' . get_the_title( $pilau_cpt ) . '</a></li>';
 					}
 					?>
 				</ul>

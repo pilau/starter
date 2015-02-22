@@ -12,7 +12,7 @@
 
 ?>
 
-<li <?php post_class( 'post-item' ); ?>>
+<li <?php post_class( 'posts-item' ); ?>>
 
 	<article role="article">
 		<a class="link-block" href="<?php the_permalink(); ?>" rel="bookmark">
