@@ -3,7 +3,7 @@
 /**
  * The template for displaying 404 pages (Not Found)
  *
- * @package	Pilau_Starter
+ * @package	Walsingham
  * @since	0.1
  * @todo	More useful 404 page?
  */
@@ -23,12 +23,18 @@ add_filter( 'wp_title', 'pilau_404_title', 10000, 3 );
 
 <?php get_header(); ?>
 
-<main role="main">
-	<div class="wrap">
+	<main role="main">
+		<div class="wrap">
 
-		<?php pilau_not_found( __( 'Page not found' ) ); ?>
+			<div class="content-body">
+				<?php pilau_not_found( __( 'Page not found' ) ); ?>
+			</div>
 
-	</div>
-</main>
+			<div role="complementary" class="sidebar">
+				<?php dynamic_sidebar( 'default-sidebar' ); ?>
+			</div>
+
+		</div>
+	</main>
 
 <?php get_footer(); ?>
