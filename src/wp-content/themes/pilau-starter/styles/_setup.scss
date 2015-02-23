@@ -83,3 +83,11 @@ Transparent background
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#{$ie-hex-str},endColorstr=#{$ie-hex-str});
 	zoom: 1;
 }
+
+/*
+ * rem fallback for IE8
+ */
+@mixin FontSizeRem( $size: 1.6 ) {
+	font-size: ( $size * 10 ) + px;
+	font-size: $size + rem;
+}
