@@ -30,6 +30,7 @@ jQuery( document ).ready( function( $ ) {
 		cn = $( '#cookie-notice' ),
 		di = $( 'img[data-defer-src]' );
 		op = $( 'li#older-posts' );
+		popups = $( '.popup-wrap' );
 	pilau_html = $( 'html' );
 	pilau_body = $( 'body' );
 	pilau_vw = $( window ).width();
@@ -176,6 +177,31 @@ jQuery( document ).ready( function( $ ) {
 
 				}
 			);
+
+		});
+
+	}
+
+
+	/**
+	 * Popups
+	 */
+	if ( popups.length ) {
+
+		// Buttons to open / close
+		popups.on( 'click', '.popup-button', function( e ) {
+			var el = $( this );
+			var pw = el.parents( '.popup-wrap' );
+
+			// By default, close all others before opening
+			if ( pw.hasClass( 'popup-closed' ) ) {
+				popups.each( function( i ) {
+					popups.not( this ).removeClass( 'popup-open' ).addClass( 'popup-closed' );
+				});
+			}
+
+			// Open or close...
+			pw.toggleClass( 'popup-open' ).toggleClass( 'popup-closed' );
 
 		});
 

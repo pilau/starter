@@ -1,0 +1,26 @@
+/*
+ * User interface
+ */
+
+
+// Popups
+.js {
+	.popup-wrap {
+		position: relative;
+	}
+	.popup-box {
+		position: absolute;
+		right: 0;
+		top: 2em;
+		width: 500px;
+		padding: $gutter-small;
+		text-align: left;
+		background-color: #000;
+		color: #fff;
+	}
+	.popup-closed {
+		.popup-box {
+			display: none;
+		}
+	}
+}
