@@ -112,7 +112,7 @@ module.exports = function(grunt) {
 				tasks: ['styles_changed'],
 			},
 			livereload: {
-				files: [publicDir + '**/*'],
+				files: [publicDir + '**/.css'],
 				options: { livereload: true },
 			},
 			php: {
