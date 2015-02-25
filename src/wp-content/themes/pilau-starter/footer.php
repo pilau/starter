@@ -14,7 +14,7 @@
 
 		<ul class="nav nav-footer">
 			<?php
-			echo pilau_menu_without_containers( 'Footer navigation' );
+			echo pilau_menu_without_containers( 'nav_footer' );
 			?>
 		</ul>
 

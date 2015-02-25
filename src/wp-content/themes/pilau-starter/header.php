@@ -99,7 +99,7 @@ if ( PILAU_USE_COOKIE_NOTICE && ! isset( $_COOKIE['pilau_cookie_notice'] ) ) { ?
 		<div class="wrap">
 			<ul class="nav nav-header">
 				<?php
-				echo pilau_menu_without_containers( 'Header navigation' );
+				echo pilau_menu_without_containers( 'nav_header' );
 				?>
 			</ul>
 

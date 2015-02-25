@@ -36,8 +36,8 @@ function pilau_setup() {
 	 * Register nav menus
 	 */
 	register_nav_menus( array(
-		//'nav_header' => __( 'Header navigation' ),
-		//'nav_footer' => __( 'Footer navigation' ),
+		'nav_header' => __( 'Header navigation' ),
+		'nav_footer' => __( 'Footer navigation' ),
 	));
 
 	/*
