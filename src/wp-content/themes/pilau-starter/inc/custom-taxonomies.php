@@ -19,12 +19,13 @@ function pilau_register_taxonomies() {
 	register_taxonomy(
 		'projecttype', 'project',
 		array(
-			'pilau_required'	=> true,
-			'pilau_multiple'	=> false,
-			'hierarchical'		=> true,
-			'query_var'			=> true,
-			'rewrite'			=> true,
-			'labels'			=> array(
+			'pilau_required'		=> true,
+			'pilau_multiple'		=> false,
+			'pilau_hierarchical'	=> false,
+			'hierarchical'			=> true,
+			'query_var'				=> true,
+			'rewrite'				=> true,
+			'labels'				=> array(
 				'name'				=> __( 'Project types' ),
 				'singular_name'		=> __( 'Project type' ),
 				'search_items'		=> __( 'Search Project types' ),
