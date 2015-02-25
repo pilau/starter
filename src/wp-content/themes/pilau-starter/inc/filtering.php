@@ -13,12 +13,29 @@
  * Initialise a page's filters
  *
  * @since	0.2
+ * @uses	$pilau_filters
+ * @param	array	$vars
+ * @return	void
  */
 function pilau_filters_init( $vars = array() ) {
 	global $pilau_filters;
 	foreach ( $vars as $var ) {
 		$pilau_filters[ $var ] = ! empty( $_REQUEST[ $var ] ) ? $_REQUEST[ $var ] : null;
 	}
+}
+
+
+/**
+ * Check if there's any filters set
+ *
+ * @since	0.2
+ * @uses	$pilau_filters
+ * @return	bool
+ */
+function pilau_filters_set() {
+	global $pilau_filters;
+	$empty_values_removed = array_filter( $pilau_filters );
+	return ! empty( $empty_values_removed );
 }
 
 
