@@ -22,11 +22,12 @@ module.exports = function(grunt) {
 	grunt.registerTask( 'php_changed',			['copy:php'] );
 	grunt.registerTask( 'img_changed',			['copy:img'] );
 	grunt.registerTask( 'js_changed',			['copy:js'] );
+	grunt.registerTask( 'fonts_changed',		['copy:font'] );
 	grunt.registerTask( 'root_changed',			['copy:root'] );
 
 	// Default tasks
 	grunt.registerTask( 'default', ['watch'] );
-	grunt.registerTask( 'init', ['copy:styles', 'sass', 'autoprefixer', 'copy:php', 'copy:img', 'copy:js', 'copy:root'] );
+	grunt.registerTask( 'init', ['copy:styles', 'sass', 'autoprefixer', 'copy:php', 'copy:img', 'copy:js', 'copy:font', 'copy:root'] );
 
 	// Config tasks
 	grunt.initConfig({
@@ -94,6 +95,14 @@ module.exports = function(grunt) {
 					dest: publicThemeDir,
 				}],
 			},
+			fonts: {
+				files: [{
+					expand: true,
+					cwd: srcThemeDir,
+					src: ['**/*.eot', '**/*.ttf', '**/*.woff'],
+					dest: publicThemeDir
+				}]
+			},
 			root: {
 				files: [{
 					expand: true,
@@ -126,6 +135,10 @@ module.exports = function(grunt) {
 			js: {
 				files: [srcDir + '**/*.js'],
 				tasks: ['js_changed'],
+			},
+			fonts: {
+				files: ['**/*.eot', '**/*.ttf', '**/*.woff'],
+				tasks: ['fonts_changed']
 			},
 			root: {
 				files:	[srcDir + '*.php', srcDir + '*.txt', srcDir + '.ht*'],
