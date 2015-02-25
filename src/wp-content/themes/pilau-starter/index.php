@@ -18,7 +18,7 @@
 
 		<?php if ( have_posts() ) : ?>
 
-			<ul class="posts-list">
+			<ul class="posts-list vertical-list">
 
 				<?php while ( have_posts() ) : the_post(); ?>
 

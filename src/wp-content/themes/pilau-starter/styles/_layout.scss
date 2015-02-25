@@ -11,6 +11,9 @@ main {
 }
 .clear { clear: both; }
 .center { text-align: center; }
+.vertical-list > :last-child {
+	margin-bottom: 0 !important;
+}
 
 // Wrap to constrain width
 .wrap {
