@@ -13,6 +13,7 @@ var pilau_form_warning = false;
 
 /* Trigger when DOM has loaded */
 jQuery( document ).ready( function( $ ) {
+	var b = $( 'body' );
 	var fwic = $( 'form.warn-if-changed' );
 
 
