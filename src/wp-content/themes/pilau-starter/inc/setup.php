@@ -185,14 +185,14 @@ function pilau_change_post_object_label() {
 }
 
 
-add_action( 'template_redirect', 'pilau_setup_after_post' );
+add_action( 'wp', 'pilau_setup_after_post', 0 );
 /**
  * Set up that needs to happen when $post object is ready
  *
  * @since	Pilau_Starter 0.1
  */
 function pilau_setup_after_post() {
-	global $pilau_custom_fields, $pilau_vph, $post;
+	global $pilau_custom_fields, $post;
 	$pilau_custom_fields = array();
 
 	/*

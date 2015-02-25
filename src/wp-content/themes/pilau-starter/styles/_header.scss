@@ -14,7 +14,14 @@
 }
 .site-title {
 	margin: 0;
-	font-size: 2.5em;
+	width: 314px;
+	height: 82px;
+	a {
+		width: 314px;
+		height: 82px;
+		background: url(#{$path-images}/logo.svg?v=1) no-repeat 0 0;
+		background-size: contain;
+	}
 }
 .site-description {
 	font-size: .9em;

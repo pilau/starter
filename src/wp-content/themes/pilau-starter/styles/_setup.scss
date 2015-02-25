@@ -5,6 +5,9 @@
  * can help with IDE auto-completion.
 */
 
+// Paths
+$path-images: '/wp-content/themes/pilau-starter/img';
+
 /* Fonts */
 $font-stack-regular: Helvetica, Arial, sans-serif;
 
@@ -82,4 +85,13 @@ Transparent background
 	background-color: $rgba;
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#{$ie-hex-str},endColorstr=#{$ie-hex-str});
 	zoom: 1;
+}
+
+/*
+ * rem fallback for IE8
+ */
+@mixin FontSizeRem( $size: 1.6 ) {
+	// Adjust the figure 10 here to get a rough match between the px fallback and the rem sizes
+	font-size: ( $size * 10 ) + px;
+	font-size: $size + rem;
 }
