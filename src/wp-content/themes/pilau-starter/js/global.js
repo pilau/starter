@@ -26,11 +26,12 @@ var pilau_did_scroll = false;
 
 /** Trigger when DOM has loaded */
 jQuery( document ).ready( function( $ ) {
-	var placeholders = $( '[placeholder]' ),
-		cn = $( '#cookie-notice' ),
-		di = $( 'img[data-defer-src]' );
-		op = $( 'li#older-posts' );
-		popups = $( '.popup-wrap' );
+	//var placeholders = $( '[placeholder]' );
+	//var cn = $( '#cookie-notice' );
+	//var di = $( 'img[data-defer-src]' );
+	//var op = $( 'li#older-posts' );
+	//var popups = $( '.popup-wrap' );
+	//var tl = $( '[role=tablist]' );
 	pilau_html = $( 'html' );
 	pilau_body = $( 'body' );
 	pilau_vw = $( window ).width();
@@ -55,7 +56,7 @@ jQuery( document ).ready( function( $ ) {
 	/**
 	 * Placeholder fallback
 	 */
-	if ( ! Modernizr.input.placeholder ) {
+	if ( ! Modernizr.input.placeholder && typeof placeholders !== 'undefined' && placeholders.length ) {
 
 		// set placeholder values
 		placeholders.each( function() {
@@ -90,7 +91,7 @@ jQuery( document ).ready( function( $ ) {
 
 
 	/** Cookie notice */
-	if ( cn.length ) {
+	if ( typeof cn !== 'undefined' && cn.length ) {
 		cn.find( '.close' ).on( 'click', 'a', function () {
 			cn.slideUp( 400, function() {
 				$( this ).remove();
@@ -108,7 +109,7 @@ jQuery( document ).ready( function( $ ) {
 	 *
 	 * @link	http://24ways.org/2010/speed-up-your-site-with-delayed-content/
 	 */
-	if ( di.length ) {
+	if ( typeof di !== 'undefined' && di.length ) {
 		di.each( function() {
 			var el = $( this );
 			var cb = el.data( 'defer-callback' );
@@ -124,7 +125,7 @@ jQuery( document ).ready( function( $ ) {
 	/**
 	 * AJAX "more posts" loading
 	 */
-	if ( op.length ) {
+	if ( typeof op !== 'undefined' && op.length ) {
 
 		// Replace label
 		op.find( 'a' ).html( pilau_ajax_more_data.show_more_label );
@@ -186,7 +187,7 @@ jQuery( document ).ready( function( $ ) {
 	/**
 	 * Popups
 	 */
-	if ( popups.length ) {
+	if ( typeof popups !== 'undefined' && popups.length ) {
 
 		// Buttons to open / close
 		popups.on( 'click', '.popup-button', function( e ) {
@@ -203,6 +204,32 @@ jQuery( document ).ready( function( $ ) {
 			// Open or close...
 			pw.toggleClass( 'popup-open' ).toggleClass( 'popup-closed' );
 
+		});
+
+	}
+
+
+	/**
+	 * Tabs
+	 */
+	if ( typeof tl !== 'undefined' && tl.length ) {
+
+		tl.on( 'click', '[role=tab]', function( e ) {
+			// Clicking on a tab
+			e.preventDefault();
+			var el = $( this );
+			if ( el.attr( 'aria-selected' ) == 'false' ) {
+				var panel = $( '#' + el.attr( 'aria-controls' ) );
+				el.attr( 'aria-selected', 'true' );
+				el.siblings().attr( 'aria-selected', 'false' );
+				panel.attr( 'aria-hidden', 'false' );
+				panel.siblings().attr( 'aria-hidden', 'true' );
+			}
+		} ).on( 'keydown', '[role=tab]', function( e ) {
+			// Make enter key act like a click
+			if ( e.which == 13 ) {
+				$( this ).click()
+			}
 		});
 
 	}

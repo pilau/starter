@@ -2,6 +2,56 @@
  * User interface
  */
 
+// ARIA stuff
+.js {
+	[aria-hidden='true'] {
+		display: none;
+	}
+}
+
+/*
+// Tabbed panels
+.js {
+	.tablist {
+		overflow: hidden;
+		.tab {
+			float: left;
+			text-align: center;
+			margin: 0 4px 4px 0;
+			padding: .5em 0;
+			background-color: #000;
+			color: #fff;
+			cursor: pointer;
+			&:hover, &:focus {
+				background-color: #eee;
+			}
+			&[aria-selected='true'] {
+				margin-bottom: 0;
+				border-bottom: 4px solid #fff;
+				background-color: #fff;
+				color: #000;
+			}
+		}
+		.tab:last-child {
+			margin-right: 0;
+		}
+	}
+	.tablist-2 {
+		.tab {
+			width: 49%;
+		}
+	}
+	.tablist-3 {
+		.tab {
+			width: 33%;
+		}
+	}
+	.tablist-4 {
+		.tab {
+			width: 24%;
+		}
+	}
+}
 
 // Popups
 .js {
@@ -24,3 +74,4 @@
 		}
 	}
 }
+*/
