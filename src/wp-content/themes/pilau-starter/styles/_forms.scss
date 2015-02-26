@@ -8,6 +8,11 @@ input[type=button] {
 	-webkit-appearance: none;
 }
 
+// Labels
+label {
+	display: block;
+}
+
 // Inputs
 input[type=text],
 input[type=password],
@@ -59,9 +64,11 @@ Gravity Forms (use these classes for custom forms where possible to prevent repl
 	overflow: hidden;
 }
 .gfield_label {
-	float: left;
-	width: 20%;
-	vertical-align: middle;
+	@include Tablet-Desktop {
+		float: left;
+		width: 20%;
+		vertical-align: middle;
+	}
 }
 .gfield_radio {
 	> li {
@@ -77,8 +84,13 @@ Gravity Forms (use these classes for custom forms where possible to prevent repl
 	}
 }
 .ginput_container {
-	float: right;
-	width: 75%;
+	label {
+		display: inline-block;
+	}
+	@include Tablet-Desktop {
+		float: right;
+		width: 75%;
+	}
 }
 // Honeypot validation needs to be hidden
 .gform_validation_container {

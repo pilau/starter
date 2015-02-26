@@ -63,8 +63,8 @@ h6 {
 }
 
 // Headings at the top of sections
-article, section, aside, .wrap, .col {
-	> h1, > h2 {
+article, section, aside, .wrap, .col, .text {
+	> h1, > h2, > h3 {
 		margin-top: 0;
 	}
 }
