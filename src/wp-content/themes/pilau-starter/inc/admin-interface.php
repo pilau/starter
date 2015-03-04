@@ -77,10 +77,8 @@ function pilau_admin_enqueue_scripts_styles() {
 		}
 	}
 
-	// Pass through?
-	if ( ! empty( $admin_js_vars ) ) {
-		wp_localize_script( 'pilau-admin-js', 'pilau_admin', $admin_js_vars );
-	}
+	// Pass through even if empty to prevent pilau_admin not defined errors
+	wp_localize_script( 'pilau-admin-js', 'pilau_admin', $admin_js_vars );
 
 }
 
