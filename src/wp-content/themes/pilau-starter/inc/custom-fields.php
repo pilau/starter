@@ -29,20 +29,24 @@ function pilau_register_custom_fields() {
 	}
 
 	/*
+	// Longer teaser text
 	slt_cf_register_box( array(
 		'type'		=> 'post',
-		'title'		=> 'Sample custom field',
-		'id'		=> 'sample',
-		'context'	=> 'advanced',
+		'title'		=> 'Teaser text',
+		'id'		=> 'teaser-text-box',
+		'context'	=> 'above-content',
+		'priority'	=> 'high',
+		'description'	=> __( 'Usually teaser text is taken from the SEO meta description if possible, or else an extract is taken from the main content. For some places, longer teaser text is needed than is good for the meta description, and an automated extract is unsuitable - this text can be used instead.' ),
 		'fields'	=> array(
 			array(
-				'name'			=> 'sample',
-				'label'			=> 'Sample',
-				'description'	=> 'Some hints for the user.',
-				'type'			=> 'text',
+				'name'			=> 'teaser-text',
+				'label'			=> 'Teaser text',
+				'type'			=> 'textarea',
+				'height'		=> 5,
+				'hide_label'	=> true,
 				'scope'			=> array( 'post', 'page' ),
-				'capabilities'	=> array( 'edit_posts', 'edit_pages' )
-			)
+				'capabilities'	=> array( 'publish_pages' )
+			),
 		)
 	));
 	*/

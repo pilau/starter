@@ -192,21 +192,38 @@ function pilau_google_map_link( $location ) {
  * @param	int		$max_words	For extract, maximum words
  * @param	int		$max_paras	For extract, maximum paragraphs
  * @param	bool	$strip_tags	For extract, strip tags?
+ * @param	bool	$custom		Check for custom field first
  * @return	string
  */
-function pilau_teaser_text( $post_id = null, $max_words = 30, $max_paras = 0, $strip_tags = true ) {
+function pilau_teaser_text( $post_id = null, $max_words = 30, $max_paras = 0, $strip_tags = true, $custom = true ) {
+	global $pilau_custom_fields;
 	$teaser = '';
 
 	// Default post ID
 	if ( ! $post_id ) {
 		$post_id = get_the_ID();
+		$custom_fields = $pilau_custom_fields;
+	} else if ( PILAU_PLUGIN_EXISTS_DEVELOPERS_CUSTOM_FIELDS ) {
+		$custom_fields = slt_cf_all_field_values( 'post', $post_id );
 	}
 
-	// If there's no meta description...
-	if ( ( ! PILAU_PLUGIN_EXISTS_WPSEO || ! ( $teaser = trim( WPSEO_Meta::get_value( 'metadesc' ) ) ) ) && function_exists( 'pilau_extract' ) ) {
+	// Check for custom first?
+	if ( $custom && ! empty( $custom_fields['teaser-text'] ) ) {
+		$teaser = $custom_fields['teaser-text'];
+	}
 
-		// Get content
-		$teaser = pilau_extract( get_post_field( 'post_content', $post_id ), $max_words, $max_paras, $strip_tags );
+	// If we've still got nothing
+	if ( empty( $teaser ) ) {
+
+		// Check for meta description
+		if ( PILAU_PLUGIN_EXISTS_WPSEO ) {
+			$teaser = trim( WPSEO_Meta::get_value( 'metadesc' ) );
+		}
+
+		// If still nothing, content extract
+		if ( empty( $teaser ) && function_exists( 'pilau_extract' ) ) {
+			$teaser = pilau_extract( get_post_field( 'post_content', $post_id ), $max_words, $max_paras, $strip_tags );
+		}
 
 	}
 
