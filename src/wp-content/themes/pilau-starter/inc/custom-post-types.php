@@ -130,15 +130,20 @@ function pilau_is_ancestor( $page_id ) {
  *
  * @since	0.1
  * @param	string	$link_text
+ * @param	bool	$keep_referer_qs
  * @return	void
  */
-function pilau_post_back_link( $link_text = null ) {
+function pilau_post_back_link( $link_text = null, $keep_referer_qs = false ) {
 	global $post;
 	if ( ! $link_text ) {
 		$link_text = __( 'Back' );
 	}
 	$ancestors = pilau_get_cpt_ancestors( $post );
-	echo '<p class="post-back-link"><a href="' . get_permalink( $ancestors[0] ) . '">&laquo; ' . $link_text . '</a></p>';
+	$link = get_permalink( $ancestors[0] );
+	if ( $keep_referer_qs ) {
+		$link .= '?' . parse_url( $_SERVER['HTTP_REFERER'], PHP_URL_QUERY );
+	}
+	echo '<p class="post-back-link"><a href="' . $link . '">&laquo; ' . $link_text . '</a></p>';
 }
 
 
