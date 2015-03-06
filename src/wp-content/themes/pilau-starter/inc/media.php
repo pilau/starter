@@ -15,27 +15,57 @@ add_action( 'after_setup_theme', 'pilau_setup_media' );
  * @since	Pilau_Starter 0.1
  */
 function pilau_setup_media() {
+	global $pilau_image_sizes;
+
+	// Set up image sizes
+	$pilau_image_sizes = array(
+		'thumbnail'			=> array(
+			'width'		=> 100,
+			'height'	=> 100,
+			'crop'		=> true,
+		),
+		'medium'			=> array(
+			'width'		=> 250,
+			'height'	=> 0,
+			'crop'		=> false,
+		),
+		'large'				=> array(
+			'width'		=> 800,
+			'height'	=> 0,
+			'crop'		=> false,
+		),
+		'post-thumbnail'	=> array(
+			'width'		=> 203,
+			'height'	=> 161,
+			'crop'		=> false,
+		),
+		'custom-size'	=> array(
+			'width'		=> 250,
+			'height'	=> 0,
+			'crop'		=> false,
+		),
+	);
 
 	/*
 	 * Override main image size settings
 	 * These shouldn't be set via admin!
 	 */
-	add_filter( 'option_thumbnail_size_w',	function() { return 100; } );
-	add_filter( 'option_thumbnail_size_h',	function() { return 100; } );
-	add_filter( 'option_thumbnail_crop',	function() { return 1; } );
-	add_filter( 'option_medium_size_w',		function() { return 250; } );
-	add_filter( 'option_medium_size_h',		function() { return 0; } );
-	add_filter( 'option_medium_crop',		function() { return 0; } );
-	add_filter( 'option_large_size_w',		function() { return 800; } );
-	add_filter( 'option_large_size_h',		function() { return 0; } );
-	add_filter( 'option_large_crop',		function() { return 0; } );
+	add_filter( 'option_thumbnail_size_w',	function() { global $pilau_image_sizes; return $pilau_image_sizes['thumbnail']['width']; } );
+	add_filter( 'option_thumbnail_size_h',	function() { global $pilau_image_sizes; return $pilau_image_sizes['thumbnail']['height']; } );
+	add_filter( 'option_thumbnail_crop',	function() { global $pilau_image_sizes; return $pilau_image_sizes['thumbnail']['crop']; } );
+	add_filter( 'option_medium_size_w',		function() { global $pilau_image_sizes; return $pilau_image_sizes['medium']['width']; } );
+	add_filter( 'option_medium_size_h',		function() { global $pilau_image_sizes; return $pilau_image_sizes['medium']['height']; } );
+	add_filter( 'option_medium_crop',		function() { global $pilau_image_sizes; return $pilau_image_sizes['medium']['crop']; } );
+	add_filter( 'option_large_size_w',		function() { global $pilau_image_sizes; return $pilau_image_sizes['large']['width']; } );
+	add_filter( 'option_large_size_h',		function() { global $pilau_image_sizes; return $pilau_image_sizes['large']['height']; } );
+	add_filter( 'option_large_crop',		function() { global $pilau_image_sizes; return $pilau_image_sizes['large']['crop']; } );
 
 	/* Featured image */
 	add_theme_support( 'post-thumbnails' );
-	//set_post_thumbnail_size( 203, 161 ); // default Post Thumbnail dimensions
+	//set_post_thumbnail_size( $pilau_image_sizes['post-thumbnail']['width'], $pilau_image_sizes['post-thumbnail']['height'], $pilau_image_sizes['post-thumbnail']['crop'] );
 
 	/* Set custom image sizes */
-	//add_image_size( 'image-banner', 250, 0, false );
+	//add_image_size( 'custom-size', $pilau_image_sizes['custom-size']['width'], $pilau_image_sizes['custom-size']['height'], $pilau_image_sizes['custom-size']['crop'] );
 
 }
 
