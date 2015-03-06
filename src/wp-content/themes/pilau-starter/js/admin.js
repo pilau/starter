@@ -15,6 +15,7 @@ var pilau_form_warning = false;
 jQuery( document ).ready( function( $ ) {
 	var b = $( 'body' );
 	var fwic = $( 'form.warn-if-changed' );
+	var cd = $( '.categorydiv' );
 
 
 	/**
@@ -48,13 +49,14 @@ jQuery( document ).ready( function( $ ) {
 	 *
 	 * @since   Pilau_Starter 0.2
 	 */
-	$( '.categorydiv' ).on( 'click', 'input:checkbox', function( e ) {
+	cd.on( 'click', 'input:checkbox', function( e ) {
 		var el = $( this );
 		var id_parts = el.attr( 'id' ).split( '-' );
 		var tax = id_parts[1];
 		var checked = el.parents( '.categorychecklist' ).find( ':checked' );
 
 		if ( typeof pilau_admin[ tax + '_multiple' ] != 'undefined' && pilau_admin[ tax + '_multiple' ] == '' && checked.length > 1 ) {
+
 			// Only one can be selected
 			checked.prop( 'checked', false );
 			el.prop( 'checked', true );
@@ -78,6 +80,8 @@ jQuery( document ).ready( function( $ ) {
 	 *
 	 * @since   Walsingham 0.1
 	 */
+
+	// When editing terms
 	if ( b.hasClass( 'edit-tags-php' ) ) {
 		var tax = $( 'input[name=taxonomy]' ).val();
 
@@ -90,5 +94,16 @@ jQuery( document ).ready( function( $ ) {
 
 	}
 
+	// When editing posts
+	cd.each( function() {
+		var el = $( this );
+		var tax = el.attr( 'id' ).replace( 'taxonomy-', '' );
+		if ( typeof tax == 'string' && typeof pilau_admin[ tax + '_hierarchical' ] != 'undefined' && pilau_admin[ tax + '_hierarchical' ] == '' ) {
+			$( '#new' + tax + '_parent' ).css({
+				position:   'absolute',
+				visibility: 'hidden'
+			});
+		}
+	});
 
 });
