@@ -95,14 +95,14 @@ function pilau_more_posts_link( $args = null ) {
 						?> {
 						'taxonomy':		'<?php echo $tax_query['taxonomy']; ?>',
 						'field':		'<?php echo $tax_query['field']; ?>',
-						'terms':		<?php
+						'terms':		[ <?php
 							$terms = (array) $tax_query['terms'];
 							if ( $tax_query['field'] == 'id' ) {
 								echo implode( ',', $terms );
 							} else {
 								echo "'" . implode( "','", $terms ) . "'";
 							}
-						?>
+						?> ]
 					},
 					<?php } ?>
 				],<?php }
