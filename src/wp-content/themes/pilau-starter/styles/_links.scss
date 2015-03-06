@@ -37,3 +37,18 @@ a {
 	}
 
 }
+
+// Downloads
+a[href*="/wp-content/uploads/"] {
+	&:before {
+		@include Fontello-Icon();
+		content: '\e815';
+		margin-right: .5em;
+	}
+	&:hover, &:focus {
+		&:before {
+			text-decoration: none;
+		}
+	}
+}
+
