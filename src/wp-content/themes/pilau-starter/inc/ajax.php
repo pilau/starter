@@ -102,7 +102,8 @@ function pilau_more_posts_link( $args = null ) {
 							} else {
 								echo "'" . implode( "','", $terms ) . "'";
 							}
-						?> ]
+						?> ],
+						'operator':		'<?php echo $tax_query['operator']; ?>',
 					},
 					<?php } ?>
 				],<?php }
