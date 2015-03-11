@@ -107,7 +107,7 @@ function pilau_more_posts_link( $args = null ) {
 					},
 					<?php } ?>
 				],<?php }
-				if ( $meta_queries ) { ?>
+				if ( $meta_queries && empty( $meta_key ) ) { ?>
 				'meta_query':	[
 					<?php foreach ( $meta_queries as $meta_query ) {
 						?> {
@@ -121,6 +121,27 @@ function pilau_more_posts_link( $args = null ) {
 					},
 					<?php } ?>
 				],<?php }
+				/*
+				 The above empty( $meta_key ) is a fix for when meta_key is used to sort but there
+				are no actual meta_queries. Means you can't sort AND filter. Below is an attempt at
+				keeping filtering if there's sorting, excluding meta queries that are triggered by
+				meta_key, not explicity set. Currently not working.
+				if ( $meta_queries ) { ?>
+					'meta_query':	[
+						<?php
+						foreach ( $meta_queries as $meta_query ) {
+							if ( isset( $meta_query['value'] ) ) { ?>
+								{	'key':		'<?php echo $meta_query['key']; ?>',
+									'value':	'<?php echo $meta_query['value']; ?>'
+									<?php if ( $meta_query['compare'] ) { ?>,
+									'compare':	'<?php echo $meta_query['compare']; ?>'
+									<?php } ?>
+								},
+							<?php }
+						} ?>
+					],
+				<?php }
+				 */
 				if ( is_array( $r['query']->query_vars['post__not_in'] ) && $r['query']->query_vars['post__not_in'] ) {
 				?>'post__not_in':		[ <?php echo implode( ',', $r['query']->query_vars['post__not_in'] ); ?> ],
 				<?php }
