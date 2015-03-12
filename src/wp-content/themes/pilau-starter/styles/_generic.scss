@@ -37,6 +37,12 @@ html.no-js img[data-defer-src] { display: none !important; }
 	position: absolute !important;
 }
 
+// To hide form fields that still need to submit
+.hide-form-field {
+	visibility: hidden;
+	position: absolute;
+}
+
 
 /*
  * Image replacement - just add dimensions and an image!
