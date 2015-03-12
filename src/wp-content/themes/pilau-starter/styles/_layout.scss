@@ -39,6 +39,7 @@ main {
 
 // Wrap to constrain width
 .wrap {
+	position: relative;
     width: 100%;
     max-width: $breakpoint-large;
     margin: 0 auto;
