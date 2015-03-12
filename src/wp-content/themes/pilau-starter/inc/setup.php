@@ -33,6 +33,11 @@ function pilau_setup() {
 	//add_theme_support( 'post-formats', array( 'aside', 'gallery', 'link', 'image', 'quote', 'status', 'video', 'audio', 'chat' ) );
 
 	/*
+	 * HTML5 support
+	 */
+	add_theme_support( 'html5', array( 'widgets' ) );
+
+	/*
 	 * Register nav menus
 	 */
 	register_nav_menus( array(
