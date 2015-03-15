@@ -15,7 +15,7 @@
 <li <?php post_class( 'posts-item' ); ?>>
 
 	<article role="article">
-		<a class="link-block" href="<?php the_permalink(); ?>" rel="bookmark">
+		<a class="link-block" href="<?php the_permalink(); ?>" rel="bookmark" title="<?php echo __( 'Read the full post:' ) . ' ' . get_the_title(); ?>">
 
 			<header>
 
