@@ -173,7 +173,7 @@ function pilau_wpseo_breadcrumb_links( $links ) {
 	// Check for single CPT posts and add ancestors
 	if ( is_single() && get_post_type() != 'post' && ! empty( $pilau_cpt_ancestors[ get_post_type() ] ) ) {
 
-		foreach ( $pilau_cpt_ancestors[ get_post_type() ] as $ancestor ) {
+		foreach ( array_reverse( $pilau_cpt_ancestors[ get_post_type() ] ) as $ancestor ) {
 			array_splice( $links, -1, 0, array(
 				array(
 					'id'	=> $ancestor
