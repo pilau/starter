@@ -32,6 +32,9 @@ select {
 	padding: .3em .5em;
 	@include FontSizeRem( 1.2 );
 }
+input[type=number] {
+	width: auto;
+}
 select {
 	max-width: 100%;
 	width: auto;
