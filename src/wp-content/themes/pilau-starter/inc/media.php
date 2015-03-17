@@ -60,6 +60,13 @@ function pilau_setup_media() {
 	add_filter( 'option_large_size_h',		function() { global $pilau_image_sizes; return $pilau_image_sizes['large']['height']; } );
 	add_filter( 'option_large_crop',		function() { global $pilau_image_sizes; return $pilau_image_sizes['large']['crop']; } );
 
+	/* WooCommerce overrides */
+	if ( PILAU_PLUGIN_EXISTS_WOOCOMMERCE ) {
+		add_filter( 'woocommerce_get_image_size_shop_thumbnail',	function() { global $pilau_image_sizes; return $pilau_image_sizes['post-thumbnail']; } );
+		add_filter( 'woocommerce_get_image_size_shop_catalog',		function() { global $pilau_image_sizes; return $pilau_image_sizes['post-thumbnail']; } );
+		add_filter( 'woocommerce_get_image_size_shop_single',		function() { global $pilau_image_sizes; return $pilau_image_sizes['medium']; } );
+	}
+
 	/* Featured image */
 	add_theme_support( 'post-thumbnails' );
 	//set_post_thumbnail_size( $pilau_image_sizes['post-thumbnail']['width'], $pilau_image_sizes['post-thumbnail']['height'], $pilau_image_sizes['post-thumbnail']['crop'] );

@@ -75,6 +75,7 @@ define( 'PILAU_PLUGIN_EXISTS_ADMIN_COLUMNS', class_exists( 'Codepress_Admin_Colu
 define( 'PILAU_PLUGIN_EXISTS_TWITTER_FEED', function_exists( 'getTweets' ) );
 define( 'PILAU_PLUGIN_EXISTS_WPSEO', class_exists( 'WPSEO_Admin' ) );
 define( 'PILAU_PLUGIN_EXISTS_GRAVITY_FORMS', class_exists( 'GFAPI' ) );
+define( 'PILAU_PLUGIN_EXISTS_WOOCOMMERCE', class_exists( 'WooCommerce' ) );
 
 
 /**
