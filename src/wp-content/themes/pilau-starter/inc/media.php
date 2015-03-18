@@ -71,8 +71,10 @@ function pilau_setup_media() {
 	add_theme_support( 'post-thumbnails' );
 	//set_post_thumbnail_size( $pilau_image_sizes['post-thumbnail']['width'], $pilau_image_sizes['post-thumbnail']['height'], $pilau_image_sizes['post-thumbnail']['crop'] );
 
-	/* Set custom image sizes */
-	//add_image_size( 'custom-size', $pilau_image_sizes['custom-size']['width'], $pilau_image_sizes['custom-size']['height'], $pilau_image_sizes['custom-size']['crop'] );
+	/* Set custom image sizes
+	foreach ( array( 'custom-size' ) as $custom_size ) {
+		add_image_size( $custom_size, $pilau_image_sizes[$custom_size]['width'], $pilau_image_sizes[$custom_size]['height'], $pilau_image_sizes[$custom_size]['crop'] );
+	} */
 
 }
 
