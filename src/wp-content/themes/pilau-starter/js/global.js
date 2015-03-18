@@ -34,10 +34,10 @@ jQuery( document ).ready( function( $ ) {
 	//var tl = $( '[role=tablist]' );
 	pilau_html = $( 'html' );
 	pilau_body = $( 'body' );
-	pilau_vw = $( window ).width();
-	pilau_vw_large = pilau_vw >= pilau_bps.large;
-	pilau_vw_medium = pilau_vw >= pilau_bps.medium && pilau_vw < pilau_bps.medium;
-	pilau_vw_small = pilau_vw < pilau_bps.small;
+
+
+	/** Initialise viewport infos */
+	pilau_viewport_infos();
 
 
 	/** Hack for IE10 styling (conditional comments not supported) */
@@ -246,7 +246,8 @@ setInterval( function() {
 	if ( pilau_did_resize ) {
 		pilau_did_resize = false;
 
-		// Do stuff here
+		// Refresh viewport infos
+		pilau_viewport_infos();
 
 	}
 }, 250 );
@@ -280,6 +281,17 @@ function pilau_sample_jquery_shortcut_function() { jQuery( function($) {
 /*
  * Helper functions
  */
+
+
+/**
+ * Viewport infos
+ */
+function pilau_viewport_infos() { jQuery( function($) {
+	pilau_vw = $( window ).width();
+	pilau_vw_large = pilau_vw >= pilau_bps.large;
+	pilau_vw_medium = pilau_vw >= pilau_bps.medium && pilau_vw < pilau_bps.medium;
+	pilau_vw_small = pilau_vw < pilau_bps.small;
+});}
 
 
 /**
