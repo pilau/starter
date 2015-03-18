@@ -289,8 +289,8 @@ function pilau_sample_jquery_shortcut_function() { jQuery( function($) {
 function pilau_viewport_infos() { jQuery( function($) {
 	pilau_vw = $( window ).width();
 	pilau_vw_large = pilau_vw >= pilau_bps.large;
-	pilau_vw_medium = pilau_vw >= pilau_bps.medium && pilau_vw < pilau_bps.medium;
-	pilau_vw_small = pilau_vw < pilau_bps.small;
+	pilau_vw_medium = pilau_vw >= pilau_bps.medium && pilau_vw < pilau_bps.large;
+	pilau_vw_small = pilau_vw < pilau_bps.medium;
 });}
 
 
