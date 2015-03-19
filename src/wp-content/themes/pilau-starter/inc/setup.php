@@ -15,7 +15,7 @@ add_action( 'after_setup_theme', 'pilau_setup' );
  * @since	Pilau_Starter 0.1
  */
 function pilau_setup() {
-	global $pilau_site_settings, $pilau_filters;
+	global $pilau_site_settings, $pilau_filters, $pilau_download_mime_types;
 
 	/* Enable shortcodes in widgets */
 	add_filter( 'widget_text', 'do_shortcode' );
@@ -62,6 +62,19 @@ function pilau_setup() {
 		// Easily sortable date format default
 		slt_cf_setting( 'datepicker_default_format', 'yy/mm/dd' );
 	}
+
+	/*
+	 * Mime types
+	 */
+	$pilau_download_mime_types = array(
+		'application/pdf',
+		'application/msword',
+		'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+		'application/vnd.ms-excel',
+		'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+		'application/vnd.ms-powerpoint',
+		'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+	);
 
 }
 
