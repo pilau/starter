@@ -209,23 +209,63 @@ function pilau_remove_meta_boxes() {
  * @return	string
  */
 function pilau_inline_image_size_featured( $content ) {
+	global $pilau_image_sizes;
 	$hint = null;
 
+	// Custom messages about placement etc.
+	/*
 	switch ( get_post_type() ) {
-		case 'investment':
-			$hint = 'Optimum image size: 647 x 461 px. If larger, try to keep similar proportions.';
+		case 'service':
+			$hint .= __( 'Set an image here and it will be placed below the heading, above the content.' );
 			break;
 		case 'page':
 			switch ( get_page_template_slug() ) {
-				case 'page_priority-area.php' :
-					$hint = 'Optimum image size: 472 x 364 px. If larger, try to keep similar proportions.';
+				case 'page_families-carers.php':
+				case 'page_professionals.php':
+					$hint = __( 'Set a featured image here and it will be used as the hero image.' );
 					break;
 				default:
-					if ( get_page_template_slug() == '' )
-						$hint = 'For listing page images, the optimum size is 203 x 161 px.';
+					$hint = __( 'Set a featured image here and it will be placed below the heading, above the content.' );
 					break;
 			}
 			break;
+	}
+	*/
+
+	// See if there's a size hint from the image sizes array
+	foreach ( $pilau_image_sizes as $size => $details ) {
+		if ( ! empty( $details['featured'] ) ) {
+			if (
+				( ! empty( $details['featured']['post_type'] ) && is_array( $details['featured']['post_type'] ) && in_array( get_post_type(), $details['featured']['post_type'] ) ) ||
+				( ! empty( $details['featured']['template'] ) && is_array( $details['featured']['template'] ) && get_post_type() == 'page' && ( in_array( get_page_template_slug(), $details['featured']['template'] ) || ( get_page_template_slug() == '' && in_array( 'default', $details['featured']['template'] ) ) ) )
+			) {
+
+				// Work out proportion
+				if ( $details['width'] > $details['height'] ) {
+					$proportion1 = round( $details['width'] / $details['height'], 1 );
+					$proportion2 = 1;
+				} else if ( $details['width'] < $details['height'] ) {
+					$proportion1 = 1;
+					$proportion2 = round( $details['height'] / $details['width'], 1 );
+				} else {
+					$proportion1 = 1;
+					$proportion2 = 1;
+				}
+
+				// Add size hint
+				$hint .= ' ' . sprintf( __( 'Make sure the image is a 72 ppi JPG, and %1$dpx wide by %2$dpx high. The image can be bigger, but try to keep similar proportions (%3$s : %4$s).' ), $details['width'], $details['height'],$proportion1, $proportion2 );
+
+				// Crop hint
+				if ( $details['crop'] ) {
+					$hint .= ' ' . sprintf( __( 'The image can be bigger, but if the proportions are different, bits may be cropped off when it\'s resized.' ) );
+				} else {
+					// Not sure this is necessary
+					//$hint .= ' ' . sprintf( __( 'The image can be bigger, but there may be gaps around it when it\'s resized.' ) );
+				}
+
+				break;
+			}
+		}
 	}
 
 	if ( $hint ) {
