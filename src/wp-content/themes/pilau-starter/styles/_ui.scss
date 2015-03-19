@@ -179,6 +179,7 @@ input[type=submit],
 		position: absolute;
 		right: 0;
 		top: 2em;
+		z-index: 999999;
 		width: 500px;
 		padding: $gutter-small;
 		text-align: left;
