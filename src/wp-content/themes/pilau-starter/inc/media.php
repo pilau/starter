@@ -17,7 +17,15 @@ add_action( 'after_setup_theme', 'pilau_setup_media' );
 function pilau_setup_media() {
 	global $pilau_image_sizes;
 
-	// Set up image sizes
+	/**
+	 * Set up image sizes
+	 *
+	 * The 'featured' entry indicates the post types, and page templates
+	 * where the size will be used. Pass everything as arrays, and use 'default' for
+	 * the default page template.
+	 *
+	 * @todo	Integrate with custom fields?
+	 */
 	$pilau_image_sizes = array(
 		'thumbnail'			=> array(
 			'width'		=> 100,
@@ -33,6 +41,10 @@ function pilau_setup_media() {
 			'width'		=> 800,
 			'height'	=> 0,
 			'crop'		=> false,
+			'featured'			=> array(
+				'post_type'			=> array( 'service' ),
+				'template'			=> array( 'default' ),
+			),
 		),
 		'post-thumbnail'	=> array(
 			'width'		=> 203,
