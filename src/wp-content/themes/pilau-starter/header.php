@@ -9,7 +9,7 @@
 
 /*
  * Conditional HTML classes for IE / JS targetting
- * @link http://paulirish.com/2008/conditional-stylesheets-vs-styles-hacks-answer-neither/
+ * @link http://www.paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/
  */
 ?><!DOCTYPE html>
 <!--[if IE 8]><html class="no-js lt-ie11 lt-ie10 lt-ie9 ie8" <?php language_attributes(); ?>> <![endif]-->
