@@ -217,7 +217,7 @@ function pilau_teaser_text( $post_id = null, $max_words = 30, $max_paras = 0, $s
 
 		// Check for meta description
 		if ( PILAU_PLUGIN_EXISTS_WPSEO ) {
-			$teaser = trim( WPSEO_Meta::get_value( 'metadesc' ) );
+			$teaser = trim( WPSEO_Meta::get_value( 'metadesc', $post_id ) );
 		}
 
 		// If still nothing, content extract
