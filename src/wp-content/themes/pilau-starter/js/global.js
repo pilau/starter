@@ -40,11 +40,17 @@ jQuery( document ).ready( function( $ ) {
 	pilau_viewport_infos();
 
 
-	/** Hack for IE10 styling (conditional comments not supported) */
-	if ( /MSIE 10\.\d+;/.test( navigator.userAgent ) || /Trident/.test( navigator.userAgent ) ) {
+	/** Hack for IE10 / 11 styling (conditional comments not supported) */
+	if ( /MSIE 1[01]\.\d+;/.test( navigator.userAgent ) || /Trident/.test( navigator.userAgent ) ) {
 		pilau_html.addClass( 'ie' );
 		if ( /MSIE 10\.\d+;/.test( navigator.userAgent ) ) {
+			pilau_html.addClass( 'ie10' );
 			pilau_html.addClass( 'lt-ie11' );
+			pilau_html.addClass( 'lt-ie12' );
+		}
+		if ( /MSIE 11\.\d+;/.test( navigator.userAgent ) ) {
+			pilau_html.addClass( 'ie11' );
+			pilau_html.addClass( 'lt-ie12' );
 		}
 	}
 

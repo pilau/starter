@@ -141,7 +141,7 @@ module.exports = function(grunt) {
 				tasks: ['fonts_changed']
 			},
 			root: {
-				files:	[srcDir + '*.php', srcDir + '*.txt', srcDir + '.ht*'],
+				files:	[srcDir + '*.php', srcDir + '*.txt', srcDir + '.ht*', srcDir + '*.ico', srcDir + '*.xml', srcDir + '*.json' ],
 				tasks:	['root_changed'],
 			},
 		}
