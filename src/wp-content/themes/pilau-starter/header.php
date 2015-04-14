@@ -52,6 +52,14 @@
 	wp_head();
 
 	/*
+	 * Respond.js for IE 8 and below
+	 */
+	?>
+	<!--[if lt IE 9]><script src="<?php echo get_stylesheet_directory_uri() . '/js/respond.min.js?ver=1.4.2'; ?>"></script><![endif]-->
+
+	<?php
+
+	/*
 	* Modernizr custom build - must be in the header
 	*
 	* For features in this build, and for customizing it further, check the build URL in modernizr.js
