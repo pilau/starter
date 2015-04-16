@@ -10,6 +10,43 @@
  */
 
 
+/**
+ * Wrapper for wp_head() which manages SSL
+ *
+ * @since	0.1
+ * @uses	wp_head()
+ * @param	bool	$ssl
+ * @return	void
+ */
+function pilau_wp_head( $ssl = false ) {
+
+	if ( ! $ssl || WP_LOCAL_DEV ) {
+
+		// Just output
+		wp_head();
+
+	} else {
+
+		// Capture wp_head output with buffering
+		ob_start();
+		wp_head();
+		$wp_head = ob_get_contents();
+		ob_end_clean();
+
+		// Replace plain protocols
+		$wp_head = preg_replace( '/=(["\'])http:\/\//', '=\1https://', $wp_head );
+
+		// Replace specific URLs
+		$wp_head = str_replace( '//w.sharethis.com', '//ws.sharethis.com', $wp_head );
+
+		// Output
+		echo $wp_head;
+
+	}
+
+}
+
+
 add_action( 'template_redirect', 'pilau_cleanup_head' );
 /**
  * Clean up WP header stuff
