@@ -8,13 +8,13 @@
  */
 
 
-add_filter( 'nav_menu_css_class', 'wals_nav_menu_css_class', 10, 2 );
+add_filter( 'nav_menu_css_class', 'pilau_nav_menu_css_class', 10, 2 );
 /**
  * Custom classes for nav menus
  *
  * @since	0.2
  */
-function wals_nav_menu_css_class( $classes, $item ) {
+function pilau_nav_menu_css_class( $classes, $item ) {
 
 	// Flag ancestors of CPTs
 	if ( get_post_type() != 'page' && pilau_is_ancestor( $item->object_id ) ) {
@@ -22,6 +22,23 @@ function wals_nav_menu_css_class( $classes, $item ) {
 	}
 
 	return $classes;
+}
+
+
+/**
+ * Get site URL, with scheme according to environment
+ *
+ * @since	0.1
+ * @uses	site_url()
+ * @param	string		$path
+ * $return	string
+ */
+function pilau_get_site_url( $path = '' ) {
+	$scheme = 'http';
+	//if ( ! WP_LOCAL_DEV ) {
+	//	$scheme = 'https';
+	//}
+	return site_url( $path, $scheme );
 }
 
 
