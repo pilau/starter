@@ -26,23 +26,6 @@ function pilau_nav_menu_css_class( $classes, $item ) {
 
 
 /**
- * Get site URL, with scheme according to environment
- *
- * @since	0.1
- * @uses	site_url()
- * @param	string		$path
- * $return	string
- */
-function pilau_get_site_url( $path = '' ) {
-	$scheme = 'http';
-	//if ( ! WP_LOCAL_DEV ) {
-	//	$scheme = 'https';
-	//}
-	return site_url( $path, $scheme );
-}
-
-
-/**
  * Output post date
  *
  * @since	Pilau_Starter 0.1
