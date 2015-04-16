@@ -36,6 +36,14 @@ a {
 		}
 	}
 
+	// No link effects for tel: protocol when not on mobile
+	@include Tablet-Desktop {
+		&[href^=tel] {
+			color: inherit !important;
+			text-decoration: none !important;
+		}
+	}
+
 }
 
 // Downloads
