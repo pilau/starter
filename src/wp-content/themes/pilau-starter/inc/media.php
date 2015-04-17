@@ -148,3 +148,18 @@ function pilau_image_attributes( $attr, $attachment ) {
 	unset( $attr['title'] );
 	return $attr;
 }
+
+
+add_filter( 'image_send_to_editor', 'pilau_protocol_relative_image_urls', 999999 );
+/**
+ * Filter images sent to editor to make the URLs protocol-relative for possible SSL
+ *
+ * @since	Pilau_Starter 0.1
+ */
+function pilau_protocol_relative_image_urls( $html ) {
+
+	// Replace protocols with relative schema
+	$html = str_replace( array( 'http://', 'https://' ), '//', $html );
+
+	return $html;
+}
