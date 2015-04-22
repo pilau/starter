@@ -58,6 +58,11 @@ input[type=submit],
 	}
 }
 
+// Google CSE search tweaks
+.gsc-selected-option-container {
+	min-width: 85px !important;
+}
+
 
 /* Gravity Forms (use these classes for custom forms where possible to prevent replication of style declarations
  ****************************************************************************************************************/
