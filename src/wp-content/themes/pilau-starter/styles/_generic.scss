@@ -10,20 +10,20 @@
  */
 
 // Don't display at all according to context
-.no-js .hide-if-no-js, .js .hide-if-js { display: none; }
+.no-js .hide-if-no-js, .js .hide-if-js { display: none !important; }
 @include Desktop {
 	.hide-for-desktop {
-		display: none;
+		display: none !important;
 	}
 }
 @include Tablet {
 	.hide-for-tablet {
-		display: none;
+		display: none !important;
 	}
 }
 @include Mobile {
 	.hide-for-mobile {
-		display: none;
+		display: none !important;
 	}
 }
 
