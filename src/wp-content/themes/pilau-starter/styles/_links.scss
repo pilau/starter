@@ -58,5 +58,11 @@ a[href*="/wp-content/uploads/"] {
 			text-decoration: none;
 		}
 	}
+	// Exclude images
+	&[href$=".jpg"], &[href$=".png"], &[href$=".gif"] {
+		&:before {
+			display: none;
+		}
+	}
 }
 
