@@ -5,3 +5,23 @@
  * - Document hacks: What's it doing? Any ideas about how it might be done properly? etc.
  * - Whenever you're twiddling your thumbs (hahahaha!), check the shame CSS file and try to clean it up a bit
  */
+
+
+/*
+Using display:none with aria-hidden clashes with Google maps. Apparently
+aria-hidden should use visibility:hidden, though this doesn't tally with
+the way aria-hidden is being used here for tabbing interfaces. Until there's
+time to investigate and resolve, there's a hack here for reverting Google
+maps styles appropriately.
+@link   https://code.google.com/p/gmaps-api-issues/issues/detail?id=7536
+*/
+.js {
+	[aria-hidden='true'] {
+		display: none;
+	}
+	.gm-style {
+		[aria-hidden='true'] {
+			display: inherit;
+		}
+	}
+}
