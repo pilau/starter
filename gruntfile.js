@@ -22,12 +22,12 @@ module.exports = function(grunt) {
 	grunt.registerTask( 'php_changed',			['copy:php'] );
 	grunt.registerTask( 'img_changed',			['copy:img'] );
 	grunt.registerTask( 'js_changed',			['copy:js'] );
-	grunt.registerTask( 'fonts_changed',		['copy:font'] );
+	grunt.registerTask( 'fonts_changed',		['copy:fonts'] );
 	grunt.registerTask( 'root_changed',			['copy:root'] );
 
 	// Default tasks
 	grunt.registerTask( 'default', ['watch'] );
-	grunt.registerTask( 'init', ['copy:styles', 'sass', 'autoprefixer', 'copy:php', 'copy:img', 'copy:js', 'copy:font', 'copy:root'] );
+	grunt.registerTask( 'init', ['copy:styles', 'sass', 'autoprefixer', 'copy:php', 'copy:img', 'copy:js', 'copy:fonts', 'copy:root'] );
 
 	// Config tasks
 	grunt.initConfig({
@@ -39,7 +39,7 @@ module.exports = function(grunt) {
 		sass: {
 			options: {
 				outputStyle: 'compressed',
-				sourceMap: true,
+				sourceMap: true
 			},
 			default: {
 				files: sassFilesObject
@@ -49,16 +49,16 @@ module.exports = function(grunt) {
 		// Autoprefixer
 		autoprefixer: {
 			options: {
-				browsers: ['last 2 versions', 'ie >= 8',],
+				browsers: ['last 2 versions', 'ie >= 8'],
 				cascade: false,
-				map: true,
+				map: true
 			},
 			default: {
 				expand: true,
 				flatten: true,
 				src: publicThemeDir + '/styles/*.css',
-				dest: publicThemeDir + '/styles/',
-			},
+				dest: publicThemeDir + '/styles/'
+			}
 		},
 
 		// Copy to public
@@ -68,32 +68,32 @@ module.exports = function(grunt) {
 					expand: true,
 					cwd: srcThemeDir,
 					src: ['**/*.css', '**/*.scss'],
-					dest: publicThemeDir,
-				}],
+					dest: publicThemeDir
+				}]
 			},
 			php: {
 				files: [{
 					expand: true,
 					cwd: srcThemeDir,
 					src: ['**/*.php'],
-					dest: publicThemeDir,
-				}],
+					dest: publicThemeDir
+				}]
 			},
 			img: {
 				files: [{
 					expand: true,
 					cwd: srcThemeDir,
 					src: ['**/*.gif', '**/*.jpg', '**/*.png', '**/*.svg'],
-					dest: publicThemeDir,
-				}],
+					dest: publicThemeDir
+				}]
 			},
 			js: {
 				files: [{
 					expand: true,
 					cwd: srcThemeDir,
 					src: ['**/*.js'],
-					dest: publicThemeDir,
-				}],
+					dest: publicThemeDir
+				}]
 			},
 			fonts: {
 				files: [{
@@ -109,20 +109,20 @@ module.exports = function(grunt) {
 					dot: true,
 					cwd: srcDir,
 					src: ['*'],
-					dest: publicDir,
-				}],
-			},
+					dest: publicDir
+				}]
+			}
 		},
 
 		// Watch for changes
 		watch: {
 			styles: {
 				files: [srcThemeDir + 'styles/*.scss'],
-				tasks: ['styles_changed'],
+				tasks: ['styles_changed']
 			},
 			livereload: {
-				files: [publicDir + '**/*.css'],
-				options: { livereload: true },
+				files: [publicThemeDir + '**/*.css'],
+				options: { livereload: true }
 			},
 			php: {
 				files: [srcThemeDir + '**/*.php'],
@@ -130,11 +130,11 @@ module.exports = function(grunt) {
 			},
 			img: {
 				files: [srcDir + '**/*.png', srcDir + '**/*.jpg', srcDir + '**/*.gif', srcDir + '**/*.svg' ],
-				tasks: ['img_changed'],
+				tasks: ['img_changed']
 			},
 			js: {
 				files: [srcDir + '**/*.js'],
-				tasks: ['js_changed'],
+				tasks: ['js_changed']
 			},
 			fonts: {
 				files: ['**/*.eot', '**/*.ttf', '**/*.woff'],
@@ -142,8 +142,8 @@ module.exports = function(grunt) {
 			},
 			root: {
 				files:	[srcDir + '*.php', srcDir + '*.txt', srcDir + '.ht*', srcDir + '*.ico', srcDir + '*.xml', srcDir + '*.json' ],
-				tasks:	['root_changed'],
-			},
+				tasks:	['root_changed']
+			}
 		}
 
 	});
