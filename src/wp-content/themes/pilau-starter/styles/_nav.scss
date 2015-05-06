@@ -18,6 +18,15 @@
 		color: red;
 	}
 
+	// Drop-down sub-menus only at top level
+	.menu-level-0 {
+		&[aria-expanded='false'] {
+			.sub-menu-wrapper {
+				display: none;
+			}
+		}
+	}
+
 	@include Mobile {
 
 	}
@@ -28,13 +37,15 @@
 			display: inline-block;
 			margin: 0 $gutter-small;
 		}
-		.sub-menu {
-			display: none;
+		.sub-menu-wrapper {
 			position: absolute;
 			z-index: 999;
-			top: 1.4em;
-			left: 0;
+			top: 1em;
+			left: -.8em;
 			width: 11em;
+			padding-top: .5em;
+		}
+		.sub-menu {
 			padding: .6em .4em;
 			background-color: #fff;
 			font-size: .85em;
@@ -45,13 +56,6 @@
 			a {
 				display: block;
 				padding: .4em .5em;
-			}
-		}
-		.menu-level-0 {
-			&:hover, &:focus {
-				> .sub-menu {
-					display: block;
-				}
 			}
 		}
 	}

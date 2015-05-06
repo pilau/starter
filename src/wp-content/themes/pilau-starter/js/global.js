@@ -4,8 +4,9 @@
 
 
 // Declare variables that need to be accessed in various contexts
-var pilau_html; // The html
-var pilau_body; // The body
+var pilau_html;
+var pilau_body;
+var pilau_nav;
 // Breakpoints
 var pilau_bps = {
 	'large':	1000, // This and above is "large"
@@ -34,6 +35,7 @@ jQuery( document ).ready( function( $ ) {
 	//var tl = $( '[role=tablist]' );
 	pilau_html = $( 'html' );
 	pilau_body = $( 'body' );
+	pilau_nav = $( '.nav' );
 
 
 	/** Initialise viewport infos */
@@ -191,6 +193,44 @@ jQuery( document ).ready( function( $ ) {
 
 
 	/**
+	 * Navigation
+	 */
+	if ( typeof pilau_nav !== 'undefined' && pilau_nav.length ) {
+
+		// Hover to reveal sub-menus on full size screens
+		pilau_nav.on( 'mouseenter focusin', '.menu-level-0.menu-item-has-children', function( e ) {
+			if ( pilau_vw_large ) {
+				var el = $( this );
+				// Show sub-menu
+				el.attr( 'aria-expanded', 'true' )
+					.find( '.sub-menu-wrapper' ).show();
+			}
+		}).on( 'mouseleave focusout', '.menu-level-0.menu-item-has-children', function( e ) {
+			if ( pilau_vw_large ) {
+				var el = $( this );
+				// Only hide sub-menu after a short delay, so links get a chance to catch focus from tabbing
+				setTimeout( function() {
+					var smw = el.find( '.sub-menu-wrapper' );
+					if ( smw.attr( 'data-has-focus' ) !== 'true' ) {
+						el.attr( 'aria-expanded', 'false' );
+						smw.hide();
+					}
+				}, 100 );
+			}
+		}).on( 'focusin', '.sub-menu-wrapper', function( e ) {
+			var el = $( this );
+			el.attr( 'data-has-focus', true );
+		}).on( 'focusout', '.sub-menu-wrapper', function( e ) {
+			var el = $( this );
+			el.attr( 'data-has-focus', false );
+			// Hide sub-menu on the way out
+			el.hide().parents( '.menu-level-0' ).attr( 'aria-expanded', 'false' );
+		});
+
+	}
+
+
+	/**
 	 * Popups
 	 */
 	if ( typeof popups !== 'undefined' && popups.length ) {
@@ -244,7 +284,7 @@ jQuery( document ).ready( function( $ ) {
 });
 
 
-/** Trigger when window resizes
+/** Trigger when window resizes */
 jQuery( window ).resize( function( $ ) {
 	pilau_did_resize = true;
 });
@@ -257,7 +297,6 @@ setInterval( function() {
 
 	}
 }, 250 );
- */
 
 
 /** Trigger when window scrolls
