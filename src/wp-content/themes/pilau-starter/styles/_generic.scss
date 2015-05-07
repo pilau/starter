@@ -30,11 +30,14 @@
 // Hide images with deferred sources if not JS
 html.no-js img[data-defer-src] { display: none !important; }
 
-// Text meant only for screen readers
-// @link   http://adaptivethemes.com/comment/1386
-.assistive-text {
-	clip: rect( 1px, 1px, 1px, 1px );
+// Text meant only for screen readers - do it like WP
+// @link   https://make.wordpress.org/accessibility/2015/02/09/hiding-text-for-screen-readers-with-wordpress-core/
+.screen-reader-text {
+	clip: rect(1px, 1px, 1px, 1px);
 	position: absolute !important;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
 }
 
 // To hide form fields that still need to submit
