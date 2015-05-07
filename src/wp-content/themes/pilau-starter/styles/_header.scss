@@ -4,8 +4,9 @@
 
 .header-main {
 	margin: 0 0 $gutter-large;
-	nav {
-		background: #eee;
+	background-color: rgba( 113, 130, 138, 0.2 );
+	@include Tablet-Desktop {
+		padding-bottom: $gutter-small;
 	}
 }
 
@@ -13,18 +14,20 @@
 	padding: $gutter-small 0;
 }
 .site-title {
-	margin: 0;
+	margin: $gutter-small 0 !important;
 	width: 314px;
-	height: 82px;
+	max-width: 90%;
 	a {
 		width: 314px;
-		height: 82px;
-		background: url(#{$path-images}/logo.svg?v=1) no-repeat 0 0;
+		height: auto;
+		max-width: 90%;
+		background: url(#{$path-images}/logo-pilau-starter.svg?v=1) no-repeat 0 0;
 		background-size: contain;
 	}
 }
 .site-description {
+	margin-bottom: 0;
 	font-size: .9em;
-	color: #999;
+	color: #666;
 }
 

@@ -1,0 +1,16 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg">
+<metadata>Copyright (C) 2015 by original authors @ fontello.com</metadata>
+<defs>
+<font id="fontello" horiz-adv-x="1000" >
+<font-face font-family="fontello" font-weight="400" font-stretch="normal" units-per-em="1000" ascent="850" descent="-150" />
+<missing-glyph horiz-adv-x="1000" />
+<glyph glyph-name="angle-up" unicode="&#xe800;" d="m600 189q0-7-6-13l-28-27q-5-6-12-6t-13 6l-220 219-219-219q-5-6-13-6t-13 6l-27 27q-6 6-6 13t6 13l260 260q5 6 12 6t13-6l260-260q6-5 6-13z" horiz-adv-x="642.9" />
+<glyph glyph-name="angle-down" unicode="&#xe801;" d="m600 439q0-7-6-13l-260-260q-5-5-13-5t-12 5l-260 260q-6 6-6 13t6 13l27 28q6 6 13 6t13-6l219-219 220 219q5 6 13 6t12-6l28-28q6-5 6-13z" horiz-adv-x="642.9" />
+<glyph glyph-name="cancel" unicode="&#xe802;" d="m724 112q0-22-15-38l-76-76q-16-15-38-15t-38 15l-164 165-164-165q-16-15-38-15t-38 15l-76 76q-16 16-16 38t16 38l164 164-164 164q-16 16-16 38t16 38l76 76q16 16 38 16t38-16l164-164 164 164q16 16 38 16t38-16l76-76q15-15 15-38t-15-38l-164-164 164-164q15-15 15-38z" horiz-adv-x="785.7" />
+<glyph glyph-name="download" unicode="&#xe815;" d="m714 100q0 15-10 25t-25 11-26-11-10-25 10-25 26-11 25 11 10 25z m143 0q0 15-10 25t-26 11-25-11-10-25 10-25 25-11 26 11 10 25z m72 125v-179q0-22-16-37t-38-16h-821q-23 0-38 16t-16 37v179q0 22 16 38t38 16h259l75-76q33-32 76-32t76 32l76 76h259q22 0 38-16t16-38z m-182 318q10-23-8-40l-250-250q-10-10-25-10t-25 10l-250 250q-17 17-8 40 10 21 33 21h143v250q0 15 11 25t25 11h143q14 0 25-11t10-25v-250h143q24 0 33-21z" horiz-adv-x="928.6" />
+<glyph glyph-name="menu" unicode="&#xe816;" d="m857 100v-71q0-15-10-25t-26-11h-785q-15 0-25 11t-11 25v71q0 15 11 25t25 11h785q15 0 26-11t10-25z m0 286v-72q0-14-10-25t-26-10h-785q-15 0-25 10t-11 25v72q0 14 11 25t25 10h785q15 0 26-10t10-25z m0 285v-71q0-15-10-25t-26-11h-785q-15 0-25 11t-11 25v71q0 15 11 26t25 10h785q15 0 26-10t10-26z" horiz-adv-x="857.1" />
+</font>
+</defs>
+</svg>

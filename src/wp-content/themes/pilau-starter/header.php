@@ -103,14 +103,29 @@ if ( PILAU_USE_COOKIE_NOTICE && ! isset( $_COOKIE['pilau_cookie_notice'] ) ) { ?
 		</div>
 	</div>
 
-	<nav role="navigation">
-		<div class="wrap">
+	<nav role="navigation" class="nav-main">
+
+		<button class="nav-mobile-control hide-for-desktop hide-for-tablet icon-menu" aria-controls="nav-wrap"><span class="screen-reader-text"><?php _e( 'Menu' ); ?></span></button>
+
+		<div id="nav-wrap">
+			<div class="wrap">
+
 			<ul class="nav nav-header">
 				<?php
 				echo pilau_menu_without_containers( 'nav_header', 2 );
 				?>
 			</ul>
+
+			<?php /* Footer nav is repeated here for easy inclusion in mobile menu */ ?>
+			<ul class="nav hide-for-desktop hide-for-tablet">
+				<?php
+				echo pilau_menu_without_containers( 'nav_footer' );
+				?>
+			</ul>
+
+			</div>
 		</div>
+
 	</nav>
 
 </header>

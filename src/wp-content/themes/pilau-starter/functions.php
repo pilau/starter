@@ -17,7 +17,6 @@
 /**
  * Configurable constants
  */
-
 define( 'PILAU_USE_COMMENTS', false );
 define( 'PILAU_USE_CATEGORIES', false );
 define( 'PILAU_HIDE_CATEGORIES', true ); // Sometimes disabling a taxonomy completely causes issues
@@ -82,7 +81,6 @@ define( 'PILAU_PLUGIN_EXISTS_SIMPLE_EVENTS', function_exists( 'slt_se_get_date' 
 /**
  * PHP settings
  */
-
 date_default_timezone_set( 'Europe/London' );
 
 
@@ -97,6 +95,7 @@ if ( PILAU_FRONT_OR_AJAX ) {
 	require( dirname( __FILE__ ) . '/inc/ajax.php' );
 }
 require( dirname( __FILE__ ) . '/inc/header.php');
+require( dirname( __FILE__ ) . '/inc/nav.php');
 require( dirname( __FILE__ ) . '/inc/media.php');
 require( dirname( __FILE__ ) . '/inc/feeds.php');
 require( dirname( __FILE__ ) . '/inc/custom-post-types.php' );

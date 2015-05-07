@@ -7,6 +7,7 @@
 var pilau_html;
 var pilau_body;
 var pilau_nav;
+var pilau_nav_wrap;
 // Breakpoints
 var pilau_bps = {
 	'large':	1000, // This and above is "large"
@@ -33,9 +34,11 @@ jQuery( document ).ready( function( $ ) {
 	//var op = $( 'li#older-posts' );
 	//var popups = $( '.popup-wrap' );
 	//var tl = $( '[role=tablist]' );
+	var nmc = $( '.nav-mobile-control' );
 	pilau_html = $( 'html' );
 	pilau_body = $( 'body' );
 	pilau_nav = $( '.nav' );
+	pilau_nav_wrap = $( '#nav-wrap' );
 
 
 	/** Initialise viewport infos */
@@ -279,6 +282,30 @@ jQuery( document ).ready( function( $ ) {
 		});
 
 	}
+
+
+	/**
+	 * Mobile
+	 *
+	 * Attach events globally, filter by viewport width inside the event
+	 */
+
+	// Mobile nav control
+	if ( typeof nmc !== 'undefined' && nmc.length ) {
+		nmc.on( 'click', function( e ) {
+			if ( pilau_vw_small ) {
+				var el = $( this );
+				el.parents( 'nav' ).toggleClass( 'open' );
+			}
+		});
+	}
+
+	// Toggle sub-menus in nav
+	pilau_nav_wrap.on( 'click', '.sub-menu-control', function( e ) {
+		if ( pilau_vw_small ) {
+			$( this ).toggleClass( 'sub-menu-control-open' ).siblings( '.sub-menu-wrapper' ).toggle();
+		}
+	});
 
 
 });

@@ -3,11 +3,10 @@
  */
 
 .nav {
-	padding: 1em 0;
+	margin: 0;
 	.menu-item {
 		a {
 			color: #000;
-			text-transform: uppercase;
 		}
 	}
 
@@ -28,7 +27,14 @@
 	}
 
 	@include Mobile {
-
+		.menu-item {
+			position: relative;
+			a {
+				display: block;
+				padding-bottom: .4em;
+				border-bottom: 1px dotted #999;
+			}
+		}
 	}
 
 	@include Tablet-Desktop {
@@ -47,7 +53,7 @@
 		}
 		.sub-menu {
 			padding: .6em .4em;
-			background-color: #fff;
+			background-color: #eee;
 			font-size: .85em;
 			> .menu-item {
 				display: list-item;
@@ -58,6 +64,79 @@
 				padding: .4em .5em;
 			}
 		}
+	}
+
+}
+
+// Control for mobile nav menu
+.nav-mobile-control {
+	position: absolute;
+	right: 2%;
+	top: 146px;
+	display: block;
+	width: 2.5em;
+	height: 2.5em;
+	padding: 0;
+	background-color: #333;
+	border: 0;
+	&:before {
+		margin: 0;
+		color: #fff;
+		font-size: 1.8em;
+	}
+}
+
+@include Mobile {
+
+	// The wrapper for the whole mobile nav menu
+	#nav-wrap {
+		display: none;
+		padding: $gutter-small 0;
+		background-color: #333;
+		a {
+			color: #eee;
+		}
+	}
+
+	.nav-main {
+		// Open state
+		&.open {
+			.nav-mobile-control {
+				&:before {
+					content: '\e802'; // Cancel icon
+				}
+			}
+			#nav-wrap {
+				display: block;
+			}
+		}
+	}
+
+	// Controls for opening sub-menus
+	.sub-menu-control {
+		position: absolute;
+		display: block;
+		top: -.3em;
+		right: .1em;
+		padding: 0;
+		background-color: transparent;
+		border: none;
+		&:before {
+			margin: 0;
+			font-size: 2.4em;
+			color: #fff;
+		}
+	}
+	.sub-menu-control-open {
+		&:before {
+			content: '\e800';
+		}
+	}
+
+	// Sub-menu wrapper
+	.sub-menu-wrapper {
+		margin: .7em 0 .5em 1.2em;
+		font-size: .9em;
 	}
 
 }

@@ -14,7 +14,7 @@
 <main role="main" id="content">
 	<div class="wrap">
 
-
+		<?php the_post_thumbnail( 'full' ); ?>
 
 	</div>
 </main>

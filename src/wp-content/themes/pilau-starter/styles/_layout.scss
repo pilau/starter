@@ -4,6 +4,8 @@
 
 
 body {
+	background-color: $color-background;
+	color: $color-body-text;
     text-align: center;
 }
 main {
@@ -40,9 +42,12 @@ main {
 // Wrap to constrain width
 .wrap {
 	position: relative;
-    width: 100%;
+	width: 95%; // Gives small border down sides for mobile
     max-width: $breakpoint-large;
     margin: 0 auto;
     text-align: left;
+	&.full-width {
+		width: 100%;
+	}
 }
 

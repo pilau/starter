@@ -9,11 +9,11 @@
 $path-images: '/wp-content/themes/pilau-starter/img';
 
 /* Fonts */
-$font-stack-regular: Helvetica, Arial, sans-serif;
+$font-stack-regular: 'Droid Sans', Helvetica, Arial, sans-serif;
 
 /* Colours */
-$color-background: #fff;
-$color-body-text: #333;
+$color-background: #efeae4;
+$color-body-text: #161616;
 
 /* Measurements */
 $breakpoint-large: 1000px;
@@ -43,19 +43,34 @@ Media queries
   }
 }
 @mixin Tablet {
-  @media ( min-width: #{$breakpoint-medium} ) and ( max-width: #{$breakpoint-large - 1px}) {
+  @media ( min-width: #{$breakpoint-medium} ) and ( max-width: #{$breakpoint-large - 1px} ) {
 	@content;
   }
 }
 @mixin Mobile-Tablet {
-  @media ( max-width: #{$breakpoint-large - 1px}) {
+  @media ( max-width: #{$breakpoint-large - 1px} ) {
 	@content;
   }
 }
 @mixin Mobile {
-  @media ( max-width: #{$breakpoint-medium - 1px}) {
+  @media ( max-width: #{$breakpoint-medium - 1px} ) {
 	@content;
   }
+}
+@mixin Custom-Breakpoint-Above( $breakpoint ) {
+	@media ( min-width: #{$breakpoint} ) {
+		@content;
+	}
+}
+@mixin Custom-Breakpoint-Below( $breakpoint ) {
+	@media ( max-width: #{$breakpoint} ) {
+		@content;
+	}
+}
+@mixin Custom-Breakpoint-Between( $breakpoint1, $breakpoint2 ) {
+	@media ( min-width: #{$breakpoint1} ) and ( max-width: #{$breakpoint2} ) {
+		@content;
+	}
 }
 
 
