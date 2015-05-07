@@ -202,14 +202,14 @@ jQuery( document ).ready( function( $ ) {
 
 		// Hover to reveal sub-menus on full size screens
 		pilau_nav.on( 'mouseenter focusin', '.menu-level-0.menu-item-has-children', function( e ) {
-			if ( pilau_vw_large ) {
+			if ( ! pilau_vw_small ) {
 				var el = $( this );
 				// Show sub-menu
 				el.attr( 'aria-expanded', 'true' )
 					.find( '.sub-menu-wrapper' ).show();
 			}
 		}).on( 'mouseleave focusout', '.menu-level-0.menu-item-has-children', function( e ) {
-			if ( pilau_vw_large ) {
+			if ( ! pilau_vw_small ) {
 				var el = $( this );
 				// Only hide sub-menu after a short delay, so links get a chance to catch focus from tabbing
 				setTimeout( function() {
