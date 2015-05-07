@@ -38,6 +38,13 @@ html.no-js img[data-defer-src] { display: none !important; }
 	height: 1px;
 	width: 1px;
 	overflow: hidden;
+	// When skip links gain focus...
+	&.skip-link:focus {
+		clip: auto !important;
+		height: auto;
+		width: auto;
+		z-index: 100000; /* Above WP toolbar. */
+	}
 }
 
 // To hide form fields that still need to submit

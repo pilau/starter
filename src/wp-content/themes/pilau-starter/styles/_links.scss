@@ -10,6 +10,17 @@ a {
 		text-decoration: underline;
 	}
 
+	// "Skip links"
+	&.skip-to-content {
+		top: 10px;
+		left: 10px;
+		padding: .5em;
+		background-color: #fff;
+		border: 1px solid #999;
+		box-shadow: 1px 1px 1px 1px rgba( 0, 0, 0, 0.4 );
+		line-height: 1;
+	}
+
 	// "Press button" effect
 	&:active {
 		position: relative;

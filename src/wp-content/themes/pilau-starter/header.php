@@ -72,7 +72,7 @@
 <body <?php body_class(); ?> role="document">
 
 
-<p class="screen-reader-text skip-link"><a href="#content"><?php _e( 'Skip to main content' ); ?></a></p>
+<a href="#content" class="screen-reader-text skip-link skip-to-content"><?php _e( 'Skip to main content' ); ?></a>
 
 
 <?php /* Upgrade notice for IE 7 and below */ ?>
