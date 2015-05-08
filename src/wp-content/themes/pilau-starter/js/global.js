@@ -222,10 +222,10 @@ jQuery( document ).ready( function( $ ) {
 			}
 		}).on( 'focusin', '.sub-menu-wrapper', function( e ) {
 			var el = $( this );
-			el.attr( 'data-has-focus', true );
+			el.attr( 'data-has-focus', 'true' );
 		}).on( 'focusout', '.sub-menu-wrapper', function( e ) {
 			var el = $( this );
-			el.attr( 'data-has-focus', false );
+			el.attr( 'data-has-focus', 'false' );
 			// Hide sub-menu on the way out
 			el.hide().parents( '.menu-level-0' ).attr( 'aria-expanded', 'false' );
 		});
