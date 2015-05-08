@@ -30,10 +30,8 @@ function pilau_gform_status() {
 
 //add_filter( 'gform_tabindex', 'pilau_gform_tabindexer', 10, 2 );
 /**
- * Fix Gravity Form Tabindex Conflicts
+ * Fix Gravity Forms Tabindex Conflicts
  * @link	http://gravitywiz.com/fix-gravity-form-tabindex-conflicts/
- *
- * Currently deactivated in favour of Gravity Forms WCAG 2.0 plugin
  */
 function pilau_gform_tabindexer( $tab_index, $form = false ) {
 	$starting_index = 1000; // if you need a higher tabindex, update this number
@@ -42,3 +40,5 @@ function pilau_gform_tabindexer( $tab_index, $form = false ) {
 	}
 	return GFCommon::$tab_index >= $starting_index ? GFCommon::$tab_index : $starting_index;
 }
+// Actually, no, disable Gravity Forms tabindexing works better
+add_filter( 'gform_tabindex', '__return_false' );
