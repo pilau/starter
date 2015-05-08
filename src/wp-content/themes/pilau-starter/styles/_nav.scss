@@ -5,6 +5,7 @@
 .nav {
 	margin: 0;
 	.menu-item {
+		position: relative;
 		a {
 			color: #000;
 		}
@@ -28,7 +29,6 @@
 
 	@include Mobile {
 		.menu-item {
-			position: relative;
 			a {
 				display: block;
 				padding-bottom: .4em;
@@ -39,7 +39,6 @@
 
 	@include Tablet-Desktop {
 		.menu-item {
-			position: relative;
 			display: inline-block;
 			margin: 0 $gutter-small;
 		}
