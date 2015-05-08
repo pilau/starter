@@ -89,7 +89,7 @@ class Pilau_Walker_Nav_Menu extends Walker_Nav_Menu {
 		// Seems to be the only way of getting ID of parent...
 		if ( preg_match_all( '/ id="menu-item-([0-9]+)"/', $output, $matches, PREG_PATTERN_ORDER ) !== false ) {
 			$parent_id = end( $matches[1] );
-			$accessibility_attributes = ' id="sub-menu-for-' . $parent_id . '" role="group" aria-labelledby="menu-item-' . $parent_id . '"';
+			$accessibility_attributes = ' id="sub-menu-for-' . $parent_id . '" role="group" aria-labelledby="menu-item-' . $parent_id . '-link"';
 		}
 
 		// Add to output
@@ -191,10 +191,11 @@ class Pilau_Walker_Nav_Menu extends Walker_Nav_Menu {
 
 		$output .= $indent . '<li' . $attributes . '>';
 
-		$a_atts['title']  = ! empty( $item->attr_title ) ? $item->attr_title : '';
-		$a_atts['target'] = ! empty( $item->target )     ? $item->target     : '';
-		$a_atts['rel']    = ! empty( $item->xfn )        ? $item->xfn        : '';
-		$a_atts['href']   = ! empty( $item->url )        ? $item->url        : '';
+		$a_atts['id'] 		= $li_atts['id'] . '-link';
+		$a_atts['title']	= ! empty( $item->attr_title ) ? $item->attr_title : '';
+		$a_atts['target']	= ! empty( $item->target )     ? $item->target     : '';
+		$a_atts['rel']		= ! empty( $item->xfn )        ? $item->xfn        : '';
+		$a_atts['href']		= ! empty( $item->url )        ? $item->url        : '';
 
 		/**
 		 * ARIA attributes for keyboard accessibility
