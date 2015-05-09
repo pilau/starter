@@ -204,6 +204,7 @@ jQuery( document ).ready( function( $ ) {
 		pilau_nav.on( 'mouseenter focus', '.menu-level-0.menu-item-has-children > .menu-item-link', function( e ) {
 			if ( ! pilau_vw_small ) {
 				var el = $( this );
+				el.toggleClass( 'has-focus' );
 				//console.log( 'focus top level link: ' + el.text() );
 				// Show sub-menu
 				el.parents( '.menu-item' ).attr( 'aria-expanded', 'true' )
@@ -212,6 +213,7 @@ jQuery( document ).ready( function( $ ) {
 		}).on( 'mouseleave blur', '.menu-level-0.menu-item-has-children > .menu-item-link', function( e ) {
 			if ( ! pilau_vw_small ) {
 				var el = $( this );
+				el.toggleClass( 'has-focus' );
 				//console.log( 'blur top level link: ' + el.text() );
 				// Only hide sub-menu after a short delay, so links get a chance to catch focus from tabbing
 				setTimeout( function() {
@@ -233,8 +235,10 @@ jQuery( document ).ready( function( $ ) {
 				if ( el.find( ':focus' ).length === 0 ) {
 					//console.log( 'blur sub-menu link: ' + el.text() );
 					el.attr( 'data-has-focus', 'false' );
-					// Hide sub-menu on the way out
-					el.hide().parents( '.menu-level-0' ).attr( 'aria-expanded', 'false' );
+					// Hide sub-menu on the way out if parent link doesn't have focus
+					if ( el.siblings( '.menu-item-link.has-focus' ).length === 0 ) {
+						el.hide().parents( '.menu-level-0' ).attr( 'aria-expanded', 'false' );
+					}
 				}
 			}, 100 );
 		});
