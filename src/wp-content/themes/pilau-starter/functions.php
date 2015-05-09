@@ -28,7 +28,7 @@ define( 'PILAU_TWITTER_SCREEN_NAME', '' );
 define( 'PILAU_SLUG_LENGTH', 8 );
 define( 'PILAU_PAGE_ID_HOME', 2 );
 define( 'PILAU_RENAME_POSTS_NEWS', true );
-
+define( 'PILAU_SLIDESHOW_ITEMS', 5 ); // Set to 0 to disable slideshow functionality
 
 /**
  * Constants not intended for configuration

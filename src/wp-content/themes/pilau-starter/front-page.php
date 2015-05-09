@@ -15,11 +15,9 @@
 
 
 	<section class="home-hero">
-		<div class="wrap">
 
-			<?php the_post_thumbnail( 'full' ); ?>
+		<?php pilau_slideshow(); ?>
 
-		</div>
 	</section>
 
 

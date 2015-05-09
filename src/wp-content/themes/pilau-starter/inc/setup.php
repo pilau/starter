@@ -229,6 +229,7 @@ function pilau_setup_after_post() {
 
 	/*
 	 * Determine top-level page
+	 */
 	$top_level_page_id = null;
 	switch ( get_post_type() ) {
 		case 'page': {
@@ -242,22 +243,19 @@ function pilau_setup_after_post() {
 		}
 		default: {
 			// Use virtual post hierarchy for non-pages
-			$top_level_page_id = $pilau_vph[ get_post_type() ][ count( $pilau_vph[ get_post_type() ] ) - 1 ];
+			$post_ancestors = pilau_get_cpt_ancestors( $post );
+			$top_level_page_id = $post_ancestors[ count( $post_ancestors ) - 1 ];
 			break;
 		}
 	}
 	define( 'PILAU_PAGE_ID_TOP_LEVEL', $top_level_page_id );
-	 */
 
 	/*
 	 * Get all custom fields for current post
+	 */
 	if ( PILAU_PAGE_ID_CURRENT && PILAU_PLUGIN_EXISTS_DEVELOPERS_CUSTOM_FIELDS ) {
 		$pilau_custom_fields = slt_cf_all_field_values( 'post', $current_page_id );
 	}
-	 */
-
-	// De-activate removal of menu item IDs from Pilau Base
-	//remove_filter( 'nav_menu_item_id', '__return_empty_array', 10000 );
 
 }
 
@@ -293,6 +291,13 @@ function pilau_enqueue_scripts() {
 		}
 
 		/*
+		 * Slideshow
+		 */
+		if ( PILAU_SLIDESHOW_ITEMS ) {
+			wp_enqueue_script( 'flickity', get_stylesheet_directory_uri() . '/js/flickity.js', array(), '1.0.0', true );
+		}
+
+		/*
 		 * Use this to pass the AJAX URL to the client when using AJAX
 		 * @link	http://wp.smashingmagazine.com/2011/10/18/how-to-use-ajax-in-wordpress/
 		 */
@@ -316,6 +321,11 @@ add_action( 'wp_enqueue_scripts', 'pilau_enqueue_styles', 10 );
 function pilau_enqueue_styles() {
 	// This test is done here because applying the test to the hook breaks due to pilau_is_login_page() not being defined yet...
 	if ( ! is_admin() && ! pilau_is_login_page() ) {
+
+		// Flickity
+		if ( PILAU_SLIDESHOW_ITEMS ) {
+			wp_enqueue_style( 'flickity', get_stylesheet_directory_uri() . '/styles/flickity.css', array(), '1.0.0' );
+		}
 
 		wp_enqueue_style( 'pilau-main', get_stylesheet_directory_uri() . '/styles/main.css', array(), '1.0' );
 		wp_enqueue_style( 'pilau-print', get_stylesheet_directory_uri() . '/styles/print.css', array(), '1.0' );

@@ -12,10 +12,10 @@ add_action( 'after_setup_theme', 'pilau_setup_media' );
 /**
  * Set up media
  *
- * @since	Pilau_Starter 0.1
+ * @since	0.1
  */
 function pilau_setup_media() {
-	global $pilau_image_sizes;
+	global $pilau_image_sizes, $pilau_slideshow_content_types, $pilau_slideshow_pages;
 
 	/**
 	 * Set up image sizes
@@ -88,6 +88,14 @@ function pilau_setup_media() {
 		add_image_size( $custom_size, $pilau_image_sizes[$custom_size]['width'], $pilau_image_sizes[$custom_size]['height'], $pilau_image_sizes[$custom_size]['crop'] );
 	} */
 
+	/* Slideshows */
+
+	// Content types available to be made into slides
+	$pilau_slideshow_content_types = array( 'post' );
+
+	// Scope for DCF, which pages have slideshows?
+	$pilau_slideshow_pages = array( 'posts' => array( PILAU_PAGE_ID_HOME ) );
+
 }
 
 
@@ -95,6 +103,7 @@ add_filter( 'img_caption_shortcode', 'pilau_img_caption_shortcode_filter', 10, 3
 /**
  * Improves the caption shortcode with HTML5 figure & figcaption; microdata & wai-aria attributes
  *
+ * @since	0.1
  * @link    http://joostkiens.com/improving-wp-caption-shortcode/
  * @param   string  $val     Empty
  * @param   array   $attr    Shortcode attributes
@@ -130,7 +139,7 @@ add_filter( 'get_image_tag_class', 'pilau_post_image_classes' );
 /**
  * Add classes to post images
  *
- * @since	Pilau_Starter 0.1
+ * @since	0.1
  */
 function pilau_post_image_classes( $class ) {
 	$class .= ' wp-image';
@@ -142,7 +151,7 @@ add_filter( 'wp_get_attachment_image_attributes', 'pilau_image_attributes', 10, 
 /**
  * Manage default WP image attributes
  *
- * @since	Pilau_Starter 0.1
+ * @since	0.1
  */
 function pilau_image_attributes( $attr, $attachment ) {
 	unset( $attr['title'] );
@@ -154,7 +163,7 @@ add_filter( 'image_send_to_editor', 'pilau_protocol_relative_image_urls', 999999
 /**
  * Filter images sent to editor to make the URLs protocol-relative for possible SSL
  *
- * @since	Pilau_Starter 0.1
+ * @since	0.1
  */
 function pilau_protocol_relative_image_urls( $html ) {
 
@@ -162,4 +171,57 @@ function pilau_protocol_relative_image_urls( $html ) {
 	$html = str_replace( array( 'http://', 'https://' ), '//', $html );
 
 	return $html;
+}
+
+
+/**
+ * Place a slideshow
+ *
+ * @since	0.1
+ */
+function pilau_slideshow() {
+	global $pilau_custom_fields;
+
+	// Gather custom fields from items
+	$items = array();
+	if ( PILAU_PLUGIN_EXISTS_DEVELOPERS_CUSTOM_FIELDS ) {
+		for ( $i = 1; $i <= PILAU_SLIDESHOW_ITEMS; $i++ ) {
+			if ( ! empty( $pilau_custom_fields['slideshow-item-' . $i ] ) ) {
+				$items[ $pilau_custom_fields['slideshow-item-' . $i ] ] = slt_cf_all_field_values( 'post', $pilau_custom_fields['slideshow-item-' . $i ] );
+			}
+		}
+	}
+
+	// Do we have anything?
+	if ( ! empty( $items ) ) {
+
+		// Init
+		$autoplay = ! empty( $pilau_custom_fields['slideshow-autoplay'] ) ? intval( $pilau_custom_fields['slideshow-autoplay'] ) : 0;
+		if ( $autoplay ) {
+			$autoplay = $autoplay * 1000; // Convert from seconds to milliseconds
+		}
+
+		?>
+
+		<div class="slideshow js-flickity" data-flickity-options='{ "wrapAround": "true", "setGallerySize": "false", "autoPlay": <?php echo $autoplay; ?> }'>
+
+			<?php foreach ( $items as $item_id => $item_custom_fields ) { ?>
+
+				<div class="gallery-cell">
+					<a class="link-block" href="<?php echo get_permalink( $item_id ); ?>" title="<?php echo __( 'Click to read more about:' ) . ' ' . get_the_title( $item_id ) ?>">
+						<div class="text">
+							<h2 class="heading"><?php echo $item_custom_fields['slideshow-heading']; ?></h2>
+							<p class="teaser"><?php echo $item_custom_fields['slideshow-teaser']; ?></p>
+							<p class="button"><?php echo $item_custom_fields['slideshow-button-text']; ?></p>
+						</div>
+						<figure class="image"><?php echo pilau_responsive_image( $item_custom_fields['slideshow-image'], null, 'full-width' ); ?></figure>
+					</a>
+				</div>
+
+			<?php } ?>
+
+		</div>
+
+	<?php }
+
 }

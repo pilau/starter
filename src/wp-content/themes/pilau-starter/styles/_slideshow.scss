@@ -1,0 +1,77 @@
+/*
+ * Slideshows
+ *
+ * Core Flickity CSS kept separately, not to be edited
+ */
+
+.slideshow {
+	width: 100%;
+	padding-bottom: 33.33333%;
+	margin-bottom: 1em;
+	.flickity-viewport {
+		position: absolute;
+		width: 100%;
+	}
+	.gallery-cell {
+		width: 100%;
+		height: 100%;
+	}
+	.flickity-prev-next-button {
+		@include Mobile-Tablet {
+			width: 30px;
+			height: 30px;
+		}
+	}
+	a {
+		position: relative;
+		&:hover, &:focus {
+			.button {
+				background-color: #fff;
+				color: #c30;
+			}
+		}
+	}
+	.text {
+		position: absolute;
+		top: 40px;
+		left: 100px;
+		padding: 1em 1.5em;
+		@include TransparentBackground( #fff, .4 );
+		text-align: left;
+		line-height: 1.2;
+		@include Tablet {
+			font-size: .9em;
+			.heading {
+				font-size: 1.6em;
+			}
+			.teaser {
+				margin-bottom: .6em;
+			}
+		}
+		@include Mobile {
+			padding-top: 10%;
+			text-align: center;
+			.heading, .teaser {
+				display: none;
+			}
+			.button {
+				max-width: 70%;
+				font-size: .8em;
+			}
+		}
+	}
+	.heading {
+		margin-bottom: .2em;
+		font-size: 2em;
+		line-height: 1.05;
+	}
+	.button {
+		display: inline-block;
+		background-color: #c30;
+		font-size: 1em;
+	}
+	img {
+		display: block;
+		width: 100%;
+	}
+}

@@ -3,9 +3,13 @@
  */
 
 body.home {
-
+	.header-main {
+		margin-bottom: 0;
+	}
+	main {
+		margin-top: 0;
+	}
 	section {
 		margin-bottom: 3em;
 	}
-
 }
