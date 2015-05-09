@@ -126,9 +126,11 @@
 			color: #fff;
 		}
 	}
-	.sub-menu-control-open {
-		&:before {
-			content: '\e800';
+	[aria-expanded=true] {
+		.sub-menu-control {
+			&:before {
+				content: '\e800';
+			}
 		}
 	}
 

@@ -207,8 +207,7 @@ jQuery( document ).ready( function( $ ) {
 				el.toggleClass( 'has-focus' );
 				//console.log( 'focus top level link: ' + el.text() );
 				// Show sub-menu
-				el.parents( '.menu-item' ).attr( 'aria-expanded', 'true' )
-					.find( '.sub-menu-wrapper' ).show();
+				el.parents( '.menu-item' ).attr( 'aria-expanded', 'true' );
 			}
 		}).on( 'mouseleave blur', '.menu-level-0.menu-item-has-children > .menu-item-link', function( e ) {
 			if ( ! pilau_vw_small ) {
@@ -220,27 +219,30 @@ jQuery( document ).ready( function( $ ) {
 					var smw = el.siblings( '.sub-menu-wrapper' );
 					if ( smw.attr( 'data-has-focus' ) !== 'true' ) {
 						el.parents( '.menu-item' ).attr( 'aria-expanded', 'false' );
-						smw.hide();
 					}
 				}, 100 );
 			}
 		}).on( 'mouseenter focusin', '.sub-menu-wrapper', function( e ) {
-			var el = $( this );
-			//console.log( 'focus sub-menu-wrapper' );
-			el.attr( 'data-has-focus', 'true' );
+			if ( ! pilau_vw_small ) {
+				var el = $( this );
+				//console.log( 'focus sub-menu-wrapper' );
+				el.attr( 'data-has-focus', 'true' );
+			}
 		}).on( 'mouseleave blur', '.sub-menu-wrapper', function( e ) {
-			var el = $( this );
-			setTimeout( function() {
-				// Check if anything else has picked up focus (i.e. next link in sub-menu)
-				if ( el.find( ':focus' ).length === 0 ) {
-					//console.log( 'blur sub-menu link: ' + el.text() );
-					el.attr( 'data-has-focus', 'false' );
-					// Hide sub-menu on the way out if parent link doesn't have focus
-					if ( el.siblings( '.menu-item-link.has-focus' ).length === 0 ) {
-						el.hide().parents( '.menu-level-0' ).attr( 'aria-expanded', 'false' );
+			if ( ! pilau_vw_small ) {
+				var el = $( this );
+				setTimeout( function () {
+					// Check if anything else has picked up focus (i.e. next link in sub-menu)
+					if ( el.find( ':focus' ).length === 0 ) {
+						//console.log( 'blur sub-menu link: ' + el.text() );
+						el.attr( 'data-has-focus', 'false' );
+						// Hide sub-menu on the way out if parent link doesn't have focus
+						if ( el.siblings( '.menu-item-link.has-focus' ).length === 0 ) {
+							el.parents( '.menu-level-0' ).attr( 'aria-expanded', 'false' );
+						}
 					}
-				}
-			}, 100 );
+				}, 100 );
+			}
 		});
 
 	}
@@ -316,7 +318,10 @@ jQuery( document ).ready( function( $ ) {
 	// Toggle sub-menus in nav
 	pilau_nav_wrap.on( 'click', '.sub-menu-control', function( e ) {
 		if ( pilau_vw_small ) {
-			$( this ).toggleClass( 'sub-menu-control-open' ).siblings( '.sub-menu-wrapper' ).toggle();
+			var el = $( this );
+			var p = el.parents( '[aria-expanded]' );
+			el.toggleClass( 'sub-menu-control-open' );
+			p.attr( 'aria-expanded', ( p.attr( 'aria-expanded' ) == 'true' ) ? 'false' : 'true' );
 		}
 	});
 
