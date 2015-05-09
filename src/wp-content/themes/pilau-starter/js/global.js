@@ -8,6 +8,7 @@ var pilau_html;
 var pilau_body;
 var pilau_nav;
 var pilau_nav_wrap;
+var pilau_popups;
 // Breakpoints
 var pilau_bps = {
 	'large':	1000, // This and above is "large"
@@ -31,14 +32,14 @@ jQuery( document ).ready( function( $ ) {
 	//var placeholders = $( '[placeholder]' );
 	//var cn = $( '#cookie-notice' );
 	//var di = $( 'img[data-defer-src]' );
-	//var op = $( 'li#older-posts' );
-	//var popups = $( '.popup-wrap' );
-	//var tl = $( '[role=tablist]' );
+	var op = $( 'li#older-posts' );
+	var tl = $( '[role=tablist]' );
 	var nmc = $( '.nav-mobile-control' );
 	pilau_html = $( 'html' );
 	pilau_body = $( 'body' );
 	pilau_nav = $( '.nav' );
 	pilau_nav_wrap = $( '#nav-wrap' );
+	pilau_popups = $( '.popup-wrap' );
 
 
 	/** Initialise viewport infos */
@@ -247,30 +248,59 @@ jQuery( document ).ready( function( $ ) {
 
 	}
 
+	if ( typeof pilau_nav_wrap !== 'undefined' && pilau_nav_wrap.length ) {
+		// Toggle sub-menus in mobile nav
+		pilau_nav_wrap.on( 'click', '.sub-menu-control', function ( e ) {
+			if ( pilau_vw_small ) {
+				var el = $( this );
+				var p = el.parents( '[aria-expanded]' );
+				el.toggleClass( 'sub-menu-control-open' );
+				p.attr( 'aria-expanded', ( p.attr( 'aria-expanded' ) == 'true' ) ? 'false' : 'true' );
+			}
+		} );
+	}
+
 
 	/**
 	 * Popups
 	 */
-	if ( typeof popups !== 'undefined' && popups.length ) {
-
-		// Buttons to open / close
-		popups.on( 'click', '.popup-button', function( e ) {
-			var el = $( this );
-			var pw = el.parents( '.popup-wrap' );
-
+	pilau_popups.on( 'click', '.popup-button', function( e ) {
+		var pw = $( this ).parents( '.popup-wrap' );
+		if ( pw.hasClass( 'popup-closed' ) ) {
 			// By default, close all others before opening
-			if ( pw.hasClass( 'popup-closed' ) ) {
-				popups.each( function( i ) {
-					popups.not( this ).removeClass( 'popup-open' ).addClass( 'popup-closed' );
-				});
-			}
+			pilau_popups.not( this ).each( function() {
+				$( this ).pilauPopupClose();
+			});
+			pw.pilauPopupOpen();
+		} else {
+			pw.pilauPopupClose();
+		}
+	});
 
-			// Open or close...
-			pw.toggleClass( 'popup-open' ).toggleClass( 'popup-closed' );
+	// Close popups when user clicks on page
+	$( document ).click( function( e ) {
+		var t = $( e.target );
+		// Ignore if a button's being clicked, or if the click is somewhere inside an open popup
+		if ( typeof pilau_popups !== 'undefined' && ! t.hasClass( 'popup-button' ) && ! t.closest( '.popup-box' ).length ) {
+			pilau_popups.each( function() {
+				$( this ).pilauPopupClose();
+			});
+		}
+	});
 
-		});
-
-	}
+	// Helpers to open/close popup
+	$.fn.pilauPopupOpen = function() {
+		this.removeClass( 'popup-closed' ).addClass( 'popup-open' ).children( '.popup-box' );
+		if ( this.is( '[aria-hidden]' ) ) {
+			this.attr( 'aria-hidden', 'false' );
+		}
+	};
+	$.fn.pilauPopupClose = function() {
+		this.removeClass( 'popup-open' ).addClass( 'popup-closed' ).children( '.popup-box' );
+		if ( this.is( '[aria-hidden]' ) ) {
+			this.attr( 'aria-hidden', 'true' );
+		}
+	};
 
 
 	/**
@@ -297,33 +327,6 @@ jQuery( document ).ready( function( $ ) {
 		});
 
 	}
-
-
-	/**
-	 * Mobile
-	 *
-	 * Attach events globally, filter by viewport width inside the event
-	 */
-
-	// Mobile nav control
-	if ( typeof nmc !== 'undefined' && nmc.length ) {
-		nmc.on( 'click', function( e ) {
-			if ( pilau_vw_small ) {
-				var el = $( this );
-				el.parents( 'nav' ).toggleClass( 'open' );
-			}
-		});
-	}
-
-	// Toggle sub-menus in nav
-	pilau_nav_wrap.on( 'click', '.sub-menu-control', function( e ) {
-		if ( pilau_vw_small ) {
-			var el = $( this );
-			var p = el.parents( '[aria-expanded]' );
-			el.toggleClass( 'sub-menu-control-open' );
-			p.attr( 'aria-expanded', ( p.attr( 'aria-expanded' ) == 'true' ) ? 'false' : 'true' );
-		}
-	});
 
 
 });

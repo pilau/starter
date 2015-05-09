@@ -103,11 +103,11 @@ if ( PILAU_USE_COOKIE_NOTICE && ! isset( $_COOKIE['pilau_cookie_notice'] ) ) { ?
 		</div>
 	</div>
 
-	<nav role="navigation" class="nav-main">
+	<nav role="navigation" class="nav-main popup-wrap popup-mobile-only popup-closed">
 
-		<button class="nav-mobile-control hide-for-desktop hide-for-tablet icon-menu" aria-controls="nav-wrap"><span class="screen-reader-text"><?php _e( 'Menu' ); ?></span></button>
+		<button class="nav-mobile-control popup-button hide-for-desktop hide-for-tablet icon-menu" aria-controls="nav-wrap"><span class="screen-reader-text"><?php _e( 'Menu' ); ?></span></button>
 
-		<div id="nav-wrap">
+		<div id="nav-wrap" class="popup-box">
 			<div class="wrap">
 
 			<ul class="nav nav-header">

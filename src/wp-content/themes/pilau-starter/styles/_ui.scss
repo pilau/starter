@@ -118,7 +118,7 @@ input[type=submit],
 
 /* Tabbed panels
  *********************************************************************************/
-/*
+
 .js {
 	.tablist {
 		overflow: hidden;
@@ -160,17 +160,16 @@ input[type=submit],
 		}
 	}
 }
-*/
 
 
 /* Popups
  *********************************************************************************/
-/*
+
 .js {
 	.popup-wrap {
 		position: relative;
 	}
-	.popup-box {
+	.popup-box-styles {
 		position: absolute;
 		right: 0;
 		top: 2em;
@@ -185,6 +184,12 @@ input[type=submit],
 		.popup-box {
 			display: none;
 		}
+		@include Tablet-Desktop {
+			&.popup-mobile-only {
+				.popup-box {
+					display: block;
+				}
+			}
+		}
 	}
 }
-*/
