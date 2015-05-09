@@ -120,45 +120,65 @@ input[type=submit],
  *********************************************************************************/
 
 .js {
-	.tablist {
+	[role=tablist] {
 		overflow: hidden;
-		.tab {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		text-align: center;
+		[role=tab] {
 			float: left;
 			text-align: center;
 			margin: 0 4px 4px 0;
 			padding: .5em 0;
-			background-color: #000;
-			color: #fff;
+			background-color: #999;
+			color: #333;
 			cursor: pointer;
 			&:hover, &:focus {
-				background-color: #eee;
-			}
-			&[aria-selected='true'] {
-				margin-bottom: 0;
-				border-bottom: 4px solid #fff;
 				background-color: #fff;
-				color: #000;
+			}
+			&[aria-selected=true] {
+				margin-bottom: 0;
+				border-bottom: 4px solid #666;
+				background-color: #666;
+				color: #fff;
+				cursor: default;
+			}
+			&:last-child {
+				margin-right: 0;
 			}
 		}
-		.tab:last-child {
-			margin-right: 0;
+	}
+	.tablist-1 {
+		[role=tab] {
+			float: none;
+			display: inline-block;
 		}
 	}
 	.tablist-1, .tablist-2 {
-		.tab {
+		[role=tab] {
 			width: 49%;
+			width: calc( ( 100% - 4px ) / 2 );
 		}
 	}
 	.tablist-3 {
-		.tab {
-			width: 33%;
+		[role=tab] {
+			width: 32%;
+			width: calc( ( 100% - 8px ) / 3 );
 		}
 	}
 	.tablist-4 {
-		.tab {
+		[role=tab] {
 			width: 24%;
+			width: calc( ( 100% - 12px ) / 4 );
 		}
 	}
+}
+[role=tabpanel] {
+	margin-bottom: 2em;
+	padding: 1.5em;
+	background-color: #666;
+	color: #fff;
 }
 
 
