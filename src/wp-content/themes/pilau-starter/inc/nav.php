@@ -192,6 +192,7 @@ class Pilau_Walker_Nav_Menu extends Walker_Nav_Menu {
 		$output .= $indent . '<li' . $attributes . '>';
 
 		$a_atts['id'] 		= $li_atts['id'] . '-link';
+		$a_atts['class'] 	= 'menu-item-link';
 		$a_atts['title']	= ! empty( $item->attr_title ) ? $item->attr_title : '';
 		$a_atts['target']	= ! empty( $item->target )     ? $item->target     : '';
 		$a_atts['rel']		= ! empty( $item->xfn )        ? $item->xfn        : '';

@@ -200,34 +200,43 @@ jQuery( document ).ready( function( $ ) {
 	 */
 	if ( typeof pilau_nav !== 'undefined' && pilau_nav.length ) {
 
-		// Hover to reveal sub-menus on full size screens
-		pilau_nav.on( 'mouseenter focusin', '.menu-level-0.menu-item-has-children', function( e ) {
+		// Manage both mouse and keyboard behaviours
+		pilau_nav.on( 'mouseenter focus', '.menu-level-0.menu-item-has-children > .menu-item-link', function( e ) {
 			if ( ! pilau_vw_small ) {
 				var el = $( this );
+				//console.log( 'focus top level link: ' + el.text() );
 				// Show sub-menu
-				el.attr( 'aria-expanded', 'true' )
+				el.parents( '.menu-item' ).attr( 'aria-expanded', 'true' )
 					.find( '.sub-menu-wrapper' ).show();
 			}
-		}).on( 'mouseleave focusout', '.menu-level-0.menu-item-has-children', function( e ) {
+		}).on( 'mouseleave blur', '.menu-level-0.menu-item-has-children > .menu-item-link', function( e ) {
 			if ( ! pilau_vw_small ) {
 				var el = $( this );
+				//console.log( 'blur top level link: ' + el.text() );
 				// Only hide sub-menu after a short delay, so links get a chance to catch focus from tabbing
 				setTimeout( function() {
-					var smw = el.find( '.sub-menu-wrapper' );
+					var smw = el.siblings( '.sub-menu-wrapper' );
 					if ( smw.attr( 'data-has-focus' ) !== 'true' ) {
-						el.attr( 'aria-expanded', 'false' );
+						el.parents( '.menu-item' ).attr( 'aria-expanded', 'false' );
 						smw.hide();
 					}
 				}, 100 );
 			}
-		}).on( 'focusin', '.sub-menu-wrapper', function( e ) {
+		}).on( 'mouseenter focusin', '.sub-menu-wrapper', function( e ) {
 			var el = $( this );
+			//console.log( 'focus sub-menu-wrapper' );
 			el.attr( 'data-has-focus', 'true' );
-		}).on( 'focusout', '.sub-menu-wrapper', function( e ) {
+		}).on( 'mouseleave blur', '.sub-menu-wrapper', function( e ) {
 			var el = $( this );
-			el.attr( 'data-has-focus', 'false' );
-			// Hide sub-menu on the way out
-			el.hide().parents( '.menu-level-0' ).attr( 'aria-expanded', 'false' );
+			setTimeout( function() {
+				// Check if anything else has picked up focus (i.e. next link in sub-menu)
+				if ( el.find( ':focus' ).length === 0 ) {
+					//console.log( 'blur sub-menu link: ' + el.text() );
+					el.attr( 'data-has-focus', 'false' );
+					// Hide sub-menu on the way out
+					el.hide().parents( '.menu-level-0' ).attr( 'aria-expanded', 'false' );
+				}
+			}, 100 );
 		});
 
 	}
