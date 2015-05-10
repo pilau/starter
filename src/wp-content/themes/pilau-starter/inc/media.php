@@ -177,6 +177,12 @@ function pilau_protocol_relative_image_urls( $html ) {
 /**
  * Place a slideshow
  *
+ * Adjust data-flickity-options as necessary, possibly add a custom field alongside
+ * 'slideshow-autoplay' for editorial control. Note that setGallerySize should be set
+ * to 'true' to base the slideshow's height on the cell height. Currently this is
+ * controlled via CSS && JS to be proportional to the width.
+ * @link	http://flickity.metafizzy.co/options.html
+ *
  * @since	0.1
  */
 function pilau_slideshow() {

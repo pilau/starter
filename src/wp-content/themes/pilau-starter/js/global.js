@@ -9,6 +9,7 @@ var pilau_body;
 var pilau_nav;
 var pilau_nav_wrap;
 var pilau_popups;
+var pilau_slideshows;
 // Breakpoints
 var pilau_bps = {
 	'large':	1000, // This and above is "large"
@@ -40,10 +41,15 @@ jQuery( document ).ready( function( $ ) {
 	pilau_nav = $( '.nav' );
 	pilau_nav_wrap = $( '#nav-wrap' );
 	pilau_popups = $( '.popup-wrap' );
+	pilau_slideshows = $( '.slideshow' );
 
 
 	/** Initialise viewport infos */
 	pilau_viewport_infos();
+
+
+	/** Slideshows */
+	pilau_slideshows_manage();
 
 
 	/** Hack for IE10 / 11 styling (conditional comments not supported) */
@@ -343,6 +349,9 @@ setInterval( function() {
 		// Refresh viewport infos
 		pilau_viewport_infos();
 
+		// Manage slideshows
+		pilau_slideshows_manage();
+
 	}
 }, 250 );
 
@@ -384,6 +393,23 @@ function pilau_viewport_infos() { jQuery( function($) {
 	pilau_vw_large = pilau_vw >= pilau_bps.large;
 	pilau_vw_medium = pilau_vw >= pilau_bps.medium && pilau_vw < pilau_bps.large;
 	pilau_vw_small = pilau_vw < pilau_bps.medium;
+});}
+
+
+/**
+ * Manage any slideshow adjustments
+ */
+function pilau_slideshows_manage() { jQuery( function($) {
+
+	pilau_slideshows.each( function( i ) {
+		var el = $( this );
+		// This keeps the viewport fluid based on a proportion of the width
+		el.find( '.flickity-viewport' ).css({
+			'height':			'0',
+			'padding-bottom':	el.outerHeight(),
+		});
+	});
+
 });}
 
 
