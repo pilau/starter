@@ -65,6 +65,9 @@ function pilau_menu_without_containers( $theme_location, $depth = 1, $strip_whit
 /**
  * Custom nav menu output
  *
+ * On ARIA and accessibility:
+ * @link	http://terrillthompson.com/blog/474
+ *
  * @since	0.1
  * @uses	Walker_Nav_Menu
  */

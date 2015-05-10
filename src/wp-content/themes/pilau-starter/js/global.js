@@ -288,9 +288,7 @@ jQuery( document ).ready( function( $ ) {
 		var t = $( e.target );
 		// Ignore if a button's being clicked, or if the click is somewhere inside an open popup
 		if ( typeof pilau_popups !== 'undefined' && ! t.hasClass( 'popup-button' ) && ! t.closest( '.popup-box' ).length ) {
-			pilau_popups.each( function() {
-				$( this ).pilauPopupClose();
-			});
+			pilau_popups.pilauPopupClose();
 		}
 	});
 
