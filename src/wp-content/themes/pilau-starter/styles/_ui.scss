@@ -158,22 +158,39 @@ input[type=submit],
 	.tablist-1, .tablist-2 {
 		[role=tab] {
 			width: 49%;
-			width: calc( ( 100% - 4px ) / 2 );
+			width: calc( 50% - 2px );
 		}
 	}
 	.tablist-3 {
 		[role=tab] {
 			width: 32%;
-			width: calc( ( 100% - 8px ) / 3 );
+			width: calc( 33.3333333333333% - 2.66666666666667px );
 		}
 	}
 	.tablist-4 {
 		[role=tab] {
 			width: 24%;
-			width: calc( ( 100% - 12px ) / 4 );
+			width: calc( 25% - 3px );
+		}
+	}
+	@include Mobile {
+		.tabs-expand-for-mobile {
+			.tabs-heading {
+				display: block !important;
+			}
+			[role=tablist] {
+				display: none;
+			}
+			[role=tabpanel] {
+				display: block !important;
+				.panel-heading {
+					display: block !important;
+				}
+			}
 		}
 	}
 }
+// Panel styles whether JS or not
 [role=tabpanel] {
 	margin-bottom: 2em;
 	padding: 1.5em;
