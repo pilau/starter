@@ -128,6 +128,41 @@
 	</section>
 
 
+	<section class="home-grid">
+		<div class="wrap">
+
+			<h2>The grid</h2>
+
+			<?php $pilau_grid_columns = 12; ?>
+			<div class="grid-container">
+
+				<?php foreach ( array( 1, 2, 3, 4, 6 ) as $denominator ) { ?>
+					<div class="grid-row">
+						<?php for ( $col = 1; $col <= $pilau_grid_columns / $denominator; $col++ ) { ?>
+							<div class="grid-col-<?php echo $denominator; ?>">
+								<p>Spans <?php echo $denominator; ?> cols</p>
+							</div>
+						<?php } ?>
+					</div>
+				<?php } ?>
+
+				<?php for ( $i = 1; $i < $pilau_grid_columns; $i++ ) { ?>
+					<div class="grid-row">
+						<div class="grid-col-<?php echo $i; ?>">
+							<p>Spans <?php echo $i; ?> cols</p>
+						</div>
+						<div class="grid-col-<?php echo $pilau_grid_columns - $i; ?>">
+							<p>Spans <?php echo $pilau_grid_columns - $i; ?> cols</p>
+						</div>
+					</div>
+				<?php } ?>
+
+			</div>
+
+		</div>
+	</section>
+
+
 </main>
 
 <?php get_footer(); ?>

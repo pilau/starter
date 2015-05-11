@@ -14,7 +14,84 @@ main {
 .clear { clear: both; }
 .center { text-align: center; }
 
-// Basic lists
+// Wrap to constrain width
+.wrap {
+	position: relative;
+	width: 95%; // Gives small border down sides for mobile
+    max-width: $breakpoint-large;
+    margin: 0 auto;
+    text-align: left;
+	&.full-width {
+		width: 100%;
+	}
+}
+
+/*
+ * Grid
+ @link  http://j4n.co/blog/Creating-your-own-css-grid-system
+ */
+
+// Container
+.grid-container {
+	width: 100%;
+	max-width: $breakpoint-large;
+}
+
+// Rows
+.grid-row {
+	&:after, &:before {
+		content: "";
+		display: table ;
+		clear: both;
+	}
+}
+
+// Columns
+[class*='grid-col-'] {
+	float: left;
+	min-height: 1px;
+	width: 100%;
+	padding: 0 $gutter-small ( $gutter-small + $gutter-small );
+	> *:first-of-type {
+		margin-top: 0;
+	}
+	> *:last-of-type {
+		margin-bottom: 0;
+	}
+	p {
+		padding: 10px;
+		background-color: $color-background-darker;
+		text-align: center;
+		font-size: .7em;
+	}
+}
+
+@include Mobile {
+	// Just one option for 2 cols on mobile
+	.grid-col-#{($grid-columns / 2)} { width: ( 100% / 2 ); }
+}
+
+@include Tablet {
+	.grid-col-1 { width: 100% / $grid-columns * 2; }
+	.grid-col-2 { width: 100% / $grid-columns * 4; }
+	.grid-col-3 { width: 100% / $grid-columns * 6; }
+}
+
+@include Desktop {
+	@for $i from 1 through $grid-columns {
+		.grid-col-#{$i} { width: 100% / $grid-columns * $i; }
+	}
+}
+
+// Outlines for testing
+.grid-outline, .grid-outline * {
+	outline: 1px solid $color-background-darker;
+}
+
+
+/*
+ * Lists
+ */
 .vertical-list {
 	> :last-child {
 		margin-bottom: 0 !important;
@@ -36,18 +113,6 @@ main {
 	> li {
 		width: 32%;
 		margin-right: 1.333%;
-	}
-}
-
-// Wrap to constrain width
-.wrap {
-	position: relative;
-	width: 95%; // Gives small border down sides for mobile
-    max-width: $breakpoint-large;
-    margin: 0 auto;
-    text-align: left;
-	&.full-width {
-		width: 100%;
 	}
 }
 
