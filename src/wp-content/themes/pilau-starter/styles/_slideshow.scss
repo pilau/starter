@@ -27,7 +27,7 @@
 		&:hover, &:focus {
 			.button {
 				background-color: #fff;
-				color: #c30;
+				color: $color-current;
 			}
 		}
 	}
@@ -67,7 +67,7 @@
 	}
 	.button {
 		display: inline-block;
-		background-color: #c30;
+		background-color: $color-current;
 		font-size: 1em;
 	}
 	img {

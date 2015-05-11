@@ -15,7 +15,7 @@
 	.current-page-ancestor,
 	.current-menu-ancestor,
 	.current-menu-item {
-		color: red;
+		color: $color-current;
 	}
 
 	// Drop-down sub-menus only at top level
@@ -76,7 +76,7 @@
 	width: 2.5em;
 	height: 2.5em;
 	padding: 0;
-	background-color: #333;
+	background-color: $color-background-dark;
 	border: 0;
 	&:before {
 		margin: 0;
@@ -91,7 +91,7 @@
 	#nav-wrap {
 		display: none;
 		padding: $gutter-small 0;
-		background-color: #333;
+		background-color: $color-background-dark;
 		a {
 			color: #eee;
 		}

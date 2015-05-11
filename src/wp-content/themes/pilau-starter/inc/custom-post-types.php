@@ -135,15 +135,48 @@ function pilau_is_ancestor( $page_id ) {
  */
 function pilau_post_back_link( $link_text = null, $keep_referer_qs = false ) {
 	global $post;
+
+	// Link text
 	if ( ! $link_text ) {
 		$link_text = __( 'Back' );
 	}
-	$ancestors = pilau_get_cpt_ancestors( $post );
-	$link = get_permalink( $ancestors[0] );
-	if ( $keep_referer_qs ) {
-		$link .= '?' . parse_url( $_SERVER['HTTP_REFERER'], PHP_URL_QUERY );
+
+	// Link
+	$link = null;
+	switch ( get_post_type() ) {
+		case 'post': {
+			if ( $posts_page_id = get_option( 'page_for_posts' ) ) {
+				$link = get_permalink( $posts_page_id );
+			} else {
+				$link = get_home_url();
+			}
+			break;
+		}
+		case 'page': {
+			$ancestors = get_post_ancestors( $post );
+			$link = get_permalink( $ancestors[0] );
+			break;
+		}
+		default: {
+			// Custom post type
+			$ancestors = pilau_get_cpt_ancestors( $post );
+			$link = get_permalink( $ancestors[0] );
+			break;
+		}
 	}
-	echo '<p class="post-back-link"><a href="' . $link . '">&laquo; ' . $link_text . '</a></p>';
+
+	if ( $link ) {
+
+		// Keep query string?
+		if ( $keep_referer_qs ) {
+			$link .= '?' . parse_url( $_SERVER['HTTP_REFERER'], PHP_URL_QUERY );
+		}
+
+		// Output
+		echo '<p class="post-back-link"><a rel="index" href="' . $link . '">&laquo; ' . $link_text . '</a></p>';
+
+	}
+
 }
 
 

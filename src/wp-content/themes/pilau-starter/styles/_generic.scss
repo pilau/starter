@@ -67,3 +67,28 @@ html.no-js img[data-defer-src] { display: none !important; }
 .img-rep a, .img-rep span {
 	display: block;
 }
+
+
+/*
+ * Basic loop listing
+ */
+.posts-list {
+	.link-block {
+		padding: 1em;
+		&:hover, &:focus {
+			background-color: $color-background-darker;
+		}
+	}
+}
+.posts-item {
+	margin: 0 0 $gutter-small;
+}
+.loop-heading {
+	margin-bottom: .3em;
+	font-size: 1.5em;
+}
+.loop-meta {
+	margin-bottom: $gutter-small;
+	color: $color-text-lighter;
+	font-size: .85em;
+}

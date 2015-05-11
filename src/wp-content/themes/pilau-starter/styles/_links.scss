@@ -3,7 +3,7 @@
  */
 
 a {
-	color: #006699;
+	color: $color-link;
 	text-decoration: none;
 
 	&:hover, &:focus {
@@ -55,6 +55,12 @@ a {
 		}
 	}
 
+}
+
+// Back link
+.post-back-link {
+	margin-bottom: 2em;
+	font-size: .9em;
 }
 
 // Downloads

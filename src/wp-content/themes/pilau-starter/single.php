@@ -15,6 +15,9 @@
 	<div class="wrap">
 
 
+		<?php pilau_post_back_link( __( 'Back to news listing' ) ); ?>
+
+
 		<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 
 			<article <?php post_class( 'content-body' ); ?> role="article">

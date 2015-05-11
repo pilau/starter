@@ -13,7 +13,14 @@ $font-stack-regular: 'Droid Sans', Helvetica, Arial, sans-serif;
 
 /* Colours */
 $color-background: #efeae4;
-$color-body-text: #161616;
+$color-background-darker: #d4d4d1;
+$color-background-dark: #333;
+$color-text-body: #161616;
+$color-text-lighter: #888;
+$color-link: #36c;
+$color-current: #c30;
+$color-tab-active: #666;
+$color-tab-inactive: #999;
 
 /* Measurements */
 $breakpoint-large: 1000px;
@@ -24,7 +31,6 @@ $gutter-large: $gutter-small * 3;
 
 /*
  * Mixins
- *
  * - Use CamelCaps to distinguish from normal CSS selectors and classes
  */
 
