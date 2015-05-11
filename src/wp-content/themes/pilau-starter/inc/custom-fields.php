@@ -32,26 +32,6 @@ function pilau_register_custom_fields() {
 	/* General settings
 	********************************************************************************/
 
-	// Exclude pages from dynamic nav
-	// Nav queries must explicitly reference this field to exclude
-	slt_cf_register_box( array(
-		'type'		=> 'post',
-		'title'		=> 'Navigation',
-		'id'		=> 'navigation-box',
-		'context'	=> 'side',
-		'priority'	=> 'high',
-		'fields'	=> array(
-			array(
-				'name'			=> 'exclude-from-nav',
-				'type'			=> 'checkbox',
-				'label'			=> __( 'Exclude this page from dynamic navigation' ),
-				'description'	=> __( 'This will exclude any descendant pages, too.' ),
-				'scope'			=> array( 'page' ),
-				'capabilities'	=> array( 'publish_pages' )
-			),
-		)
-	));
-
 	/*
 	// Longer teaser text
 	slt_cf_register_box( array(
