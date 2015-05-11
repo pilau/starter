@@ -8,6 +8,17 @@
  */
 
 
+//add_filter( 'gform_get_form_filter', 'pilau_disable_gravity_forms' );
+/**
+ * Temporarily disable all Gravity Forms
+ *
+ * @since	0.1
+ */
+function pilau_disable_gravity_forms( $output ) {
+	return '<em>' . __( 'Sorry, this form is temporarily unavailable. Please check back soon!' ) . '</em>';
+}
+
+
 add_action( 'wp', 'pilau_gform_status' );
 /**
  * Detect status of Gravity Forms submissions
