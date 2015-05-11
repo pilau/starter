@@ -94,7 +94,7 @@ if ( PILAU_USE_COOKIE_NOTICE && ! isset( $_COOKIE['pilau_cookie_notice'] ) ) { ?
 <?php } ?>
 
 
-<header class="header-main" role="banner">
+<header id="header" class="header-main" role="banner">
 
 	<div class="header-branding">
 		<div class="wrap">

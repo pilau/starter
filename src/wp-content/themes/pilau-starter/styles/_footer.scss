@@ -5,6 +5,15 @@
 .footer-main {
 	padding: $gutter-small 0 $gutter-large;
 	background-color: rgba( 113, 130, 138, 0.2 );
+
+	.back-to-top {
+		margin-bottom: 2em;
+		text-align: center;
+		@include Tablet-Desktop {
+			float: right;
+		}
+	}
+
 }
 
 .nav-footer {
