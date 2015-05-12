@@ -220,7 +220,7 @@ function pilau_slideshow() {
 							<p class="teaser"><?php echo $item_custom_fields['slideshow-teaser']; ?></p>
 							<p class="button"><?php echo $item_custom_fields['slideshow-button-text']; ?></p>
 						</div>
-						<figure class="image"><?php echo pilau_responsive_image( $item_custom_fields['slideshow-image'], array( 'medium', 'large' ), 'full-width' ); ?></figure>
+						<figure class="image"><?php echo pilau_responsive_image( $item_custom_fields['slideshow-image'], array( 'medium', 'large', 'full-width' ), 'full-width' ); ?></figure>
 					</a>
 				</div>
 
