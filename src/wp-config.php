@@ -91,7 +91,7 @@ if ( file_exists( dirname( __FILE__ ) . '/wp-config-local.php' ) ) {
 
 			/** WP Super Cache */
 			define( 'WP_CACHE', true );
-			define( 'WPCACHEHOME', '[[production-path]]/wp-content/plugins/wp-super-cache/' );
+			define( 'WPCACHEHOME', __DIR__ . '/wp-content/plugins/wp-super-cache/' );
 
 			break;
 
