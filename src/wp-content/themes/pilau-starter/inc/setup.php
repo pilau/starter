@@ -56,14 +56,6 @@ function pilau_setup() {
 	$pilau_filters = array();
 
 	/*
-	 * Developer's Custom Fields
-	 */
-	if ( PILAU_PLUGIN_EXISTS_DEVELOPERS_CUSTOM_FIELDS ) {
-		// Easily sortable date format default
-		slt_cf_setting( 'datepicker_default_format', 'yy/mm/dd' );
-	}
-
-	/*
 	 * Mime types
 	 */
 	$pilau_download_mime_types = array(
@@ -253,8 +245,8 @@ function pilau_setup_after_post() {
 	/*
 	 * Get all custom fields for current post
 	 */
-	if ( PILAU_PAGE_ID_CURRENT && PILAU_PLUGIN_EXISTS_DEVELOPERS_CUSTOM_FIELDS ) {
-		$pilau_custom_fields = slt_cf_all_field_values( 'post', $current_page_id );
+	if ( PILAU_PAGE_ID_CURRENT ) {
+		$pilau_custom_fields = pilau_get_custom_fields( $current_page_id, 'post' );
 	}
 
 }

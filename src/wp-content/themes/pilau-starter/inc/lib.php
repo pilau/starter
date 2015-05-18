@@ -203,8 +203,8 @@ function pilau_teaser_text( $post_id = null, $max_words = 30, $max_paras = 0, $s
 	if ( ! $post_id ) {
 		$post_id = get_the_ID();
 		$custom_fields = $pilau_custom_fields;
-	} else if ( PILAU_PLUGIN_EXISTS_DEVELOPERS_CUSTOM_FIELDS ) {
-		$custom_fields = slt_cf_all_field_values( 'post', $post_id );
+	} else {
+		$custom_fields = pilau_get_custom_fields( $post_id, 'post' );
 	}
 
 	// Check for custom first?
@@ -256,4 +256,68 @@ function pilau_multiply_posts( $posts, $query ) {
 	}
 
 	return $posts;
+}
+
+
+/**
+ * Get the default ID for a type of object
+ *
+ * @since		0.1
+ * @param		string		$type	'post' | 'user'
+ * @param		int			$id
+ * @return		int
+ */
+function pilau_default_object_id( $type = 'post', $id = null ) {
+	global $post, $profileuser;
+
+	if ( empty( $id ) ) {
+
+		switch ( $type ) {
+
+			case 'post': {
+
+				// Post ID
+				if ( is_object( $post ) && property_exists( $post, 'ID' ) ) {
+					$id = $post->ID;
+				}
+
+				break;
+			}
+
+			case 'user': {
+
+				if ( is_admin() ) {
+
+					// ID of user being edited in admin
+					$id = $profileuser->ID;
+
+				} else {
+
+					// Front-end
+					if ( is_author() ) {
+						// Author archive page
+						$user = null;
+						if ( get_query_var( 'author_name' ) ) {
+							$user = get_user_by( 'slug', get_query_var( 'author_name' ) );
+						} else if ( get_query_var( 'author' ) ) {
+							$user = get_userdata( get_query_var( 'author' ) );
+						}
+						if ( is_object( $user ) && property_exists( $user, 'ID' ) ) {
+							$id = $user->ID;
+						}
+					} else {
+						// Try to get author of current post
+						$id = $post->post_author;
+					}
+
+				}
+
+				break;
+			}
+
+		}
+
+	}
+
+	return $id;
 }

@@ -29,6 +29,7 @@ define( 'PILAU_SLUG_LENGTH', 8 );
 define( 'PILAU_PAGE_ID_HOME', 2 );
 define( 'PILAU_RENAME_POSTS_NEWS', true );
 define( 'PILAU_SLIDESHOW_ITEMS', 5 ); // Set to 0 to disable slideshow functionality
+define( 'PILAU_CUSTOM_FIELDS_PREFIX', '_pilau_' ); // For use by CMB2 plugin
 
 /**
  * Constants not intended for configuration
@@ -69,6 +70,7 @@ if ( ! defined( 'PILAU_PLACEHOLDER_GIF_URL' ) ) {
  * function should be wrapped by a test, just in case for some unforeseen
  * reason the plugin isn't installed and activated.
  */
+define( 'PILAU_PLUGIN_EXISTS_CMB2', defined( 'CMB2_LOADED' ) && CMB2_LOADED );
 define( 'PILAU_PLUGIN_EXISTS_DEVELOPERS_CUSTOM_FIELDS', function_exists( 'slt_cf_field_key' ) );
 define( 'PILAU_PLUGIN_EXISTS_ADMIN_COLUMNS', class_exists( 'Codepress_Admin_Columns' ) );
 define( 'PILAU_PLUGIN_EXISTS_TWITTER_FEED', function_exists( 'getTweets' ) );

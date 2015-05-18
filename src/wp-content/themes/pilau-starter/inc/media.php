@@ -193,7 +193,7 @@ function pilau_slideshow() {
 	if ( PILAU_PLUGIN_EXISTS_DEVELOPERS_CUSTOM_FIELDS ) {
 		for ( $i = 1; $i <= PILAU_SLIDESHOW_ITEMS; $i++ ) {
 			if ( ! empty( $pilau_custom_fields['slideshow-item-' . $i ] ) ) {
-				$items[ $pilau_custom_fields['slideshow-item-' . $i ] ] = slt_cf_all_field_values( 'post', $pilau_custom_fields['slideshow-item-' . $i ] );
+				$items[ $pilau_custom_fields['slideshow-item-' . $i ] ] = pilau_get_custom_fields( $pilau_custom_fields['slideshow-item-' . $i ], 'post' );
 			}
 		}
 	}

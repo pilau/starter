@@ -4,167 +4,172 @@
 /**
  * Custom meta fields for posts and users
  *
- * Depends on the Developer's Custom Fields plugin
- * @link http://sltaylor.co.uk/wordpress/developers-custom-fields-docs/
+ * Basic fields handled by CMB2
+ * @link	https://wordpress.org/plugins/cmb2/
+ *
+ * More advanced fields can be handled by ACF if necessary
+ * @link	http://www.advancedcustomfields.com/pro
  *
  * @package	Pilau_Starter
  * @since	0.1
  */
 
 
-if ( PILAU_PLUGIN_EXISTS_DEVELOPERS_CUSTOM_FIELDS ) {
-	add_action( 'init', 'pilau_register_custom_fields', 5 );
+/**
+ * Use custom fields for Admin Columns
+ */
+if ( PILAU_PLUGIN_EXISTS_ADMIN_COLUMNS ) {
+	add_filter( 'cpac_use_hidden_custom_fields', '__return_true' );
+}
+
+
+if ( PILAU_PLUGIN_EXISTS_CMB2 ) {
+	add_action( 'cmb2_init', 'pilau_cmb2_custom_fields' );
 }
 /**
  * Register custom fields
  *
- * @uses slt_cf_register_box()
+ * @uses new_cmb2_box()
  * @since	Pilau_Starter 0.1
  */
-function pilau_register_custom_fields() {
+function pilau_cmb2_custom_fields() {
 	global $pilau_slideshow_content_types, $pilau_slideshow_pages;
 
-	// Use custom fields for Admin Columns
-	if ( PILAU_PLUGIN_EXISTS_ADMIN_COLUMNS ) {
-		add_filter( 'cpac_use_hidden_custom_fields', '__return_true' );
-	}
 
 	/* General settings
 	********************************************************************************/
 
-	/*
 	// Longer teaser text
-	slt_cf_register_box( array(
-		'type'		=> 'post',
-		'title'		=> 'Teaser text',
-		'id'		=> 'teaser-text-box',
-		'context'	=> 'above-content',
-		'priority'	=> 'high',
-		'description'	=> __( 'Usually teaser text is taken from the SEO meta description if possible, or else an extract is taken from the main content. For some places, longer teaser text is needed than is good for the meta description, and an automated extract is unsuitable - this text can be used instead.' ),
-		'fields'	=> array(
-			array(
-				'name'			=> 'teaser-text',
-				'label'			=> 'Teaser text',
-				'type'			=> 'textarea',
-				'height'		=> 5,
-				'hide_label'	=> true,
-				'scope'			=> array( 'post', 'page' ),
-				'capabilities'	=> array( 'publish_pages' )
-			),
-		)
+	$cmb = new_cmb2_box( array(
+		'id'			=> 'teaser_text_box',
+		'title'			=> __( 'Teaser text' ),
+		'object_types'	=> array( 'page', 'post' ),
+		'show_on'		=> array( 'key' => 'user-can', 'value' => 'publish_pages' ),
+		'context'		=> 'normal',
+		'priority'		=> 'high',
+		'show_names'	=> true,
+		'closed'		=> true,
 	));
-	*/
+	$cmb->add_field( array(
+		'name'				=> __( 'Teaser text' ),
+		'desc'				=> __( 'Usually teaser text is taken from the SEO meta description if possible, or else an extract is taken from the main content. For some places, longer teaser text is needed than is good for the meta description, and an automated extract is unsuitable - this text can be used instead.' ),
+		'id'				=> pilau_cmb2_meta_key( 'teaser-text' ),
+		'type'				=> 'textarea_small',
+		'on_front'			=> false,
+	) );
+
 
 	/* Slideshows
 	********************************************************************************/
 
 	if ( PILAU_SLIDESHOW_ITEMS ) {
 
-		// Slideshow config
-		$slideshow_fields = array(
-			array(
-				'name'			=> 'slideshow-autoplay',
-				'label'			=> 'Number of seconds to pause between automatic advance to next slide',
-				'type'			=> 'text',
-				'width'			=> 3,
-				'default'		=> 0,
-				'description'	=> __( 'Enter 0 (zero) to disable autoplay.' ),
-				'scope'			=> $pilau_slideshow_pages,
-				'capabilities'	=> array( 'publish_pages' )
+		$cmb = new_cmb2_box( array(
+			'id'				=> 'slideshow_config_box',
+			'title'				=> __( 'Slideshow configuration' ),
+			'object_types'		=> array( 'page' ),
+			'show_on'			=> array(
+				'key'		=> 'id',
+				'value'		=> $pilau_slideshow_pages
 			),
-		);
+			'show_on_multiple'	=> array(
+				array(
+					'key' 			=> 'user-can',
+					'value'			=> 'publish_pages'
+				),
+			),
+			'context'			=> 'normal',
+			'priority'			=> 'high',
+			'show_names'		=> true,
+			'closed'			=> false,
+		));
+		// before_row on first field in lieu of box description for now
+		$cmb->add_field( array(
+			'name'				=> __( 'Autoplay pause' ),
+			'desc'				=> __( 'Number of seconds to pause between automatic advance to next slide. Enter 0 (zero) to disable autoplay.' ),
+			'id'				=> pilau_cmb2_meta_key( 'slideshow-autoplay' ),
+			'type'				=> 'text_small',
+			'default'			=> 0,
+			'on_front'			=> false,
+			'before_row'		=> '<p>' . __( 'To include something in the carousel, edit that content and supply the image and text. Then that content will become available to be selected here.' ) . '</p>',
+		) );
 		for ( $i = 1; $i <= PILAU_SLIDESHOW_ITEMS; $i++ ) {
-			$slideshow_fields[] = array(
-				'name'			=> 'slideshow-item-' . $i,
-				'label'			=> 'Item ' . $i,
+			$cmb->add_field( array(
+				'id'			=> pilau_cmb2_meta_key( 'slideshow-item-' . $i ),
+				'name'			=> 'Item ' . $i,
 				'type'			=> 'select',
-				'options_type'	=> 'posts',
-				'options_query'	=> array(
+				'options'		=> pilau_cmb2_get_post_options( array(
 					'post_type'			=> $pilau_slideshow_content_types,
 					'posts_per_page'	=> -1,
 					'orderby'			=> 'title',
 					'order'				=> 'ASC',
 					'meta_query'		=> array(
 						array(
-							'key'			=> slt_cf_field_key( 'slideshow-image' ),
+							'key'			=> pilau_cmb2_meta_key( 'slideshow-image' ),
 							'compare'		=> 'EXISTS',
 						),
 						array(
-							'key'			=> slt_cf_field_key( 'slideshow-heading' ),
+							'key'			=> pilau_cmb2_meta_key( 'slideshow-heading' ),
 							'compare'		=> 'EXISTS',
 						),
 						array(
-							'key'			=> slt_cf_field_key( 'slideshow-teaser' ),
+							'key'			=> pilau_cmb2_meta_key( 'slideshow-teaser' ),
 							'compare'		=> 'EXISTS',
 						),
 						array(
-							'key'			=> slt_cf_field_key( 'slideshow-button-text' ),
+							'key'			=> pilau_cmb2_meta_key( 'slideshow-button-text' ),
 							'compare'		=> 'EXISTS',
 						),
 					),
-				),
-				'group_options'			=> true,
-				'group_by_post_type'	=> true,
-				'scope'					=> array( 'posts' => array( PILAU_PAGE_ID_HOME ) ),
-				'capabilities'			=> array( 'publish_pages' )
-			);
+				)),
+			));
 		}
-		slt_cf_register_box( array(
-			'type'			=> 'post',
-			'title'			=> 'Slideshow configuration',
-			'id'			=> 'slideshow-config-box',
-			'context'		=> 'above-content',
-			'priority'		=> 'high',
-			'description'	=> __( 'To include something in the carousel, edit that content and supply the image and text. Then that content will become available to be selected here.' ),
-			'fields'		=> $slideshow_fields
-		));
 
 		// Slideshow content
-		slt_cf_register_box( array(
-			'type'			=> 'post',
-			'title'			=> 'Slideshow content',
-			'id'			=> 'slideshow-content-box',
-			'context'		=> 'normal',
-			'priority'		=> 'high',
-			'description'	=> __( 'Populate these fields to make this content available for slideshows.' ),
-			'fields'	=> array(
+		$cmb = new_cmb2_box( array(
+			'id'				=> 'slideshow_content_box',
+			'title'				=> __( 'Slideshow content' ),
+			'object_types'		=> $pilau_slideshow_content_types,
+			'show_on_multiple'	=> array(
 				array(
-					'name'			=> 'slideshow-heading',
-					'label'			=> 'Heading',
-					'type'			=> 'text',
-					'scope'			=> $pilau_slideshow_content_types,
-					'capabilities'	=> array( 'publish_pages' )
+					'key' 		=> 'user-can',
+					'value'		=> 'publish_pages'
 				),
-				array(
-					'name'					=> 'slideshow-image',
-					'label'					=> 'Image',
-					'type'					=> 'file',
-					'description'			=> __( 'Optimum image size: 1920px wide, 640px high.' ),
-					'file_button_label'		=> __( 'Select image' ),
-					'file_dialog_title'		=> __( 'Select image' ),
-					'file_restrict_to_type'	=> 'image',
-					'preview_size'			=> 'large',
-					'scope'					=> $pilau_slideshow_content_types,
-					'capabilities'			=> array( 'publish_pages' )
-				),
-				array(
-					'name'			=> 'slideshow-teaser',
-					'label'			=> 'Teaser text',
-					'type'			=> 'textarea',
-					'height'		=> 4,
-					'scope'			=> $pilau_slideshow_content_types,
-					'capabilities'	=> array( 'publish_pages' )
-				),
-				array(
-					'name'			=> 'slideshow-button-text',
-					'label'			=> 'Button text',
-					'type'			=> 'text',
-					'default'		=> __( 'Read more' ),
-					'scope'			=> $pilau_slideshow_content_types,
-					'capabilities'	=> array( 'publish_pages' )
-				),
-			)
+			),
+			'context'			=> 'normal',
+			'priority'			=> 'high',
+			'show_names'		=> true,
+			'closed'			=> false,
 		));
+		$cmb->add_field( array(
+			'name'				=> __( 'Heading' ),
+			'id'				=> pilau_cmb2_meta_key( 'slideshow-heading' ),
+			'type'				=> 'text',
+			'on_front'			=> false,
+		) );
+		$cmb->add_field( array(
+			'name'				=> __( 'Image' ),
+			'id'				=> pilau_cmb2_meta_key( 'slideshow-image' ),
+			'type'				=> 'file',
+			'options'			=> array(
+				'url'		=> false,
+			),
+			'desc'				=> __( 'Optimum image size: 1920px wide, 640px high.' ),
+			'on_front'			=> false,
+		) );
+		$cmb->add_field( array(
+			'name'				=> __( 'Teaser' ),
+			'id'				=> pilau_cmb2_meta_key( 'slideshow-teaser' ),
+			'type'				=> 'textarea_small',
+			'on_front'			=> false,
+		) );
+		$cmb->add_field( array(
+			'name'				=> __( 'Button text' ),
+			'id'				=> pilau_cmb2_meta_key( 'slideshow-button-text' ),
+			'type'				=> 'text_small',
+			'default'			=> __( 'Read more' ),
+			'on_front'			=> false,
+		) );
 
 	}
 
@@ -174,7 +179,7 @@ function pilau_register_custom_fields() {
 /**
  * Custom field checker
  *
- * @since	Pilau_Starter 0.1
+ * @since	0.1
 
  * @param	string	$field	The field name to check
  * @param	mixed	$value	The value to check against (returns true if the field value is equivalent)
@@ -190,4 +195,161 @@ function pilau_custom_field_check( $field, $value = true, $notset = false ) {
 		$result = $notset;
 	}
 	return $result;
+}
+
+
+/*
+ * CMB2 plugin stuff
+ *************************************************************************************/
+
+
+/**
+ * Return custom field meta key for CMB2
+ *
+ * @since	0.1
+ * @param	string	$field_name
+ * @return	string
+ */
+function pilau_cmb2_meta_key( $field_name ) {
+	return PILAU_CUSTOM_FIELDS_PREFIX . $field_name;
+}
+
+
+/**
+ * Get an object's custom fields, stripping any CMB2 prefixes
+ *
+ * @since	0.1
+ * @param	int		$id
+ * @param	string	$type	'post' | 'user'
+ * @return	array
+ */
+function pilau_get_custom_fields( $id = null, $type = 'post' ) {
+	global $post;
+	$fields = null;
+	$id = pilau_default_object_id( $type, $id );
+	$values = array();
+	$values_no_prefix = array();
+
+	switch ( $type ) {
+
+		case 'post': {
+
+			// Simples
+			$values = get_post_custom( $id );
+
+		}
+
+		case 'user': {
+
+			/**
+			 * @todo	Needs work?
+			 */
+			/*
+			// Using get_user_metavalues because get_userdata returns an object,
+			// and if keys have dashes in, they get lost in the creation of the object properties
+			$user_values = get_user_metavalues( array( $id ) );
+			$values = array();
+			foreach ( $user_values[ $id ] as $user_value )
+				$values[ $user_value->meta_key ] = $user_value->meta_value;
+			break;
+			*/
+
+		}
+
+	}
+
+	if ( ! empty( $values ) ) {
+
+		foreach ( $values as $key => $value ) {
+
+			// Strip standard prefix
+			if ( strlen( $key ) > strlen( PILAU_CUSTOM_FIELDS_PREFIX ) && substr( $key, 0, strlen( PILAU_CUSTOM_FIELDS_PREFIX ) ) == PILAU_CUSTOM_FIELDS_PREFIX ) {
+
+				$key_no_prefix = preg_replace( '#' . PILAU_CUSTOM_FIELDS_PREFIX . '#', '', $key, 1 );
+				$values_no_prefix[ $key_no_prefix ] = $value;
+
+			// Or just pass through
+			} else {
+
+				$values_no_prefix[ $key ] = $value;
+
+			}
+		}
+	}
+
+	// Unserialize
+	$values_no_prefix = array_map( 'maybe_unserialize', $values_no_prefix );
+
+	return $values_no_prefix;
+}
+
+
+add_filter( 'cmb2_show_on', 'pilau_cmb2_show_on', 10, 3 );
+/**
+ * All custom show_on filters
+ *
+ * @param bool $display
+ * @param array $meta_box
+ * @return bool display metabox
+ */
+function pilau_cmb2_show_on( $display, $metabox, $cmb ) {
+	if ( empty( $metabox['show_on'] ) && empty( $metabox['show_on_multiple'] ) ) {
+		return $display;
+	}
+
+	// Build array of restrictions
+	$restrictions = array();
+	if ( ! empty( $metabox['show_on'] ) ) {
+		$restrictions[] = $metabox['show_on'];
+	}
+	if ( ! empty( $metabox['show_on_multiple'] ) ) {
+		$restrictions .= $metabox['show_on_multiple'];
+	}
+
+	// Check them all
+	foreach ( $restrictions as $restriction ) {
+		switch ( $restriction['key'] ) {
+
+			// Capability check
+			case 'user-can': {
+				$display = current_user_can( $restriction['value'] );
+				break;
+			}
+
+		}
+
+		// Break if restriction already triggered
+		if ( ! $display ) {
+			break;
+		}
+
+	}
+
+	return $display;
+}
+
+
+/**
+ * Get posts to populate CMB2 options
+ *
+ * @param		array	$query_args
+ * @return		array
+ */
+function pilau_cmb2_get_post_options( $query_args ) {
+
+	$args = wp_parse_args( $query_args, array(
+		'post_type'			=> 'post',
+		'posts_per_page'	=> -1,
+	) );
+
+	$posts = get_posts( $args );
+
+	$post_options = array();
+	if ( $posts ) {
+		foreach ( $posts as $post ) {
+			$post_options[ $post->ID ] = $post->post_title;
+		}
+	}
+
+	return $post_options;
 }
