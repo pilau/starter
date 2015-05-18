@@ -82,7 +82,7 @@
 <?php
 /* Cookie notice */
 if ( PILAU_USE_COOKIE_NOTICE && ! isset( $_COOKIE['pilau_cookie_notice'] ) ) { ?>
-	<div id="cookie-notice">
+	<div class="cookie-notice">
 		<div class="wrap">
 			<div class="text">
 				<p><strong>This site uses cookies.</strong></p>
