@@ -133,7 +133,7 @@ if ( PILAU_USE_COOKIE_NOTICE ) {
 function pilau_cookie_notice() {
 
 	// Check for this domain in referrer
-	if ( parse_url( $_SERVER['HTTP_REFERER'], PHP_URL_HOST ) == $_SERVER['SERVER_NAME'] ) {
+	if ( ! empty( $_SERVER['HTTP_REFERER'] ) && parse_url( $_SERVER['HTTP_REFERER'], PHP_URL_HOST ) == $_SERVER['SERVER_NAME'] ) {
 
 		// Set cookie showing (implied) consent
 		// Expires in 10 years
