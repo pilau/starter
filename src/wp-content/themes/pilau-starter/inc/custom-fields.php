@@ -39,6 +39,7 @@ function pilau_cmb2_custom_fields() {
 	/* General settings
 	********************************************************************************/
 
+	/*
 	// Longer teaser text
 	$cmb = new_cmb2_box( array(
 		'id'			=> 'teaser_text_box',
@@ -57,6 +58,7 @@ function pilau_cmb2_custom_fields() {
 		'type'				=> 'textarea_small',
 		'on_front'			=> false,
 	) );
+	*/
 
 
 	/* Slideshows
