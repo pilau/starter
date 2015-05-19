@@ -45,7 +45,7 @@ function pilau_cmb2_custom_fields() {
 		'id'			=> 'teaser_text_box',
 		'title'			=> __( 'Teaser text' ),
 		'object_types'	=> array( 'page', 'post' ),
-		'show_on'		=> array( 'key' => 'user-can', 'value' => 'publish_pages' ),
+		'show_on_cb'	=> 'pilau_cmb2_show_for_editors',
 		'context'		=> 'normal',
 		'priority'		=> 'high',
 		'show_names'	=> true,
@@ -74,12 +74,7 @@ function pilau_cmb2_custom_fields() {
 				'key'		=> 'id',
 				'value'		=> $pilau_slideshow_pages
 			),
-			'show_on_multiple'	=> array(
-				array(
-					'key' 			=> 'user-can',
-					'value'			=> 'publish_pages'
-				),
-			),
+			'show_on_cb'		=> 'pilau_cmb2_show_for_editors',
 			'context'			=> 'normal',
 			'priority'			=> 'high',
 			'show_names'		=> true,
@@ -132,10 +127,7 @@ function pilau_cmb2_custom_fields() {
 			'id'				=> 'slideshow_content_box',
 			'title'				=> __( 'Slideshow content' ),
 			'object_types'		=> $pilau_slideshow_content_types,
-			'show_on'	=> array(
-				'key' 		=> 'user-can',
-				'value'		=> 'publish_pages'
-			),
+			'show_on_cb'		=> 'pilau_cmb2_show_for_editors',
 			'context'			=> 'normal',
 			'priority'			=> 'high',
 			'show_names'		=> true,
@@ -263,48 +255,14 @@ function pilau_get_custom_fields( $id = null, $type = 'post' ) {
 }
 
 
-//add_filter( 'cmb2_show_on', 'pilau_cmb2_show_on', 10, 3 );
 /**
- * All custom show_on filters
+ * Callback to limit to editors
  *
- * @param bool $display
- * @param array $meta_box
- * @return bool display metabox
+ * @since	0.1
+ * @return	bool
  */
-function pilau_cmb2_show_on( $display, $metabox, $cmb ) {
-	if ( empty( $metabox['show_on'] ) && empty( $metabox['show_on_multiple'] ) ) {
-		return $display;
-	}
-
-	// Build array of restrictions
-	$restrictions = array();
-	if ( ! empty( $metabox['show_on'] ) ) {
-		$restrictions[] = $metabox['show_on'];
-	}
-	if ( ! empty( $metabox['show_on_multiple'] ) ) {
-		$restrictions .= $metabox['show_on_multiple'];
-	}
-
-	// Check them all
-	foreach ( $restrictions as $restriction ) {
-		switch ( $restriction['key'] ) {
-
-			// Capability check
-			case 'user-can': {
-				$display = current_user_can( $restriction['value'] );
-				break;
-			}
-
-		}
-
-		// Break if restriction already triggered
-		if ( ! $display ) {
-			break;
-		}
-
-	}
-
-	return $display;
+function pilau_cmb2_show_for_editors() {
+	return current_user_can( 'publish_pages' );
 }
 
 
