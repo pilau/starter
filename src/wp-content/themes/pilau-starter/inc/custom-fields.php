@@ -132,11 +132,9 @@ function pilau_cmb2_custom_fields() {
 			'id'				=> 'slideshow_content_box',
 			'title'				=> __( 'Slideshow content' ),
 			'object_types'		=> $pilau_slideshow_content_types,
-			'show_on_multiple'	=> array(
-				array(
-					'key' 		=> 'user-can',
-					'value'		=> 'publish_pages'
-				),
+			'show_on'	=> array(
+				'key' 		=> 'user-can',
+				'value'		=> 'publish_pages'
 			),
 			'context'			=> 'normal',
 			'priority'			=> 'high',
@@ -233,60 +231,39 @@ function pilau_get_custom_fields( $id = null, $type = 'post' ) {
 	$values_no_prefix = array();
 
 	switch ( $type ) {
-
 		case 'post': {
-
-			// Simples
 			$values = get_post_custom( $id );
-
-		}
-
-		case 'user': {
-
-			/**
-			 * @todo	Needs work?
-			 */
-			/*
-			// Using get_user_metavalues because get_userdata returns an object,
-			// and if keys have dashes in, they get lost in the creation of the object properties
-			$user_values = get_user_metavalues( array( $id ) );
-			$values = array();
-			foreach ( $user_values[ $id ] as $user_value )
-				$values[ $user_value->meta_key ] = $user_value->meta_value;
 			break;
-			*/
-
 		}
-
+		case 'user': {
+			$values = get_user_meta( $id );
+			break;
+		}
 	}
 
 	if ( ! empty( $values ) ) {
 
 		foreach ( $values as $key => $value ) {
+			$new_key = $key;
 
-			// Strip standard prefix
+			// Strip standard prefix?
 			if ( strlen( $key ) > strlen( PILAU_CUSTOM_FIELDS_PREFIX ) && substr( $key, 0, strlen( PILAU_CUSTOM_FIELDS_PREFIX ) ) == PILAU_CUSTOM_FIELDS_PREFIX ) {
-
-				$key_no_prefix = preg_replace( '#' . PILAU_CUSTOM_FIELDS_PREFIX . '#', '', $key, 1 );
-				$values_no_prefix[ $key_no_prefix ] = $value;
-
-			// Or just pass through
-			} else {
-
-				$values_no_prefix[ $key ] = $value;
-
+				$new_key = preg_replace( '#' . PILAU_CUSTOM_FIELDS_PREFIX . '#', '', $key, 1 );
 			}
+
+			$values_no_prefix[ $new_key ] = $value[0];
 		}
+
 	}
 
-	// Unserialize
+	// Unserialize? Maybe
 	$values_no_prefix = array_map( 'maybe_unserialize', $values_no_prefix );
 
 	return $values_no_prefix;
 }
 
 
-add_filter( 'cmb2_show_on', 'pilau_cmb2_show_on', 10, 3 );
+//add_filter( 'cmb2_show_on', 'pilau_cmb2_show_on', 10, 3 );
 /**
  * All custom show_on filters
  *
