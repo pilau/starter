@@ -184,6 +184,7 @@ function pilau_protocol_relative_image_urls( $html ) {
  * @link	http://flickity.metafizzy.co/options.html
  *
  * @since	0.1
+ * @todo	Integrate breakpoints with global vars?
  */
 function pilau_slideshow() {
 	global $pilau_custom_fields;
@@ -219,7 +220,29 @@ function pilau_slideshow() {
 							<p class="teaser"><?php echo $item_custom_fields['slideshow-teaser']; ?></p>
 							<p class="button"><?php echo $item_custom_fields['slideshow-button-text']; ?></p>
 						</div>
-						<figure class="image"><?php echo pilau_responsive_image( $item_custom_fields['slideshow-image_id'], array( 'medium', 'large', 'full-width' ), 'full-width' ); ?></figure>
+						<figure class="image">
+							<?php
+
+							// Set up alternate portrait image
+							$picture_srcs = array();
+							if ( ! empty( $item_custom_fields['slideshow-image-portrait'] ) ) {
+								$picture_srcs[] = array(
+									'media'		=> '(max-width: 640px)',
+									'srcset'	=> $item_custom_fields['slideshow-image-portrait']
+								);
+							}
+
+							echo pilau_responsive_image(
+								$item_custom_fields['slideshow-image_id'],
+								array( 'medium', 'large', 'full-width' ),
+								'full-width',
+								null,
+								null,
+								array(),
+								$picture_srcs
+							);
+							?>
+						</figure>
 					</a>
 				</div>
 

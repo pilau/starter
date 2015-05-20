@@ -55,7 +55,7 @@
 	 * Respond.js for IE 8 and below
 	 */
 	?>
-	<!--[if lt IE 9]><script src="<?php echo get_stylesheet_directory_uri() . '/js/respond.min.js?ver=1.4.2'; ?>"></script><![endif]-->
+	<!--[if lt IE 9]><script src="<?php echo get_stylesheet_directory_uri() . '/js/respond.js?ver=1.4.2'; ?>"></script><![endif]-->
 
 	<?php
 

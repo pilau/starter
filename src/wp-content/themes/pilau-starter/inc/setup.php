@@ -275,25 +275,25 @@ function pilau_enqueue_scripts() {
 		wp_enqueue_script( 'jquery' );
 		wp_enqueue_script( 'pilau-global', get_stylesheet_directory_uri() . '/js/global.js', array( 'jquery' ), '1.0', true );
 
-		/*
-		 * Comment reply script - adjust the conditional if you need comments on post types other than 'post'
-		 */
+		// Comment reply script - adjust the conditional if you need comments on post types other than 'post'
 		if ( defined( 'PILAU_USE_COMMENTS' ) && PILAU_USE_COMMENTS && is_single() && comments_open() && get_option( 'thread_comments' ) ) {
 			wp_enqueue_script( 'comment-reply', false, array(), false, true );
 		}
 
-		/*
-		 * Slideshow
-		 */
+		// Picturefill
+		// @link	http://scottjehl.github.io/picturefill/
+		wp_enqueue_script( 'picturefill', get_stylesheet_directory_uri() . '/js/picturefill.js', array(), '2.3.1', true );
+
+		// Slideshow
 		if ( PILAU_SLIDESHOW_ITEMS ) {
 			wp_enqueue_script( 'flickity', get_stylesheet_directory_uri() . '/js/flickity.js', array(), '1.0.0', true );
 		}
 
-		/*
-		 * Use this to pass the AJAX URL to the client when using AJAX
-		 * @link	http://wp.smashingmagazine.com/2011/10/18/how-to-use-ajax-in-wordpress/
-		 */
-		wp_localize_script( 'pilau-global', 'pilau_global', array( 'ajaxurl' => admin_url( 'admin-ajax.php', PILAU_REQUEST_PROTOCOL ) ) );
+		// Use this to pass the AJAX URL to the client when using AJAX - and any other PHP-to-JS vars
+		// @link	http://wp.smashingmagazine.com/2011/10/18/how-to-use-ajax-in-wordpress/
+		wp_localize_script( 'pilau-global', 'pilau_global', array(
+			'ajaxurl'		=> admin_url( 'admin-ajax.php', PILAU_REQUEST_PROTOCOL ),
+		));
 
 	}
 }

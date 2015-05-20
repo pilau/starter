@@ -36,29 +36,10 @@
 		top: 40px;
 		left: 100px;
 		padding: 1em 1.5em;
-		@include TransparentBackground( #fff, .4 );
+		width: 50%;
+		@include TransparentBackground( #fff, .6 );
 		text-align: left;
 		line-height: 1.2;
-		@include Tablet {
-			font-size: .9em;
-			.heading {
-				font-size: 1.6em;
-			}
-			.teaser {
-				margin-bottom: .6em;
-			}
-		}
-		@include Mobile {
-			padding-top: 10%;
-			text-align: center;
-			.heading, .teaser {
-				display: none;
-			}
-			.button {
-				max-width: 70%;
-				font-size: .8em;
-			}
-		}
 	}
 	.heading {
 		margin-bottom: .2em;
@@ -73,5 +54,31 @@
 	img {
 		display: block;
 		width: 100%;
+	}
+	@include Mobile-Tablet {
+		.text {
+			font-size: .9em;
+			.heading {
+				font-size: 1.6em;
+			}
+			.teaser {
+				display: none;
+			}
+		}
+	}
+	@include Tablet {
+		.text {
+			left: 60px;
+			min-width: 500px;
+		}
+	}
+	@include Mobile {
+		padding-bottom: 120%;
+		.text {
+			top: 10px;
+			left: 10px;
+			right: 10px;
+			width: auto;
+		}
 	}
 }

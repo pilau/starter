@@ -148,15 +148,26 @@ function pilau_cmb2_custom_fields() {
 			'id'				=> pilau_cmb2_meta_key( 'slideshow-heading' ),
 			'type'				=> 'text',
 			'on_front'			=> false,
+			'before_row'		=> '<p>' . __( 'Populate these fields to make this content available for inclusion in slideshows.' ) . '</p>',
 		) );
 		$cmb->add_field( array(
-			'name'				=> __( 'Image' ),
+			'name'				=> __( 'Landscape image' ),
 			'id'				=> pilau_cmb2_meta_key( 'slideshow-image' ),
 			'type'				=> 'file',
 			'options'			=> array(
 				'url'		=> false,
 			),
-			'desc'				=> __( 'Optimum image size: 1920px wide, 640px high.' ),
+			'desc'				=> __( 'For larger, landscape oriented screens. Optimum image size: 1920px wide, 640px high.' ),
+			'on_front'			=> false,
+		) );
+		$cmb->add_field( array(
+			'name'				=> __( 'Portrait image' ),
+			'id'				=> pilau_cmb2_meta_key( 'slideshow-image-portrait' ),
+			'type'				=> 'file',
+			'options'			=> array(
+				'url'		=> false,
+			),
+			'desc'				=> __( 'For smaller, portrait oriented screens. Optimum image size: 640px wide, 800px high.' ),
 			'on_front'			=> false,
 		) );
 		$cmb->add_field( array(
