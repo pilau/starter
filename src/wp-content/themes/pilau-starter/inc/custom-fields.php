@@ -42,14 +42,17 @@ function pilau_cmb2_custom_fields() {
 	/*
 	// Longer teaser text
 	$cmb = new_cmb2_box( array(
-		'id'			=> 'teaser_text_box',
-		'title'			=> __( 'Teaser text' ),
-		'object_types'	=> array( 'page', 'post' ),
-		'show_on_cb'	=> 'pilau_cmb2_show_for_editors',
-		'context'		=> 'normal',
-		'priority'		=> 'high',
-		'show_names'	=> true,
-		'closed'		=> true,
+		'id'				=> 'teaser_text_box',
+		'title'				=> __( 'Teaser text' ),
+		'object_types'		=> array( 'page', 'post' ),
+		'show_on_cb'		=> 'pilau_cmb2_show_on_custom',
+		'show_on_custom'	=> array(
+			'user_can'			=> 'publish_pages',
+		),
+		'context'			=> 'normal',
+		'priority'			=> 'high',
+		'show_names'		=> true,
+		'closed'			=> true,
 	));
 	$cmb->add_field( array(
 		'name'				=> __( 'Teaser text' ),
@@ -74,7 +77,10 @@ function pilau_cmb2_custom_fields() {
 				'key'		=> 'id',
 				'value'		=> $pilau_slideshow_pages
 			),
-			'show_on_cb'		=> 'pilau_cmb2_show_for_editors',
+			'show_on_cb'		=> 'pilau_cmb2_show_on_custom',
+			'show_on_custom'	=> array(
+				'user_can'			=> 'publish_pages',
+			),
 			'context'			=> 'normal',
 			'priority'			=> 'high',
 			'show_names'		=> true,
@@ -92,10 +98,11 @@ function pilau_cmb2_custom_fields() {
 		) );
 		for ( $i = 1; $i <= PILAU_SLIDESHOW_ITEMS; $i++ ) {
 			$cmb->add_field( array(
-				'id'			=> pilau_cmb2_meta_key( 'slideshow-item-' . $i ),
-				'name'			=> 'Item ' . $i,
-				'type'			=> 'select',
-				'options'		=> pilau_cmb2_get_post_options( array(
+				'id'				=> pilau_cmb2_meta_key( 'slideshow-item-' . $i ),
+				'name'				=> 'Item ' . $i,
+				'type'				=> 'select',
+				'show_option_none'	=> '[' . __( 'Nothing' ) . ']',
+				'options'			=> pilau_cmb2_get_post_options( array(
 					'post_type'			=> $pilau_slideshow_content_types,
 					'posts_per_page'	=> -1,
 					'orderby'			=> 'title',
@@ -127,7 +134,10 @@ function pilau_cmb2_custom_fields() {
 			'id'				=> 'slideshow_content_box',
 			'title'				=> __( 'Slideshow content' ),
 			'object_types'		=> $pilau_slideshow_content_types,
-			'show_on_cb'		=> 'pilau_cmb2_show_for_editors',
+			'show_on_cb'		=> 'pilau_cmb2_show_on_custom',
+			'show_on_custom'	=> array(
+				'user_can'			=> 'publish_pages',
+			),
 			'context'			=> 'normal',
 			'priority'			=> 'high',
 			'show_names'		=> true,
@@ -256,13 +266,40 @@ function pilau_get_custom_fields( $id = null, $type = 'post' ) {
 
 
 /**
- * Callback to limit to editors
+ * Callback to handle custom show_on restrictions
  *
  * @since	0.1
  * @return	bool
  */
-function pilau_cmb2_show_for_editors() {
-	return current_user_can( 'publish_pages' );
+function pilau_cmb2_show_on_custom( $cmb ) {
+	$show = true;
+	$show_on_custom = $cmb->prop( 'show_on_custom' );
+
+	if ( ! empty( $show_on_custom ) ) {
+
+		// Loop through restrictions
+		foreach ( $show_on_custom as $show_on_type => $show_on_condition ) {
+
+			switch ( $show_on_type ) {
+
+				case 'user_can': {
+					// Check user capability
+					$show = current_user_can( $show_on_condition );
+					break;
+				}
+
+			}
+
+			// If a condition has failed, break out
+			if ( ! $show ) {
+				break;
+			}
+
+		}
+
+	}
+
+	return $show;
 }
 
 

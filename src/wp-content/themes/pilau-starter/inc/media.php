@@ -93,8 +93,8 @@ function pilau_setup_media() {
 	// Content types available to be made into slides
 	$pilau_slideshow_content_types = array( 'post' );
 
-	// Scope for DCF, which pages have slideshows?
-	$pilau_slideshow_pages = array( 'posts' => array( PILAU_PAGE_ID_HOME ) );
+	// For CMB2, which posts / pages have slideshows?
+	$pilau_slideshow_pages = array( PILAU_PAGE_ID_HOME );
 
 }
 
@@ -190,13 +190,12 @@ function pilau_slideshow() {
 
 	// Gather custom fields from items
 	$items = array();
-	if ( PILAU_PLUGIN_EXISTS_DEVELOPERS_CUSTOM_FIELDS ) {
-		for ( $i = 1; $i <= PILAU_SLIDESHOW_ITEMS; $i++ ) {
-			if ( ! empty( $pilau_custom_fields['slideshow-item-' . $i ] ) ) {
-				$items[ $pilau_custom_fields['slideshow-item-' . $i ] ] = pilau_get_custom_fields( $pilau_custom_fields['slideshow-item-' . $i ], 'post' );
-			}
+	for ( $i = 1; $i <= PILAU_SLIDESHOW_ITEMS; $i++ ) {
+		if ( ! empty( $pilau_custom_fields['slideshow-item-' . $i ] ) ) {
+			$items[ $pilau_custom_fields['slideshow-item-' . $i ] ] = pilau_get_custom_fields( $pilau_custom_fields['slideshow-item-' . $i ], 'post' );
 		}
 	}
+	//echo '<pre>'; print_r( $items ); echo '</pre>'; exit;
 
 	// Do we have anything?
 	if ( ! empty( $items ) ) {
@@ -220,7 +219,7 @@ function pilau_slideshow() {
 							<p class="teaser"><?php echo $item_custom_fields['slideshow-teaser']; ?></p>
 							<p class="button"><?php echo $item_custom_fields['slideshow-button-text']; ?></p>
 						</div>
-						<figure class="image"><?php echo pilau_responsive_image( $item_custom_fields['slideshow-image'], array( 'medium', 'large', 'full-width' ), 'full-width' ); ?></figure>
+						<figure class="image"><?php echo pilau_responsive_image( $item_custom_fields['slideshow-image_id'], array( 'medium', 'large', 'full-width' ), 'full-width' ); ?></figure>
 					</a>
 				</div>
 
