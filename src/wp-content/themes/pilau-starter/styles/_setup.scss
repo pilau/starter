@@ -8,10 +8,10 @@
 // Paths
 $path-images: '/wp-content/themes/pilau-starter/img';
 
-/* Fonts */
+// Fonts
 $font-stack-regular: 'Droid Sans', Helvetica, Arial, sans-serif;
 
-/* Colours */
+// Colours
 $color-background: #efeae4;
 $color-background-darker: #d4d4d1;
 $color-background-dark: #333;
@@ -22,7 +22,7 @@ $color-current: #c30;
 $color-tab-active: #666;
 $color-tab-inactive: #999;
 
-/* Measurements */
+// Measurements
 $breakpoint-large: 1000px;
 $breakpoint-medium: 640px;
 $gutter-small: 10px;
@@ -30,15 +30,14 @@ $gutter-medium: $gutter-small * 2;
 $gutter-large: $gutter-small * 3;
 $grid-columns: 12;
 
+
 /*
  * Mixins
  * - Use CamelCaps to distinguish from normal CSS selectors and classes
  */
 
-/*
-Media queries
-@link	http://davidwalsh.name/write-media-queries-sass
-*/
+// Media queries
+// @link	http://davidwalsh.name/write-media-queries-sass
 @mixin Desktop {
   @media ( min-width: #{$breakpoint-large} ) {
 	@content;
@@ -80,10 +79,7 @@ Media queries
 	}
 }
 
-
-/*
-Sometimes it's necessary to add clearfix to something in CSS rather than add the class in HTML...
-*/
+// Sometimes it's necessary to add clearfix to something in CSS rather than add the class in HTML...
 @mixin ClearFix() {
 	zoom: 1;
 	&:before, &:after {
@@ -95,11 +91,8 @@ Sometimes it's necessary to add clearfix to something in CSS rather than add the
 	&:after { clear: both; }
 }
 
-
-/*
-Transparent background
-@link	http://stackoverflow.com/a/8009864/1087660
-*/
+// Transparent background
+// @link	http://stackoverflow.com/a/8009864/1087660
 @mixin TransparentBackground( $color, $alpha ) {
 	$rgba: rgba( $color, $alpha );
 	$ie-hex-str: ie-hex-str( $rgba );
@@ -109,11 +102,23 @@ Transparent background
 	zoom: 1;
 }
 
-/*
- * rem fallback for IE8
- */
+// rem fallback for IE8
 @mixin FontSizeRem( $size: 1.6 ) {
 	// Adjust the figure 10 here to get a rough match between the px fallback and the rem sizes
 	font-size: ( $size * 10 ) + px;
 	font-size: $size + rem;
+}
+
+
+/*
+ * Functions
+ */
+
+// Tint and shade
+// @link    https://css-tricks.com/snippets/sass/tint-shade-functions/
+@function tint( $color, $percentage ) {
+	@return mix( $color, white, $percentage );
+}
+@function shade( $color, $percentage ) {
+	@return mix( $color, black, $percentage );
 }
