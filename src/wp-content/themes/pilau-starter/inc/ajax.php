@@ -46,7 +46,11 @@ function pilau_more_posts_link( $args = null ) {
 	);
 	$r = wp_parse_args( $args, $defaults );
 	$posts_per_page = ! empty( $r['query']->query_vars["posts_per_page"] ) ? $r['query']->query_vars["posts_per_page"] : -1;
-	//echo '<pre>'; print_r( $r['query']->query_vars ); echo '</pre>'; exit;
+	// Filter query vars down to non-empty values (keeping zero values)
+	$query_vars = array_filter( $r['query']->query_vars, function( $v ) {
+		return $v || $v === '0' || $v === 0;
+	});
+	//echo '<pre>'; print_r( $query_vars ); echo '</pre>'; exit;
 
 	// Initialize
 	$r['base_url'] = trailingslashit( $r['base_url'] );
@@ -80,7 +84,7 @@ function pilau_more_posts_link( $args = null ) {
 						'b'		=> array( 'class' => array() )
 					)); ?>',
 				'found_posts':		<?php echo $r['query']->found_posts; ?>,
-				'query_vars':		'<?php echo serialize( $r['query']->query_vars ); ?>'
+				'query_vars':		'<?php echo serialize( $query_vars ); ?>'
 			};
 
 		</script>
