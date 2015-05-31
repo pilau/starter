@@ -23,8 +23,8 @@ $color-tab-active: #666;
 $color-tab-inactive: #999;
 
 // Measurements
-$breakpoint-large: 1000px;
-$breakpoint-medium: 640px;
+$breakpoint-large: pilauBreakpointLargepx;
+$breakpoint-medium: pilauBreakpointMediumpx;
 $gutter-small: 10px;
 $gutter-medium: $gutter-small * 2;
 $gutter-large: $gutter-small * 3;

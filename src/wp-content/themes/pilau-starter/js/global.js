@@ -12,8 +12,8 @@ var pilau_popups;
 var pilau_slideshows;
 // Breakpoints
 var pilau_bps = {
-	'large':	1000, // This and above is "large"
-	'medium':	640 // This and above is "medium"; below is "small"
+	'large':	pilauBreakpointLarge, // This and above is "large"
+	'medium':	pilauBreakpointMedium // This and above is "medium"; below is "small"
 };
 var pilau_vw; // Viewport width
 var pilau_vw_large;

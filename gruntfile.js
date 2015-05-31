@@ -7,6 +7,7 @@ module.exports = function(grunt) {
 	var themeDir = 'wp-content/themes/' + themeName + '/';
 	var srcThemeDir = srcDir + themeDir;
 	var publicThemeDir = publicDir + themeDir;
+	var breakpoints = require('./breakpoints.json');
 
 	// Set up the CSS files object
 	var sassFilesObject = {};
@@ -69,7 +70,14 @@ module.exports = function(grunt) {
 					cwd: srcThemeDir,
 					src: ['**/*.css', '**/*.scss'],
 					dest: publicThemeDir
-				}]
+				}],
+				options: {
+					process: function ( content ) {
+						content = content.replace( /pilauBreakpointLarge/g, breakpoints.large );
+						content = content.replace( /pilauBreakpointMedium/g, breakpoints.medium );
+						return content;
+					}
+				}
 			},
 			php: {
 				files: [{
@@ -77,7 +85,14 @@ module.exports = function(grunt) {
 					cwd: srcThemeDir,
 					src: ['**/*.php'],
 					dest: publicThemeDir
-				}]
+				}],
+				options: {
+					process: function ( content ) {
+						content = content.replace( /pilauBreakpointLarge/g, breakpoints.large );
+						content = content.replace( /pilauBreakpointMedium/g, breakpoints.medium );
+						return content;
+					}
+				}
 			},
 			img: {
 				files: [{
@@ -93,7 +108,15 @@ module.exports = function(grunt) {
 					cwd: srcThemeDir,
 					src: ['**/*.js'],
 					dest: publicThemeDir
-				}]
+				}],
+				options: {
+					process: function ( content ) {
+						console.log( content );
+						content = content.replace( /pilauBreakpointLarge/g, breakpoints.large );
+						content = content.replace( /pilauBreakpointMedium/g, breakpoints.medium );
+						return content;
+					}
+				}
 			},
 			fonts: {
 				files: [{
