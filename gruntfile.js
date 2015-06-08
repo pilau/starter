@@ -111,7 +111,6 @@ module.exports = function(grunt) {
 				}],
 				options: {
 					process: function ( content ) {
-						console.log( content );
 						content = content.replace( /pilauBreakpointLarge/g, breakpoints.large );
 						content = content.replace( /pilauBreakpointMedium/g, breakpoints.medium );
 						return content;
