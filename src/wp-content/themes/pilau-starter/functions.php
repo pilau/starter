@@ -16,6 +16,9 @@
 
 /**
  * Configurable constants
+ *
+ * If any constants may vary between environments, defined them in the environment-
+ * specific regions in wp-config.php and wp-config-local.php
  */
 define( 'PILAU_USE_COMMENTS', false );
 define( 'PILAU_USE_CATEGORIES', false );
