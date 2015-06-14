@@ -78,7 +78,7 @@ jQuery( document ).ready( function( $ ) {
 	 * When registering a taxonomy, use the following custom arguments:
 	 * (bool) pilau_hierarchical
 	 *
-	 * @since   Walsingham 0.1
+	 * @since   Pilau_Starter 0.1
 	 */
 
 	// When editing terms

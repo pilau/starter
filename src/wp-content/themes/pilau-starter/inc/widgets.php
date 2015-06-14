@@ -33,7 +33,7 @@ add_action( 'widgets_init', 'pilau_register_widgets', 1 );
 /**
  * Register / unregister widgets
  *
- * @since	Walsingham 0.1
+ * @since	0.1
  */
 function pilau_register_widgets() {
 

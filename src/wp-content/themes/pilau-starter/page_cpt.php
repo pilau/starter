@@ -3,7 +3,7 @@
 /**
  * Template Name: CPT sample page
  *
- * @package	Walsingham
+ * @package	Pilau_Starter
  * @since	0.1
  */
 

@@ -3,7 +3,7 @@
 /**
  * The template for displaying 404 pages (Not Found)
  *
- * @package	Walsingham
+ * @package	Pilau_Starter
  * @since	0.1
  * @todo	More useful 404 page?
  */
