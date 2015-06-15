@@ -52,10 +52,10 @@ main {
 	min-height: 1px;
 	width: 100%;
 	padding: 0 $gutter-small ( $gutter-small + $gutter-small );
-	> *:first-of-type {
+	> *:first-child {
 		margin-top: 0;
 	}
-	> *:last-of-type {
+	> *:last-child {
 		margin-bottom: 0;
 	}
 	p {
