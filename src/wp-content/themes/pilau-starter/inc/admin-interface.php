@@ -72,7 +72,9 @@ function pilau_admin_enqueue_scripts_styles() {
 	foreach ( $taxonomies as $taxonomy ) {
 		if ( in_array( $current_screen->post_type, $taxonomy->object_type ) ) {
 			foreach ( array( 'required', 'multiple', 'hierarchical' ) as $arg ) {
-				$admin_js_vars[ $taxonomy->name . '_' . $arg ] = ! empty( $taxonomy->{'pilau_' . $arg} );
+				if ( isset( $taxonomy->{'pilau_' . $arg} ) ) {
+					$admin_js_vars[ $taxonomy->name . '_' . $arg ] = ! empty( $taxonomy->{'pilau_' . $arg} );
+				}
 			}
 		}
 	}
