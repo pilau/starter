@@ -318,9 +318,10 @@ function pilau_cmb2_show_on_custom( $cmb ) {
  * Get posts to populate CMB2 options
  *
  * @param		array	$query_args
+ * @param		bool	$show_parent
  * @return		array
  */
-function pilau_cmb2_get_post_options( $query_args ) {
+function pilau_cmb2_get_post_options( $query_args, $show_parent = false ) {
 
 	$args = wp_parse_args( $query_args, array(
 		'post_type'			=> 'post',
@@ -333,6 +334,9 @@ function pilau_cmb2_get_post_options( $query_args ) {
 	if ( $posts ) {
 		foreach ( $posts as $post ) {
 			$post_options[ $post->ID ] = $post->post_title;
+			if ( $show_parent ) {
+				$post_options[ $post->ID ] = get_the_title( $post->post_parent ) . ' &gt; ' . $post_options[ $post->ID ];
+			}
 		}
 	}
 
