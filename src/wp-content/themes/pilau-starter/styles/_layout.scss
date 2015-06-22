@@ -9,6 +9,7 @@ body {
     text-align: center;
 }
 main {
+	display: block;
     margin: $gutter-large 0;
 }
 .clear { clear: both; }
