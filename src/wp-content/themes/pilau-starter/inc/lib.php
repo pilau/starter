@@ -53,12 +53,12 @@ function pilau_share_icons( $global = false ) {
 	?>
 	<ul>
 		<li class="facebook img-rep"><span class="st_facebook_custom" tabindex="0" title="<?php _e( 'Share on Facebook' ); ?>"<?php echo $url; ?>>Facebook</span></li>
-		<li class="twitter img-rep"><span class="st_twitter_custom" st_via="<?php echo PILAU_TWITTER_SCREEN_NAME; ?>" tabindex="0" title="<?php _e( 'Share on Twitter' ); ?>"<?php echo $url; ?>>Twitter</span></li>
+		<li class="twitter img-rep"><span class="st_twitter_custom" st_via="<?php echo PILAU_USERNAME_TWITTER; ?>" tabindex="0" title="<?php _e( 'Share on Twitter' ); ?>"<?php echo $url; ?>>Twitter</span></li>
 		<li class="google img-rep"><span class="st_plusone_custom" tabindex="0" title="<?php _e( 'Share on Google Plus' ); ?>"<?php echo $url; ?>>Google+</span></li>
 		<?php if ( ! $global ) { ?>
 			<li class="email img-rep"><span class="st_email_custom" tabindex="0" title="<?php _e( 'Share by email' ); ?>"<?php echo $url; ?>>Email</span></li>
 		<?php } ?>
-		<li class="share img-rep"><span class="st_sharethis_custom" st_via="<?php echo PILAU_TWITTER_SCREEN_NAME; ?>" tabindex="0" title="<?php _e( 'More sharing options...' ); ?>"<?php echo $url; ?>>More sharing...</span></li>
+		<li class="share img-rep"><span class="st_sharethis_custom" st_via="<?php echo PILAU_USERNAME_TWITTER; ?>" tabindex="0" title="<?php _e( 'More sharing options...' ); ?>"<?php echo $url; ?>>More sharing...</span></li>
 	</ul>
 <?php
 }
@@ -110,7 +110,7 @@ function pilau_share_url( $service, $url = null ) {
  * @return	void
  */
 function pilau_tweets( $max = 4 ) {
-	if ( PILAU_PLUGIN_EXISTS_TWITTER_FEED && defined( 'PILAU_TWITTER_SCREEN_NAME' ) && PILAU_TWITTER_SCREEN_NAME ) {
+	if ( PILAU_PLUGIN_EXISTS_TWITTER_FEED && defined( 'PILAU_USERNAME_TWITTER' ) && PILAU_USERNAME_TWITTER ) {
 
 		// Get tweets
 		$tweets = getTweets( $max, false, array( 'include_rts' => true ) );
@@ -127,7 +127,7 @@ function pilau_tweets( $max = 4 ) {
 					$tweet_text = 'RT: ' . $tweet['retweeted_status']['text'];
 					//$screen_name = $tweet['entities']['user_mentions'][0]['screen_name'];
 				}
-				echo '<li><p class="tweet-date"><a href="' . pilau_construct_website_url( 'twitter', PILAU_TWITTER_SCREEN_NAME ) . '/status/' . $tweet['id_str'] . '" title="Link to this tweet">' . $tweet_time . ' ' . $tweet_date[2] . ' ' . $tweet_date[1] . ' ' . $tweet_date[5] . '</a></p><p class="tweet-text"><a class="user-link" href="' . pilau_construct_website_url( 'twitter', PILAU_TWITTER_SCREEN_NAME ) . '">@' . PILAU_TWITTER_SCREEN_NAME . '</a>: ' . pilau_link_urls( esc_html( $tweet_text ) ) . '</p></li>';
+				echo '<li><p class="tweet-date"><a href="' . pilau_construct_website_url( 'twitter', PILAU_USERNAME_TWITTER ) . '/status/' . $tweet['id_str'] . '" title="Link to this tweet">' . $tweet_time . ' ' . $tweet_date[2] . ' ' . $tweet_date[1] . ' ' . $tweet_date[5] . '</a></p><p class="tweet-text"><a class="user-link" href="' . pilau_construct_website_url( 'twitter', PILAU_USERNAME_TWITTER ) . '">@' . PILAU_USERNAME_TWITTER . '</a>: ' . pilau_link_urls( esc_html( $tweet_text ) ) . '</p></li>';
 			}
 
 			echo '</ul>';
@@ -155,8 +155,8 @@ function pilau_tweets( $max = 4 ) {
  */
 function pilau_twitter_follow_link( $user = null ) {
 
-	if ( ! $user && defined( 'PILAU_TWITTER_SCREEN_NAME' ) && PILAU_TWITTER_SCREEN_NAME ) {
-		$user = PILAU_TWITTER_SCREEN_NAME;
+	if ( ! $user && defined( 'PILAU_USERNAME_TWITTER' ) && PILAU_USERNAME_TWITTER ) {
+		$user = PILAU_USERNAME_TWITTER;
 	}
 
 	return 'https://twitter.com/intent/user?screen_name=' . $user;
