@@ -62,6 +62,13 @@
 [class^="icon-"]:before, [class*=" icon-"]:before {
 	@include Fontello-Icon();
 }
+a[class^="icon-"], [class*=" icon-"] {
+	&:hover, &:focus {
+		&:before {
+			text-decoration: none !important;
+		}
+	}
+}
 .icon-angle-up:before { content: '\e800'; } /* '' */
 .icon-angle-down:before { content: '\e801'; } /* '' */
 .icon-cancel:before { content: '\e802'; } /* '' */
