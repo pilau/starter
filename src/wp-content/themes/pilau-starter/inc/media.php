@@ -215,7 +215,7 @@ function pilau_slideshow() {
 
 		?>
 
-		<div class="slideshow js-flickity" data-flickity-options='{ "wrapAround": "true", "setGallerySize": "false", "autoPlay": <?php echo $autoplay; ?> }'>
+		<div class="slideshow js-flickity" data-flickity-options='{ "wrapAround": true, "setGallerySize": false, "autoPlay": <?php echo $autoplay; ?> }'>
 
 			<?php foreach ( $items as $item_id => $item_custom_fields ) { ?>
 
