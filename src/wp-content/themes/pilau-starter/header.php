@@ -110,7 +110,7 @@ if ( PILAU_USE_COOKIE_NOTICE && ! isset( $_COOKIE['pilau_cookie_notice'] ) ) { ?
 		<div id="nav-wrap" class="popup-box">
 			<div class="wrap">
 
-			<ul class="nav nav-header">
+			<ul class="nav nav-header nav-dynamic">
 				<?php
 				echo pilau_menu_without_containers( 'nav_header', 2 );
 				?>

@@ -38,7 +38,7 @@ jQuery( document ).ready( function( $ ) {
 	var nmc = $( '.nav-mobile-control' );
 	pilau_html = $( 'html' );
 	pilau_body = $( 'body' );
-	pilau_nav = $( '.nav' );
+	pilau_nav = $( '.nav-dynamic' );
 	pilau_nav_wrap = $( '#nav-wrap' );
 	pilau_popups = $( '.popup-wrap' );
 	pilau_slideshows = $( '.slideshow' );
