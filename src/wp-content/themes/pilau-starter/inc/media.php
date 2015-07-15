@@ -15,7 +15,7 @@ add_action( 'after_setup_theme', 'pilau_setup_media' );
  * @since	0.1
  */
 function pilau_setup_media() {
-	global $pilau_image_sizes, $pilau_slideshow_content_types, $pilau_slideshow_pages;
+	global $pilau_image_sizes, $pilau_slideshow_content_types, $pilau_slideshow_pages, $pilau_breakpoints;
 
 	/**
 	 * Set up image sizes
@@ -87,6 +87,13 @@ function pilau_setup_media() {
 	foreach ( array( 'custom-size' ) as $custom_size ) {
 		add_image_size( $custom_size, $pilau_image_sizes[$custom_size]['width'], $pilau_image_sizes[$custom_size]['height'], $pilau_image_sizes[$custom_size]['crop'] );
 	} */
+
+	/* Breakpoints */
+	if ( false === ( $pilau_breakpoints = get_transient( 'pilau_breakpoints' ) ) || isset( $_GET['refresh'] ) ) {
+		$pilau_breakpoints = json_decode( file_get_contents( trailingslashit( ABSPATH ) . 'breakpoints.json' ) );
+		set_transient( 'pilau_breakpoints', $pilau_breakpoints, 60*60*24 ); // Cache for 24 hours
+	}
+	//echo '<pre>'; print_r( $pilau_breakpoints ); echo '</pre>'; exit;
 
 	/* Slideshows */
 
@@ -184,10 +191,9 @@ function pilau_protocol_relative_image_urls( $html ) {
  * @link	http://flickity.metafizzy.co/options.html
  *
  * @since	0.1
- * @todo	Integrate breakpoints with global vars?
  */
 function pilau_slideshow() {
-	global $pilau_custom_fields;
+	global $pilau_custom_fields, $pilau_breakpoints;
 
 	// Gather custom fields from items
 	$items = array();
@@ -227,7 +233,7 @@ function pilau_slideshow() {
 							$picture_srcs = array();
 							if ( ! empty( $item_custom_fields['slideshow-image-portrait'] ) ) {
 								$picture_srcs[] = array(
-									'media'		=> '(max-width: 640px)',
+									'media'		=> '(max-width: ' . $pilau_breakpoints->medium . 'px)',
 									'srcset'	=> $item_custom_fields['slideshow-image-portrait']
 								);
 							}

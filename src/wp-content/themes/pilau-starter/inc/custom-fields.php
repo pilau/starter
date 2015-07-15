@@ -33,7 +33,7 @@ if ( PILAU_PLUGIN_EXISTS_CMB2 ) {
  * @since	Pilau_Starter 0.1
  */
 function pilau_cmb2_custom_fields() {
-	global $pilau_slideshow_content_types, $pilau_slideshow_pages;
+	global $pilau_slideshow_content_types, $pilau_slideshow_pages, $pilau_breakpoints;
 
 
 	/* General settings
@@ -167,7 +167,7 @@ function pilau_cmb2_custom_fields() {
 			'options'			=> array(
 				'url'		=> false,
 			),
-			'desc'				=> __( 'For smaller, portrait oriented screens. Optimum image size: 640px wide, 800px high.' ),
+			'desc'				=> __( 'For smaller, portrait oriented screens. Optimum image size: ' . $pilau_breakpoints->medium . 'px wide, 800px high.' ),
 			'on_front'			=> false,
 		) );
 		$cmb->add_field( array(

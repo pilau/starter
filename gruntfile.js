@@ -7,7 +7,7 @@ module.exports = function(grunt) {
 	var themeDir = 'wp-content/themes/' + themeName + '/';
 	var srcThemeDir = srcDir + themeDir;
 	var publicThemeDir = publicDir + themeDir;
-	var breakpoints = require('./breakpoints.json');
+	var breakpoints = require('./public/breakpoints.json');
 
 	// Set up the CSS files object
 	var sassFilesObject = {};
