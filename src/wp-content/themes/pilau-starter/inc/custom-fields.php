@@ -342,3 +342,36 @@ function pilau_cmb2_get_post_options( $query_args, $show_parent = false ) {
 
 	return $post_options;
 }
+
+
+add_filter( 'cmb2_sanitize_text', 'pilau_cmb2_sanitize_text', 10, 5 );
+add_filter( 'cmb2_sanitize_text_small', 'pilau_cmb2_sanitize_text', 10, 5 );
+add_filter( 'cmb2_sanitize_text_medium', 'pilau_cmb2_sanitize_text', 10, 5 );
+add_filter( 'cmb2_sanitize_textarea', 'pilau_cmb2_sanitize_text', 10, 5 );
+add_filter( 'cmb2_sanitize_textarea_small', 'pilau_cmb2_sanitize_text', 10, 5 );
+/**
+ * Custom text sanitization to allow HTML
+ *
+ * Set a field's 'allow_html' argument to an array containing the HTML tags
+ * allowed
+ *
+ * @param		string	$override_value	Passed as null; return non-null to override default sanitization
+ * @param		string	$value				The entered value
+ * @param		int		$object_id			The ID of the object
+ * @param		array	$field_args		Field arguments
+ * @param		object	$cmb2_sanitize
+ * @return		string
+ */
+function pilau_cmb2_sanitize_text( $override_value, $value, $object_id, $field_args, $cmb2_sanitize ) {
+
+	// allow_html argument
+	if ( ! empty( $field_args['allow_html'] ) && is_array( $field_args['allow_html'] ) ) {
+		$kses_array = array();
+		foreach ( $field_args['allow_html'] as $tag ) {
+			$kses_array[ $tag ] = array();
+		}
+		$override_value = wp_kses( $value, $kses_array );
+	}
+
+	return $override_value;
+}
