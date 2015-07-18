@@ -43,6 +43,21 @@ textarea {
 	height: 10em;
 }
 
+// Placeholder text
+// @link    https://css-tricks.com/snippets/css/style-placeholder-text/
+::-webkit-input-placeholder {
+	color: $color-text-lighter;
+}
+:-moz-placeholder { /* Firefox 18- */
+	color: $color-text-lighter;
+}
+::-moz-placeholder {  /* Firefox 19+ */
+	color: $color-text-lighter;
+}
+:-ms-input-placeholder {
+	color: $color-text-lighter;
+}
+
 // Buttons - class for other elements to look button-like
 input[type=submit],
 .button {
