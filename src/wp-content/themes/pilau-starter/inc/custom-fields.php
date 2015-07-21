@@ -299,6 +299,14 @@ function pilau_cmb2_show_on_custom( $cmb ) {
 					break;
 				}
 
+				case 'mime_types': {
+					// Check for media MIME types
+					if ( ! empty( $show_on_condition ) && is_array( $show_on_condition ) && in_array( 'attachment', $cmb->prop( 'object_types' ) ) ) {
+						$show = in_array( get_post_mime_type(), $show_on_condition );
+					}
+					break;
+				}
+
 			}
 
 			// If a condition has failed, break out
