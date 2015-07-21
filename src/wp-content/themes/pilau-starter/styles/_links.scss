@@ -75,8 +75,8 @@ a[href*="/wp-content/uploads/"] {
 			text-decoration: none;
 		}
 	}
-	// Exclude images
-	&[href$=".jpg"], &[href$=".png"], &[href$=".gif"] {
+	// Exclusions
+	&[href$=".jpg"], &[href$=".png"], &[href$=".gif"], &.no-icon {
 		&:before {
 			display: none;
 		}
