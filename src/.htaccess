@@ -204,6 +204,15 @@ IndexIgnore *
 </Files>
 
 # ----------------------------------------------------------------------
+# Force certain file types to download directly
+# ----------------------------------------------------------------------
+
+<FilesMatch "\.(pdf|doc|docx|xls|xlsx|ppt|pptx)$">
+    ForceType application/octet-stream
+    Header set Content-Disposition attachment
+</FilesMatch>
+
+# ----------------------------------------------------------------------
 # PHP settings
 # ----------------------------------------------------------------------
 
