@@ -9,7 +9,7 @@ npm-debug.log
 # For development of Pilau Starter itself, ignore whole of /public
 /public/
 
-# These lines will be uncommented by Pilau Init
+# Lines beginning with #/public/ or #!/public/ will be uncommented by Pilau Init
 # WP core
 #/public/wp-admin/*
 #/public/wp-content/*
@@ -19,14 +19,18 @@ npm-debug.log
 #/public/readme.html
 #/public/wp-*.php
 #/public/xmlrpc.php
+
 # Exceptions
 #!/public/wp-config.php
-#!/public/wp-content/mu-plugins/
 #!/public/wp-content/themes/
 #/public/wp-content/themes/*
 #!/public/wp-content/themes/pilau-starter/
 
-# Plugins not versioned in order to use InfiniteWP
+# Plugins not versioned in order to use InfiniteWP... except forked ones
+#!/public/wp-content/mu-plugins/
+#!/public/wp-content/plugins
+#/public/wp-content/plugins/*
+#!/public/wp-content/plugins/*_forked/
 
 # Interconnect IT WP data migration script - http://interconnectit.com/124/search-and-replace-for-wordpress-databases/
 searchreplacedb2.php
