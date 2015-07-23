@@ -233,6 +233,10 @@ function pilau_setup_after_post() {
 			}
 			break;
 		}
+		case 'post': {
+			$top_level_page_id = get_option( 'page_for_posts' );
+			break;
+		}
 		default: {
 			// Use virtual post hierarchy for non-pages
 			$post_ancestors = pilau_get_cpt_ancestors( $post );
