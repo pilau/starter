@@ -118,6 +118,8 @@ function pilau_is_ancestor( $page_id ) {
 	$is_ancestor = false;
 	if ( get_post_type() == 'page' ) {
 		$is_ancestor = in_array( $page_id, get_post_ancestors( PILAU_PAGE_ID_CURRENT ) );
+	} else if ( is_singular( 'post' ) ) {
+		$is_ancestor = $page_id == get_option( 'page_for_posts' );
 	} else {
 		$is_ancestor = in_array( $page_id, pilau_get_cpt_ancestors( PILAU_PAGE_ID_CURRENT ) );
 	}
