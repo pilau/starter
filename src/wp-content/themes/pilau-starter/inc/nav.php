@@ -17,6 +17,23 @@
 function default_nav_menu() { return ''; }
 
 
+add_filter( 'nav_menu_css_class', 'pilau_nav_menu_css_class', 10, 2 );
+/**
+ * Custom classes for nav menus
+ *
+ * @since	0.2
+ */
+function pilau_nav_menu_css_class( $classes, $item ) {
+
+	// Flag ancestors of CPTs
+	if ( get_post_type() != 'page' && pilau_is_ancestor( $item->object_id ) ) {
+		$classes[] = 'current-menu-ancestor';
+	}
+
+	return $classes;
+}
+
+
 /**
  * Get nav menu without markup containers
  *
