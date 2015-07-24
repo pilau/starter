@@ -166,6 +166,15 @@ function pilau_image_attributes( $attr, $attachment ) {
 }
 
 
+add_filter( 'embed_oembed_html', 'pilau_fluid_embed_wrap', 10, 4 );
+/**
+ * Add wrapper to embeds to enable fluid videos
+ */
+function pilau_fluid_embed_wrap( $html, $url, $attr, $post_id ) {
+	return '<div class="pilau-embed-wrap">' . $html . '</div>';
+}
+
+
 add_filter( 'image_send_to_editor', 'pilau_protocol_relative_image_urls', 999999 );
 /**
  * Filter images sent to editor to make the URLs protocol-relative for possible SSL
