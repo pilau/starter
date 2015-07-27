@@ -131,3 +131,25 @@ function pilau_get_more_posts_ajax() {
 	exit( 0 );
 }
 
+
+// Generic AJAX wrapper to just call a function to output
+// Add required functions to whitelist
+add_action( 'wp_ajax_nopriv_pilau_generic_ajax', 'pilau_generic_ajax' );
+add_action( 'wp_ajax_pilau_generic_ajax', 'pilau_generic_ajax' );
+function pilau_generic_ajax() {
+
+	// Whitelist
+	$whitelist = array();
+
+	// Initialize
+	ob_end_clean();
+
+	// Output
+	if ( function_exists( $_REQUEST['output_function'] ) && in_array( $_REQUEST['output_function'], $whitelist ) ) {
+		call_user_func( $_REQUEST['output_function'] );
+	}
+
+	// Exit
+	exit( 0 );
+}
+
