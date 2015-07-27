@@ -54,6 +54,14 @@ if ( file_exists( dirname( __FILE__ ) . '/wp-config-local.php' ) ) {
 			//define( 'WP_MEMORY_LIMIT', '64M' );
 			//define( 'FORCE_SSL_ADMIN', true );
 			$table_prefix  = '[[db-prefix]]';
+			/*
+			 * Add constants for IDs of important locked pages here when they're different
+			 * between environments (i.e. created after dev has been uploaded to staging etc.).
+			 * Page IDs that are the same across environments (i.e. created before dev has
+			 * been uploaded) are defined in functions.php
+			 */
+			//define( 'PILAU_PAGE_ID_EXAMPLE', 23 );
+
 
 			/** Flag the remote environment */
 			define( 'PILAU_REMOTE_ENV', 'staging' );
@@ -85,6 +93,13 @@ if ( file_exists( dirname( __FILE__ ) . '/wp-config-local.php' ) ) {
 			//define( 'WP_MEMORY_LIMIT', '64M' );
 			//define( 'FORCE_SSL_ADMIN', true );
 			$table_prefix  = '[[db-prefix]]';
+			/*
+			 * Add constants for IDs of important locked pages here when they're different
+			 * between environments (i.e. created after dev has been ported to staging etc.).
+			 * Page IDs that are the same across environments (i.e. created before dev has
+			 * been uploaded) are defined in functions.php
+			 */
+			//define( 'PILAU_PAGE_ID_EXAMPLE', 23 );
 
 			/** Flag the remote environment */
 			define( 'PILAU_REMOTE_ENV', 'production' );
