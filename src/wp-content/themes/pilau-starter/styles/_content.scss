@@ -16,4 +16,20 @@
 
 	p, blockquote, dl, ol, ul, table { margin-bottom: 1em; }
 
+	.wp-image {
+		&.alignleft {
+			float: left;
+			margin: $gutter-small $gutter-large $gutter-medium 0;
+		}
+		&.alignright {
+			float: right;
+			margin: $gutter-small 0 $gutter-medium $gutter-medium;
+		}
+		&.aligncenter {
+			display: block;
+			text-align: center;
+			margin: $gutter-large auto;
+		}
+	}
+
 }
