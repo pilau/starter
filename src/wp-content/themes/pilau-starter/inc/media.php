@@ -171,7 +171,10 @@ add_filter( 'embed_oembed_html', 'pilau_fluid_embed_wrap', 10, 4 );
  * Add wrapper to embeds to enable fluid videos
  */
 function pilau_fluid_embed_wrap( $html, $url, $attr, $post_id ) {
-	return '<div class="pilau-embed-wrap">' . $html . '</div>';
+	if ( strpos( $url, 'twitter.com' ) === false ) {
+		$html = '<div class="pilau-embed-wrap">' . $html . '</div>';
+	}
+	return $html;
 }
 
 
