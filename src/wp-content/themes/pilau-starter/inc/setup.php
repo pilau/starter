@@ -279,6 +279,11 @@ function pilau_enqueue_scripts() {
 		wp_enqueue_script( 'jquery' );
 		wp_enqueue_script( 'pilau-global', get_stylesheet_directory_uri() . '/js/global.js', array( 'jquery' ), '1.0', true );
 
+		// Google Maps API
+		if ( false ) {
+			wp_enqueue_script( 'google-maps-api', '//maps.googleapis.com/maps/api/js', array(), '3.20', true );
+		}
+
 		// Comment reply script - adjust the conditional if you need comments on post types other than 'post'
 		if ( defined( 'PILAU_USE_COMMENTS' ) && PILAU_USE_COMMENTS && is_single() && comments_open() && get_option( 'thread_comments' ) ) {
 			wp_enqueue_script( 'comment-reply', false, array(), false, true );

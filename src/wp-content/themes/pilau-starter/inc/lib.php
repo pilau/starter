@@ -165,6 +165,93 @@ function pilau_google_map_link( $location ) {
 
 
 /**
+ * Output a Google Map
+ *
+ * Will only output if maps JS is enqueued
+ *
+ * @since	Pilau_Starter 0.1
+ * @param	string		$latitude
+ * @param	string		$longitude
+ * @param	string		$width
+ * @param	string		$height
+ * @param	string		$id
+ * @param	bool		$marker
+ * @param	array		$args
+ * @return	void
+ * @todo	Multiple maps not working
+ */
+function pilau_google_map( $latitude, $longitude, $width = '100%', $height = '400px', $id = null, $marker = true, $args = array() ) {
+	if ( wp_script_is( 'google-maps-api', 'enqueued' ) ) {
+		static $count = 0;
+
+		// Default ID
+		if ( is_null( $id ) ) {
+			$id = 'pilau-google-map-' . $count;
+		}
+
+		// Default args
+		// @link https://developers.google.com/maps/documentation/javascript/reference#MapOptions
+		$args = wp_parse_args(
+			$args,
+			array(
+				'disableDoubleClickZoom'	=> false,
+				'draggable'					=> true,
+				'mapTypeControl'			=> false,
+				'mapTypeId'					=> 'ROADMAP',
+				'maxZoom'					=> null,
+				'minZoom'					=> null,
+				'scrollwheel'				=> false,
+				'streetViewControl'			=> false,
+				'zoom'						=> 15,
+				'zoomControl'				=> true,
+			)
+		);
+
+		// Output canvas
+		echo '<div class="pilau-google-map-canvas" id="' . esc_attr( $id ). '" style="width:' . esc_attr( $width ) . '; height:' . esc_attr( $height ) . '"></div>';
+
+		// Output inline JS ?>
+		<script>
+			window.onload = function () {
+				if ( typeof google === 'object' && typeof google.maps === 'object' ) {
+					var latlng = new google.maps.LatLng( <?php echo floatval( $latitude ); ?>, <?php echo floatval( $longitude ); ?> );
+					var map = new google.maps.Map(
+						document.getElementById( '<?php echo esc_attr( $id ); ?>' ),
+						{
+							disableDoubleClickZoom:		<?php echo json_encode( $args['disableDoubleClickZoom'] ); ?>,
+							center:						latlng,
+							draggable:					<?php echo json_encode( $args['draggable'] ); ?>,
+							mapTypeControl:				<?php echo json_encode( $args['mapTypeControl'] ); ?>,
+							<?php if ( ! is_null( $args['maxZoom'] ) ) { ?>
+							maxZoom:				<?php echo (int) $args['maxZoom']; ?>,
+							<?php } ?>
+							<?php if ( ! is_null( $args['minZoom'] ) ) { ?>
+							minZoom:				<?php echo (int) $args['minZoom']; ?>,
+							<?php } ?>
+							scrollwheel:				<?php echo json_encode( $args['scrollwheel'] ); ?>,
+							streetViewControl:			<?php echo json_encode( $args['streetViewControl'] ); ?>,
+							zoom:						<?php echo floatval( $args['zoom'] ); ?>,
+							zoomControl:				<?php echo json_encode( $args['zoomControl'] ); ?>,
+						}
+					);
+					<?php if ( $marker ) { ?>
+					var marker = new google.maps.Marker({
+						position:	latlng,
+						map:		map,
+						animation:	google.maps.Animation.DROP,
+					});
+					<?php } ?>
+				}
+			};
+		</script>
+		<?php
+
+		$count++;
+	}
+}
+
+
+/**
  * Generate teaser text
  *
  * Tries to get WP SEO meta description; uses automated extract as fallback
