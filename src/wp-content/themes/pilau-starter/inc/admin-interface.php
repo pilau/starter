@@ -162,6 +162,14 @@ function pilau_admin_menus() {
 		'pilau_site_settings_admin_page'
 	);
 
+	/* Add help tabs
+	***************************************************************************/
+
+	// Jump links shortcode
+	if ( shortcode_exists( 'anchor' ) ) {
+		add_action( 'load-post.php', 'pilau_jump_links_shortcode_help_tab' );
+	}
+
 }
 
 
@@ -381,6 +389,37 @@ function pilau_nav_menus_columns_hidden( $result ) {
 
 	return $result;
 }
+
+
+
+/* Help tabs
+ ******************************************************************************/
+
+
+/**
+ * Add help tab for jump links shortcode
+ */
+function pilau_jump_links_shortcode_help_tab() {
+
+	$content = '<p>' . __( 'Jump links are links that go to a specific place in a page - either from within the page itself or from another page. Setting them up involves two steps:' ) . '</p>';
+	$content .= '<ol>';
+	$content .= '<li>' . sprintf( __( 'In the content editor, where you want to be able to jump to, type something like this: %s. Change the %s bit, and make sure it\'s unique on the page. Only use letters and dashes.' ), '<code>[anchor id="useful-info"]</code>', '"useful-info"' ) . '</li>';
+	$content .= '<li>' . sprintf( __( 'Create a link to the anchor. If the link is on the same page as the anchor, the format will be: %s (making sure to include the hash mark, and making sure the text corresponds to the anchor id from before. If the link\'s on another page, simply add that format to the end of the target page\'s normal URL.' ), '<code>#useful-info</code>', '"useful-info"' ) . '</li>';
+	$content .= '</ol>';
+
+	$screen = get_current_screen();
+	$screen->add_help_tab( array(
+		'id'		=> 'jump_links_shortcode_help_tab',
+		'title'		=> __( 'Jump links' ),
+		'content'	=> $content,
+	) );
+
+}
+
+
+
+/* Admin pages
+ ******************************************************************************/
 
 
 /**
