@@ -138,16 +138,15 @@ class Pilau_Widget_Example extends WP_Widget {
 	 * Display
 	 */
 	function widget( $args, $instance ) {
-		extract( $args );
 		$title = apply_filters( 'widget_title', $instance['title'] );
-		echo $before_widget;
+		echo $args['before_widget'];
 		if ( $title ) {
-			echo $before_title . esc_html( $title ) . $after_title;
+			echo $args['before_title'] . esc_html( $title ) . $args['after_title'];
 		}
 		if ( $instance['content'] ) {
 			echo '<p>' . esc_html( $instance['content'] ) . '</p>';
 		}
-		echo $after_widget;
+		echo $args['after_widget'];
 	}
 
 }
