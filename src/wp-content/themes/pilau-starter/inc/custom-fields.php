@@ -383,3 +383,22 @@ function pilau_cmb2_sanitize_text( $override_value, $value, $object_id, $field_a
 
 	return $override_value;
 }
+
+
+//add_filter( 'teeny_mce_before_init', 'pilau_teenymce_buttons' );
+/**
+ * Adjust buttons for teeny version of TinyMCE
+ *
+ * @since	Pilau_Starter 0.1
+ * @link	http://wordpress.stackexchange.com/questions/141534/how-to-customize-tinymce4-in-wp-3-9-the-old-way-for-styles-and-formats-doesnt
+ */
+function pilau_teenymce_buttons( $init_array ) {
+	//echo '<pre>'; print_r( $init_array ); echo '</pre>'; exit;
+
+	// selector will be the custom field key (with prefix), all dashes replaced by underscores, prefixed by hash
+	if ( in_array( $init_array['selector'], array( '#' . pilau_cmb2_meta_key( 'some_field_or_other' ) ) ) ) {
+		$init_array['toolbar1'] = 'bold,italic,link,unlink,charmap,undo,redo';
+	}
+
+	return $init_array;
+}
