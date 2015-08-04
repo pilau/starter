@@ -64,7 +64,7 @@
 }
 a[class^="icon-"], [class*=" icon-"] {
 	&:hover, &:focus {
-		&:before {
+		&:before, &:after {
 			text-decoration: none !important;
 		}
 	}
