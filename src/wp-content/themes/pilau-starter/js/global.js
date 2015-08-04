@@ -60,7 +60,7 @@ jQuery( document ).ready( function( $ ) {
 			pilau_html.addClass( 'lt-ie11' );
 			pilau_html.addClass( 'lt-ie12' );
 		}
-		if ( /MSIE 11\.\d+;/.test( navigator.userAgent ) ) {
+		if ( /Trident.*rv[ :]*11\./.test( navigator.userAgent ) ) {
 			pilau_html.addClass( 'ie11' );
 			pilau_html.addClass( 'lt-ie12' );
 		}
