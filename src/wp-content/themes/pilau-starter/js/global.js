@@ -508,12 +508,14 @@ function pilau_get_string_part( s, i, sep ) {
  * Fix for IE and Chrome issue affecting skip links and tabbing focus
  * @link	http://www.nczonline.net/blog/2013/01/15/fixing-skip-to-content-links/
  */
-window.addEventListener( 'hashchange', function( e ) {
-	var el = document.getElementById( location.hash.substring( 1 ) );
-	if ( el ) {
-		if ( !/^(?:a|select|input|button|textarea)$/i.test( el.tagName ) ) {
-			el.tabIndex = -1;
+if ( window.addEventListener ) {
+	window.addEventListener( 'hashchange', function( e ) {
+		var el = document.getElementById( location.hash.substring( 1 ) );
+		if ( el ) {
+			if ( !/^(?:a|select|input|button|textarea)$/i.test( el.tagName ) ) {
+				el.tabIndex = -1;
+			}
+			el.focus();
 		}
-		el.focus();
-	}
-}, false);
+	}, false);
+}
