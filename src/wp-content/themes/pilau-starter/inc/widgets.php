@@ -36,6 +36,9 @@ add_action( 'widgets_init', 'pilau_register_widgets', 1 );
  * @since	0.1
  */
 function pilau_register_widgets() {
+	// List all widgets
+	//$widgets = array_keys( $GLOBALS['wp_widget_factory']->widgets );
+	//print '<pre>$widgets = ' . esc_html( var_export( $widgets, true ) ) . '</pre>';exit;
 
 	/*
 	 * Unregister some default widgets
