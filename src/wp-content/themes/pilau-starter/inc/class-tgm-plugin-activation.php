@@ -590,6 +590,11 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
                 return;
             }
 
+            // Only nag admins.
+            if ( ! current_user_can( 'update_core' ) ) {
+                return;
+            }
+
             // Return early if the nag message has been dismissed.
             if ( get_user_meta( get_current_user_id(), 'tgmpa_dismissed_notice', true ) ) {
                 return;
