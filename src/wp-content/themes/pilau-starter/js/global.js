@@ -505,6 +505,20 @@ function pilau_get_string_part( s, i, sep ) {
 
 
 /**
+ * Debug logging - only logs on local / staging
+ *
+ * @since	Pilau_Starter 0.1
+ * @param	{mixed}		d		The data to log
+ * @return	void
+ */
+function pilau_log( d ) {
+	if ( pilau_body.hasClass( 'env-local' ) || pilau_body.hasClass( 'env-staging' ) ) {
+		console.log( d );
+	}
+}
+
+
+/**
  * Fix for IE and Chrome issue affecting skip links and tabbing focus
  * @link	http://www.nczonline.net/blog/2013/01/15/fixing-skip-to-content-links/
  */
