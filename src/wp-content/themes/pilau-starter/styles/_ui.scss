@@ -8,8 +8,12 @@
 
 // Override iPhone and iPad styling
 input[type=submit],
-input[type=button] {
+input[type=button],
+input[type=search] {
 	-webkit-appearance: none;
+}
+input[type=search] {
+	border-radius: 0;
 }
 
 // Labels
@@ -35,11 +39,6 @@ select {
 }
 input[type=number] {
 	width: auto;
-}
-input[type=search] {
-	// Prevent iOS rounded corners
-	-webkit-appearance: none;
-	border-radius: 0;
 }
 select {
 	max-width: 100%;
