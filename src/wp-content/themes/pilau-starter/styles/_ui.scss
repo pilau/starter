@@ -36,6 +36,11 @@ select {
 input[type=number] {
 	width: auto;
 }
+input[type=search] {
+	// Prevent iOS rounded corners
+	-webkit-appearance: none;
+	border-radius: 0;
+}
 select {
 	max-width: 100%;
 	width: auto;
