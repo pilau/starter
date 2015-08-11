@@ -384,6 +384,34 @@ function pilau_sample_jquery_shortcut_function() { jQuery( function($) {
 
 
 /**
+ * Send an event to Google Analytics (via Yoast Analytics)
+ *
+ * @uses	__gaTracker()
+ * @param	{string}	category
+ * @param	{string}	action
+ * @param	{string}	label
+ * @param	{string}	value
+ * @return	{void}
+ */
+function pilau_ga_event( category, action, label, value ) {
+	if ( typeof __gaTracker === 'function' ) {
+		var event_object = {
+			'hitType':			'event',
+			'eventCategory':	category,
+			'eventAction':		action
+		};
+		if ( typeof label !== 'undefined' ) {
+			event_object.eventLabel = label;
+		}
+		if ( typeof value !== 'undefined' ) {
+			event_object.eventValue = value;
+		}
+		__gaTracker( 'send', event_object );
+	}
+}
+
+
+/**
  * Viewport infos
  */
 function pilau_viewport_infos() { jQuery( function($) {
