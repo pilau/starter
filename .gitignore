@@ -6,8 +6,9 @@ pilau-init.php
 /node_modules/
 npm-debug.log
 
-# For development of Pilau Starter itself, ignore whole of /public
+# For development of Pilau Starter itself, ignore (almost) the whole of /public
 /public/
+!/public/breakpoints.json
 
 # Lines beginning with #/public/ or #!/public/ will be uncommented by Pilau Init
 # WP core
