@@ -69,7 +69,7 @@ function pilau_share_link( $service, $label, $title, $st_url = '' ) {
 	if ( PILAU_PLUGIN_EXISTS_SHARETHIS ) {
 		$link = '<span class="st_' . $service . '_custom icon-' . $service . '" tabindex="0" title="' . $title . '"' . $st_url . '>' . $label . '</span>';
 	} else {
-		$link = '<a class="icon-' . $service . '" href="' . pilau_share_url( $service ) . '" target="_blank" title="' . $title . '">' . $label . '</a>';
+		$link = '<a class="icon-' . $service . '" href="' . pilau_share_url( $service ) . '" target="_blank" title="' . $title . '"><span class="screen-reader-text">' . $label . '</span></a>';
 	}
 
 	return $link;
