@@ -2,11 +2,6 @@
 * Editor content and other general content styles
 */
 
-.main-heading {
-	margin: 0 0 $gutter-medium;
-	font-size: 2em;
-}
-
 .editor-content {
 
 	ul {
@@ -32,4 +27,15 @@
 		}
 	}
 
+}
+
+.main-heading {
+	margin: 0 0 $gutter-medium;
+	font-size: 2em;
+}
+
+.main-featured-image {
+	img {
+		display: block;
+	}
 }
