@@ -36,7 +36,6 @@ main {
 .grid-container {
 	width: 100%;
 	max-width: $breakpoint-large;
-	overflow: hidden;
 }
 
 // Rows
@@ -54,18 +53,28 @@ main {
 	min-height: 1px;
 	width: 100%;
 	padding: 0 $gutter-small ( $gutter-small + $gutter-small );
+	// Prevent gap down far sides - that's handled by .wrap
+	&:first-of-type {
+		padding-left: 0;
+	}
+	&:last-of-type {
+		padding-right: 0;
+	}
+	// Prevent added space at top and bottom of cols
 	> *:first-child {
 		margin-top: 0;
 	}
 	> *:last-child {
 		margin-bottom: 0;
 	}
+	/* for testing
 	p {
 		padding: 10px;
 		background-color: $color-background-darker;
 		text-align: center;
 		font-size: .7em;
 	}
+	*/
 }
 
 @include Mobile {
@@ -85,10 +94,11 @@ main {
 	}
 }
 
-// Outlines for testing
+/* Outlines for testing
 .grid-outline, .grid-outline * {
 	outline: 10px solid $color-background-darker;
 }
+*/
 
 
 /*
