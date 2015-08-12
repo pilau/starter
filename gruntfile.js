@@ -121,7 +121,7 @@ module.exports = function(grunt) {
 				files: [{
 					expand: true,
 					cwd: srcThemeDir,
-					src: ['**/*.eot', '**/*.ttf', '**/*.woff'],
+					src: ['**/*.eot', '**/*.ttf', '**/*.woff', '**/*.woff2'],
 					dest: publicThemeDir
 				}]
 			},
