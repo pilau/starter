@@ -95,13 +95,8 @@ main {
 	}
 }
 
-@include Tablet {
-	.grid-col-1 { width: 100% / $grid-columns * 2; }
-	.grid-col-2 { width: 100% / $grid-columns * 4; }
-	.grid-col-3 { width: 100% / $grid-columns * 6; }
-}
-
-@include Desktop {
+@include Tablet-Desktop {
+	// Very blunt - needs tweaking for specific use cases
 	@for $i from 1 through $grid-columns {
 		.grid-col-#{$i} { width: 100% / $grid-columns * $i; }
 	}
