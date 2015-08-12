@@ -194,6 +194,12 @@ function pilau_protocol_relative_image_urls( $html ) {
 
 
 /**
+ * Default insert media link type to 'none'
+ */
+add_filter( 'option_image_default_link_type', function() { return 'none'; } );
+
+
+/**
  * Place a slideshow
  *
  * Adjust data-flickity-options as necessary, possibly add a custom field alongside
