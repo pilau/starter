@@ -21,29 +21,58 @@ function pilau_post_date() { ?>
 
 
 /**
- * Output social media icons
+ * Output social media links
  *
  * @since	Pilau_Starter 0.1
  *
  * @param	bool	$global		Global style?
  * @return	void
  */
-function pilau_share_icons( $global = false ) {
-	$url = '';
-	if ( $global ) {
-		$url = ' st_url="' . home_url() . '"';
+function pilau_share_links( $global = false ) {
+	$st_url = '';
+	if ( PILAU_PLUGIN_EXISTS_SHARETHIS && $global ) {
+		$st_url = ' st_url="' . home_url() . '"';
 	}
-	?>
-	<ul>
-		<li class="facebook img-rep"><span class="st_facebook_custom" tabindex="0" title="<?php _e( 'Share on Facebook' ); ?>"<?php echo $url; ?>>Facebook</span></li>
-		<li class="twitter img-rep"><span class="st_twitter_custom" st_via="<?php echo PILAU_USERNAME_TWITTER; ?>" tabindex="0" title="<?php _e( 'Share on Twitter' ); ?>"<?php echo $url; ?>>Twitter</span></li>
-		<li class="google img-rep"><span class="st_plusone_custom" tabindex="0" title="<?php _e( 'Share on Google Plus' ); ?>"<?php echo $url; ?>>Google+</span></li>
-		<?php if ( ! $global ) { ?>
-			<li class="email img-rep"><span class="st_email_custom" tabindex="0" title="<?php _e( 'Share by email' ); ?>"<?php echo $url; ?>>Email</span></li>
-		<?php } ?>
-		<li class="share img-rep"><span class="st_sharethis_custom" st_via="<?php echo PILAU_USERNAME_TWITTER; ?>" tabindex="0" title="<?php _e( 'More sharing options...' ); ?>"<?php echo $url; ?>>More sharing...</span></li>
-	</ul>
-<?php
+
+	echo '<ul class="share-links-list">';
+
+	echo '<li class="share-links-item facebook">' . pilau_share_link( 'facebook', 'Facebook', __( 'Share on Facebook' ), $st_url ) . '</li>';
+	echo '<li class="share-links-item twitter">' . pilau_share_link( 'twitter', 'Twitter', __( 'Share on Twitter' ), $st_url ) . '</li>';
+	echo '<li class="share-links-item google">' . pilau_share_link( 'google', 'Google+', __( 'Share on Google Plus' ), $st_url ) . '</li>';
+
+	if ( PILAU_PLUGIN_EXISTS_SHARETHIS ) {
+		if ( ! $global ) {
+			echo '<li class="share-links-item email">' . pilau_share_link( 'email', 'Email', __( 'Share by email' ), $st_url ) . '</li>';
+		}
+		echo '<li class="share-links-item"><span class="st_sharethis_custom icon-share" st_via="' . PILAU_USERNAME_TWITTER . '" tabindex="0" title="' . __( 'More sharing options...' ) . '"' . $st_url . '>' . __( 'More sharing...' ) . '</span></li>';
+	}
+
+	echo '</ul>';
+
+}
+
+
+/**
+ * Construct social sharing link (ShareThis or plain)
+ *
+ * @since	Pilau_Starter 0.1
+ *
+ * @param	string		$service	Name of sharing service
+ * @param	string		$label
+ * @param	string		$title
+ * @param	string		$st_url		Optional URL for ShareThis
+ * @return	string
+ */
+function pilau_share_link( $service, $label, $title, $st_url = '' ) {
+	$link = '';
+
+	if ( PILAU_PLUGIN_EXISTS_SHARETHIS ) {
+		$link = '<span class="st_' . $service . '_custom icon-' . $service . '" tabindex="0" title="' . $title . '"' . $st_url . '>' . $label . '</span>';
+	} else {
+		$link = '<a class="icon-' . $service . '" href="' . pilau_share_url( $service ) . '" target="_blank" title="' . $title . '">' . $label . '</a>';
+	}
+
+	return $link;
 }
 
 
@@ -52,7 +81,7 @@ function pilau_share_icons( $global = false ) {
  *
  * @since	Pilau_Starter 0.1
  *
- * @param	string	$service	'facebook' | 'twitter' | 'google+'
+ * @param	string	$service	'facebook' | 'twitter' | 'google'
  * @param	string	$url		Defaults to current URL
  * @return	string
  */
@@ -72,7 +101,7 @@ function pilau_share_url( $service, $url = null ) {
 			$share_url = 'https://twitter.com/home?status=' . urlencode( $url );
 			break;
 		}
-		case 'google+': {
+		case 'google': {
 			$share_url = 'https://plus.google.com/share?url=' . urlencode( $url );
 			break;
 		}
