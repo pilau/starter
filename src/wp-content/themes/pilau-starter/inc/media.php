@@ -106,6 +106,28 @@ function pilau_setup_media() {
 }
 
 
+/**
+ * Featured image output
+ *
+ * @param	int	$post_id
+ * @return	void
+ */
+function pilau_featured_image( $post_id = null ) {
+	global $post, $pilau_breakpoints;
+	if ( is_null( $post_id ) ) {
+		$post_id = $post->ID;
+	}
+
+	if ( has_post_thumbnail( $post_id ) ) {
+		$classes = array( 'main-featured-image' );
+		$image = pilau_responsive_image( get_post_thumbnail_id( $post_id ), array( 'thumbnail', 'medium', 'large' ), 'large', array( '100vw' ) );
+		?>
+		<figure class="<?php echo implode( ' ', $classes ); ?>"><?php echo $image; ?></figure>
+	<?php }
+
+}
+
+
 add_filter( 'img_caption_shortcode', 'pilau_img_caption_shortcode_filter', 10, 3 );
 /**
  * Improves the caption shortcode with HTML5 figure & figcaption; microdata & wai-aria attributes
