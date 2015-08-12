@@ -23,6 +23,18 @@ if ( PILAU_PLUGIN_EXISTS_ADMIN_COLUMNS ) {
 }
 
 
+add_filter( 'cmb2_meta_box_url', 'pilau_cmb2_meta_box_url', 10, 2 );
+/**
+ * Adjust CMB2 URL when local (and plugin is symlinked)
+ */
+function pilau_cmb2_meta_box_url( $url, $version ) {
+	if ( WP_LOCAL_DEV ) {
+		$url = trailingslashit( WP_PLUGIN_URL ) . 'cmb2/';
+	}
+	return $url;
+}
+
+
 if ( PILAU_PLUGIN_EXISTS_CMB2 ) {
 	add_action( 'do_meta_boxes', 'pilau_remove_default_custom_fields_meta_box', 1, 3 );
 	add_action( 'cmb2_init', 'pilau_cmb2_custom_fields' );
