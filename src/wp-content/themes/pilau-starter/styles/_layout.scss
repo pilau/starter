@@ -36,6 +36,7 @@ main {
 .grid-container {
 	width: 100%;
 	max-width: $breakpoint-large;
+	overflow: hidden;
 }
 
 // Rows
