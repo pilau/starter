@@ -344,7 +344,8 @@ function pilau_multiply_posts( $posts, $query ) {
 		// Store original set of posts
 		$posts_original = $posts;
 
-		// Multiply
+		// Multiply (with optional code to respect posts_per_page)
+		//for ( $i = 1; $i < $query->query['pilau_multiply'] && $i < get_option( 'posts_per_page' ); $i++ ) {
 		for ( $i = 1; $i < $query->query['pilau_multiply']; $i++ ) {
 			$posts = array_merge( $posts, $posts_original );
 		}
