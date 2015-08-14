@@ -344,14 +344,14 @@ function pilau_multiply_posts( $posts, $query ) {
 		// Store original set of posts
 		$posts_original = $posts;
 
-		// Multiply (with optional code to respect posts_per_page)
-		//for ( $i = 1; $i < $query->query['pilau_multiply'] && $i < get_option( 'posts_per_page' ); $i++ ) {
-		for ( $i = 1; $i < $query->query['pilau_multiply']; $i++ ) {
+		// Multiply, but respect posts_per_page
+		for ( $i = 1; $i < $query->query['pilau_multiply'] && $i < $query->get( 'posts_per_page' ); $i++ ) {
 			$posts = array_merge( $posts, $posts_original );
 		}
 
-		// Adjust count
-		$query->found_posts = count( $posts );
+		// Adjust counts
+		$query->found_posts = $query->query['pilau_multiply'];
+		$query->max_num_pages = ceil( $query->found_posts / $query->get( 'posts_per_page' ) );
 
 	}
 
