@@ -106,4 +106,51 @@ jQuery( document ).ready( function( $ ) {
 		}
 	});
 
+
+	/**
+	 * CMB 'show when' functionality - currently just for selects
+	 */
+
+	// Make sure initial state is right
+	$( '.cmb-show-when-target' ).each( function() {
+		var el = $( this );
+		var tf = pilau_get_class_value( el.attr( 'class' ), 'cmb-show-when-field-' );
+		var tv = pilau_get_class_value( el.attr( 'class' ), 'cmb-show-when-value-' );
+		if ( $( '[name=' + tf + ']' ).val() != tv ) {
+			el.hide();
+		}
+	});
+
+	// Change for selects
+	b.on( 'change', '.cmb-show-when-source select', function() {
+		var el = $( this );
+		$( '.cmb-show-when-field-' + el.attr( 'name' ) ).each( function() {
+			var el2 = $( this );
+			if ( el2.hasClass( 'cmb-show-when-value-' + el.val() ) ) {
+				el2.show();
+			} else {
+				el2.hide();
+			}
+		});
+	});
+
+
 });
+
+
+/**
+ * Get a value that's stored in a class, using a base
+ *
+ * @param	{string}	classes
+ * @param	{string}	class_base
+ * @returns {string}
+ */
+function pilau_get_class_value( classes, class_base ) {
+	var val = '';
+	var class_regexp = new RegExp( class_base + '([^ ]+)' );
+	var class_full = classes.match( class_regexp );
+	if ( typeof class_full[1] !== 'undefined' ) {
+		val = class_full[1];
+	}
+	return val;
+}

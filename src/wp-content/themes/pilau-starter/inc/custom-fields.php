@@ -423,3 +423,23 @@ function pilau_teenymce_buttons( $init_array ) {
 
 	return $init_array;
 }
+
+
+add_filter( 'cmb2_row_classes', 'pilau_cmb2_row_classes', 10, 2 );
+/**
+ * Filter row classes for CMB fields
+ */
+function pilau_cmb2_row_classes( $classes, $field ) {
+
+	if ( ! empty( $field->args['show_when_target'] ) ) {
+		// Add 'show when' target classes
+		$classes .= ' cmb-show-when-target cmb-show-when-field-' . $field->args['show_when_target']['source_field'] . ' cmb-show-when-value-' . $field->args['show_when_target']['source_value'];
+	}
+
+	if ( ! empty( $field->args['show_when_source'] ) ) {
+		// Add 'show when' source classes
+		$classes .= ' cmb-show-when-source';
+	}
+
+	return $classes;
+}
