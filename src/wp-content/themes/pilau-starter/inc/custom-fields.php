@@ -328,6 +328,14 @@ function pilau_cmb2_show_on_custom( $cmb ) {
 					break;
 				}
 
+				case 'exclude_ids': {
+					// Check for excluding based on IDs
+					if ( ! empty( $show_on_condition ) && is_array( $show_on_condition ) ) {
+						$show = ! in_array( $cmb->object_id, $show_on_condition );
+					}
+					break;
+				}
+
 			}
 
 			// If a condition has failed, break out
