@@ -117,22 +117,24 @@ main {
 		margin-bottom: 0 !important;
 	}
 }
-.list-cols {
-	overflow: hidden;
-	> li {
-		float: left;
-		// Defaults to 2 cols
-		width: 48%;
-		margin-right: 2%;
-		&:last-child {
-			margin-bottom: 0 !important;
+@include Tablet-Desktop {
+	.list-cols {
+		overflow: hidden;
+		> li {
+			float: left;
+			// Defaults to 2 cols
+			width: 48%;
+			margin-right: 2%;
+			&:last-child {
+				margin-bottom: 0 !important;
+			}
 		}
 	}
-}
-.list-3-cols {
-	> li {
-		width: 32%;
-		margin-right: 1.333%;
+	.list-3-cols {
+		> li {
+			width: 32%;
+			margin-right: 1.333%;
+		}
 	}
 }
 
