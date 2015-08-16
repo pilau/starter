@@ -17,6 +17,13 @@ add_action( 'after_setup_theme', 'pilau_setup_media' );
 function pilau_setup_media() {
 	global $pilau_image_sizes, $pilau_slideshow_content_types, $pilau_slideshow_pages, $pilau_breakpoints;
 
+	/* Breakpoints */
+	if ( false === ( $pilau_breakpoints = get_transient( 'pilau_breakpoints' ) ) || isset( $_GET['refresh'] ) ) {
+		$pilau_breakpoints = json_decode( file_get_contents( trailingslashit( ABSPATH ) . 'breakpoints.json' ) );
+		set_transient( 'pilau_breakpoints', $pilau_breakpoints, 60*60*24 ); // Cache for 24 hours
+	}
+	//echo '<pre>'; print_r( $pilau_breakpoints ); echo '</pre>'; exit;
+
 	/**
 	 * Set up image sizes
 	 *
@@ -51,8 +58,13 @@ function pilau_setup_media() {
 			'height'	=> 161,
 			'crop'		=> false,
 		),
-		'custom-size'	=> array(
-			'width'		=> 250,
+		'slideshow'	=> array(
+			'width'		=> 1920,
+			'height'	=> 640,
+			'crop'		=> true,
+		),
+		'slideshow-portrait'	=> array(
+			'width'		=> $pilau_breakpoints->medium,
 			'height'	=> 0,
 			'crop'		=> false,
 		),
@@ -83,17 +95,10 @@ function pilau_setup_media() {
 	add_theme_support( 'post-thumbnails' );
 	//set_post_thumbnail_size( $pilau_image_sizes['post-thumbnail']['width'], $pilau_image_sizes['post-thumbnail']['height'], $pilau_image_sizes['post-thumbnail']['crop'] );
 
-	/* Set custom image sizes
-	foreach ( array( 'custom-size' ) as $custom_size ) {
+	/* Set custom image sizes */
+	foreach ( array( 'slideshow', 'slideshow-portrait' ) as $custom_size ) {
 		add_image_size( $custom_size, $pilau_image_sizes[$custom_size]['width'], $pilau_image_sizes[$custom_size]['height'], $pilau_image_sizes[$custom_size]['crop'] );
-	} */
-
-	/* Breakpoints */
-	if ( false === ( $pilau_breakpoints = get_transient( 'pilau_breakpoints' ) ) || isset( $_GET['refresh'] ) ) {
-		$pilau_breakpoints = json_decode( file_get_contents( trailingslashit( ABSPATH ) . 'breakpoints.json' ) );
-		set_transient( 'pilau_breakpoints', $pilau_breakpoints, 60*60*24 ); // Cache for 24 hours
 	}
-	//echo '<pre>'; print_r( $pilau_breakpoints ); echo '</pre>'; exit;
 
 	/* Slideshows */
 

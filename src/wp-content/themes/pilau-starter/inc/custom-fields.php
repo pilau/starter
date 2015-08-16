@@ -54,7 +54,7 @@ function pilau_remove_default_custom_fields_meta_box( $post_type, $context, $pos
  * @since	Pilau_Starter 0.1
  */
 function pilau_cmb2_custom_fields() {
-	global $pilau_slideshow_content_types, $pilau_slideshow_pages, $pilau_breakpoints;
+	global $pilau_slideshow_content_types, $pilau_slideshow_pages, $pilau_image_sizes, $pilau_breakpoints;
 
 
 	/* General settings
@@ -178,7 +178,7 @@ function pilau_cmb2_custom_fields() {
 			'options'			=> array(
 				'url'		=> false,
 			),
-			'desc'				=> __( 'For larger, landscape oriented screens. Optimum image size: 1920px wide, 640px high.' ),
+			'desc'				=> sprintf( __( 'For larger, landscape-oriented screens. Optimum image size: %dpx wide, %dpx high.' ), $pilau_image_sizes['slideshow']['width'], $pilau_image_sizes['slideshow']['height'] ),
 			'on_front'			=> false,
 		) );
 		$cmb->add_field( array(
@@ -188,7 +188,7 @@ function pilau_cmb2_custom_fields() {
 			'options'			=> array(
 				'url'		=> false,
 			),
-			'desc'				=> __( 'For smaller, portrait oriented screens. Optimum image size: ' . $pilau_breakpoints->medium . 'px wide, 800px high.' ),
+			'desc'				=> sprintf( __( 'For smaller, portrait-oriented screens. Optimum image size: %dpx wide, and higher than the width.' ), $pilau_image_sizes['slideshow-portrait']['width'] ),
 			'on_front'			=> false,
 		) );
 		$cmb->add_field( array(
