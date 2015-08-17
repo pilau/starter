@@ -65,7 +65,7 @@ function pilau_setup_media() {
 		),
 		'slideshow-portrait'	=> array(
 			'width'		=> $pilau_breakpoints->medium,
-			'height'	=> 0,
+			'height'	=> $pilau_breakpoints->medium * 1.2,
 			'crop'		=> false,
 		),
 	);

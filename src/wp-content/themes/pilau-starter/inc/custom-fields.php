@@ -134,6 +134,10 @@ function pilau_cmb2_custom_fields() {
 							'compare'		=> 'EXISTS',
 						),
 						array(
+							'key'			=> pilau_cmb2_meta_key( 'slideshow-image-portrait' ),
+							'compare'		=> 'EXISTS',
+						),
+						array(
 							'key'			=> pilau_cmb2_meta_key( 'slideshow-heading' ),
 							'compare'		=> 'EXISTS',
 						),
@@ -188,7 +192,7 @@ function pilau_cmb2_custom_fields() {
 			'options'			=> array(
 				'url'		=> false,
 			),
-			'desc'				=> sprintf( __( 'For smaller, portrait-oriented screens. Optimum image size: %dpx wide, and higher than the width.' ), $pilau_image_sizes['slideshow-portrait']['width'] ),
+			'desc'				=> sprintf( __( 'For smaller, portrait-oriented screens. Optimum image size: %dpx wide, %dpx high.' ), $pilau_image_sizes['slideshow-portrait']['width'], $pilau_image_sizes['slideshow-portrait']['height'] ),
 			'on_front'			=> false,
 		) );
 		$cmb->add_field( array(
