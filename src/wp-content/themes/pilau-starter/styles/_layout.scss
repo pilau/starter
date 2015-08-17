@@ -123,19 +123,16 @@ main {
 		> li {
 			float: left;
 			// Defaults to 2 cols
-			width: 48.5%;
-			margin-right: 3%;
+			width: 45%;
+			margin-right: 5%;
 			&:last-child {
 				margin-bottom: 0 !important;
-			}
-			&:last-of-type {
-				margin-right: 0;
 			}
 		}
 	}
 	.list-3-cols {
 		> li {
-			width: 31.33333333%;
+			width: 28.3333333%;
 		}
 	}
 }
