@@ -11,7 +11,7 @@
 # ----------------------------------------------------------------------
 
 # staging-password-start
-##<IfModule mod_authn_core.c>
+##<IfModule mod_authn_default.c>
 	##SetEnvIf Host [[staging-domain]] passreq
 	##AuthType Basic
 	##AuthName "Staging Server"
