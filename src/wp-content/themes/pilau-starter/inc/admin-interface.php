@@ -28,7 +28,7 @@ function pilau_admin_interface_init() {
 	//add_filter( 'enable_post_format_ui', '__return_false' );
 
 	/* Set up inline hints for image sizes */
-	//add_filter( 'admin_post_thumbnail_html', 'pilau_inline_image_size_featured', 10, 2 );
+	add_filter( 'admin_post_thumbnail_html', 'pilau_inline_image_size_featured', 10, 2 );
 
 	/* Customize list columns
 	 *
@@ -250,20 +250,25 @@ function pilau_inline_image_size_featured( $content ) {
 				( ! empty( $details['featured']['template'] ) && is_array( $details['featured']['template'] ) && get_post_type() == 'page' && ( in_array( get_page_template_slug(), $details['featured']['template'] ) || ( get_page_template_slug() == '' && in_array( 'default', $details['featured']['template'] ) ) ) )
 			) {
 
-				// Work out proportion
-				if ( $details['width'] > $details['height'] ) {
-					$proportion1 = round( $details['width'] / $details['height'], 1 );
-					$proportion2 = 1;
-				} else if ( $details['width'] < $details['height'] ) {
-					$proportion1 = 1;
-					$proportion2 = round( $details['height'] / $details['width'], 1 );
-				} else {
-					$proportion1 = 1;
-					$proportion2 = 1;
-				}
-
 				// Add size hint
-				$hint .= ' ' . sprintf( __( 'Make sure the image is a 72 ppi JPG, and %1$dpx wide by %2$dpx high. The image can be bigger, but try to keep similar proportions (%3$s : %4$s).' ), $details['width'], $details['height'],$proportion1, $proportion2 );
+				if ( $details['height'] ) {
+
+					// Height specified - work out proportion
+					$proportion1 = 1;
+					$proportion2 = 1;
+					if ( $details['width'] > $details['height'] ) {
+						$proportion1 = round( $details['width'] / $details['height'], 1 );
+					} else if ( $details['width'] < $details['height'] ) {
+						$proportion2 = round( $details['height'] / $details['width'], 1 );
+					}
+					$hint .= ' ' . sprintf( __( 'Make sure the image is a 72 ppi JPG, and %1$dpx wide by %2$dpx high. The image can be bigger, but try to keep similar proportions (%3$s : %4$s).' ), $details['width'], $details['height'], $proportion1, $proportion2 );
+
+				} else {
+
+					// Height not specified
+					$hint .= ' ' . sprintf( __( 'Make sure the image is a 72 ppi JPG. It needn\'t be wider than %1$dpx. When resized, it\'ll keep its proportions.' ), $details['width'] );
+
+				}
 
 				// Crop hint
 				if ( $details['crop'] ) {
