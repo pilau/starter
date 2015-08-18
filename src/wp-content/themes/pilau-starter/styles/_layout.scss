@@ -42,7 +42,7 @@ main {
 .grid-row {
 	&:after, &:before {
 		content: "";
-		display: table ;
+		display: table;
 		clear: both;
 	}
 }
