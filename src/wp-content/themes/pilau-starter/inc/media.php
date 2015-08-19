@@ -19,7 +19,15 @@ function pilau_setup_media() {
 
 	/* Breakpoints */
 	if ( false === ( $pilau_breakpoints = get_transient( 'pilau_breakpoints' ) ) || isset( $_GET['refresh'] ) ) {
-		$pilau_breakpoints = json_decode( file_get_contents( trailingslashit( ABSPATH ) . 'breakpoints.json' ) );
+		$breakpoints_file = trailingslashit( ABSPATH ) . 'breakpoints.json';
+		if ( file_exists( $breakpoints_file ) ) {
+			$pilau_breakpoints = json_decode( file_get_contents( $breakpoints_file ) );
+		} else {
+			// Backup values for test installations
+			$pilau_breakpoints = new stdClass();
+			$pilau_breakpoints->large = 1200;
+			$pilau_breakpoints->medium = 640;
+		}
 		set_transient( 'pilau_breakpoints', $pilau_breakpoints, 60*60*24 ); // Cache for 24 hours
 	}
 	//echo '<pre>'; print_r( $pilau_breakpoints ); echo '</pre>'; exit;
