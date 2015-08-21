@@ -52,7 +52,7 @@ function pilau_register_post_types() {
 			'menu_icon'				=> 'dashicons-portfolio', // @link https://developer.wordpress.org/resource/dashicons/
 			'query_var'				=> true,
 			'rewrite'				=> array( 'slug' => 'project', 'with_front' => false ),
-			'capability_type'		=> 'post',
+			'capability_type'		=> 'page',
 			'has_archive'			=> false,
 			'hierarchical'			=> false, // Set to true to allow ordering
 			'supports'				=> array( 'title', 'editor', 'custom-fields', 'thumbnail', 'revisions' ),
