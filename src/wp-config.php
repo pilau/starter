@@ -52,7 +52,8 @@ if ( file_exists( dirname( __FILE__ ) . '/wp-config-local.php' ) ) {
 			define( 'AUTOSAVE_INTERVAL', 60 );
 			//define( 'EMPTY_TRASH_DAYS', 30 ); // Set to 0 to disable trash
 			//define( 'WP_MEMORY_LIMIT', '64M' );
-			//define( 'FORCE_SSL_ADMIN', true );
+			define( 'FORCE_SSL_ADMIN', false );
+			define( 'PILAU_FORCE_SSL', false );
 			$table_prefix  = '[[db-prefix]]';
 			/*
 			 * Add constants for IDs of important locked pages here when they're different
@@ -91,7 +92,8 @@ if ( file_exists( dirname( __FILE__ ) . '/wp-config-local.php' ) ) {
 			define( 'AUTOSAVE_INTERVAL', 60 );
 			//define( 'EMPTY_TRASH_DAYS', 30 ); // Set to 0 to disable trash
 			//define( 'WP_MEMORY_LIMIT', '64M' );
-			//define( 'FORCE_SSL_ADMIN', true );
+			define( 'FORCE_SSL_ADMIN', false );
+			define( 'PILAU_FORCE_SSL', false );
 			$table_prefix  = '[[db-prefix]]';
 			/*
 			 * Add constants for IDs of important locked pages here when they're different

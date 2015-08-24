@@ -49,7 +49,7 @@
 	 * For any HTML header code that requires PHP processing, hook to wp_head
 	 * Check inc/header.php
 	 */
-	pilau_wp_head( false );
+	pilau_wp_head_ssl();
 
 	/*
 	 * Respond.js for IE 8 and below
