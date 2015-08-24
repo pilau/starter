@@ -213,21 +213,6 @@ function pilau_fluid_embed_wrap( $html, $url, $attr, $post_id ) {
 }
 
 
-add_filter( 'image_send_to_editor', 'pilau_protocol_relative_image_urls', 999999 );
-/**
- * Filter images sent to editor to make the URLs protocol-relative for possible SSL
- *
- * @since	0.1
- */
-function pilau_protocol_relative_image_urls( $html ) {
-
-	// Replace protocols with relative schema
-	$html = str_replace( array( 'http://', 'https://' ), '//', $html );
-
-	return $html;
-}
-
-
 /**
  * Default insert media link type to 'none'
  */
