@@ -55,12 +55,17 @@ add_filter( 'clean_url', 'pilau_secure_internal_urls', 999999, 3 );
  */
 function pilau_secure_internal_urls( $url, $original_url, $_context ) {
 
-	// Is this internal, and on a page using SSL?
-	$url_parsed = parse_url( $url );
-	if ( is_ssl() && $url_parsed['host'] == $_SERVER['HTTP_HOST'] ) {
+	// Is this an SSL request?
+	if ( is_ssl() ) {
 
-		// Change HTTP to HTTPS
-		$url = preg_replace( '/^http:\/\//', 'https://', $url );
+		// Is this an internal URL?
+		$url_parsed = parse_url( $url );
+		if ( $url_parsed['host'] == $_SERVER['HTTP_HOST'] ) {
+
+			// Change HTTP to HTTPS
+			$url = preg_replace( '/^http:\/\//', 'https://', $url );
+
+		}
 
 	}
 
