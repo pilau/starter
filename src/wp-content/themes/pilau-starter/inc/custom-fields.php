@@ -73,7 +73,6 @@ function pilau_cmb2_custom_fields() {
 		'context'			=> 'normal',
 		'priority'			=> 'high',
 		'show_names'		=> true,
-		'closed'			=> true,
 	));
 	$cmb->add_field( array(
 		'name'				=> __( 'Teaser text' ),
@@ -105,7 +104,6 @@ function pilau_cmb2_custom_fields() {
 			'context'			=> 'normal',
 			'priority'			=> 'high',
 			'show_names'		=> true,
-			'closed'			=> false,
 		));
 		// before_row on first field in lieu of box description for now
 		$cmb->add_field( array(
@@ -166,7 +164,6 @@ function pilau_cmb2_custom_fields() {
 			'context'			=> 'normal',
 			'priority'			=> 'high',
 			'show_names'		=> true,
-			'closed'			=> false,
 		));
 		$cmb->add_field( array(
 			'name'				=> __( 'Heading' ),
