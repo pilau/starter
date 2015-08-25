@@ -52,7 +52,29 @@ function pilau_register_post_types() {
 			'menu_icon'				=> 'dashicons-portfolio', // @link https://developer.wordpress.org/resource/dashicons/
 			'query_var'				=> true,
 			'rewrite'				=> array( 'slug' => 'project', 'with_front' => false ),
-			'capability_type'		=> 'post',
+			'capability_type'		=> 'project',
+			'map_meta_cap'			=> false,
+			'capabilities' => array(
+				// meta caps (don't assign these to roles, they're handled in pilau_cpt_map_meta_cap)
+				'edit_post'              => 'edit_project',
+				'read_post'              => 'read_project',
+				'delete_post'            => 'delete_project',
+				// primitive/meta caps
+				'create_posts'           => 'create_projects',
+				// primitive caps used outside of map_meta_cap()
+				'edit_posts'             => 'edit_projects',
+				'edit_others_posts'      => 'manage_projects',
+				'publish_posts'          => 'manage_projects',
+				'read_private_posts'     => 'read',
+				// primitive caps used inside of map_meta_cap()
+				'read'                   => 'read',
+				'delete_posts'           => 'manage_projects',
+				'delete_private_posts'   => 'manage_projects',
+				'delete_published_posts' => 'manage_projects',
+				'delete_others_posts'    => 'manage_projects',
+				'edit_private_posts'     => 'edit_projects',
+				'edit_published_posts'   => 'edit_projects'
+			),
 			'has_archive'			=> false,
 			'hierarchical'			=> false, // Set to true to allow ordering
 			'supports'				=> array( 'title', 'editor', 'custom-fields', 'thumbnail', 'revisions' ),
@@ -66,6 +88,94 @@ function pilau_register_post_types() {
 	//[[custom-post-types]]
 
 
+}
+
+
+/**
+ * Get CPTs (cached)
+ *
+ * @param	string	$output		'names' | 'objects'
+ * @return	array
+ */
+function pilau_get_cpts( $output = 'names' ) {
+	if ( false === ( $cpts = get_transient( 'pilau_cpts_' . $output ) ) || isset( $_GET['refresh'] ) ) {
+		$cpts = get_post_types( array( '_builtin' => false ), $output );
+		set_transient( 'pilau_cpts_' . $output, $cpts, 60*60*24 ); // Cache for 24 hours
+	}
+	return $cpts;
+}
+
+
+add_filter( 'map_meta_cap', 'pilau_cpt_map_meta_cap', 10, 4 );
+/**
+ * Map meta caps for CPTs
+ *
+ * @link	http://justintadlock.com/archives/2010/07/10/meta-capabilities-for-custom-post-types
+ * @uses	pilau_get_cpts()
+ * @uses	get_post()
+ * @uses	get_post_type_object()
+ * @param	array  $caps    The user's actual capabilities
+ * @param	string $cap     Capability name
+ * @param	int    $user_id The user ID
+ * @param	array  $args    Adds the context to the cap. Typically the object ID
+ * @return	array
+ */
+function pilau_cpt_map_meta_cap( $caps, $cap, $user_id, $args ) {
+	$cap_roots = array( 'edit', 'delete', 'read' );
+	$cpts = pilau_get_cpts();
+	$cap_parts = explode( '_', $cap );
+
+	if ( count( $cap_parts ) == 2 ) {
+		$cap_root = $cap_parts[0];
+		$cap_cpt = $cap_parts[1];
+
+		// If editing, deleting, or reading a CPT, get the post and post type object
+		if ( in_array( $cap_root, $cap_roots ) && in_array( $cap_cpt, $cpts ) ) {
+			$post = get_post( $args[0] );
+			$post_type = get_post_type_object( $post->post_type );
+			// Set an empty array for the caps
+			$caps = array();
+
+			switch ( $cap_root ) {
+
+				case 'edit': {
+					// Editing
+					if ( $user_id == $post->post_author ) {
+						$caps[] = $post_type->cap->edit_posts;
+					} else {
+						$caps[] = $post_type->cap->edit_others_posts;
+					}
+					break;
+				}
+
+				case 'delete': {
+					// Deleting...
+					if ( $user_id == $post->post_author ) {
+						$caps[] = $post_type->cap->delete_posts;
+					} else {
+						$caps[] = $post_type->cap->delete_others_posts;
+					}
+					break;
+				}
+
+				case 'read': {
+					// Reading
+					if ( $post->post_status != 'private' || $post->post_author == $user_id ) {
+						$caps[] = 'read';
+					} else {
+						$caps[] = $post_type->cap->read_private_posts;
+					}
+					break;
+				}
+
+			}
+
+		}
+
+	}
+
+	// Return the capabilities required by the user
+	return $caps;
 }
 
 
