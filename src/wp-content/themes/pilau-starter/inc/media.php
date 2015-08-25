@@ -19,7 +19,15 @@ function pilau_setup_media() {
 
 	/* Breakpoints */
 	if ( false === ( $pilau_breakpoints = get_transient( 'pilau_breakpoints' ) ) || isset( $_GET['refresh'] ) ) {
-		$pilau_breakpoints = json_decode( file_get_contents( trailingslashit( ABSPATH ) . 'breakpoints.json' ) );
+		$breakpoints_file = trailingslashit( ABSPATH ) . 'breakpoints.json';
+		if ( file_exists( $breakpoints_file ) ) {
+			$pilau_breakpoints = json_decode( file_get_contents( $breakpoints_file ) );
+		} else {
+			// Backup values for test installations
+			$pilau_breakpoints = new stdClass();
+			$pilau_breakpoints->large = 1200;
+			$pilau_breakpoints->medium = 640;
+		}
 		set_transient( 'pilau_breakpoints', $pilau_breakpoints, 60*60*24 ); // Cache for 24 hours
 	}
 	//echo '<pre>'; print_r( $pilau_breakpoints ); echo '</pre>'; exit;
@@ -201,21 +209,6 @@ function pilau_fluid_embed_wrap( $html, $url, $attr, $post_id ) {
 	if ( strpos( $url, 'twitter.com' ) === false ) {
 		$html = '<div class="pilau-embed-wrap">' . $html . '</div>';
 	}
-	return $html;
-}
-
-
-add_filter( 'image_send_to_editor', 'pilau_protocol_relative_image_urls', 999999 );
-/**
- * Filter images sent to editor to make the URLs protocol-relative for possible SSL
- *
- * @since	0.1
- */
-function pilau_protocol_relative_image_urls( $html ) {
-
-	// Replace protocols with relative schema
-	$html = str_replace( array( 'http://', 'https://' ), '//', $html );
-
 	return $html;
 }
 

@@ -104,6 +104,7 @@ date_default_timezone_set( 'Europe/London' );
  */
 require( dirname( __FILE__ ) . '/inc/class-tgm-plugin-activation.php' );
 require( dirname( __FILE__ ) . '/inc/setup.php' );
+require( dirname( __FILE__ ) . '/inc/security.php' );
 require( dirname( __FILE__ ) . '/inc/config.php' );
 require( dirname( __FILE__ ) . '/inc/lib.php' );
 if ( PILAU_FRONT_OR_AJAX ) {

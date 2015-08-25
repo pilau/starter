@@ -195,7 +195,9 @@ function pilau_change_post_object_label() {
 }
 
 
-add_action( 'wp', 'pilau_setup_after_post', 0 );
+if ( PILAU_FRONT_OR_AJAX ) {
+	add_action( 'wp', 'pilau_setup_after_post', 0 );
+}
 /**
  * Set up that needs to happen when $post object is ready
  *

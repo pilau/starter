@@ -28,8 +28,8 @@ add_filter( 'cmb2_meta_box_url', 'pilau_cmb2_meta_box_url', 10, 2 );
  * Adjust CMB2 URL when local (and plugin is symlinked)
  */
 function pilau_cmb2_meta_box_url( $url, $version ) {
-	if ( WP_LOCAL_DEV ) {
-		$url = trailingslashit( WP_PLUGIN_URL ) . 'cmb2/';
+	if ( defined( 'WP_LOCAL_DEV' ) && WP_LOCAL_DEV ) {
+		$url = plugins_url( 'cmb2/' );
 	}
 	return $url;
 }
