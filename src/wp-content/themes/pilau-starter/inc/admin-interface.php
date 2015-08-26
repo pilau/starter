@@ -342,7 +342,7 @@ add_action( 'admin_head', 'pilau_disable_content_editor' );
 function pilau_disable_content_editor() {
 	global $post;
 	if ( isset( $post->ID ) && in_array( $post->ID, array( PILAU_PAGE_ID_HOME ) ) ) {
-		remove_post_type_support( 'page', 'editor' );
+		remove_post_type_support( get_post_type( $post ), 'editor' );
 	}
 }
 
