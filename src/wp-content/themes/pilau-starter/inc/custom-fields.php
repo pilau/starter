@@ -390,6 +390,32 @@ function pilau_cmb2_get_post_options( $query_args, $show_parent = false ) {
 }
 
 
+/**
+ * Get terms to populate CMB2 options
+ *
+ * @param		string	$taxonomy
+ * @param		array	$args
+ * @return		array
+ */
+function pilau_cmb2_get_term_options( $taxonomy, $args = array() ) {
+
+	$args = wp_parse_args( $args, array(
+		'hide_empty'		=> false,
+	) );
+
+	$terms = get_terms( $taxonomy, $args );
+
+	$term_options = array();
+	if ( $terms ) {
+		foreach ( $terms as $term ) {
+			$term_options[ $term->term_id ] = $term->name;
+		}
+	}
+
+	return $term_options;
+}
+
+
 add_filter( 'cmb2_sanitize_text', 'pilau_cmb2_sanitize_text', 10, 5 );
 add_filter( 'cmb2_sanitize_text_small', 'pilau_cmb2_sanitize_text', 10, 5 );
 add_filter( 'cmb2_sanitize_text_medium', 'pilau_cmb2_sanitize_text', 10, 5 );
