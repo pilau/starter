@@ -84,6 +84,45 @@ function pilau_cmb2_custom_fields() {
 	*/
 
 
+	/* CPT author
+	********************************************************************************/
+
+	// Loop through CPTs
+	foreach ( pilau_get_cpts( 'objects' ) as $cpt ) {
+
+		// Check for support for custom author
+		if ( post_type_supports( $cpt->name, 'pilau-author' ) ) {
+
+			$cpt_author_options = array();
+			// Gather users that can 'edit_posts' for this CPT
+			foreach ( pilau_get_users_by_capability( $cpt->cap->edit_posts ) as $cpt_author ) {
+				$cpt_author_options[ $cpt_author->ID ] = $cpt_author->display_name;
+			}
+			$cmb = new_cmb2_box( array(
+				'id'				=> 'cpt_author_box',
+				'title'				=> __( 'Author' ),
+				'object_types'		=> array( $cpt->name ),
+				'show_on_cb'		=> 'pilau_cmb2_show_on_custom',
+				'show_on_custom'	=> array(
+					'user_can'			=> 'edit_others_post_types',
+				),
+				'context'			=> 'side',
+				'priority'			=> 'low',
+				'show_names'		=> false,
+			));
+			$cmb->add_field( array(
+				'name'				=> __( 'Author' ),
+				'id'				=> pilau_cmb2_meta_key( 'author' ),
+				'type'				=> 'select',
+				'options'			=> $cpt_author_options,
+				'default'			=> get_current_user_id(),
+				'on_front'			=> false,
+			) );
+
+		}
+	}
+
+
 	/* Slideshows
 	********************************************************************************/
 
@@ -238,6 +277,44 @@ function pilau_custom_field_check( $field, $value = true, $notset = false ) {
  *************************************************************************************/
 
 
+add_filter( 'cmb2_override_' . pilau_cmb2_meta_key( 'author' ) . '_meta_save', 'pilau_cpt_author_meta_save_override', 0, 4 );
+/**
+ * Override CPT author meta save in order to store as post author
+ */
+function pilau_cpt_author_meta_save_override( $override, $data_args, $args, $field ) {
+
+	// Checks to avoid infinite loops
+	// @link	https://codex.wordpress.org/Function_Reference/wp_update_post#Caution_-_Infinite_loop
+	if ( ! wp_is_post_revision( $data_args['id'] ) ) {
+
+		// Remove filter to avoid loop
+		remove_filter( 'cmb2_override_' . pilau_cmb2_meta_key( 'author' ) . '_meta_save', 'pilau_cpt_author_meta_save_override', 0 );
+
+		// Update post author
+		// Will return non-null value to short-circuit normal meta save
+		$override = wp_update_post( array(
+			'ID'			=> $data_args['id'],
+			'post_author'	=> $data_args['value'],
+		));
+
+		// Add filter back
+		add_filter( 'cmb2_override_' . pilau_cmb2_meta_key( 'author' ) . '_meta_save', 'pilau_cpt_author_meta_save_override', 0 );
+
+	}
+
+	return $override;
+}
+
+
+add_filter( 'cmb2_override_' . pilau_cmb2_meta_key( 'author' ) . '_meta_value', 'pilau_cpt_author_meta_value_override', 0, 4 );
+/**
+ * Override CPT author meta value in order to fetch post author
+ */
+function pilau_cpt_author_meta_value_override( $data, $object_id, $data_args, $field ) {
+	return get_post_field( 'post_author', $object_id );
+}
+
+
 /**
  * Return custom field meta key for CMB2
  *
@@ -316,11 +393,15 @@ function pilau_cmb2_show_on_custom( $cmb ) {
 			switch ( $show_on_type ) {
 
 				case 'user_can': {
+
 					// Special capabilities
 					switch ( $show_on_condition ) {
-						case 'publish_post_types': {
-							$post_type_object = get_post_type_object( $_REQUEST['post_type'] );
-							$cap = $post_type_object->cap->publish_posts;
+						case 'publish_post_types':
+						case 'edit_others_post_types': {
+							$screen = get_current_screen();
+							$cap_for_posts = str_replace( '_post_types', '_posts', $show_on_condition );
+							$post_type_object = get_post_type_object( $screen->post_type );
+							$cap = $post_type_object->cap->$cap_for_posts;
 							break;
 						}
 						default: {
@@ -328,8 +409,10 @@ function pilau_cmb2_show_on_custom( $cmb ) {
 							break;
 						}
 					}
+
 					// Check user capability
 					$show = current_user_can( $cap );
+
 					break;
 				}
 
