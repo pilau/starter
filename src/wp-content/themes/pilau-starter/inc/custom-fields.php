@@ -316,8 +316,20 @@ function pilau_cmb2_show_on_custom( $cmb ) {
 			switch ( $show_on_type ) {
 
 				case 'user_can': {
+					// Special capabilities
+					switch ( $show_on_condition ) {
+						case 'publish_post_types': {
+							$post_type_object = get_post_type_object( $_REQUEST['post_type'] );
+							$cap = $post_type_object->cap->publish_posts;
+							break;
+						}
+						default: {
+							$cap = $show_on_condition;
+							break;
+						}
+					}
 					// Check user capability
-					$show = current_user_can( $show_on_condition );
+					$show = current_user_can( $cap );
 					break;
 				}
 
