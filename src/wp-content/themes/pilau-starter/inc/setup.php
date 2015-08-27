@@ -241,7 +241,7 @@ function pilau_setup_after_post() {
 		}
 		default: {
 			// Use virtual post hierarchy for non-pages
-			$post_ancestors = pilau_get_cpt_ancestors( $post );
+			$post_ancestors = pilau_get_ancestors( $post );
 			$top_level_page_id = $post_ancestors[ count( $post_ancestors ) - 1 ];
 			break;
 		}

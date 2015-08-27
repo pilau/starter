@@ -179,24 +179,6 @@ function pilau_cpt_map_meta_cap( $caps, $cap, $user_id, $args ) {
  *****************************************************************************************/
 
 
-add_action( 'after_setup_theme', 'pilau_define_cpt_ancestors' );
-/**
- * Define CPT ancestors
- *
- * To situate non-page post types within the page hierarchy:
- * [post_type]	=> array( [parent ID], [grandparent ID], etc. )
- *
- * Also includes post, as a non-hierarchical core post type
- *
- * @since	0.2
- */
-function pilau_define_cpt_ancestors() {
-	global $pilau_cpt_ancestors;
-	$pilau_cpt_ancestors = array(
-	);
-}
-
-
 /**
  * Get the ancestors of a CPT
  *
@@ -204,12 +186,33 @@ function pilau_define_cpt_ancestors() {
  * @param	int|WP_Post		$post	Post ID or post object
  * @return	array
  */
-function pilau_get_cpt_ancestors( $post ) {
-	global $pilau_cpt_ancestors;
+function pilau_get_ancestors( $post = null ) {
 	$ancestors = array();
+	if ( is_null( $post ) ) {
+		$post = get_queried_object_id();
+	}
 
-	if ( ( is_int( $post ) || is_object( $post ) ) && array_key_exists( get_post_type( $post ), $pilau_cpt_ancestors ) ) {
-		$ancestors = $pilau_cpt_ancestors[ get_post_type( $post ) ];
+	// Define the basic ancestors
+	// [post_type]	=> array( [parent ID], [grandparent ID], etc. )
+	$post_type_ancestors = array(
+	);
+
+	if ( ( is_int( $post ) || is_object( $post ) ) && array_key_exists( get_post_type( $post ), $post_type_ancestors ) ) {
+		$ancestors = $post_type_ancestors[ get_post_type( $post ) ];
+		$post_id = is_object( $post ) ? $post->ID : $post;
+
+		// Exceptions to assign dynamically
+		/*
+		switch ( get_post_type( $post ) ) {
+
+			case 'service': {
+				$ancestors = array( get_post_meta( $post_id, pilau_cmb2_meta_key( 'region' ), true ), PILAU_PAGE_ID_LOCAL_SERVICES );
+				break;
+			}
+
+		}
+		*/
+
 	}
 
 	return $ancestors;
@@ -230,7 +233,7 @@ function pilau_is_ancestor( $page_id ) {
 	} else if ( is_singular( 'post' ) ) {
 		$is_ancestor = $page_id == get_option( 'page_for_posts' );
 	} else {
-		$is_ancestor = in_array( $page_id, pilau_get_cpt_ancestors( PILAU_PAGE_ID_CURRENT ) );
+		$is_ancestor = in_array( $page_id, pilau_get_ancestors( PILAU_PAGE_ID_CURRENT ) );
 	}
 	return $is_ancestor;
 }
@@ -270,7 +273,7 @@ function pilau_post_back_link( $link_text = null, $keep_referer_qs = false ) {
 		}
 		default: {
 			// Custom post type
-			$ancestors = pilau_get_cpt_ancestors( $post );
+			$ancestors = pilau_get_ancestors( $post );
 			$link = get_permalink( $ancestors[0] );
 			break;
 		}
@@ -305,19 +308,21 @@ function pilau_cpt_nav_menu_css_class( $classes, $item ) {
 }
 
 
+
+
 add_filter( 'wpseo_breadcrumb_links', 'pilau_wpseo_breadcrumb_links' );
 /**
  * Filter Yoast breadcrumbs to do custom stuff
  *
- * @since	Trollope_Society 0.1
+ * @since	0.1
  */
 function pilau_wpseo_breadcrumb_links( $links ) {
-	global $post, $pilau_cpt_ancestors;
 
 	// Check for single CPT posts and add ancestors
-	if ( is_single() && get_post_type() != 'post' && ! empty( $pilau_cpt_ancestors[ get_post_type() ] ) ) {
+	if ( is_single() && get_post_type() != 'post' ) {
+		$ancestors = pilau_get_ancestors();
 
-		foreach ( array_reverse( $pilau_cpt_ancestors[ get_post_type() ] ) as $ancestor ) {
+		foreach ( array_reverse( $ancestors ) as $ancestor ) {
 			array_splice( $links, -1, 0, array(
 				array(
 					'id'	=> $ancestor
