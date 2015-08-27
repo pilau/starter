@@ -124,50 +124,46 @@ function pilau_cpt_map_meta_cap( $caps, $cap, $user_id, $args ) {
 	$cap_roots = array( 'edit', 'delete', 'read' );
 	$cpts = pilau_get_cpts();
 	$cap_parts = explode( '_', $cap );
+	$cap_root = array_shift( $cap_parts ); // The first bit before an underscore
+	$cap_cpt = implode( '_', $cap_parts ); // The other bits after the first underscore
 
-	if ( count( $cap_parts ) == 2 ) {
-		$cap_root = $cap_parts[0];
-		$cap_cpt = $cap_parts[1];
+	// If editing, deleting, or reading a CPT, get the post and post type object
+	if ( in_array( $cap_root, $cap_roots ) && in_array( $cap_cpt, $cpts ) ) {
+		$post = get_post( $args[0] );
+		$post_type = get_post_type_object( $post->post_type );
+		// Set an empty array for the caps
+		$caps = array();
 
-		// If editing, deleting, or reading a CPT, get the post and post type object
-		if ( in_array( $cap_root, $cap_roots ) && in_array( $cap_cpt, $cpts ) ) {
-			$post = get_post( $args[0] );
-			$post_type = get_post_type_object( $post->post_type );
-			// Set an empty array for the caps
-			$caps = array();
+		switch ( $cap_root ) {
 
-			switch ( $cap_root ) {
-
-				case 'edit': {
-					// Editing
-					if ( $user_id == $post->post_author ) {
-						$caps[] = $post_type->cap->edit_posts;
-					} else {
-						$caps[] = $post_type->cap->edit_others_posts;
-					}
-					break;
+			case 'edit': {
+				// Editing
+				if ( $user_id == $post->post_author ) {
+					$caps[] = $post_type->cap->edit_posts;
+				} else {
+					$caps[] = $post_type->cap->edit_others_posts;
 				}
+				break;
+			}
 
-				case 'delete': {
-					// Deleting...
-					if ( $user_id == $post->post_author ) {
-						$caps[] = $post_type->cap->delete_posts;
-					} else {
-						$caps[] = $post_type->cap->delete_others_posts;
-					}
-					break;
+			case 'delete': {
+				// Deleting...
+				if ( $user_id == $post->post_author ) {
+					$caps[] = $post_type->cap->delete_posts;
+				} else {
+					$caps[] = $post_type->cap->delete_others_posts;
 				}
+				break;
+			}
 
-				case 'read': {
-					// Reading
-					if ( $post->post_status != 'private' || $post->post_author == $user_id ) {
-						$caps[] = 'read';
-					} else {
-						$caps[] = $post_type->cap->read_private_posts;
-					}
-					break;
+			case 'read': {
+				// Reading
+				if ( $post->post_status != 'private' || $post->post_author == $user_id ) {
+					$caps[] = 'read';
+				} else {
+					$caps[] = $post_type->cap->read_private_posts;
 				}
-
+				break;
 			}
 
 		}
