@@ -206,10 +206,13 @@ function pilau_define_cpt_ancestors() {
  */
 function pilau_get_cpt_ancestors( $post ) {
 	global $pilau_cpt_ancestors;
-	if ( ( ! is_int( $post ) && ! is_object( $post ) ) || ! array_key_exists( get_post_type( $post ), $pilau_cpt_ancestors ) ) {
-		return array();
+	$ancestors = array();
+
+	if ( ( is_int( $post ) || is_object( $post ) ) && array_key_exists( get_post_type( $post ), $pilau_cpt_ancestors ) ) {
+		$ancestors = $pilau_cpt_ancestors[ get_post_type( $post ) ];
 	}
-	return $pilau_cpt_ancestors[ get_post_type( $post ) ];
+
+	return $ancestors;
 }
 
 
