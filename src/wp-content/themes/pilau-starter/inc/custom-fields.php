@@ -99,7 +99,7 @@ function pilau_cmb2_custom_fields() {
 				$cpt_author_options[ $cpt_author->ID ] = $cpt_author->display_name;
 			}
 			$cmb = new_cmb2_box( array(
-				'id'				=> 'cpt_author_box',
+				'id'				=> 'cpt_author_' . $cpt->name . 'box',
 				'title'				=> __( 'Author' ),
 				'object_types'		=> array( $cpt->name ),
 				'show_on_cb'		=> 'pilau_cmb2_show_on_custom',
