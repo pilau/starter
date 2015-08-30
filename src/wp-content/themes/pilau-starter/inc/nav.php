@@ -73,6 +73,8 @@ function pilau_menu_without_containers( $theme_location, $depth = 1, $strip_whit
 	// Strip whitespace?
 	if ( $strip_whitespace ) {
 		$menu_items = preg_replace( '/>\s+</', '><', $menu_items );
+		$menu_items = preg_replace( '/^\s+</', '<', $menu_items );
+		$menu_items = preg_replace( '/>\s+$/', '>', $menu_items );
 	}
 
 	return $menu_items;
