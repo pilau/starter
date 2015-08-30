@@ -77,6 +77,11 @@ main {
 	*/
 }
 
+// A column that needs floating to the right
+.grid-col-right {
+	float: right;
+}
+
 @include Mobile {
 	// Gutter padding only in middle
 	[class*='grid-col-'] {
