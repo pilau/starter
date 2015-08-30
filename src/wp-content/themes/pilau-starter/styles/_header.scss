@@ -3,18 +3,18 @@
 */
 
 .header-main {
-	margin: 0 0 $gutter-large;
+	margin: 0 0 $gutter * 4;
 	background-color: $color-background-darker;
 	@include Tablet-Desktop {
-		padding-bottom: $gutter-small;
+		padding-bottom: $gutter;
 	}
 }
 
 .header-branding {
-	padding: $gutter-small 0;
+	padding: $gutter 0;
 }
 .site-title {
-	margin: $gutter-small 0 !important;
+	margin: $gutter 0 !important;
 	width: 314px;
 	max-width: 90%;
 	a {

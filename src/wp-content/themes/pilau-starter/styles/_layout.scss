@@ -10,7 +10,7 @@ body {
 }
 main {
 	display: block;
-    margin: $gutter-large 0;
+    margin: $gutter * 4 0;
 }
 .clear { clear: both; }
 .center { text-align: center; }
@@ -52,7 +52,7 @@ main {
 	float: left;
 	min-height: 1px;
 	width: 100%;
-	padding: 0 $gutter-small ( $gutter-small + $gutter-small );
+	padding: 0 $gutter ( $gutter + $gutter );
 	// Prevent gap down far sides - that's handled by .wrap
 	&:first-of-type {
 		padding-left: 0;
@@ -87,10 +87,10 @@ main {
 	.grid-col-#{($grid-columns / 2)} {
 		width: ( 100% / 2 );
 		&:first-of-type {
-			padding-left: $gutter-small;
+			padding-left: $gutter;
 		}
 		&:last-of-type {
-			padding-right: $gutter-small;
+			padding-right: $gutter;
 		}
 	}
 }
