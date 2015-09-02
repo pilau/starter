@@ -76,6 +76,10 @@ input[type=submit],
 	&:hover, &:focus {
 		background-color: lighten( #000, 10% );
 	}
+	@include Mobile {
+		// Full width for mobile
+		width: 100%;
+	}
 }
 
 // Google CSE search tweaks
