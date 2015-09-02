@@ -14,23 +14,23 @@
 	.wp-image {
 		&.alignleft {
 			float: left;
-			margin: $gutter-small $gutter-large $gutter-medium 0;
+			margin: $gutter $gutter * 4 $gutter * 2 0;
 		}
 		&.alignright {
 			float: right;
-			margin: $gutter-small 0 $gutter-medium $gutter-medium;
+			margin: $gutter 0 $gutter * 2 $gutter * 2;
 		}
 		&.aligncenter {
 			display: block;
 			text-align: center;
-			margin: $gutter-large auto;
+			margin: $gutter * 4 auto;
 		}
 	}
 
 }
 
 .main-heading {
-	margin: 0 0 $gutter-medium;
+	margin: 0 0 $gutter * 2;
 	font-size: 2em;
 }
 
