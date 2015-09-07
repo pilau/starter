@@ -54,10 +54,10 @@ main {
 	width: 100%;
 	padding: 0 $gutter ( $gutter + $gutter );
 	// Prevent gap down far sides - that's handled by .wrap
-	&:first-of-type {
+	&:first-child {
 		padding-left: 0;
 	}
-	&:last-of-type {
+	&:last-child {
 		padding-right: 0;
 	}
 	// Prevent added space at top and bottom of cols
