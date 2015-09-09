@@ -66,7 +66,7 @@ function pilau_register_widgets() {
 	 * Register custom widgets
 	 */
 	//register_widget( 'Pilau_Widget_Example' );
-	//register_widget( 'Pilau_In_This_Section' );
+	//register_widget( 'Pilau_Widget_In_This_Section' );
 
 }
 
@@ -161,12 +161,12 @@ class Pilau_Widget_Example extends WP_Widget {
  *
  * @since	0.1
  */
-class Pilau_In_This_Section extends WP_Widget {
+class Pilau_Widget_In_This_Section extends WP_Widget {
 
 	/**
 	 * Initialise
 	 */
-	function Pilau_In_This_Section() {
+	function Pilau_Widget_In_This_Section() {
 		$this->WP_Widget(
 			'pilau-in-this-section',
 			__( 'In This Section' ),
