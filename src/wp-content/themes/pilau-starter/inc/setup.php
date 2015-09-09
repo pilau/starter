@@ -17,47 +17,38 @@ add_action( 'after_setup_theme', 'pilau_setup' );
 function pilau_setup() {
 	global $pilau_site_settings, $pilau_filters, $pilau_download_mime_types;
 
-	/* Enable shortcodes in widgets */
+	// Enable shortcodes in widgets
 	add_filter( 'widget_text', 'do_shortcode' );
 
-	/*
-	 * Override core automatic feed links
-	 * @see inc/feeds.php
-	 */
+	// Override core automatic feed links
+	// @see inc/feeds.php
 	remove_theme_support( 'automatic-feed-links' );
 
-	/*
-	 * Post formats - may be useful for some blog-heavy projects
-	 * @link http://codex.wordpress.org/Post_Formats
-	 */
+	// Post formats - may be useful for some blog-heavy projects
+	// @link http://codex.wordpress.org/Post_Formats
 	//add_theme_support( 'post-formats', array( 'aside', 'gallery', 'link', 'image', 'quote', 'status', 'video', 'audio', 'chat' ) );
 
-	/*
-	 * HTML5 support
-	 */
+	// HTML5 support
 	add_theme_support( 'html5', array( 'widgets' ) );
 
-	/*
-	 * Register nav menus
-	 */
+	// Hide admin bar for non-editors
+	if ( ! current_user_can( 'edit_posts' ) ) {
+		add_filter( 'show_admin_bar', '__return_false' );
+	}
+
+	// Register nav menus
 	register_nav_menus( array(
 		'nav_header' => __( 'Header navigation' ),
 		'nav_footer' => __( 'Footer navigation' ),
 	));
 
-	/*
-	 * Site settings
-	*/
+	// Site settings
 	$pilau_site_settings = get_option( 'pilau_site_settings' );
 
-	/*
-	 * Filtering (see inc/filtering.php)
-	 */
+	// Filtering (see inc/filtering.php)
 	$pilau_filters = array();
 
-	/*
-	 * Mime types
-	 */
+	// Mime types
 	$pilau_download_mime_types = array(
 		'application/pdf',
 		'application/msword',
