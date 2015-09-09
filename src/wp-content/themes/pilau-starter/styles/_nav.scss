@@ -41,26 +41,6 @@
 
 }
 
-// Sub-nav widget
-.pilau-subnav-pages-list {
-
-	.current_page_item {
-		> a {
-			font-weight: bold;
-		}
-	}
-
-	ul.children {
-		padding-left: 1em;
-		// Hide empty children lists
-		// (can't find a way to prevent output
-		&:empty {
-			display: none;
-		}
-	}
-
-}
-
 // Dynamic nav (drop-downs)
 .nav-dynamic {
 
