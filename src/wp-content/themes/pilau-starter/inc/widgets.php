@@ -224,7 +224,7 @@ class Pilau_Widget_In_This_Section extends WP_Widget {
 			'depth'				=> $instance['levels'],
 			'child_of'			=> PILAU_PAGE_ID_TOP_LEVEL,
 			'title_li'			=> '',
-			'post_status'		=> 'publish,private',
+			'post_status'		=> 'publish',
 			'echo'				=> false,
 			'walker'			=> new Pilau_Subpages_Walker
 		));
