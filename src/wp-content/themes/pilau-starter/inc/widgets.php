@@ -66,6 +66,7 @@ function pilau_register_widgets() {
 	 * Register custom widgets
 	 */
 	//register_widget( 'Pilau_Widget_Example' );
+	//register_widget( 'Pilau_In_This_Section' );
 
 }
 
@@ -149,6 +150,87 @@ class Pilau_Widget_Example extends WP_Widget {
 		if ( $instance['content'] ) {
 			echo '<p>' . esc_html( $instance['content'] ) . '</p>';
 		}
+		echo $args['after_widget'];
+	}
+
+}
+
+
+/**
+ * In The Section widget
+ *
+ * @since	0.1
+ */
+class Pilau_In_This_Section extends WP_Widget {
+
+	/**
+	 * Initialise
+	 */
+	function Pilau_In_This_Section() {
+		$this->WP_Widget(
+			'pilau-in-this-section',
+			__( 'In This Section' ),
+			array(
+				'classname'		=> 'pilau-widget-in-this-section',
+				'description'	=> __( 'Sub-navigation links.' )
+			)
+		);
+	}
+
+	/**
+	 * Admin form
+	 */
+	function form( $instance ) {
+		$defaults = array(
+			'levels'		=> 3
+		);
+		$instance = wp_parse_args( (array) $instance, $defaults );
+
+		?>
+		<div class="pilau-widget-field">
+			<label for="<?php echo $this->get_field_id( 'levels' ); ?>"><?php _e( 'Levels' ) ?></label>
+			<select id="<?php echo $this->get_field_id( 'levels' ); ?>" name="<?php echo $this->get_field_name( 'levels' ); ?>">
+				<?php for ( $i = 1; $i <=4; $i++ ) { ?>
+					<option value="<?php echo $i; ?>"<?php selected( $instance['levels'], $i ); ?>><?php echo $i; ?></option>
+				<?php } ?>
+			</select>
+		</div>
+		<?php
+
+	}
+
+	/**
+	 * Update
+	 */
+	function update( $new_instance, $old_instance ) {
+		$instance = $old_instance;
+		$instance['levels'] = (int) $new_instance['levels'];
+		return $instance;
+	}
+
+	/**
+	 * Display
+	 */
+	function widget( $args, $instance ) {
+		$title = apply_filters( 'widget_title', __( 'In this section' ) );
+		echo $args['before_widget'];
+		if ( $title ) {
+			echo $args['before_title'] . esc_html( $title ) . $args['after_title'];
+		}
+
+		$output = wp_list_pages( array(
+			'sort_column'		=> 'menu_order',
+			'sort_order'		=> 'ASC',
+			'depth'				=> $instance['levels'],
+			'child_of'			=> PILAU_PAGE_ID_TOP_LEVEL,
+			'title_li'			=> '',
+			'post_status'		=> 'publish,private',
+			'echo'				=> false,
+			'walker'			=> new Pilau_Subpages_Walker
+		));
+		echo '<ul class="pilau-subnav-pages-list">' . $output . '</ul>';
+		//echo '<pre>'; print_r( $output ); echo '</pre>'; exit;
+
 		echo $args['after_widget'];
 	}
 

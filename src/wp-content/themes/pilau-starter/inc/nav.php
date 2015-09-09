@@ -278,3 +278,48 @@ class Pilau_Walker_Nav_Menu extends Walker_Nav_Menu {
 	}
 
 }
+
+
+/**
+ * Sub-pages custom walker
+ *
+ * Outputs page tree but only shows child pages branch if we're in that branch
+ *
+ * @link	http://code.tutsplus.com/tutorials/understanding-the-walker-class--wp-25401
+ *
+ * @since	0.1
+ * @uses	Walker_Page
+ */
+class Pilau_Subpages_Walker extends Walker_Page {
+
+	// Alter level start and end to allow hiding of empty children lists
+	// (can't find a way to prevent output)
+	public function start_lvl( &$output, $depth = 0, $args = array() ) {
+		$indent = str_repeat("\t", $depth);
+		$output .= "\n$indent<ul class='children'>";
+	}
+	public function end_lvl( &$output, $depth = 0, $args = array() ) {
+		$output .= "</ul>\n";
+	}
+
+	// Only output if necessary
+	public function display_element( $element, &$children_elements, $max_depth, $depth = 0, $args, &$output ) {
+		// Keep less expensive tests to the top, so more expensive tests are only run if necessary
+		if (
+			! $depth || // Always output top-level
+			(
+				// This is a child of the current page
+				$element->post_parent == PILAU_PAGE_ID_CURRENT ||
+				// This is a sibling of the current
+				$element->post_parent == wp_get_post_parent_id( PILAU_PAGE_ID_CURRENT ) ||
+				// This is the current page
+				$element->ID == PILAU_PAGE_ID_CURRENT ||
+				// This is an ancestor of the current page
+				pilau_is_ancestor( $element->ID, PILAU_PAGE_ID_CURRENT )
+			)
+		) {
+			parent::display_element( $element, $children_elements, $max_depth, $depth, $args, $output );
+		}
+	}
+
+}

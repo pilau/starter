@@ -220,20 +220,21 @@ function pilau_get_ancestors( $post = null ) {
 
 
 /**
- * Check if a given page is an ancestor of the current page, accounting for CPTs
+ * Check if a given page is an ancestor of another page (usually the current one),
+ * accounting for CPTs
  *
  * @since	0.2
  * @param	int		$page_id
  * @return	bool
  */
-function pilau_is_ancestor( $page_id ) {
+function pilau_is_ancestor( $maybe_ancestor_id, $page_id = PILAU_PAGE_ID_CURRENT ) {
 	$is_ancestor = false;
 	if ( get_post_type() == 'page' ) {
-		$is_ancestor = in_array( $page_id, get_post_ancestors( PILAU_PAGE_ID_CURRENT ) );
+		$is_ancestor = in_array( $maybe_ancestor_id, get_post_ancestors( $page_id ) );
 	} else if ( is_singular( 'post' ) ) {
-		$is_ancestor = $page_id == get_option( 'page_for_posts' );
+		$is_ancestor = $maybe_ancestor_id == get_option( 'page_for_posts' );
 	} else {
-		$is_ancestor = in_array( $page_id, pilau_get_ancestors( PILAU_PAGE_ID_CURRENT ) );
+		$is_ancestor = in_array( $maybe_ancestor_id, pilau_get_ancestors( $page_id ) );
 	}
 	return $is_ancestor;
 }
