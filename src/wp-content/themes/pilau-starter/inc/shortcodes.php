@@ -53,23 +53,7 @@ add_shortcode( 'sitemap', 'pilau_sitemap_shortcode' );
 function pilau_sitemap_shortcode() {
 
 	// Get pages to exclude
-	$excluded =  get_posts( array(
-		'post_type'			=> 'page',
-		'post_status'		=> 'publish',
-		'posts_per_page'	=> -1,
-		'orderby'			=> array( 'menu_order' => 'ASC' ),
-		'meta_query'		=> array(
-			array(
-				'key'			=> '_yoast_wpseo_meta-robots-noindex',
-				'value'			=> 1,
-			),
-		),
-	));
-	$excluded_array = array();
-	foreach ( $excluded as $excluded_page ) {
-		$excluded_array[] = $excluded_page->ID;
-	}
-	$excluded_list = implode( ',', $excluded_array );
+	$excluded_list = implode( ',', pilau_get_noindex_pages() );
 	//echo '<pre>'; print_r( $excluded_list ); echo '</pre>'; exit;
 
 	// Use core page menu

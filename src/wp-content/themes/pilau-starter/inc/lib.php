@@ -9,6 +9,56 @@
 
 
 /**
+ * Get IDs of all pages set to noindex (cached, refreshed when any page is edited)
+ *
+ * @since	0.1
+ * @param	bool	$refresh
+ * @return	array
+ */
+function pilau_get_noindex_pages( $refresh = false ) {
+
+	if ( $refresh || isset( $_GET['refresh'] ) || false === ( $page_ids = get_transient( 'pilau_noindex_pages' ) ) ) {
+
+		// Get pages - currently based on Yoast SEO setting
+		$pages = get_posts( array(
+			'post_type'			=> 'page',
+			'post_status'		=> 'any',
+			'posts_per_page'	=> -1,
+			'meta_query'		=> array(
+				array(
+					'key'			=> '_yoast_wpseo_meta-robots-noindex',
+					'value'			=> 1,
+				),
+			),
+		));
+
+		// Build array of IDs
+		$page_ids = array();
+		if ( $pages ) {
+			foreach ( $pages as $page ) {
+				$page_ids[] = $page->ID;
+			}
+		}
+
+		// Cache
+		set_transient( 'pilau_noindex_pages', $page_ids, 60*60*24 ); // Cache for 24 hours
+
+	}
+
+	return $page_ids;
+}
+
+// Refresh when a page is created or updated
+add_action( 'wpseo_saved_postdata', 'pilau_refresh_noindex_pages' );
+function pilau_refresh_noindex_pages() {
+	global $post;
+	if ( get_post_type( $post->ID ) == 'page' && ! wp_is_post_revision( $post->ID ) ) {
+		pilau_get_noindex_pages( true );
+	}
+}
+
+
+/**
  * Output post date
  *
  * @since	Pilau_Starter 0.1

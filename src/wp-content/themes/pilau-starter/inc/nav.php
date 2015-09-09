@@ -34,6 +34,23 @@ function pilau_nav_menu_css_class( $classes, $item ) {
 }
 
 
+add_filter( 'wp_list_pages_excludes', 'pilau_wp_list_pages_excludes' );
+/**
+ * Filter the array of pages to exclude from lists
+ *
+ * @since	0.1
+ * @param	array	$exclude_array
+ * @return	array
+ */
+function pilau_wp_list_pages_excludes( $exclude_array ) {
+
+	// Pages set to noindex
+	$exclude_array = array_merge( $exclude_array, pilau_get_noindex_pages() );
+
+	return $exclude_array;
+}
+
+
 /**
  * Get nav menu without markup containers
  *
