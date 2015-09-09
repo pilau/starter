@@ -22,3 +22,33 @@
 	}
 
 }
+
+// Call to action
+.pilau-widget-call-to-action {
+	a {
+		background-color: #000;
+		color: #fff;
+		&:hover, &:focus {
+			img {
+				opacity: .7;
+			}
+			.more {
+				background-color: lighten( #000, 20% );
+			}
+		}
+	}
+	.widget-title {
+		margin-bottom: .8em;
+		color: #fff;
+	}
+	.text {
+		padding: $gutter*1.5 $gutter*1.5 $gutter*2;
+		font-size: .85em;
+		:last-child {
+			margin-bottom: 0;
+		}
+	}
+	.more {
+		display: inline-block;
+	}
+}

@@ -67,6 +67,7 @@ function pilau_register_widgets() {
 	 */
 	//register_widget( 'Pilau_Widget_Example' );
 	//register_widget( 'Pilau_Widget_In_This_Section' );
+	//register_widget( 'Pilau_Widget_Call_To_Action' );
 
 }
 
@@ -232,6 +233,104 @@ class Pilau_Widget_In_This_Section extends WP_Widget {
 		//echo '<pre>'; print_r( $output ); echo '</pre>'; exit;
 
 		echo $args['after_widget'];
+	}
+
+}
+
+
+/**
+ * Call To Action widget
+ *
+ * @since	0.1
+ */
+class Pilau_Widget_Call_To_Action extends WP_Widget {
+
+	/**
+	 * Initialise
+	 */
+	function Pilau_Widget_Call_To_Action() {
+		$this->WP_Widget(
+			'pilau-call-to-action',
+			__( 'Call To Action' ),
+			array(
+				'classname'		=> 'pilau-widget-call-to-action',
+				'description'	=> __( 'Highlight a specific post.' )
+			)
+		);
+	}
+
+	/**
+	 * Admin form
+	 */
+	function form( $instance ) {
+		$defaults = array(
+			'more_text'		=> __( 'Read more' )
+		);
+		$instance = wp_parse_args( (array) $instance, $defaults );
+
+		?>
+		<div class="pilau-widget-field">
+			<label for="<?php echo $this->get_field_id( 'post_id' ); ?>"><?php _e( 'Post' ) ?></label>
+			<select id="<?php echo $this->get_field_id( 'post_id' ); ?>" name="<?php echo $this->get_field_name( 'post_id' ); ?>">
+				<?php
+				// Get post types
+				$post_types = array_merge( array( 'page', 'post' ), get_post_types( array( '_builtin' => false, 'public' => true ) ) );
+				foreach	( $post_types as $post_type ) {
+					// Get posts
+					$posts = get_posts( array(
+						'post_type'			=> $post_type,
+						'posts_per_page'	=> -1,
+						'orderby'			=> 'title',
+						'order'				=> 'ASC',
+						'post_status'		=> 'publish'
+					));
+					if ( $posts ) {
+						$pt_labels = get_post_type_labels( get_post_type_object( $post_type ) );
+						echo '<optgroup label="' . $pt_labels->name . '">';
+						foreach ( $posts as $the_post ) {
+							echo '<option value="' . $the_post->ID . '"' . selected( $the_post->ID, $instance['post_id'] ) . '>' . get_the_title( $the_post ) . '</option>';
+						}
+						echo '</optgroup>';
+					}
+				}
+				?>
+			</select>
+		</div>
+		<div class="pilau-widget-field">
+			<label for="<?php echo $this->get_field_id( 'more_text' ); ?>"><?php _e( 'More button text' ) ?></label>
+			<input type="text" id="<?php echo $this->get_field_id( 'more_text' ); ?>" name="<?php echo $this->get_field_name( 'more_text' ); ?>" value="<?php echo $instance['more_text']; ?>">
+		</div>
+		<?php
+
+	}
+
+	/**
+	 * Update
+	 */
+	function update( $new_instance, $old_instance ) {
+		$instance = $old_instance;
+		$instance['post_id'] = (int) $new_instance['post_id'];
+		$instance['more_text'] = esc_html( $new_instance['more_text'] );
+		return $instance;
+	}
+
+	/**
+	 * Display
+	 */
+	function widget( $args, $instance ) {
+		if ( $the_post = get_post( $instance['post_id'] ) ) {
+			echo $args['before_widget'];
+			echo '<a href="' . get_the_permalink( $the_post->ID ) . '" class="link-block">';
+			if ( has_post_thumbnail( $the_post->ID ) ) {
+				echo '<figure class="image">' . get_the_post_thumbnail( $the_post->ID ) . '</figure>';
+			}
+			echo '<div class="text">';
+			echo $args['before_title'] . get_the_title( $the_post ) . $args['after_title'];
+			echo '<p class="more button">' . $instance['more_text'] . '</p>';
+			echo '</div>';
+			echo '</a>';
+			echo $args['after_widget'];
+		}
 	}
 
 }
