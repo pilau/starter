@@ -91,27 +91,12 @@ function pilau_register_post_types() {
 }
 
 
-/**
- * Get CPTs (cached)
- *
- * @param	string	$output		'names' | 'objects'
- * @return	array
- */
-function pilau_get_cpts( $output = 'names' ) {
-	if ( false === ( $cpts = get_transient( 'pilau_cpts_' . $output ) ) || isset( $_GET['refresh'] ) ) {
-		$cpts = get_post_types( array( '_builtin' => false ), $output );
-		set_transient( 'pilau_cpts_' . $output, $cpts, 60*60*24 ); // Cache for 24 hours
-	}
-	return $cpts;
-}
-
-
 add_filter( 'map_meta_cap', 'pilau_cpt_map_meta_cap', 10, 4 );
 /**
  * Map meta caps for CPTs
  *
  * @link	http://justintadlock.com/archives/2010/07/10/meta-capabilities-for-custom-post-types
- * @uses	pilau_get_cpts()
+ * @uses	get_post_types()
  * @uses	get_post()
  * @uses	get_post_type_object()
  * @param	array  $caps    The user's actual capabilities
@@ -122,7 +107,7 @@ add_filter( 'map_meta_cap', 'pilau_cpt_map_meta_cap', 10, 4 );
  */
 function pilau_cpt_map_meta_cap( $caps, $cap, $user_id, $args ) {
 	$cap_roots = array( 'edit', 'delete', 'read' );
-	$cpts = pilau_get_cpts();
+	$cpts = get_post_types( array( '_builtin' => false ), 'names' );
 	$cap_parts = explode( '_', $cap );
 	$cap_root = array_shift( $cap_parts ); // The first bit before an underscore
 	$cap_cpt = implode( '_', $cap_parts ); // The other bits after the first underscore

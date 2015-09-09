@@ -88,7 +88,7 @@ function pilau_cmb2_custom_fields() {
 	********************************************************************************/
 
 	// Loop through CPTs
-	foreach ( pilau_get_cpts( 'objects' ) as $cpt ) {
+	foreach ( get_post_types( array( '_builtin' => false ), 'objects' ) as $cpt ) {
 
 		// Check for support for custom author
 		if ( post_type_supports( $cpt->name, 'pilau-author' ) ) {
