@@ -12,9 +12,13 @@ Any styles for WordPress admin
 }
 .pilau-widget-field {
 	margin: 1em 0;
-	label {
+	label, legend {
 		display: block;
-		margin-bottom: .3em;
+		margin-bottom: .5em;
+	}
+	label.field-inline {
+		display: inline-block;
+		margin-right: .7em;
 	}
 	input[type=text], textarea {
 		width: 100%;
@@ -28,6 +32,11 @@ Any styles for WordPress admin
 			font-size: 1em;
 		}
 	}
+}
+
+// Upload media
+.pilau-upload-media-preview {
+	margin: .8em 0;
 }
 
 // CMB2 fields

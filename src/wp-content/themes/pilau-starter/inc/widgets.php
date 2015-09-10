@@ -261,6 +261,21 @@ class Pilau_Widget_Call_To_Action extends WP_Widget {
 				'description'	=> __( 'Highlight a specific post.' )
 			)
 		);
+
+		// Hook to enqueue scripts
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts_styles' ) );
+
+	}
+
+	/**
+	 * Enqueue scripts and styles
+	 */
+	public function enqueue_scripts_styles() {
+		pilau_upload_media_enqueue();
+		wp_localize_script( 'pilau-upload-media', 'pilau_upload_media', array(
+			'dialog_title__' . $this->get_field_id( 'image' )			=> __( 'Select image' ),
+			'restrict_to_type__' . $this->get_field_id( 'image' )		=> 'image'
+		));
 	}
 
 	/**
@@ -268,11 +283,12 @@ class Pilau_Widget_Call_To_Action extends WP_Widget {
 	 */
 	public function form( $instance ) {
 		$defaults = array(
-			'more_text'		=> __( 'Read more' )
+			'image_featured_or_custom'	=> 'featured',
+			'more_text'					=> __( 'Read more' )
 		);
 		$instance = wp_parse_args( (array) $instance, $defaults );
-
 		?>
+
 		<div class="pilau-widget-field">
 			<label for="<?php echo $this->get_field_id( 'post_id' ); ?>"><?php _e( 'Post' ) ?></label>
 			<select id="<?php echo $this->get_field_id( 'post_id' ); ?>" name="<?php echo $this->get_field_name( 'post_id' ); ?>">
@@ -300,10 +316,35 @@ class Pilau_Widget_Call_To_Action extends WP_Widget {
 				?>
 			</select>
 		</div>
+
+		<fieldset class="pilau-widget-field">
+			<legend><?php _e( 'Use featured image from post, or assign custom image?' ) ?></legend>
+			<label class="field-inline" for="<?php echo $this->get_field_id( 'image_featured' ); ?>">
+				<?php _e( 'Featured' ); ?>
+				<input type="radio" id="<?php echo $this->get_field_id( 'image_featured' ); ?>" name="<?php echo $this->get_field_name( 'image_featured_or_custom' ); ?>" value="featured"<?php checked( $instance['image_featured_or_custom'], 'featured' ); ?>>
+			</label>
+			<label class="field-inline" for="<?php echo $this->get_field_id( 'image_custom' ); ?>">
+				<?php _e( 'Custom' ); ?>
+				<input type="radio" id="<?php echo $this->get_field_id( 'image_custom' ); ?>" name="<?php echo $this->get_field_name( 'image_featured_or_custom' ); ?>" value="custom"<?php checked( $instance['image_featured_or_custom'], 'custom' ); ?>>
+			</label>
+		</fieldset>
+
+		<div class="pilau-widget-field">
+			<?php
+			pilau_upload_media_field(
+				$this->get_field_name( 'image' ),
+				$this->get_field_id( 'image' ),
+				$instance['image'],
+				__( 'Add custom image' )
+			);
+			?>
+		</div>
+
 		<div class="pilau-widget-field">
 			<label for="<?php echo $this->get_field_id( 'more_text' ); ?>"><?php _e( 'More button text' ) ?></label>
 			<input type="text" id="<?php echo $this->get_field_id( 'more_text' ); ?>" name="<?php echo $this->get_field_name( 'more_text' ); ?>" value="<?php echo $instance['more_text']; ?>">
 		</div>
+
 		<?php
 
 	}
@@ -314,6 +355,8 @@ class Pilau_Widget_Call_To_Action extends WP_Widget {
 	public function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 		$instance['post_id'] = (int) $new_instance['post_id'];
+		$instance['image_featured_or_custom'] = in_array( $new_instance['image_featured_or_custom'], array( 'featured', 'custom' ) ) ? $new_instance['image_featured_or_custom'] : null;
+		$instance['image'] = (int) $new_instance['image'];
 		$instance['more_text'] = esc_html( $new_instance['more_text'] );
 		return $instance;
 	}
@@ -325,8 +368,23 @@ class Pilau_Widget_Call_To_Action extends WP_Widget {
 		if ( $the_post = get_post( $instance['post_id'] ) ) {
 			echo $args['before_widget'];
 			echo '<a href="' . get_the_permalink( $the_post->ID ) . '" class="link-block">';
-			if ( has_post_thumbnail( $the_post->ID ) ) {
-				echo '<figure class="image">' . get_the_post_thumbnail( $the_post->ID ) . '</figure>';
+			$image_markup = null;
+			switch ( $instance['image_featured_or_custom'] ) {
+				case 'featured': {
+					if ( has_post_thumbnail( $the_post->ID ) ) {
+						$image_markup = get_the_post_thumbnail( $the_post->ID );
+					}
+					break;
+				}
+				case 'custom': {
+					if ( $instance['image'] ) {
+						$image_markup = wp_get_attachment_image( $instance['image'], 'post-thumbnail' );
+					}
+					break;
+				}
+			}
+			if ( $image_markup ) {
+				echo '<figure class="image">' . $image_markup . '</figure>';
 			}
 			echo '<div class="text">';
 			echo $args['before_title'] . get_the_title( $the_post ) . $args['after_title'];

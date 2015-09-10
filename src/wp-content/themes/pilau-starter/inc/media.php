@@ -297,3 +297,82 @@ function pilau_slideshow() {
 	<?php }
 
 }
+
+
+/**
+ * Helper function to enqueue stuff for uploading media
+ *
+ * @since	0.1
+ * @return	void
+ */
+function pilau_upload_media_enqueue() {
+	wp_enqueue_media();
+	wp_enqueue_script( 'pilau-upload-media' );
+}
+
+
+/**
+ * Output a form field for uploading media
+ *
+ * @since	0.1
+ * @param	string	$name
+ * @param	string	$id
+ * @param	int		$value				Current value (attachment ID)
+ * @param	string	$label
+ * @param	string	$preview_size
+ * @return	void
+ */
+function pilau_upload_media_field( $name, $id, $value, $label = null, $preview_size = 'thumbnail' ) {
+	if ( ! $label ) {
+		$label = __( 'Add file' );
+	}
+	?>
+	<label for="<?php echo esc_attr( $id ); ?>" class="screen-reader-text"><?php echo $label; ?></label>
+	<input type="hidden" name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $id ); ?>" value="<?php echo esc_attr( $value ); ?>">
+	<input type="hidden" name="pilau-upload-media-field-id" value="<?php echo esc_attr( $id ); ?>">
+	<input type="button" class="pilau-upload-media-button button button-primary" value="<?php echo esc_attr( $label ); ?>">
+	<input type="hidden" name="<?php echo esc_attr( $id ); ?>_preview-size" id="<?php echo esc_attr( $id ); ?>_preview-size" value="<?php echo esc_attr( $preview_size ); ?>" class="pilau-upload-media-preview-size">
+	<div class="pilau-upload-media-preview" id="<?php echo esc_attr( $id ); ?>_preview">
+		<?php
+		if ( $value ) {
+			if ( wp_attachment_is_image( $value ) ) {
+				// Show image preview
+				echo wp_get_attachment_image( $value, $preview_size );
+			} else {
+				// File link
+				echo pilau_upload_media_link( $value );
+			}
+		}
+		?>
+	</div>
+	<?php
+}
+
+// AJAX wrapper to get image HTML
+add_action( 'wp_ajax_pilau_upload_media_get_file', 'pilau_upload_media_get_file_ajax' );
+function pilau_upload_media_get_file_ajax() {
+	if ( wp_attachment_is_image( $_REQUEST['id'] ) ) {
+		echo wp_get_attachment_image( $_REQUEST['id'], $_REQUEST['size'] );
+	} else {
+		echo pilau_upload_media_link( $_REQUEST['id'] );
+	}
+	die();
+}
+
+// Generate markup for file link
+function pilau_upload_media_link( $id ) {
+	$attachment_url = wp_get_attachment_url( $id );
+	/*
+	$filetype_check = wp_check_filetype( $attachment_url );
+	$filetype_parts = explode( '/', $filetype_check['type'] );
+	$icon_files = glob( plugin_dir_path( __FILE__ ) . 'img/icon-*.png' );
+	$filetype = 'unknown';
+	foreach ( $icon_files as $icon_file ) {
+		if ( basename( $icon_file ) == 'icon-' . $filetype_parts[1] . '.png' ) {
+			$filetype = $filetype_parts[1];
+			break;
+		}
+	}
+	*/
+	return '<a href="' . wp_get_attachment_url( $id ) . '" class="pilau-upload-media-link">' . basename( $attachment_url ) . '</a>';
+}

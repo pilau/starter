@@ -53,11 +53,17 @@ add_action( 'admin_enqueue_scripts', 'pilau_admin_enqueue_scripts_styles', 10 );
 function pilau_admin_enqueue_scripts_styles() {
 	global $current_screen;
 
+	// Register any scripts that might be enqueued elsewhere
+	wp_register_script( 'pilau-upload-media', get_stylesheet_directory_uri() . '/js/media.js', array( 'jquery' ), '1.0' );
+
+	// Enqueue scripts
 	wp_enqueue_style( 'pilau-admin-css', get_stylesheet_directory_uri() . '/styles/admin.css', array(), '1.0' );
-	wp_enqueue_script( 'pilau-admin-js', get_stylesheet_directory_uri() . '/js/admin.js', array(), '1.0' );
+	wp_enqueue_script( 'pilau-admin-js', get_stylesheet_directory_uri() . '/js/admin.js', array( 'jquery' ), '1.0' );
 
 	// Anything to pass to admin JS?
-	$admin_js_vars = array();
+	$admin_js_vars = array(
+		'ajaxurl'		=> admin_url( 'admin-ajax.php', PILAU_REQUEST_PROTOCOL )
+	);
 
 	/*
 	 * Check post edit screens for taxonomies with JS validation rules
