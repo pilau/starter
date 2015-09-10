@@ -213,7 +213,11 @@ class Pilau_Widget_In_This_Section extends WP_Widget {
 	 * Display
 	 */
 	public function widget( $args, $instance ) {
-		$title = apply_filters( 'widget_title', __( 'In this section' ) );
+		if ( is_null( PILAU_PAGE_ID_TOP_LEVEL ) ) {
+			$title = __( 'Top-level pages' );
+		} else {
+			$title = __( 'In this section' );
+		}
 		echo $args['before_widget'];
 		if ( $title ) {
 			echo $args['before_title'] . esc_html( $title ) . $args['after_title'];
