@@ -96,8 +96,8 @@ class Pilau_Widget_Example extends WP_Widget {
 	/**
 	 * Initialise
 	 */
-	function Pilau_Widget_Example() {
-		$this->WP_Widget(
+	public function __construct() {
+		parent::__construct(
 			'pilau-example',
 			'Example',
 			array(
@@ -110,7 +110,7 @@ class Pilau_Widget_Example extends WP_Widget {
 	/**
 	 * Admin form
 	 */
-	function form( $instance ) {
+	public function form( $instance ) {
 		$defaults = array(
 			'title'		=> __( 'An example' )
 		);
@@ -132,7 +132,7 @@ class Pilau_Widget_Example extends WP_Widget {
 	/**
 	 * Update
 	 */
-	function update( $new_instance, $old_instance ) {
+	public function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 		$instance['title'] = strip_tags( $new_instance['title'] );
 		$instance['content'] = strip_tags( $new_instance['content'] );
@@ -142,7 +142,7 @@ class Pilau_Widget_Example extends WP_Widget {
 	/**
 	 * Display
 	 */
-	function widget( $args, $instance ) {
+	public function widget( $args, $instance ) {
 		$title = apply_filters( 'widget_title', $instance['title'] );
 		echo $args['before_widget'];
 		if ( $title ) {
@@ -167,8 +167,8 @@ class Pilau_Widget_In_This_Section extends WP_Widget {
 	/**
 	 * Initialise
 	 */
-	function Pilau_Widget_In_This_Section() {
-		$this->WP_Widget(
+	public function __construct() {
+		parent::__construct(
 			'pilau-in-this-section',
 			__( 'In This Section' ),
 			array(
@@ -181,7 +181,7 @@ class Pilau_Widget_In_This_Section extends WP_Widget {
 	/**
 	 * Admin form
 	 */
-	function form( $instance ) {
+	public function form( $instance ) {
 		$defaults = array(
 			'levels'		=> 3
 		);
@@ -203,7 +203,7 @@ class Pilau_Widget_In_This_Section extends WP_Widget {
 	/**
 	 * Update
 	 */
-	function update( $new_instance, $old_instance ) {
+	public function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 		$instance['levels'] = (int) $new_instance['levels'];
 		return $instance;
@@ -212,7 +212,7 @@ class Pilau_Widget_In_This_Section extends WP_Widget {
 	/**
 	 * Display
 	 */
-	function widget( $args, $instance ) {
+	public function widget( $args, $instance ) {
 		$title = apply_filters( 'widget_title', __( 'In this section' ) );
 		echo $args['before_widget'];
 		if ( $title ) {
@@ -248,8 +248,8 @@ class Pilau_Widget_Call_To_Action extends WP_Widget {
 	/**
 	 * Initialise
 	 */
-	function Pilau_Widget_Call_To_Action() {
-		$this->WP_Widget(
+	public function __construct() {
+		parent::__construct(
 			'pilau-call-to-action',
 			__( 'Call To Action' ),
 			array(
@@ -262,7 +262,7 @@ class Pilau_Widget_Call_To_Action extends WP_Widget {
 	/**
 	 * Admin form
 	 */
-	function form( $instance ) {
+	public function form( $instance ) {
 		$defaults = array(
 			'more_text'		=> __( 'Read more' )
 		);
@@ -307,7 +307,7 @@ class Pilau_Widget_Call_To_Action extends WP_Widget {
 	/**
 	 * Update
 	 */
-	function update( $new_instance, $old_instance ) {
+	public function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 		$instance['post_id'] = (int) $new_instance['post_id'];
 		$instance['more_text'] = esc_html( $new_instance['more_text'] );
@@ -317,7 +317,7 @@ class Pilau_Widget_Call_To_Action extends WP_Widget {
 	/**
 	 * Display
 	 */
-	function widget( $args, $instance ) {
+	public function widget( $args, $instance ) {
 		if ( $the_post = get_post( $instance['post_id'] ) ) {
 			echo $args['before_widget'];
 			echo '<a href="' . get_the_permalink( $the_post->ID ) . '" class="link-block">';
