@@ -15,7 +15,7 @@ add_action( 'after_setup_theme', 'pilau_setup' );
  * @since	Pilau_Starter 0.1
  */
 function pilau_setup() {
-	global $pilau_site_settings, $pilau_filters, $pilau_download_mime_types;
+	global $pilau_site_settings, $pilau_filters, $pilau_download_mime_types, $pilau_use_breadcrumbs;
 
 	// Enable shortcodes in widgets
 	add_filter( 'widget_text', 'do_shortcode' );
@@ -58,6 +58,9 @@ function pilau_setup() {
 		'application/vnd.ms-powerpoint',
 		'application/vnd.openxmlformats-officedocument.presentationml.presentation',
 	);
+
+	// Breadcrumbs flag (set to false before get_header() in template to override)
+	$pilau_use_breadcrumbs = true;
 
 }
 

@@ -6,6 +6,8 @@
  * @package	Pilau_Starter
  * @since	0.1
  */
+global $pilau_use_breadcrumbs;
+$pilau_use_breadcrumbs = false;
 
 ?>
 

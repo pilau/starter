@@ -6,6 +6,7 @@
  * @package	Pilau_Starter
  * @since	0.1
  */
+global $pilau_use_breadcrumbs;
 
 /*
  * Conditional HTML classes for IE / JS targetting
@@ -134,7 +135,7 @@ if ( PILAU_USE_COOKIE_NOTICE && ! isset( $_COOKIE['pilau_cookie_notice'] ) ) { ?
 <?php
 
 /* Breadcrumbs - NEEDS ENABLING AND CONFIGURING ON PLUGIN SETTINGS PAGE, SEO > Internal links
-if ( ! is_front_page() && PILAU_PLUGIN_EXISTS_WPSEO ) {
+if ( PILAU_PLUGIN_EXISTS_WPSEO && $pilau_use_breadcrumbs ) {
 	echo '<p class="breadcrumbs">';
 	yoast_breadcrumb();
 	echo '</p>';
