@@ -20,6 +20,7 @@
  * If any constants may vary between environments, defined them in the environment-
  * specific regions in wp-config.php and wp-config-local.php
  */
+define( 'PILAU_BLOCK_FRONT_END', false ); // Blocks front end to non-admins
 define( 'PILAU_USE_COMMENTS', false );
 define( 'PILAU_USE_CATEGORIES', false );
 define( 'PILAU_HIDE_CATEGORIES', true ); // Sometimes disabling a taxonomy completely causes issues

@@ -8,6 +8,25 @@
  */
 
 
+add_action( 'init', 'pilau_block_front_end' );
+/**
+ * Block front-end for non-admins
+ *
+ * @since	0.1
+ */
+function pilau_block_front_end() {
+	if ( defined( 'PILAU_BLOCK_FRONT_END' ) && PILAU_BLOCK_FRONT_END && ! is_admin() && ! current_user_can( 'update_core' ) ) {
+		wp_die(
+			'<p>' . __( 'Sorry, the front end of this site is currently blocked.' ) . '</p>',
+			__( 'Front end blocked' ),
+			array(
+				'back_link'	=> true
+			)
+		);
+	}
+}
+
+
 /**
  * Wrapper for wp_head() which manages SSL
  *
