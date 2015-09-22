@@ -272,7 +272,7 @@ function pilau_slideshow() {
 							if ( ! empty( $item_custom_fields['slideshow-image-portrait'] ) ) {
 								$picture_srcs[] = array(
 									'media'		=> '(max-width: ' . $pilau_breakpoints->medium . 'px)',
-									'srcset'	=> $item_custom_fields['slideshow-image-portrait']
+									'srcset'	=> pilau_get_image_url( $item_custom_fields['slideshow-image-portrait_id'], 'full' )
 								);
 							}
 
