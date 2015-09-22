@@ -69,6 +69,7 @@ a[href*="/wp-content/uploads/"] {
 		@include Fontello-Icon();
 		content: '\e815';
 		margin-right: .5em;
+		text-decoration: none;
 	}
 	&:hover, &:focus {
 		&:before {
