@@ -97,8 +97,17 @@ function pilau_register_post_types() {
  * @return	array
  */
 function pilau_get_public_post_type_names() {
-	$public_cpt_names = get_post_types( array( '_builtin' => false, 'public' => true ), 'names' );
-	return array_merge( array( 'page', 'post' ), $public_cpt_names );
+	return array_merge( array( 'page', 'post' ), pilau_get_public_custom_post_type_names() );
+}
+
+
+/**
+ * Get public custom post type names
+ *
+ * @return	array
+ */
+function pilau_get_public_custom_post_type_names() {
+	return get_post_types( array( '_builtin' => false, 'public' => true ), 'names' );
 }
 
 
@@ -316,7 +325,7 @@ add_filter( 'wpseo_breadcrumb_links', 'pilau_wpseo_breadcrumb_links' );
 function pilau_wpseo_breadcrumb_links( $links ) {
 
 	// Check for single CPT posts and add ancestors
-	if ( is_single() && get_post_type() != 'post' ) {
+	if ( in_array( get_post_type(), pilau_get_public_custom_post_type_names() ) ) {
 		$ancestors = pilau_get_ancestors();
 
 		foreach ( array_reverse( $ancestors ) as $ancestor ) {
