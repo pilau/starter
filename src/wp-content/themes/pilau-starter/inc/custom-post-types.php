@@ -91,6 +91,17 @@ function pilau_register_post_types() {
 }
 
 
+/**
+ * Get public post type names (includes CPTs, excludes attachments)
+ *
+ * @return	array
+ */
+function pilau_get_public_post_type_names() {
+	$public_cpt_names = get_post_types( array( '_builtin' => false, 'public' => true ), 'names' );
+	return array_merge( array( 'page', 'post' ), $public_cpt_names );
+}
+
+
 add_filter( 'map_meta_cap', 'pilau_cpt_map_meta_cap', 10, 4 );
 /**
  * Map meta caps for CPTs
