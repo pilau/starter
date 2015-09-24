@@ -45,9 +45,17 @@ Any styles for WordPress admin
 		width: 40em !important;
 	}
 }
+.cmb-type-multicheck-inline {
+	li {
+		width: 15em;
+	}
+}
 .cmb-attach-list {
 	margin: 1.5em 0 0 !important;
 	li {
 		margin-bottom: .6em !important;
 	}
+}
+.cmb-repeatable-group .cmb2-upload-button {
+	float: none !important;
 }
