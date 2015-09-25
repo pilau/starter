@@ -74,3 +74,17 @@ a[class^="icon-"], [class*=" icon-"] {
 .icon-cancel:before { content: '\e802'; } /* '' */
 .icon-download:before { content: '\e815'; } /* '' */
 .icon-menu:before { content: '\e816'; } /* '' */
+
+// Reversed icons
+.icon-reversed-x {
+	&:before {
+		transform: scaleX( -1 );
+		filter: FlipH;
+	}
+}
+.icon-reversed-y {
+	&:before {
+		transform: scaleY( -1 );
+		filter: FlipV;
+	}
+}
