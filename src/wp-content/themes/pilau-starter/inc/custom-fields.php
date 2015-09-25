@@ -123,6 +123,33 @@ function pilau_cmb2_custom_fields() {
 	}
 
 
+	/* FAQs
+	*******************************************************************************
+
+	// Location
+	$cmb = new_cmb2_box( array(
+		'id'				=> 'faq_location_box',
+		'title'				=> __( 'Location' ),
+		'object_types'		=> array( 'faq' ),
+		'show_on_cb'		=> 'pilau_cmb2_show_on_custom',
+		'show_on_custom'	=> array(
+			'user_can'			=> 'publish_services',
+		),
+		'context'			=> 'normal',
+		'priority'			=> 'high',
+		'show_names'		=> false,
+		'closed'			=> false,
+	));
+	$cmb->add_field( array(
+		'name'				=> __( 'Location' ),
+		'desc'				=> __( 'FAQ locations are pages assigned to the FAQ Listing template.' ),
+		'id'				=> pilau_cmb2_meta_key( 'faq-location' ),
+		'type'				=> 'select',
+		'options'			=> pilau_cmb2_get_template_pages_options( 'page_listing-faqs.php' ),
+		'on_front'			=> false,
+	) );
+	*/
+
 	/* Slideshows
 	********************************************************************************/
 
@@ -482,6 +509,27 @@ function pilau_cmb2_get_post_options( $query_args, $show_parent = false ) {
 	}
 
 	return $post_options;
+}
+
+
+/**
+ * Get pages of a certain template as options
+ *
+ * @param	string	$template
+ * @param	bool	$show_parent
+ * @return	array
+ */
+function pilau_cmb2_get_template_pages_options( $template, $show_parent = true ) {
+	return pilau_cmb2_get_post_options( array(
+		'post_type'			=> 'page',
+		'posts_per_page'	=> -1,
+		'meta_query'		=> array(
+			array(
+				'key'			=> '_wp_page_template',
+				'value'			=> $template
+			)
+		)
+	), $show_parent );
 }
 
 
