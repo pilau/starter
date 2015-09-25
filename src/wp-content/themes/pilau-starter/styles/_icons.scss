@@ -80,6 +80,7 @@ a[class^="icon-"], [class*=" icon-"] {
 	&:before {
 		transform: scaleX( -1 );
 		filter: FlipH;
+		margin: 0 .5em 0 0;
 	}
 }
 .icon-reversed-y {
