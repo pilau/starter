@@ -76,7 +76,7 @@ function pilau_register_post_types() {
 				'edit_published_posts'   => 'edit_projects'
 			),
 			'has_archive'			=> false,
-			'hierarchical'			=> false, // Set to true to allow ordering
+			'hierarchical'			=> false,
 			'supports'				=> array( 'title', 'editor', 'custom-fields', 'thumbnail', 'revisions', 'pilau-author' ),
 			'taxonomies'			=> array( 'projecttype' ),
 		)
@@ -129,7 +129,7 @@ function pilau_register_post_types() {
 				'read_post'				=> 'read_faq',
 			),
 			'has_archive'			=> false,
-			'hierarchical'			=> true, // Set to true to allow ordering
+			'hierarchical'			=> false,
 			'supports'				=> array( 'title', 'editor', 'custom-fields' ),
 		)
 	);
@@ -139,6 +139,22 @@ function pilau_register_post_types() {
 	//[[custom-post-types]]
 
 
+}
+
+
+add_filter( 'simple_page_ordering_is_sortable', 'pilau_simple_page_ordering_is_sortable', 10, 2 );
+/**
+ * Flag CPTs which should be sortable (click 'Sort by Order' for drag-and-drop)
+ *
+ * This seems to be necessary because of problems getting the single-{$post_type}.php
+ * template to work for CPTs that are set to be hierarchical (the other way of making
+ * CPTs orderable). Because there's also an issue with hierarchical CPTs causing memory
+ * issues, this approach seems to be best for now.
+ * @link	http://wordpress.stackexchange.com/questions/203715/templates-for-hierarchical-custom-post-type
+ */
+function pilau_simple_page_ordering_is_sortable( $sortable, $post_type ) {
+	return in_array( $post_type, array(
+	));
 }
 
 
