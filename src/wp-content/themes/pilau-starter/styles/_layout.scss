@@ -83,13 +83,15 @@ main {
 }
 
 @include Mobile {
-	// Gutter padding only in middle
 	[class*='grid-col-'] {
+		float: none;
+		// Gutter padding only in middle
 		padding-left: 0;
 		padding-right: 0;
 	}
-	// Just one option for 2 cols on mobile
+	/* If you need two columns on mobile...
 	.grid-col-#{($grid-columns / 2)} {
+		float: left;
 		width: ( 100% / 2 );
 		&:first-of-type {
 			padding-left: $gutter;
@@ -98,6 +100,7 @@ main {
 			padding-right: $gutter;
 		}
 	}
+	*/
 }
 
 @include Tablet-Desktop {
