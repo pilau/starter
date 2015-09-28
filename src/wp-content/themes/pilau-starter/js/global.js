@@ -33,7 +33,7 @@ jQuery( document ).ready( function( $ ) {
 	//var placeholders = $( '[placeholder]' );
 	//var cn = $( '#cookie-notice' );
 	//var di = $( 'img[data-defer-src]' );
-	var op = $( 'li#older-posts' );
+	var op = $( '.older-posts' );
 	var tl = $( '[role=tablist]' );
 	var nmc = $( '.nav-mobile-control' );
 	pilau_html = $( 'html' );
@@ -146,15 +146,21 @@ jQuery( document ).ready( function( $ ) {
 	if ( typeof op !== 'undefined' && op.length ) {
 
 		// Replace label
-		op.find( 'a' ).html( pilau_ajax_more_data.show_more_label );
+		op.each( function() {
+			var el = $( this );
+			var i = parseInt( el.data( 'instance' ) );
+			el.find( 'a' ).html( pilau_ajax_more_data[ i ].show_more_label );
+		});
 
 		// Click event
 		op.on( 'click', 'a', function( e ) {
 			var vars;
+			var el_op = $( this ).parent();
+			var i = parseInt( el_op.data( 'instance' ) );
 			e.preventDefault();
 
 			// Initialize vars
-			vars = pilau_ajax_more_data;
+			vars = pilau_ajax_more_data[ i ];
 			vars['action'] = 'pilau_get_more_posts';
 			vars['offset'] = $( this ).parent().siblings( 'li' ).length;
 			//console.log( vars );
@@ -164,31 +170,31 @@ jQuery( document ).ready( function( $ ) {
 				pilau_global.ajaxurl,
 				vars,
 				function( data ) {
-					var i, first_post_id, iefix;
+					var p, first_post_id, iefix;
 					//console.log( data );
 
 					// Remove "last" class from current last post
-					op.prev().removeClass( 'last' );
+					el_op.prev().removeClass( 'last' );
 
 					// Insert and reveal posts
-					i = 0;
+					p = 0;
 					pilau_body.append( '<div id="_ieAjaxFix" style="display:none"></div>' );
 					iefix = $( "#_ieAjaxFix" );
 
 					// Match li.hentry, the only class applied to all items by get_post_class()
 					iefix.html( data ).find( "li.hentry" ).each( function() {
 						var el = $( this );
-						if ( i == 0 ) {
+						if ( p == 0 ) {
 							first_post_id = el.attr( "id" );
 						}
-						el.hide().insertBefore( 'li#older-posts' ).slideDown( 600 );
-						i++;
+						el.hide().insertBefore( el_op ).slideDown( 600 );
+						p++;
 					});
 					iefix.remove();
 
 					// Get rid of more posts link if there's no more
-					if ( op.siblings( 'li' ).length >= pilau_ajax_more_data.found_posts ) {
-						op.fadeOut( 1000 );
+					if ( el_op.siblings( 'li' ).length >= pilau_ajax_more_data[ i ].found_posts ) {
+						el_op.fadeOut( 1000 );
 					}
 
 					// Scroll to right place

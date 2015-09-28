@@ -34,6 +34,7 @@
  */
 function pilau_more_posts_link( $args = null ) {
 	global $wp_query;
+	static $i = 0; // Multiple instances
 
 	// Defaults
 	$defaults = array(
@@ -65,18 +66,23 @@ function pilau_more_posts_link( $args = null ) {
 
 		// Fallback links
 		if ( $page < $r['query']->max_num_pages ) {
-			echo '<li id="older-posts" class="more-posts"><a class="more" href="' . esc_attr( $r['base_url'] . 'page/' . ( $page + 1 ) . '/' . $qs ) . '">' . wp_kses( $r['older_label'], array() ) . '</a></li>';
+			echo '<li class="older-posts more-posts" data-instance="' . $i . '"><a class="more" href="' . esc_attr( $r['base_url'] . 'page/' . ( $page + 1 ) . '/' . $qs ) . '">' . wp_kses( $r['older_label'], array() ) . '</a></li>';
 		}
 		if ( $page > 1 ) {
-			echo '<li id="newer-posts" class="more-posts"><a class="more" href="' . esc_attr( $r['base_url'] . 'page/' . ( $page - 1 ) . '/' . $qs ) . '">' . wp_kses( $r['newer_label'], array() ) . '</a></li>';
+			echo '<li class="newer-posts more-posts"><a class="more" href="' . esc_attr( $r['base_url'] . 'page/' . ( $page - 1 ) . '/' . $qs ) . '">' . wp_kses( $r['newer_label'], array() ) . '</a></li>';
 		}
 
 		// Some JS
 		?>
 		<script>
 
+			// Init for multiple instances
+			if ( typeof pilau_ajax_more_data == 'undefined' ) {
+				var pilau_ajax_more_data = [];
+			}
+
 			// Vars to pass through for AJAX use
-			var pilau_ajax_more_data = {
+			pilau_ajax_more_data[ <?php echo $i; ?> ] = {
 				'show_more_label': '<?php
 					echo wp_kses( $r['show_more_label'], array(
 						'span'	=> array( 'class' => array() ),
@@ -89,8 +95,9 @@ function pilau_more_posts_link( $args = null ) {
 
 		</script>
 
-	<?php
+		<?php
 
+		$i++;
 	}
 
 }
