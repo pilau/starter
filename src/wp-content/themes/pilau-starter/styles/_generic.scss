@@ -73,6 +73,17 @@ html.no-js img[data-defer-src] { display: none !important; }
 
 
 /*
+ * AJAX preloader
+ */
+.preloader {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -16px 0 0 -16px;
+}
+
+
+/*
  * Basic loop listing
  */
 .posts-list {

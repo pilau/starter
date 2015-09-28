@@ -466,7 +466,7 @@ function pilau_slideshows_manage() { jQuery( function($) {
  */
 function pilau_preloader_place( e ) {
 	var size = 35,
-		p = jQuery( '<img src="' + pilau_global.themeurl + '/img/preloader.gif" width="' + size + '" height="' + size + '" alt="" class="preloader">' ),
+		p = jQuery( '<img src="' + pilau_global.themeurl + 'img/preloader.gif" width="' + size + '" height="' + size + '" alt="" class="preloader">' ),
 		t, l;
 
 	if ( typeof e != 'undefined' ) {

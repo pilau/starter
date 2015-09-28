@@ -298,6 +298,7 @@ function pilau_enqueue_scripts() {
 		// @link	http://wp.smashingmagazine.com/2011/10/18/how-to-use-ajax-in-wordpress/
 		wp_localize_script( 'pilau-global', 'pilau_global', array(
 			'ajaxurl'		=> admin_url( 'admin-ajax.php', PILAU_REQUEST_PROTOCOL ),
+			'themeurl'		=> trailingslashit( get_stylesheet_directory_uri() )
 		));
 
 	}
