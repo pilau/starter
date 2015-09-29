@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Template name: FAQs listing
+ * Template name: Listing page - FAQs
  *
  * @package	Pilau_Starter
  * @since	0.1
