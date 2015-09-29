@@ -5,13 +5,12 @@
 
 // Sub-nav widget
 .pilau-subnav-pages-list {
-
-	.current_page_item {
+	.current_page_item,
+	.current_page_ancestor {
 		> a {
 			font-weight: bold;
 		}
 	}
-
 	ul.children {
 		padding-left: 1em;
 		// Hide empty children lists
@@ -20,7 +19,6 @@
 			display: none;
 		}
 	}
-
 }
 
 // Call to action

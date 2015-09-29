@@ -340,3 +340,18 @@ class Pilau_Subpages_Walker extends Walker_Page {
 	}
 
 }
+
+add_filter( 'page_css_class', 'pilau_subpages_page_css_class', 10, 5 );
+/**
+ * Filter classes for the subpages walker output
+ */
+function pilau_subpages_page_css_class( $css_class, $page, $depth, $args, $current_page ) {
+
+	if ( is_a( $args['walker'], 'Pilau_Subpages_Walker' ) ) {
+		if ( is_single() && pilau_is_ancestor( $page->ID ) ) {
+			$css_class[] = 'current_page_ancestor';
+		}
+	}
+
+	return $css_class;
+}
