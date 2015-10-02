@@ -37,7 +37,7 @@ function pilau_cmb2_meta_box_url( $url, $version ) {
 
 if ( PILAU_PLUGIN_EXISTS_CMB2 ) {
 	add_action( 'do_meta_boxes', 'pilau_remove_default_custom_fields_meta_box', 1, 3 );
-	add_action( 'cmb2_init', 'pilau_cmb2_custom_fields' );
+	add_action( 'cmb2_admin_init', 'pilau_cmb2_custom_fields' );
 }
 /**
  * Remove standard custom fields metabox
