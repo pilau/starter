@@ -382,6 +382,7 @@ function pilau_cmb2_options_wysiwyg( $style, $options_override = array() ) {
  *
  * @param       string		$style				'image' | 'document'
  * @param		array		$options_override	To override defaults
+ * @todo		Work out how to filter file types shown in modal
  * @return		array
  */
 function pilau_cmb2_options_file( $style, $options_override = array() ) {
@@ -390,15 +391,11 @@ function pilau_cmb2_options_file( $style, $options_override = array() ) {
 	// Defaults according to style
 	switch ( $style ) {
 		case 'image': {
-			$options = array(
-				'add_upload_file_text'	=> __( 'Add image' )
-			);
+			$options['add_upload_file_text'] = __( 'Add image' );
 			break;
 		}
 		case 'document': {
-			$options = array(
-				'add_upload_file_text'	=> __( 'Add document' )
-			);
+			$options['add_upload_file_text'] = __( 'Add document' );
 			break;
 		}
 	}
