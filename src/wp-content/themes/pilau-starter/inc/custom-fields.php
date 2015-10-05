@@ -300,6 +300,26 @@ function pilau_custom_field_check( $field, $value = true, $notset = false ) {
  *************************************************************************************/
 
 
+add_filter( 'teeny_mce_before_init', 'pilau_tinymce_paste_as_text' );
+add_filter( 'tiny_mce_before_init', 'pilau_tinymce_paste_as_text' );
+/**
+ * Force paste as text in TinyMCE
+ *
+ * @link	http://www.wizzud.com/2014/02/14/force-paste-as-text-on-in-wordpress/
+ * @link	http://stackoverflow.com/a/27501677/1087660
+ * @todo	Not working?
+ * @param	array	$init
+ * @return	array
+ */
+function pilau_tinymce_paste_as_text( $init ) {
+	$init['paste_as_text'] = true;
+	$init['paste_text_use_dialog'] = false;
+	$init['paste_text_sticky'] = true;
+	$init['paste_text_sticky_default'] = true;
+	return $init;
+}
+
+
 /**
  * Helper for WYSIWYG options
  *
