@@ -242,9 +242,7 @@ function pilau_cmb2_custom_fields() {
 			'name'				=> __( 'Landscape image' ),
 			'id'				=> pilau_cmb2_meta_key( 'slideshow-image' ),
 			'type'				=> 'file',
-			'options'			=> array(
-				'url'		=> false,
-			),
+			'options'			=> pilau_cmb2_options_file( 'image' ),
 			'desc'				=> sprintf( __( 'For larger, landscape-oriented screens. Optimum image size: %dpx wide, %dpx high.' ), $pilau_image_sizes['slideshow']['width'], $pilau_image_sizes['slideshow']['height'] ),
 			'on_front'			=> false,
 		) );
@@ -252,9 +250,7 @@ function pilau_cmb2_custom_fields() {
 			'name'				=> __( 'Portrait image' ),
 			'id'				=> pilau_cmb2_meta_key( 'slideshow-image-portrait' ),
 			'type'				=> 'file',
-			'options'			=> array(
-				'url'		=> false,
-			),
+			'options'			=> pilau_cmb2_options_file( 'image' ),
 			'desc'				=> sprintf( __( 'For smaller, portrait-oriented screens. Optimum image size: %dpx wide, %dpx high.' ), $pilau_image_sizes['slideshow-portrait']['width'], $pilau_image_sizes['slideshow-portrait']['height'] ),
 			'on_front'			=> false,
 		) );
@@ -302,6 +298,96 @@ function pilau_custom_field_check( $field, $value = true, $notset = false ) {
 /*
  * CMB2 plugin stuff
  *************************************************************************************/
+
+
+/**
+ * Helper for WYSIWYG options
+ *
+ * @param       string		$style				'minimal' | 'medium' | 'full'
+ * @param		array		$options_override	To override defaults
+ * @return		array
+ */
+function pilau_cmb2_options_wysiwyg( $style, $options_override = array() ) {
+	$options = array();
+
+	// Defaults according to style
+	switch ( $style ) {
+		case 'minimal': {
+			$options = array(
+				'wpautop'			=> true,
+				'media_buttons'		=> false,
+				'textarea_rows'		=> 3,
+				'teeny'				=> true,
+				'quicktags'			=> false,
+				'tinymce'			=> array(
+					'toolbar1'			=> 'link,unlink'
+				)
+			);
+			break;
+		}
+		case 'medium': {
+			$options = array(
+				'wpautop'			=> true,
+				'media_buttons'		=> false,
+				'textarea_rows'		=> 8,
+				'teeny'				=> true,
+				'quicktags'			=> false,
+				'tinymce'			=> array(
+					'toolbar1'			=> 'bold,italic,bullist,numlist,link,unlink,undo,redo'
+				)
+			);
+			break;
+		}
+		case 'full': {
+			$options = array(
+				'wpautop'			=> true,
+				'media_buttons'		=> true,
+				'textarea_rows'		=> 16,
+				'teeny'				=> false,
+				'quicktags'			=> true,
+			);
+			break;
+		}
+	}
+
+	// Overrides
+	$options = wp_parse_args( $options_override, $options );
+
+	return $options;
+}
+
+
+/**
+ * Helper for file upload options
+ *
+ * @param       string		$style				'image' | 'document'
+ * @param		array		$options_override	To override defaults
+ * @return		array
+ */
+function pilau_cmb2_options_file( $style, $options_override = array() ) {
+	$options = array( 'url' => false );
+
+	// Defaults according to style
+	switch ( $style ) {
+		case 'image': {
+			$options = array(
+				'add_upload_file_text'	=> __( 'Add image' )
+			);
+			break;
+		}
+		case 'document': {
+			$options = array(
+				'add_upload_file_text'	=> __( 'Add document' )
+			);
+			break;
+		}
+	}
+
+	// Overrides
+	$options = wp_parse_args( $options_override, $options );
+
+	return $options;
+}
 
 
 add_filter( 'cmb2_override_' . pilau_cmb2_meta_key( 'author' ) . '_meta_save', 'pilau_cpt_author_meta_save_override', 0, 4 );
