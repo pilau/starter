@@ -577,13 +577,19 @@ function pilau_cmb2_show_on_custom( $cmb ) {
  */
 function pilau_cmb2_get_post_options( $query_args, $show_parent = false ) {
 
+	// Default args
 	$args = wp_parse_args( $query_args, array(
 		'post_type'			=> 'post',
 		'posts_per_page'	=> -1,
 	) );
 
+	// Placeholder replacements
+	array_walk_recursive( $args, 'pilau_cmb2_placeholder_replace' );
+
+	// Get posts
 	$posts = get_posts( $args );
 
+	// Populate options
 	$post_options = array();
 	if ( $posts ) {
 		foreach ( $posts as $post ) {
@@ -595,6 +601,24 @@ function pilau_cmb2_get_post_options( $query_args, $show_parent = false ) {
 	}
 
 	return $post_options;
+}
+
+
+/**
+ * Do CMB2 placeholder replacements (used with array_walk_recursive)
+ */
+function pilau_cmb2_placeholder_replace( &$value, $key ) {
+	global $post;
+	switch ( $value ) {
+		case '[[POST_ID]]': {
+			if ( ! empty( $post->ID ) ) {
+				$value = $post->ID;
+			} else if ( ! empty( $_REQUEST['post'] ) ) {
+				$value = (int) $_REQUEST['post'];
+			}
+			break;
+		}
+	}
 }
 
 
