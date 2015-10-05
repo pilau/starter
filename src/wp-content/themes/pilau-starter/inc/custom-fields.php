@@ -300,6 +300,25 @@ function pilau_custom_field_check( $field, $value = true, $notset = false ) {
  *************************************************************************************/
 
 
+//add_action( 'cmb2_save_post_fields', 'pilau_cmb2_checkbox_update_timestamp', 10, 4 );
+/**
+ * Record a timestamp for when certain checkboxes are updated
+ *
+ * @param	int		$object_id
+ * @param	int		$box_id
+ * @param	array	$updated_fields
+ * @param	object	$cmb2_object
+ * @return	void
+ */
+function pilau_cmb2_checkbox_update_timestamp( $object_id, $box_id, $updated_fields, $cmb2_object ) {
+	foreach ( $cmb2_object->meta_box['fields'] as $field ) {
+		if ( $field['type'] == 'checkbox' && ! empty( $field['pilau_checkbox_timestamp'] ) && in_array( $field['id'], $updated_fields ) ) {
+			update_post_meta( $object_id, $field['id'] . '_last_updated', time() );
+		}
+	}
+}
+
+
 add_filter( 'teeny_mce_before_init', 'pilau_tinymce_paste_as_text' );
 add_filter( 'tiny_mce_before_init', 'pilau_tinymce_paste_as_text' );
 /**
