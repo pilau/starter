@@ -105,3 +105,26 @@ function pilau_protocol_relative_image_urls( $html ) {
 
 	return $html;
 }
+
+
+add_filter( 'option_siteurl', 'pilau_fix_ssl_url' );
+add_filter( 'option_home', 'pilau_fix_ssl_url' );
+add_filter( 'option_url', 'pilau_fix_ssl_url' );
+add_filter( 'option_wpurl', 'pilau_fix_ssl_url' );
+add_filter( 'option_stylesheet_url', 'pilau_fix_ssl_url' );
+add_filter( 'option_template_url', 'pilau_fix_ssl_url' );
+add_filter( 'wp_get_attachment_url', 'pilau_fix_ssl_url' );
+/**
+ * Fix other URLs for SSL
+ *
+ * @link	http://wordpress.stackexchange.com/a/29756/2336
+ * @link	https://core.trac.wordpress.org/ticket/15928
+ * @param	string	$url
+ * @return	string
+ */
+function pilau_fix_ssl_url( $url ) {
+	if ( strpos( $url, 'http' ) === 0 && is_ssl() ) {
+		$url = str_replace( 'http://', 'https://', $url );
+	}
+	return $url;
+}
