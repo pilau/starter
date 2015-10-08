@@ -53,3 +53,22 @@ function pilau_gform_tabindexer( $tab_index, $form = false ) {
 }
 // Actually, no, disable Gravity Forms tabindexing works better
 add_filter( 'gform_tabindex', '__return_false' );
+
+
+add_filter( 'gform_submit_button', 'pilau_gform_submit_button', 10, 2 );
+/**
+ * Filter GF submit buttons
+ */
+function pilau_gform_submit_button( $button, $form ) {
+
+	// Turn it into a button element for easier styling
+	$button_text = __( 'Submit' );
+	if ( preg_match( "/ value='([^']+)'/", $button, $matches ) ) {
+		$button_text = $matches[1];
+	}
+	$button = str_replace( '<input', '<button', $button );
+	$button = str_replace( '/>', '>' . $button_text . '</button>', $button );
+	$button = str_replace( ' type="submit"', '', $button );
+
+	return $button;
+}
