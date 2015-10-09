@@ -47,9 +47,11 @@ jQuery( document ).ready( function( $ ) {
 	/** Initialise viewport infos */
 	pilau_viewport_infos();
 
-
 	/** Slideshows */
 	pilau_slideshows_manage();
+
+	/** FitVids */
+	$( '.fitvids,.editor-content' ).fitVids();
 
 
 	/** Hack for IE10 / 11 styling (conditional comments not supported) */
