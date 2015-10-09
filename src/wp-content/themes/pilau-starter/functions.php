@@ -118,6 +118,7 @@ require( dirname( __FILE__ ) . '/inc/feeds.php');
 require( dirname( __FILE__ ) . '/inc/custom-post-types.php' );
 require( dirname( __FILE__ ) . '/inc/custom-taxonomies.php' );
 require( dirname( __FILE__ ) . '/inc/custom-fields.php' );
+//require( dirname( __FILE__ ) . '/inc/mapping.php' );
 require( dirname( __FILE__ ) . '/inc/shortcodes.php' );
 require( dirname( __FILE__ ) . '/inc/widgets.php' );
 require( dirname( __FILE__ ) . '/inc/filtering.php');
