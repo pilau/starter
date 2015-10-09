@@ -589,6 +589,14 @@ function pilau_cmb2_show_on_custom( $cmb ) {
 					break;
 				}
 
+				case 'include_templates': {
+					// Replicates built-in check, seems to not work with 'show_on' and 'show_on_cb'
+					if ( ! empty( $show_on_condition ) && is_array( $show_on_condition ) ) {
+						$show = in_array( get_page_template_slug( $cmb->object_id ), $show_on_condition );
+					}
+					break;
+				}
+
 			}
 
 			// If a condition has failed, break out
