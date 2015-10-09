@@ -249,44 +249,77 @@ function pilau_inline_image_size_featured( $content ) {
 	*/
 
 	// See if there's a size hint from the image sizes array
+	$details_for_size_hint = null;
 	foreach ( $pilau_image_sizes as $size => $details ) {
 		if ( ! empty( $details['featured'] ) ) {
-			if (
-				( ! empty( $details['featured']['post_type'] ) && is_array( $details['featured']['post_type'] ) && in_array( get_post_type(), $details['featured']['post_type'] ) ) ||
-				( ! empty( $details['featured']['template'] ) && is_array( $details['featured']['template'] ) && get_post_type() == 'page' && ( in_array( get_page_template_slug(), $details['featured']['template'] ) || ( get_page_template_slug() == '' && in_array( 'default', $details['featured']['template'] ) ) ) )
-			) {
 
-				// Add size hint
-				if ( $details['height'] ) {
-
-					// Height specified - work out proportion
-					$proportion1 = 1;
-					$proportion2 = 1;
-					if ( $details['width'] > $details['height'] ) {
-						$proportion1 = round( $details['width'] / $details['height'], 1 );
-					} else if ( $details['width'] < $details['height'] ) {
-						$proportion2 = round( $details['height'] / $details['width'], 1 );
+			// Do the check for whether this post has featured details defined
+			$featured_check = false;
+			// This array is an ordered hierarchy - later check types can override details from earlier check types
+			foreach ( array( 'post_type', 'template' ) as $featured_check_type ) {
+				switch ( $featured_check_type ) {
+					case 'post_type': {
+						$featured_check = (
+							! empty( $details['featured']['post_type'] ) &&
+							is_array( $details['featured']['post_type'] ) &&
+							in_array( get_post_type(), $details['featured']['post_type'] )
+						);
+						break;
 					}
-					$hint .= ' ' . sprintf( __( 'Make sure the image is a 72 ppi JPG, and %1$dpx wide by %2$dpx high. The image can be bigger, but try to keep similar proportions (%3$s : %4$s).' ), $details['width'], $details['height'], $proportion1, $proportion2 );
-
-				} else {
-
-					// Height not specified
-					$hint .= ' ' . sprintf( __( 'Make sure the image is a 72 ppi JPG. It needn\'t be wider than %1$dpx. When resized, it\'ll keep its proportions.' ), $details['width'] );
-
+					case 'template': {
+						$featured_check = (
+							! empty( $details['featured']['template'] ) &&
+							is_array( $details['featured']['template'] ) &&
+							get_post_type() == 'page' &&
+							(
+								in_array( get_page_template_slug(), $details['featured']['template'] ) ||
+								( get_page_template_slug() == '' && in_array( 'default', $details['featured']['template'] ) )
+							)
+						);
+						break;
+					}
 				}
-
-				// Crop hint
-				if ( $details['crop'] ) {
-					$hint .= ' ' . sprintf( __( 'The image can be bigger, but if the proportions are different, bits may be cropped off when it\'s resized.' ) );
-				} else {
-					// Not sure this is necessary
-					//$hint .= ' ' . sprintf( __( 'The image can be bigger, but there may be gaps around it when it\'s resized.' ) );
-				}
-
-				break;
 			}
+
+			// Pick up details if check passes
+			if ( $featured_check ) {
+				$details_for_size_hint = $details;
+			}
+
 		}
+	}
+
+	// Have we got some details for the size hint?
+	if ( $details_for_size_hint ) {
+
+		// Add size hint
+		if ( $details_for_size_hint['height'] ) {
+
+			// Height specified - work out proportion
+			$proportion1 = 1;
+			$proportion2 = 1;
+			if ( $details_for_size_hint['width'] > $details_for_size_hint['height'] ) {
+				$proportion1 = round( $details_for_size_hint['width'] / $details_for_size_hint['height'], 1 );
+			} else if ( $details_for_size_hint['width'] < $details_for_size_hint['height'] ) {
+				$proportion2 = round( $details_for_size_hint['height'] / $details_for_size_hint['width'], 1 );
+			}
+			$hint .= ' ' . sprintf( __( 'Make sure the image is a 72 ppi JPG, and %1$dpx wide by %2$dpx high. The image can be bigger, but try to keep similar proportions (%3$s : %4$s).' ), $details_for_size_hint['width'], $details_for_size_hint['height'], $proportion1, $proportion2 );
+
+		} else {
+
+			// Height not specified
+			$hint .= ' ' . sprintf( __( 'Make sure the image is a 72 ppi JPG. It needn\'t be wider than %1$dpx. When resized, it\'ll keep its proportions.' ), $details_for_size_hint['width'] );
+
+		}
+
+		// Crop hint
+		if ( $details_for_size_hint['crop'] ) {
+			$hint .= ' ' . sprintf( __( 'The image can be bigger, but if the proportions are different, bits may be cropped off when it\'s resized.' ) );
+		} else {
+			// Not sure this is necessary
+			//$hint .= ' ' . sprintf( __( 'The image can be bigger, but there may be gaps around it when it\'s resized.' ) );
+		}
+
 	}
 
 	if ( $hint ) {
