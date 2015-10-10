@@ -638,7 +638,7 @@ function pilau_cmb2_get_post_options( $query_args, $show_parent = false ) {
 	if ( $posts ) {
 		foreach ( $posts as $post ) {
 			$post_options[ $post->ID ] = $post->post_title;
-			if ( $show_parent ) {
+			if ( $show_parent && $post->post_parent ) {
 				$post_options[ $post->ID ] = get_the_title( $post->post_parent ) . ' &gt; ' . $post_options[ $post->ID ];
 			}
 		}
