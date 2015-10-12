@@ -535,6 +535,7 @@ function pilau_cmb2_show_on_custom( $cmb ) {
 	$show_on_custom = $cmb->prop( 'show_on_custom' );
 
 	if ( ! empty( $show_on_custom ) ) {
+		$screen = get_current_screen();
 
 		// Loop through restrictions
 		foreach ( $show_on_custom as $show_on_type => $show_on_condition ) {
@@ -547,7 +548,6 @@ function pilau_cmb2_show_on_custom( $cmb ) {
 					switch ( $show_on_condition ) {
 						case 'publish_post_types':
 						case 'edit_others_post_types': {
-							$screen = get_current_screen();
 							$cap_for_posts = str_replace( '_post_types', '_posts', $show_on_condition );
 							$post_type_object = get_post_type_object( $screen->post_type );
 							$cap = $post_type_object->cap->$cap_for_posts;
@@ -593,6 +593,14 @@ function pilau_cmb2_show_on_custom( $cmb ) {
 					// Replicates built-in check, seems to not work with 'show_on' and 'show_on_cb'
 					if ( ! empty( $show_on_condition ) && is_array( $show_on_condition ) ) {
 						$show = in_array( get_page_template_slug( $cmb->object_id ), $show_on_condition );
+					}
+					break;
+				}
+
+				case 'parent': {
+					// Parent
+					if ( $screen->post_type == 'page' && ! empty( $show_on_condition ) && ( ctype_digit( $show_on_condition ) || is_int( $show_on_condition ) ) ) {
+						$show = wp_get_post_parent_id( $cmb->object_id ) == $show_on_condition;
 					}
 					break;
 				}
