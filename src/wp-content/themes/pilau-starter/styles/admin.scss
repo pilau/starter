@@ -33,6 +33,11 @@ Any styles for WordPress admin
 		}
 	}
 }
+.widget-content {
+	select {
+		max-width: 100%;
+	}
+}
 
 // Upload media
 .pilau-upload-media-preview {
