@@ -49,7 +49,7 @@ function pilau_get_postcode_info( $postcode, $info_type ) {
 				$info = $infos->{$info_type};
 			} else {
 				$info = false;
-				pilau_postcode_api_request_error( sprintf( __( 'Requested informtion (%s) not found in response.' ), $info_type ), $response );
+				pilau_postcode_api_request_error( sprintf( __( 'Requested information (%s) not found in response.' ), $info_type ), $response );
 			}
 
 		} else {
