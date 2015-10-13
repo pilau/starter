@@ -251,6 +251,20 @@ function pilau_cpt_map_meta_cap( $caps, $cap, $user_id, $args ) {
  *****************************************************************************************/
 
 
+add_action( 'init', 'pilau_define_post_type_ancestors' );
+/**
+ * Define the basic post type ancestors
+ */
+function pilau_define_post_type_ancestors() {
+	global $pilau_post_type_ancestors;
+
+	// [post_type]	=> array( [parent ID], [grandparent ID], etc. )
+	$pilau_post_type_ancestors = array(
+	);
+
+}
+
+
 /**
  * Get the ancestors of a CPT
  *
@@ -259,31 +273,35 @@ function pilau_cpt_map_meta_cap( $caps, $cap, $user_id, $args ) {
  * @return	array
  */
 function pilau_get_ancestors( $post = null ) {
+	global $pilau_post_type_ancestors;
 	$ancestors = array();
 	if ( is_null( $post ) ) {
 		$post = get_queried_object_id();
 	}
+	$post_id = is_object( $post ) ? $post->ID : $post;
 
-	// Define the basic ancestors
-	// [post_type]	=> array( [parent ID], [grandparent ID], etc. )
-	$post_type_ancestors = array(
-	);
+	if ( get_post_type( $post ) == 'page' ) {
 
-	if ( ( is_int( $post ) || is_object( $post ) ) && array_key_exists( get_post_type( $post ), $post_type_ancestors ) ) {
-		$ancestors = $post_type_ancestors[ get_post_type( $post ) ];
-		$post_id = is_object( $post ) ? $post->ID : $post;
+		$ancestors = get_post_ancestors( $post );
 
-		// Exceptions to assign dynamically
-		/*
-		switch ( get_post_type( $post ) ) {
+	} else {
 
-			case 'service': {
-				$ancestors = array( get_post_meta( $post_id, pilau_cmb2_meta_key( 'region' ), true ), PILAU_PAGE_ID_LOCAL_SERVICES );
-				break;
+		if ( ( is_int( $post ) || is_object( $post ) ) && array_key_exists( get_post_type( $post ), $pilau_post_type_ancestors ) ) {
+			$ancestors = $pilau_post_type_ancestors[ get_post_type( $post ) ];
+
+			// Exceptions to assign dynamically
+			/*
+			switch ( get_post_type( $post ) ) {
+
+				case 'service': {
+					$ancestors = array( get_post_meta( $post_id, pilau_cmb2_meta_key( 'region' ), true ), PILAU_PAGE_ID_LOCAL_SERVICES );
+					break;
+				}
+
 			}
+			*/
 
 		}
-		*/
 
 	}
 
