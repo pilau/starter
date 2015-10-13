@@ -49,16 +49,30 @@ function pilau_get_postcode_info( $postcode, $info_type ) {
 				$info = $infos->{$info_type};
 			} else {
 				$info = false;
+				pilau_postcode_api_request_error( sprintf( __( 'Requested informtion (%s) not found in response.' ), $info_type ), $response );
 			}
 
 		} else {
 
 			// Signal a bad response
 			$info = false;
+			pilau_postcode_api_request_error( __( 'Bad response to request.' ), $response );
 
 		}
 
 	}
 
 	return $info;
+}
+
+
+/**
+ * Error email for postcodes API requests
+ */
+function pilau_postcode_api_request_error( $type, $response ) {
+	wp_mail(
+		get_option( 'admin_email' ),
+		'[' . get_option( 'blogname' ) . '] ' . __( 'Postcodes API error' ),
+		sprintf( __( 'Error type: %s' ), $type ) . "\n\nResponse:\n" . print_r( $response, true ) . "\n\nRequest details:\n" . print_r( $_REQUEST, true )
+	);
 }
