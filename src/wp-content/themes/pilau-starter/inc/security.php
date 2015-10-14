@@ -15,7 +15,16 @@ add_action( 'init', 'pilau_block_front_end' );
  * @since	0.1
  */
 function pilau_block_front_end() {
-	if ( ! ( defined( 'WP_LOCAL_DEV' ) && WP_LOCAL_DEV ) && defined( 'PILAU_BLOCK_FRONT_END' ) && PILAU_BLOCK_FRONT_END && ! is_admin() && ! pilau_is_login_page() && ! current_user_can( 'update_core' ) ) {
+	$always_allowed_ips = array(
+		'90.197.157.134', // Public Life
+	);
+	if (	! ( defined( 'WP_LOCAL_DEV' ) && WP_LOCAL_DEV ) &&
+			( defined( 'PILAU_BLOCK_FRONT_END' ) && PILAU_BLOCK_FRONT_END ) &&
+			! is_admin() &&
+			! pilau_is_login_page() &&
+			! current_user_can( 'update_core' ) &&
+			! in_array( $_SERVER['REMOTE_ADDR'], $always_allowed_ips )
+	) {
 		wp_die(
 			'<p>' . __( 'Sorry, the front end of this site is currently blocked.' ) . '</p>',
 			__( 'Front end blocked' ),
