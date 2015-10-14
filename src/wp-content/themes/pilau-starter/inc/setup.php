@@ -198,7 +198,7 @@ if ( PILAU_FRONT_OR_AJAX ) {
  * @since	Pilau_Starter 0.1
  */
 function pilau_setup_after_post() {
-	global $pilau_custom_fields, $post;
+	global $pilau_custom_fields, $post, $pilau_endpoint_page, $wp_query;
 	$pilau_custom_fields = array();
 
 	/*
@@ -247,6 +247,33 @@ function pilau_setup_after_post() {
 	 */
 	if ( PILAU_PAGE_ID_CURRENT ) {
 		$pilau_custom_fields = pilau_get_custom_fields( $current_page_id, 'post' );
+	}
+
+	/*
+	 * Pages managed by endpoints
+	 */
+	$pilau_endpoint_page = null;
+	/*
+	if ( in_array( get_post_type(), array( 'region', 'service', 'service_detail' ) ) && isset( $wp_query->query_vars['enquiries'] ) ) {
+		$pilau_endpoint_page = 'enquiries';
+	}
+	*/
+
+}
+
+
+//add_action( 'template_redirect', 'pilau_process_endpoints' );
+/**
+ * Process rewrite endpoints
+ */
+function pilau_process_endpoints() {
+	global $pilau_endpoint_page;
+
+	switch ( $pilau_endpoint_page ) {
+		case 'enquiries': {
+			get_template_part( 'page_enquiries' );
+			exit;
+		}
 	}
 
 }

@@ -339,7 +339,7 @@ function pilau_is_ancestor( $maybe_ancestor_id, $page_id = PILAU_PAGE_ID_CURRENT
  * @return	void
  */
 function pilau_post_back_link( $link_text = null, $keep_referer_qs = false ) {
-	global $post;
+	global $post, $pilau_endpoint_page;
 
 	// Link text
 	if ( ! $link_text ) {
@@ -348,26 +348,35 @@ function pilau_post_back_link( $link_text = null, $keep_referer_qs = false ) {
 
 	// Link
 	$link = null;
-	switch ( get_post_type() ) {
-		case 'post': {
-			if ( $posts_page_id = get_option( 'page_for_posts' ) ) {
-				$link = get_permalink( $posts_page_id );
-			} else {
-				$link = get_home_url();
+	if ( $pilau_endpoint_page ) {
+
+		// For endpoints, "back" is to "current" post
+		$link = get_permalink();
+
+	} else {
+
+		switch ( get_post_type() ) {
+			case 'post': {
+				if ( $posts_page_id = get_option( 'page_for_posts' ) ) {
+					$link = get_permalink( $posts_page_id );
+				} else {
+					$link = get_home_url();
+				}
+				break;
 			}
-			break;
+			case 'page': {
+				$ancestors = get_post_ancestors( $post );
+				$link = get_permalink( $ancestors[0] );
+				break;
+			}
+			default: {
+				// Custom post type
+				$ancestors = pilau_get_ancestors( $post );
+				$link = get_permalink( $ancestors[0] );
+				break;
+			}
 		}
-		case 'page': {
-			$ancestors = get_post_ancestors( $post );
-			$link = get_permalink( $ancestors[0] );
-			break;
-		}
-		default: {
-			// Custom post type
-			$ancestors = pilau_get_ancestors( $post );
-			$link = get_permalink( $ancestors[0] );
-			break;
-		}
+
 	}
 
 	if ( $link ) {
@@ -408,9 +417,12 @@ add_filter( 'wpseo_breadcrumb_links', 'pilau_wpseo_breadcrumb_links' );
  * @since	0.1
  */
 function pilau_wpseo_breadcrumb_links( $links ) {
+	global $pilau_endpoint_page;
 
-	// Check for single CPT posts and add ancestors
-	if ( in_array( get_post_type(), pilau_get_public_custom_post_type_names() ) ) {
+	// Check for single CPT posts and endpoint pages and add ancestors
+	if (	in_array( get_post_type(), pilau_get_public_custom_post_type_names() ) ||
+			$pilau_endpoint_page
+	) {
 		$ancestors = pilau_get_ancestors();
 
 		foreach ( array_reverse( $ancestors ) as $ancestor ) {
@@ -419,6 +431,16 @@ function pilau_wpseo_breadcrumb_links( $links ) {
 					'id'	=> $ancestor
 				)
 			));
+		}
+
+		// Endpoint pages
+		switch ( $pilau_endpoint_page ) {
+			case 'enquiries': {
+				$links[] = array(
+					'text'		=> __( 'Enquiries' ),
+				);
+				break;
+			}
 		}
 
 	}
