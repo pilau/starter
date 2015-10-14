@@ -78,12 +78,18 @@ add_filter( 'body_class', 'pilau_body_class' );
  * @since	Pilau_Starter 0.1
  */
 function pilau_body_class( $classes ) {
+	global $pilau_endpoint_page;
 
 	// Signal environment for server-dependent CSS
 	if ( WP_LOCAL_DEV ) {
 		$classes[] = 'env-local';
 	} else {
 		$classes[] = 'env-' . PILAU_REMOTE_ENV;
+	}
+
+	// Endpoints
+	if ( $pilau_endpoint_page ) {
+		$classes[] = 'endpoint-' . $pilau_endpoint_page;
 	}
 
 	return $classes;
