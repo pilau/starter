@@ -104,7 +104,7 @@ function pilau_setup_media() {
 	//set_post_thumbnail_size( $pilau_image_sizes['post-thumbnail']['width'], $pilau_image_sizes['post-thumbnail']['height'], $pilau_image_sizes['post-thumbnail']['crop'] );
 
 	/* Set custom image sizes */
-	foreach ( array( 'slideshow', 'slideshow-portrait' ) as $custom_size ) {
+	foreach ( array_diff_key( $pilau_image_sizes, array( 'thumbnail' => array(), 'medium' => array(), 'large' => array(), 'post-thumbnail' => array() ) ) as $custom_size ) {
 		add_image_size( $custom_size, $pilau_image_sizes[$custom_size]['width'], $pilau_image_sizes[$custom_size]['height'], $pilau_image_sizes[$custom_size]['crop'] );
 	}
 
