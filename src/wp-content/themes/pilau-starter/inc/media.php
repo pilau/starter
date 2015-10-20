@@ -233,7 +233,7 @@ add_filter( 'option_image_default_link_type', function() { return 'none'; } );
 function pilau_slideshow() {
 	global $pilau_custom_fields, $pilau_breakpoints;
 
-	// Gather custom fields from items
+	// Gather items from custom fields
 	$items = array();
 	for ( $i = 1; $i <= PILAU_SLIDESHOW_ITEMS; $i++ ) {
 		if ( ! empty( $pilau_custom_fields['slideshow-item-' . $i ] ) ) {
