@@ -280,14 +280,14 @@ function pilau_get_ancestors( $post = null ) {
 	}
 	$post_id = is_object( $post ) ? $post->ID : $post;
 
-	if ( get_post_type( $post ) == 'page' ) {
+	if ( get_post_type( $post_id ) == 'page' ) {
 
-		$ancestors = get_post_ancestors( $post );
+		$ancestors = get_post_ancestors( $post_id );
 
 	} else {
 
-		if ( ( is_int( $post ) || is_object( $post ) ) && array_key_exists( get_post_type( $post ), $pilau_post_type_ancestors ) ) {
-			$ancestors = $pilau_post_type_ancestors[ get_post_type( $post ) ];
+		if ( is_int( $post_id ) && array_key_exists( get_post_type( $post_id ), $pilau_post_type_ancestors ) ) {
+			$ancestors = $pilau_post_type_ancestors[ get_post_type( $post_id ) ];
 
 			// Exceptions to assign dynamically
 			/*
