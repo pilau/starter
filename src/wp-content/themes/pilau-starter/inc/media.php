@@ -104,8 +104,8 @@ function pilau_setup_media() {
 	//set_post_thumbnail_size( $pilau_image_sizes['post-thumbnail']['width'], $pilau_image_sizes['post-thumbnail']['height'], $pilau_image_sizes['post-thumbnail']['crop'] );
 
 	/* Set custom image sizes */
-	foreach ( array( 'slideshow', 'slideshow-portrait' ) as $custom_size ) {
-		add_image_size( $custom_size, $pilau_image_sizes[$custom_size]['width'], $pilau_image_sizes[$custom_size]['height'], $pilau_image_sizes[$custom_size]['crop'] );
+	foreach ( array_diff_key( $pilau_image_sizes, array( 'thumbnail' => array(), 'medium' => array(), 'large' => array(), 'post-thumbnail' => array() ) ) as $custom_size_name => $custom_size_details ) {
+		add_image_size( $custom_size_name, $custom_size_details['width'], $custom_size_details['height'], $custom_size_details['crop'] );
 	}
 
 	/* Slideshows */
@@ -233,7 +233,7 @@ add_filter( 'option_image_default_link_type', function() { return 'none'; } );
 function pilau_slideshow() {
 	global $pilau_custom_fields, $pilau_breakpoints;
 
-	// Gather custom fields from items
+	// Gather items from custom fields
 	$items = array();
 	for ( $i = 1; $i <= PILAU_SLIDESHOW_ITEMS; $i++ ) {
 		if ( ! empty( $pilau_custom_fields['slideshow-item-' . $i ] ) ) {
