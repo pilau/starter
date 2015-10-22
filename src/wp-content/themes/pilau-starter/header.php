@@ -67,7 +67,7 @@ global $pilau_use_breadcrumbs;
 	* Remember to update the version appended here if you upgrade!
 	*/
 	?>
-	<script src="<?php echo get_stylesheet_directory_uri() . '/js/modernizr.js?ver=2.8.3'; ?>"></script>
+	<script src="<?php echo get_stylesheet_directory_uri() . '/js/modernizr.js?ver=3.1.0'; ?>"></script>
 
 </head>
 <body <?php body_class(); ?> role="document">
