@@ -76,9 +76,13 @@ function pilau_post_date() { ?>
  * @since	Pilau_Starter 0.1
  *
  * @param	bool	$global		Global style?
+ * @param	array	$services		Array of services to include
  * @return	void
  */
-function pilau_share_links( $global = false ) {
+function pilau_share_links( $global = false, $services = null ) {
+	if ( is_null( $services ) ) {
+		$services = array( 'facebook', 'twitter', 'google', 'email', 'sharethis' );
+	}
 	$st_url = '';
 	if ( PILAU_PLUGIN_EXISTS_SHARETHIS && $global ) {
 		$st_url = ' st_url="' . home_url() . '"';
@@ -86,15 +90,23 @@ function pilau_share_links( $global = false ) {
 
 	echo '<ul class="share-links-list">';
 
-	echo '<li class="share-links-item facebook">' . pilau_share_link( 'facebook', 'Facebook', __( 'Share on Facebook' ), $st_url ) . '</li>';
-	echo '<li class="share-links-item twitter">' . pilau_share_link( 'twitter', 'Twitter', __( 'Share on Twitter' ), $st_url ) . '</li>';
-	echo '<li class="share-links-item google">' . pilau_share_link( 'google', 'Google+', __( 'Share on Google Plus' ), $st_url ) . '</li>';
+	if ( in_array( 'facebook', $services ) ) {
+		echo '<li class="share-links-item facebook">' . pilau_share_link( 'facebook', 'Facebook', __( 'Share on Facebook' ), $st_url ) . '</li>';
+	}
+	if ( in_array( 'twitter', $services ) ) {
+		echo '<li class="share-links-item twitter">' . pilau_share_link( 'twitter', 'Twitter', __( 'Share on Twitter' ), $st_url ) . '</li>';
+	}
+	if ( in_array( 'google', $services ) ) {
+		echo '<li class="share-links-item google">' . pilau_share_link( 'google', 'Google+', __( 'Share on Google Plus' ), $st_url ) . '</li>';
+	}
 
 	if ( PILAU_PLUGIN_EXISTS_SHARETHIS ) {
-		if ( ! $global ) {
+		if ( ! $global && in_array( 'email', $services ) ) {
 			echo '<li class="share-links-item email">' . pilau_share_link( 'email', 'Email', __( 'Share by email' ), $st_url ) . '</li>';
 		}
-		echo '<li class="share-links-item"><span class="st_sharethis_custom icon-share" st_via="' . PILAU_USERNAME_TWITTER . '" tabindex="0" title="' . __( 'More sharing options...' ) . '"' . $st_url . '>' . __( 'More sharing...' ) . '</span></li>';
+		if ( in_array( 'sharethis', $services ) ) {
+			echo '<li class="share-links-item"><span class="st_sharethis_custom icon-share" st_via="' . PILAU_USERNAME_TWITTER . '" tabindex="0" title="' . __( 'More sharing options...' ) . '"' . $st_url . '>' . __( 'More sharing...' ) . '</span></li>';
+		}
 	}
 
 	echo '</ul>';

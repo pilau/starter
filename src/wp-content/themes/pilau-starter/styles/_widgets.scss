@@ -50,3 +50,24 @@
 		display: inline-block;
 	}
 }
+
+// Social sharing
+.pilau-widget-social-sharing {
+	.share-links-item {
+		display: inline-block;
+		vertical-align: middle;
+		margin-right: .3em;
+	}
+	.icon-circled {
+		&:before {
+			width: 25px;
+			height: 25px;
+			margin: 0;
+			padding-top: .3em;
+		}
+		&:hover, &:focus {
+			&:before {
+			}
+		}
+	}
+}

@@ -68,6 +68,7 @@ function pilau_register_widgets() {
 	//register_widget( 'Pilau_Widget_Example' );
 	//register_widget( 'Pilau_Widget_In_This_Section' );
 	//register_widget( 'Pilau_Widget_Call_To_Action' );
+	//register_widget( 'Pilau_Widget_Social_Sharing' );
 
 }
 
@@ -393,6 +394,78 @@ class Pilau_Widget_Call_To_Action extends WP_Widget {
 			echo '</a>';
 			echo $args['after_widget'];
 		}
+	}
+
+}
+
+
+/**
+ * Social sharing widget
+ *
+ * @since	0.1
+ */
+class Pilau_Widget_Social_Sharing extends WP_Widget {
+
+	/**
+	 * The available services
+	 */
+	protected $services = array( 'facebook', 'twitter', 'google', 'email', 'sharethis' );
+
+	/**
+	 * Initialise
+	 */
+	public function __construct() {
+		parent::__construct(
+			'pilau-social-sharing',
+			__( 'Social sharing' ),
+			array(
+				'classname'		=> 'pilau-widget-social-sharing',
+				'description'	=> __( 'Links to share on social media.' )
+			)
+		);
+		if ( ! PILAU_PLUGIN_EXISTS_SHARETHIS ) {
+			unset( $this->services['email'] );
+			unset( $this->services['sharethis'] );
+		}
+	}
+
+	/**
+	 * Admin form
+	 */
+	public function form( $instance ) {
+		$defaults = array_combine( $this->services, array_fill( 0, count( $this->services ), true ) );
+		$instance = wp_parse_args( (array) $instance, $defaults );
+
+		foreach ( $this->services as $service ) {
+			?>
+			<div class="pilau-widget-field">
+				<label for="<?php echo $this->get_field_id( $service ); ?>" style="display: inline-block;margin-right:.5em;width:7em;"><?php echo ucfirst( $service ); ?></label>
+				<input type="checkbox" id="<?php echo $this->get_field_id( $service ); ?>" name="<?php echo $this->get_field_name( $service ); ?>" value="1" <?php checked( $instance[ $service ] ); ?>>
+			</div>
+			<?php
+		}
+
+	}
+
+	/**
+	 * Update
+	 */
+	public function update( $new_instance, $old_instance ) {
+		$instance = $old_instance;
+		foreach ( $this->services as $service ) {
+			$instance[ $service ] = (boolean) $new_instance[ $service ];
+		}
+		return $instance;
+	}
+
+	/**
+	 * Display
+	 */
+	public function widget( $args, $instance ) {
+		echo $args['before_widget'];
+		echo str_replace( ' class="', ' class="screen-reader-text ', $args['before_title'] ) . __( 'Social sharing' ) . $args['after_title'];
+		pilau_share_links( false, array_keys( $instance, true ) );
+		echo $args['after_widget'];
 	}
 
 }
