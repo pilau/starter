@@ -424,8 +424,8 @@ class Pilau_Widget_Social_Sharing extends WP_Widget {
 			)
 		);
 		if ( ! PILAU_PLUGIN_EXISTS_SHARETHIS ) {
-			unset( $this->services['email'] );
-			unset( $this->services['sharethis'] );
+			unset( $this->services[ array_search( 'email', $this->services ) ] );
+			unset( $this->services[ array_search( 'sharethis', $this->services ) ] );
 		}
 	}
 
