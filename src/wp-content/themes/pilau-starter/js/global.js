@@ -306,6 +306,11 @@ jQuery( document ).ready( function( $ ) {
 		if ( this.is( '[aria-hidden]' ) ) {
 			this.attr( 'aria-hidden', 'false' );
 		}
+		// If there's a form in the popup, focus on first field
+		var forms = this.find( 'form' );
+		if ( forms.length ) {
+			forms.first().find( 'input' ).first().focus();
+		}
 	};
 	$.fn.pilauPopupClose = function() {
 		this.removeClass( 'popup-open' ).addClass( 'popup-closed' ).children( '.popup-box' );
