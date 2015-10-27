@@ -154,6 +154,7 @@ add_filter( 'simple_page_ordering_is_sortable', 'pilau_simple_page_ordering_is_s
  */
 function pilau_simple_page_ordering_is_sortable( $sortable, $post_type ) {
 	return in_array( $post_type, array(
+		'page'
 	));
 }
 
