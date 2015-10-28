@@ -31,6 +31,10 @@ function pilau_setup() {
 	// HTML5 support
 	add_theme_support( 'html5', array( 'widgets' ) );
 
+	// Title tag
+	// @link https://make.wordpress.org/core/2014/10/29/title-tags-in-4-1/
+	add_theme_support( 'title-tag' );
+
 	// Hide admin bar for non-editors
 	if ( ! current_user_can( 'edit_posts' ) ) {
 		add_filter( 'show_admin_bar', '__return_false' );

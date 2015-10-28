@@ -20,8 +20,6 @@ global $pilau_use_breadcrumbs;
 
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 
-	<title><?php wp_title(); ?></title>
-
 	<!-- Mobile meta -->
 	<meta name="HandheldFriendly" content="True">
 	<meta name="MobileOptimized" content="320">
