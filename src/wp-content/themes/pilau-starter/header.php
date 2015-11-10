@@ -31,7 +31,7 @@ global $pilau_use_breadcrumbs;
 	*/ ?>
 
 	<?php /* Fonts */ ?>
-	<link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
+	<link href='//fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
 
 	<?php
 	/*
