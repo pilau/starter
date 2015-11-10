@@ -6,6 +6,8 @@
 	margin: 0;
 	.menu-item {
 		position: relative;
+		display: inline-block;
+		margin-right: 1em;
 		a {
 			color: #000;
 		}
