@@ -87,6 +87,12 @@ function pilau_cmb2_custom_fields() {
 	/* CPT author
 	********************************************************************************/
 
+	/*
+	 * NOTE: This code is kept here in case it comes in useful. However, for the basic
+	 * problem here, a better solution now is probably:
+	 * @link	http://themehybrid.com/weblog/members-role-levels-wordpress-plugin
+	 * Remove this code if not needed.
+
 	// Loop through CPTs
 	foreach ( get_post_types( array( '_builtin' => false ), 'objects' ) as $cpt ) {
 
@@ -121,6 +127,8 @@ function pilau_cmb2_custom_fields() {
 
 		}
 	}
+
+	*/
 
 
 	/* FAQs

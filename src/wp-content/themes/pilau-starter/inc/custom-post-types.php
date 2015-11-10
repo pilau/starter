@@ -77,7 +77,7 @@ function pilau_register_post_types() {
 			),
 			'has_archive'			=> false,
 			'hierarchical'			=> false,
-			'supports'				=> array( 'title', 'editor', 'custom-fields', 'thumbnail', 'revisions', 'pilau-author' ),
+			'supports'				=> array( 'title', 'editor', 'custom-fields', 'thumbnail', 'revisions' ),
 			'taxonomies'			=> array( 'projecttype' ),
 		)
 	);
