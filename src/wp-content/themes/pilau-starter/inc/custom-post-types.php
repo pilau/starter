@@ -21,6 +21,11 @@ add_action( 'init', 'pilau_register_post_types', 0 );
  */
 function pilau_register_post_types() {
 
+	/*
+	 * For CPTs to support authors:
+	 * @link	http://themehybrid.com/weblog/members-role-levels-wordpress-plugin
+	 * @link	http://themehybrid.com/weblog/correcting-the-author-meta-box-drop-down
+	 */
 
 	/*
 	register_post_type(

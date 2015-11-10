@@ -89,8 +89,9 @@ function pilau_cmb2_custom_fields() {
 
 	/*
 	 * NOTE: This code is kept here in case it comes in useful. However, for the basic
-	 * problem here, a better solution now is probably:
+	 * problem here, a better solution now is probably on of these:
 	 * @link	http://themehybrid.com/weblog/members-role-levels-wordpress-plugin
+	 * @link	http://themehybrid.com/weblog/correcting-the-author-meta-box-drop-down
 	 * Remove this code if not needed.
 
 	// Loop through CPTs
