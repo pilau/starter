@@ -24,6 +24,13 @@
 ##</IfModule>
 # staging-password-end
 
+# This must be whitelisted to enable admin AJAX functionality on staging, e.g. Wordfence scans
+<Files admin-ajax.php>
+    Order allow,deny
+    Allow from all
+    Satisfy any
+</Files>
+
 # ----------------------------------------------------------------------
 # Rewriting
 # ----------------------------------------------------------------------
