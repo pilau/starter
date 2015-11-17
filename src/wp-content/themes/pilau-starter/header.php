@@ -6,7 +6,7 @@
  * @package	Pilau_Starter
  * @since	0.1
  */
-global $pilau_use_breadcrumbs;
+global $pilau_use_breadcrumbs, $pilau_cookie_notice_just_set;
 
 /*
  * Conditional HTML classes for IE / JS targetting
@@ -80,7 +80,7 @@ global $pilau_use_breadcrumbs;
 
 <?php
 /* Cookie notice */
-if ( PILAU_USE_COOKIE_NOTICE && ! isset( $_COOKIE['pilau_cookie_notice'] ) && empty( $_REQUEST['close-cookie-notice'] ) ) { ?>
+if ( PILAU_USE_COOKIE_NOTICE && ! isset( $_COOKIE['pilau_cookie_notice'] ) && empty( $_REQUEST['close-cookie-notice'] ) && ! $pilau_cookie_notice_just_set ) { ?>
 	<div id="cookie-notice">
 		<div class="wrap">
 			<div class="text">

@@ -129,6 +129,8 @@ if ( PILAU_USE_COOKIE_NOTICE ) {
  * @todo	Implement more sophisticated cookie handling (JS?) to hide notice for users who have disabled cookies
  */
 function pilau_cookie_notice() {
+	global $pilau_cookie_notice_just_set;
+	$pilau_cookie_notice_just_set = false;
 
 	// Check for this domain in referrer
 	if ( ! empty( $_SERVER['HTTP_REFERER'] ) && parse_url( $_SERVER['HTTP_REFERER'], PHP_URL_HOST ) == $_SERVER['SERVER_NAME'] ) {
@@ -136,6 +138,7 @@ function pilau_cookie_notice() {
 		// Set cookie showing (implied) consent
 		// Expires in 10 years
 		setcookie( 'pilau_cookie_notice', 1, time() + ( 10 * 365 * 24 * 60 * 60 ), '/' );
+		$pilau_cookie_notice_just_set = true;
 
 	}
 
