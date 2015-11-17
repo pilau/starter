@@ -80,7 +80,7 @@ global $pilau_use_breadcrumbs;
 
 <?php
 /* Cookie notice */
-if ( PILAU_USE_COOKIE_NOTICE && ! isset( $_COOKIE['pilau_cookie_notice'] ) ) { ?>
+if ( PILAU_USE_COOKIE_NOTICE && ! isset( $_COOKIE['pilau_cookie_notice'] ) && empty( $_REQUEST['close-cookie-notice'] ) ) { ?>
 	<div id="cookie-notice">
 		<div class="wrap">
 			<div class="text">
