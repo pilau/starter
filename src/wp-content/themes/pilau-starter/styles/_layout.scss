@@ -77,6 +77,24 @@ main {
 	*/
 }
 
+// Extra guttering
+@include Tablet {
+	.grid-extra-gutter-right {
+		padding-right: $gutter*2;
+	}
+	.grid-extra-gutter-left {
+		padding-left: $gutter*2;
+	}
+}
+@include Tablet {
+	.grid-extra-gutter-right {
+		padding-right: $gutter*3;
+	}
+	.grid-extra-gutter-left {
+		padding-left: $gutter*3;
+	}
+}
+
 // A column that needs floating to the right
 .grid-col-right {
 	float: right;
