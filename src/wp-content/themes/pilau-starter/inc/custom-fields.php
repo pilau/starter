@@ -670,14 +670,12 @@ function pilau_cmb2_get_post_options( $query_args, $show_parent = false ) {
  */
 function pilau_cmb2_placeholder_replace( &$value, $key ) {
 	global $post;
-	switch ( $value ) {
-		case '[[POST_ID]]': {
-			if ( ! empty( $post->ID ) ) {
-				$value = $post->ID;
-			} else if ( ! empty( $_REQUEST['post'] ) ) {
-				$value = (int) $_REQUEST['post'];
-			}
-			break;
+	// Use if / else if, with ===, because switch/case does odd things
+	if ( $value === '[[POST_ID]]' ) {
+		if ( ! empty( $post->ID ) ) {
+			$value = $post->ID;
+		} else if ( ! empty( $_REQUEST['post'] ) ) {
+			$value = (int) $_REQUEST['post'];
 		}
 	}
 }
