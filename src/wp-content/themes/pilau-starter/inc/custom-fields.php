@@ -703,6 +703,108 @@ function pilau_cmb2_get_template_pages_options( $template, $show_parent = true )
 
 
 /**
+ * Get hierarchical page tree to populate CMB2 options
+ *
+ * @param		array			$query_args
+ * @param		int				$descendants_of
+ * @param		bool|string	$show_none
+ * @return		array
+ */
+function pilau_cmb2_get_page_tree_options( $descendants_of, $query_args = array(), $show_none = false ) {
+
+	// Default args
+	$args = wp_parse_args( $query_args, array(
+			'post_type'			=> 'page',
+			'posts_per_page'	=> -1,
+			'child_of'			=> $descendants_of,
+			'sort_column'		=> 'menu_order',
+	) );
+
+	// Placeholder replacements
+	//echo '<pre>'; print_r( $args ); echo '</pre>';
+	array_walk_recursive( $args, 'pilau_cmb2_placeholder_replace' );
+	//echo '<pre>'; print_r( $args ); echo '</pre>'; exit;
+
+	// Get pages
+	$pages = get_pages( $args );
+	//echo '<pre>'; print_r( $pages ); echo '</pre>'; exit;
+
+	// Kick off recursive population
+	$options = pilau_cmb2_get_page_tree_options_populate( $pages, array( $descendants_of ) );
+	//echo '<pre>'; print_r( count( $options ) ); echo '</pre>';
+	//echo '<pre>'; print_r( $options ); echo '</pre>'; exit;
+
+	// Add 'show none'?
+	if ( $show_none ) {
+		if ( ! is_string( $show_none ) ) {
+			$show_none = '[' . __( 'None' ) . ']';
+		}
+		$options = array( 0 => $show_none ) + $options;
+	}
+
+	return $options;
+}
+
+// Helper function for page tree options recursion
+function pilau_cmb2_get_page_tree_options_populate( $pages, $previous_level_ids, &$options = array(), $level = 0 ) {
+	static $children_count = array(); // Keep track of how many child pages have been added for each page
+	// Reset static vars?
+	if ( empty( $options ) ) {
+		$children_count = array();
+	}
+	$this_level_ids = array();
+
+	// Loop through pages results and add in pages at current level
+	foreach ( $pages as $page ) {
+
+		// Is this page's parent in the previous level?
+		if ( in_array( $page->post_parent, $previous_level_ids ) ) {
+
+			// Register in the children count and level IDs arrays
+			if ( ! empty( $children_count[ $page->post_parent ] ) ) {
+				$children_count[ $page->post_parent ] = 1;
+			} else {
+				$children_count[ $page->post_parent ]++;
+			}
+			$this_level_ids[] = $page->ID;
+
+			// If we're at the top level, adding is simple
+			if ( $level == 0 ) {
+
+				$options[ $page->ID ] = $page->post_title;
+
+			} else {
+
+				// If we're any lower than the top level, we need to work out where to insert
+
+				// Find the position of the parent
+				$parent_pos = array_search( $page->post_parent, array_keys( $options ) );
+
+				// Account for existing children
+				$insert_at_pos = $parent_pos + $children_count[ $page->post_parent ];
+
+				// Add the page in after the parent, and after any existing child pages
+				$options =	array_slice( $options, 0, $insert_at_pos, true ) +
+						array( $page->ID => str_repeat( '&#151;', $level ) . ' ' . $page->post_title ) +
+						array_slice( $options, $insert_at_pos, count( $options ) - 1, true );
+
+			}
+
+		}
+
+	}
+	//echo '<pre>'; print_r( $options ); echo '</pre>'; exit;
+
+	// Recurse?
+	if ( count( $options ) < count( $pages ) ) {
+		pilau_cmb2_get_page_tree_options_populate( $pages, $this_level_ids, $options, $level + 1 );
+	}
+
+	return $options;
+}
+
+
+/**
  * Get terms to populate CMB2 options
  *
  * @param		string	$taxonomy
