@@ -376,3 +376,30 @@ function pilau_enqueue_styles() {
 function pilau_login_styles_scripts() { ?>
 	<link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri() . '/styles/wp-login.css'; ?>">
 <?php }
+
+
+add_filter( 'comments_open', 'pilau_comments_open', 10, 2 );
+/**
+ * Comments open
+ */
+function pilau_comments_open( $open, $post_id ) {
+
+	if ( ! PILAU_USE_COMMENTS ) {
+		$open = false;
+	}
+
+	return $open;
+}
+
+add_filter( 'get_comments_number', 'pilau_get_comments_number', 10, 2 );
+/**
+ * Comments number
+ */
+function pilau_get_comments_number( $number, $post_id ) {
+
+	if ( ! PILAU_USE_COMMENTS ) {
+		$number = 0;
+	}
+
+	return $number;
+}
