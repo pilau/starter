@@ -392,6 +392,17 @@ function pilau_teaser_text( $post_id = null, $max_words = 30, $max_paras = 0, $s
 }
 
 
+//add_filter( 'the_content', 'pilau_autolinks_urls' );
+/**
+ * Autolink plain URLs
+ *
+ * @since	Pilau_Starter 0.1
+ */
+function pilau_autolinks_urls( $content ) {
+	return preg_replace( '/([^"])(https?:\/\/)([a-zA-Z0-9\.\/\?\:@\-_=#]+)([a-zA-Z0-9\.\/\?\:@\-_=#])*([^"])/', '\1<a href="\2\3\4">\2\3\4</a>\5', $content );
+}
+
+
 add_filter( 'the_posts', 'pilau_multiply_posts', 10, 2 );
 /**
  * Allow the multiplication of posts in query results for testing purposes
