@@ -257,26 +257,36 @@ function pilau_inline_image_size_featured( $content ) {
 			$featured_check = false;
 			// This array is an ordered hierarchy - earlier check types override details from later check types
 			foreach ( array( 'post_type', 'template' ) as $featured_check_type ) {
-				switch ( $featured_check_type ) {
-					case 'post_type': {
-						$featured_check = (
-								! empty( $details['featured']['post_type'] ) &&
-								is_array( $details['featured']['post_type'] ) &&
-								in_array( get_post_type(), $details['featured']['post_type'] )
-						);
-						break;
-					}
-					case 'template': {
-						$featured_check = (
-								! empty( $details['featured']['template'] ) &&
-								is_array( $details['featured']['template'] ) &&
-								get_post_type() == 'page' &&
-								(
-										in_array( get_page_template_slug(), $details['featured']['template'] ) ||
-										( get_page_template_slug() == '' && in_array( 'default', $details['featured']['template'] ) )
-								)
-						);
-						break;
+				if ( array_key_exists( $featured_check_type, $details['featured'] ) ) {
+					switch ( $featured_check_type ) {
+						case 'post_ids': {
+							$featured_check = (
+								! empty( $details['featured']['post_ids'] ) &&
+								is_array( $details['featured']['post_ids'] ) &&
+								in_array( $_REQUEST['post'], $details['featured']['post_ids'] )
+							);
+							break;
+						}
+						case 'post_type': {
+							$featured_check = (
+									! empty( $details['featured']['post_type'] ) &&
+									is_array( $details['featured']['post_type'] ) &&
+									in_array( get_post_type(), $details['featured']['post_type'] )
+							);
+							break;
+						}
+						case 'template': {
+							$featured_check = (
+									! empty( $details['featured']['template'] ) &&
+									is_array( $details['featured']['template'] ) &&
+									get_post_type() == 'page' &&
+									(
+											in_array( get_page_template_slug(), $details['featured']['template'] ) ||
+											( get_page_template_slug() == '' && in_array( 'default', $details['featured']['template'] ) )
+									)
+							);
+							break;
+						}
 					}
 				}
 				if ( $featured_check ) {
