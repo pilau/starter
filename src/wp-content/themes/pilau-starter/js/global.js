@@ -336,6 +336,7 @@ jQuery( document ).ready( function( $ ) {
 				panel.attr( 'aria-hidden', 'false' );
 				panel.siblings().attr( 'aria-hidden', 'true' );
 			}
+			el.blur();
 		} ).on( 'keydown', '[role=tab]', function( e ) {
 			// Make enter key act like a click
 			if ( e.which == 13 ) {
