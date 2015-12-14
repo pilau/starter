@@ -616,8 +616,8 @@ function pilau_cmb2_show_on_custom( $cmb ) {
 
 			}
 
-			// If a condition has failed, break out
-			if ( ! $show ) {
+			// If a condition has passed, break out
+			if ( $show ) {
 				break;
 			}
 
