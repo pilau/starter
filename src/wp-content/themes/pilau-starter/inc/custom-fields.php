@@ -545,6 +545,9 @@ function pilau_get_custom_fields( $id = null, $type = 'post' ) {
 function pilau_cmb2_show_on_custom( $cmb ) {
 	$show = true;
 	$show_on_custom = $cmb->prop( 'show_on_custom' );
+	// If any of these restrictions fail, the box isn't shown
+	// All other restrictions, only one needs to pass if the fail restrictions pass
+	$fail_restrictions = array( 'user_can' );
 
 	if ( ! empty( $show_on_custom ) ) {
 		$screen = get_current_screen();
@@ -552,79 +555,104 @@ function pilau_cmb2_show_on_custom( $cmb ) {
 		// Loop through restrictions
 		foreach ( $show_on_custom as $show_on_type => $show_on_condition ) {
 
-			switch ( $show_on_type ) {
+			// Check restrictions which will prevent showing if any fail
+			if ( in_array( $show_on_type, $fail_restrictions ) ) {
 
-				case 'user_can': {
+				switch ( $show_on_type ) {
 
-					// Special capabilities
-					switch ( $show_on_condition ) {
-						case 'publish_post_types':
-						case 'edit_others_post_types': {
-							$cap_for_posts = str_replace( '_post_types', '_posts', $show_on_condition );
-							$post_type_object = get_post_type_object( $screen->post_type );
-							$cap = $post_type_object->cap->$cap_for_posts;
-							break;
+					case 'user_can': {
+
+						// Special capabilities
+						switch ( $show_on_condition ) {
+							case 'publish_post_types':
+							case 'edit_others_post_types': {
+								$cap_for_posts = str_replace( '_post_types', '_posts', $show_on_condition );
+								$post_type_object = get_post_type_object( $screen->post_type );
+								$cap = $post_type_object->cap->$cap_for_posts;
+								break;
+							}
+							default: {
+								$cap = $show_on_condition;
+								break;
+							}
 						}
-						default: {
-							$cap = $show_on_condition;
-							break;
-						}
+
+						// Check user capability
+						$show = current_user_can( $cap );
+
+						break;
 					}
 
-					// Check user capability
-					$show = current_user_can( $cap );
-
-					break;
 				}
 
-				case 'mime_types': {
-					// Check for media MIME types
-					if ( ! empty( $show_on_condition ) && is_array( $show_on_condition ) && in_array( 'attachment', $cmb->prop( 'object_types' ) ) ) {
-						$show = in_array( get_post_mime_type(), $show_on_condition );
-					}
-					break;
-				}
-
-				case 'exclude_ids': {
-					// Check for excluding based on IDs
-					if ( ! empty( $show_on_condition ) && is_array( $show_on_condition ) ) {
-						$show = ! in_array( $cmb->object_id, $show_on_condition );
-					}
-					break;
-				}
-
-				case 'include_ids': {
-					// Check for including based on IDs
-					if ( ! empty( $show_on_condition ) && is_array( $show_on_condition ) ) {
-						$show = in_array( $cmb->object_id, $show_on_condition );
-					}
-					break;
-				}
-
-				case 'include_templates': {
-					// Replicates built-in check, seems to not work with 'show_on' and 'show_on_cb'
-					if ( ! empty( $show_on_condition ) && is_array( $show_on_condition ) ) {
-						$show = in_array( get_page_template_slug( $cmb->object_id ), $show_on_condition );
-					}
-					break;
-				}
-
-				case 'parent': {
-					// Parent
-					if ( $screen->post_type == 'page' && ! empty( $show_on_condition ) && ( ctype_digit( $show_on_condition ) || is_int( $show_on_condition ) ) ) {
-						$show = wp_get_post_parent_id( $cmb->object_id ) == $show_on_condition;
-					}
-					break;
-				}
-
-			}
-
-			// If a condition has passed, break out
-			if ( $show ) {
-				break;
 			}
 
 		}
+
+		// If we're still OK, continue
+		if ( $show ) {
+
+			// Loop through restrictions again,
+			// checking restrictions which only need one to pass
+			foreach ( $show_on_custom as $show_on_type => $show_on_condition ) {
+
+				if ( ! in_array( $show_on_type, $fail_restrictions ) ) {
+
+					switch ( $show_on_type ) {
+
+						case 'mime_types': {
+							// Check for media MIME types
+							if ( !empty( $show_on_condition ) && is_array( $show_on_condition ) && in_array( 'attachment', $cmb->prop( 'object_types' ) ) ) {
+								$show = in_array( get_post_mime_type(), $show_on_condition );
+							}
+							break;
+						}
+
+						case 'exclude_ids': {
+							// Check for excluding based on IDs
+							if ( !empty( $show_on_condition ) && is_array( $show_on_condition ) ) {
+								$show = !in_array( $cmb->object_id, $show_on_condition );
+							}
+							break;
+						}
+
+						case 'include_ids': {
+							// Check for including based on IDs
+							if ( !empty( $show_on_condition ) && is_array( $show_on_condition ) ) {
+								$show = in_array( $cmb->object_id, $show_on_condition );
+							}
+							break;
+						}
+
+						case 'include_templates': {
+							// Replicates built-in check, seems to not work with 'show_on' and 'show_on_cb'
+							if ( !empty( $show_on_condition ) && is_array( $show_on_condition ) ) {
+								$show = in_array( get_page_template_slug( $cmb->object_id ), $show_on_condition );
+							}
+							break;
+						}
+
+						case 'parent': {
+							// Parent
+							if ( $screen->post_type == 'page' && !empty( $show_on_condition ) && ( ctype_digit( $show_on_condition ) || is_int( $show_on_condition ) ) ) {
+								$show = wp_get_post_parent_id( $cmb->object_id ) == $show_on_condition;
+							}
+							break;
+						}
+
+					}
+
+					// If any has passed, break out
+					if ( $show ) {
+						break;
+					}
+
+				}
+
+			}
+
+		}
+
 
 	}
 
