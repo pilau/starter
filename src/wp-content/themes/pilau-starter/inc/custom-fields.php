@@ -519,7 +519,7 @@ function pilau_get_custom_fields( $id = null, $type = 'post' ) {
 			// Strip standard prefix?
 			if ( strlen( $key ) > strlen( PILAU_CUSTOM_FIELDS_PREFIX ) && substr( $key, 0, strlen( PILAU_CUSTOM_FIELDS_PREFIX ) ) == PILAU_CUSTOM_FIELDS_PREFIX ) {
 				$new_key = preg_replace( '#' . PILAU_CUSTOM_FIELDS_PREFIX . '#', '', $key, 1 );
-			} else if ( strlen( $key ) > strlen( slt_cf_prefix() ) && substr( $key, 0, strlen( slt_cf_prefix() ) ) == slt_cf_prefix() ) {
+			} else if ( PILAU_PLUGIN_EXISTS_DEVELOPERS_CUSTOM_FIELDS && strlen( $key ) > strlen( slt_cf_prefix() ) && substr( $key, 0, strlen( slt_cf_prefix() ) ) == slt_cf_prefix() ) {
 				// Sometimes DCF is used alongside CMB2
 				$new_key = preg_replace( '#' . slt_cf_prefix() . '#', '', $key, 1 );
 			}
