@@ -306,8 +306,8 @@ class Pilau_Widget_Call_To_Action extends WP_Widget {
 						'post_status'		=> 'publish'
 					));
 					if ( $posts ) {
-						$pt_labels = get_post_type_labels( get_post_type_object( $post_type ) );
-						echo '<optgroup label="' . $pt_labels->name . '">';
+						$pt_object = get_post_type_object( $post_type );
+						echo '<optgroup label="' . $pt_object->labels->name . '">';
 						foreach ( $posts as $the_post ) {
 							echo '<option value="' . $the_post->ID . '"' . selected( $the_post->ID, $instance['post_id'] ) . '>' . get_the_title( $the_post ) . '</option>';
 						}
