@@ -8,6 +8,23 @@
  */
 
 
+//add_filter( 'authenticate', 'pilau_block_roles_login', 30, 3 );
+/**
+ * Completely block certain roles from login
+ *
+ * @param	object				$user
+ * @param	string				$username
+ * @param	string				$password
+ * @return	WP_Error|WP_User
+ */
+function pilau_block_roles_login( $user, $username, $password ) {
+	if ( $user instanceof WP_User && in_array( pilau_get_user_role( $user ), array() ) ) {
+		return new WP_Error( 1, __( 'Login for this role is prohibited.' ) );
+	}
+	return $user;
+}
+
+
 add_action( 'init', 'pilau_block_front_end' );
 /**
  * Block front-end for non-admins
