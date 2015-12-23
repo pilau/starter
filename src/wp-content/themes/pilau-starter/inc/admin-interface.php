@@ -364,6 +364,37 @@ function pilau_admin_columns( $cols ) {
 }
 
 
+add_filter( 'cac/column/value', 'pilau_cac_column_value', 10, 4 );
+/**
+ * Custom filtering of Admin Columns values
+ *
+ * @param	string	$value			Value
+ * @param	int		$object_id		Post/User/Comment/Term ID
+ * @param	object	$column			CPAC_Column object
+ * @param	string	$storage_key	e.g.: post/page/wp-users/wp-media/wp-comments
+ * @return	string	$value
+ */
+function pilau_cac_column_value( $value, $object_id, $column, $storage_key ) {
+
+	// Check for custom field column
+	if ( $column->is_type( 'column-meta' ) ) {
+
+		// Check for entry_id field and capability
+		if ( $column->get_option( 'field' ) == 'entry_id' && $value && PILAU_PLUGIN_EXISTS_GRAVITY_FORMS && current_user_can( 'gravityforms_edit_entries' ) ) {
+
+			// Link to GF entry edit screen
+			$entry = GFAPI::get_entry( $value );
+			$form_id = $entry['form_id'];
+			$value = '<a href="' . admin_url( 'admin.php?page=gf_entries&view=entry&id=' . $form_id . '&lid=' . $value ) . '" title="' . __( 'Click to view this entry' ) . '">' . $value . '</a>';
+
+		}
+
+	}
+
+	return $value;
+}
+
+
 add_filter( 'tiny_mce_before_init', 'pilau_tinymce_buttons' );
 /**
  * Customize default tiny MCE buttons
@@ -445,37 +476,6 @@ function pilau_nav_menus_columns_hidden( $result ) {
 	*/
 
 	return $result;
-}
-
-
-add_filter( 'cac/column/value', 'pilau_cac_column_value', 10, 4 );
-/**
- * Custom filtering of Admin Columns values
- *
- * @param	string	$value			Value
- * @param	int		$object_id		Post/User/Comment/Term ID
- * @param	object	$column			CPAC_Column object
- * @param	string	$storage_key	e.g.: post/page/wp-users/wp-media/wp-comments
- * @return	string	$value
- */
-function pilau_cac_column_value( $value, $object_id, $column, $storage_key ) {
-
-	// Check for custom field column
-	if ( $column->is_type( 'column-meta' ) ) {
-
-		// Check for entry_id field and capability
-		if ( $column->get_option( 'field' ) == 'entry_id' && $value && PILAU_PLUGIN_EXISTS_GRAVITY_FORMS && current_user_can( 'gravityforms_edit_entries' ) ) {
-
-			// Link to GF entry edit screen
-			$entry = GFAPI::get_entry( $value );
-			$form_id = $entry['form_id'];
-			$value = '<a href="' . admin_url( 'admin.php?page=gf_entries&view=entry&id=' . $form_id . '&lid=' . $value ) . '" title="' . __( 'Click to view this entry' ) . '">' . $value . '</a>';
-
-		}
-
-	}
-
-	return $value;
 }
 
 
