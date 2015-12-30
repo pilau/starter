@@ -169,7 +169,7 @@ jQuery( document ).ready( function( $ ) {
 
 			// Get posts
 			$.post(
-				pilau_global.ajaxurl,
+				pilau_front.ajaxurl,
 				vars,
 				function( data ) {
 					var p, first_post_id, iefix;
@@ -531,7 +531,7 @@ function pilau_preloader_remove( e ) {
  *
  * Add to AJAX calls like this:
  * <code>
- * jQuery.get( pilau_global.ajax_url, { action: 'pilau_ajax_action' }, function( r ) { ... }).error( function( e ) { pilau_ajax_error( e ); });
+ * jQuery.get( pilau_front.ajax_url, { action: 'pilau_ajax_action' }, function( r ) { ... }).error( function( e ) { pilau_ajax_error( e ); });
  * </code>
  *
  * @since	Pilau_Starter 0.1

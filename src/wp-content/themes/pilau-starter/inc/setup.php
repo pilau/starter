@@ -331,7 +331,7 @@ function pilau_enqueue_scripts() {
 
 		// Use this to pass the AJAX URL to the client when using AJAX - and any other PHP-to-JS vars
 		// @link	http://wp.smashingmagazine.com/2011/10/18/how-to-use-ajax-in-wordpress/
-		wp_localize_script( 'pilau-global', 'pilau_global', array(
+		wp_localize_script( 'pilau-front-js', 'pilau_front', array(
 			'ajaxurl'		=> admin_url( 'admin-ajax.php', PILAU_REQUEST_PROTOCOL ),
 			'themeurl'		=> trailingslashit( get_stylesheet_directory_uri() )
 		));
