@@ -308,7 +308,7 @@ function pilau_enqueue_scripts() {
 		 */
 		wp_enqueue_script( 'jquery' );
 		wp_enqueue_script( 'fitvids', get_stylesheet_directory_uri() . '/js/fitvids.js', array( 'jquery' ), '1.1', true );
-		wp_enqueue_script( 'pilau-front', get_stylesheet_directory_uri() . '/js/front.js', array( 'jquery', 'fitvids' ), '1.0', true );
+		wp_enqueue_script( 'pilau-front-js', get_stylesheet_directory_uri() . '/js/front.js', array( 'jquery', 'fitvids' ), '1.0', true );
 
 		// Google Maps API
 		if ( false ) {
