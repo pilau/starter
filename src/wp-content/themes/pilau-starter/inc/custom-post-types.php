@@ -292,26 +292,30 @@ function pilau_get_ancestors( $post = null ) {
 	}
 	$post_id = is_object( $post ) ? $post->ID : $post;
 
-	if ( get_post_type( $post_id ) == 'page' ) {
+	if ( $post_id ) {
 
-		$ancestors = get_post_ancestors( $post_id );
+		if ( get_post_type( $post_id ) == 'page' ) {
 
-	} else {
+			$ancestors = get_post_ancestors( $post_id );
 
-		if ( is_int( $post_id ) && array_key_exists( get_post_type( $post_id ), $pilau_post_type_ancestors ) ) {
-			$ancestors = $pilau_post_type_ancestors[ get_post_type( $post_id ) ];
+		} else {
 
-			// Exceptions to assign dynamically
-			/*
-			switch ( get_post_type( $post ) ) {
+			if ( is_int( $post_id ) && array_key_exists( get_post_type( $post_id ), $pilau_post_type_ancestors ) ) {
+				$ancestors = $pilau_post_type_ancestors[ get_post_type( $post_id ) ];
 
-				case 'service': {
-					$ancestors = array( get_post_meta( $post_id, pilau_cmb2_meta_key( 'region' ), true ), PILAU_PAGE_ID_LOCAL_SERVICES );
-					break;
+				// Exceptions to assign dynamically
+				/*
+				switch ( get_post_type( $post ) ) {
+
+					case 'service': {
+						$ancestors = array( get_post_meta( $post_id, pilau_cmb2_meta_key( 'region' ), true ), PILAU_PAGE_ID_LOCAL_SERVICES );
+						break;
+					}
+
 				}
+				*/
 
 			}
-			*/
 
 		}
 
