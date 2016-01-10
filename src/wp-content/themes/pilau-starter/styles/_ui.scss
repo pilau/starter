@@ -101,6 +101,11 @@ input[type=submit],
 	margin-bottom: 1.2em;
 	overflow: hidden;
 }
+.gfield_description {
+	margin: .5em 0;
+	font-style: italic;
+	font-size: .9em;
+}
 .gfield_label {
 	@include Tablet-Desktop {
 		float: left;
@@ -130,6 +135,7 @@ input[type=submit],
 		width: 75%;
 	}
 }
+
 // Honeypot validation needs to be hidden
 .gform_validation_container {
 	display: none !important;
@@ -138,6 +144,43 @@ input[type=submit],
 }
 .gform_footer {
 	text-align: right;
+}
+
+// Password strength meter
+.ginput_container_password {
+	overflow: hidden;
+}
+.gfield_password_strength {
+	clear: both;
+	margin-top: .5em;
+	padding: .5em 1em;
+	width: 218px;
+	box-sizing: border-box;
+	background-color: #eee;
+	border: 1px solid #ddd;
+	color: #999;
+	text-align: center;
+	font-size: .9em;
+	&.short {
+		background-color: #f1adad;
+		border-color: #e35b5b;
+		color: #333;
+	}
+	&.bad {
+		background-color: #fbc5a9;
+		border-color: #f78b53;
+		color: #333;
+	}
+	&.good {
+		background-color: #ffe399;
+		border-color: #ffc733;
+		color: #333;
+	}
+	&.strong {
+		background-color: #c1e1b9;
+		border-color: #83c373;
+		color: #333;
+	}
 }
 
 
