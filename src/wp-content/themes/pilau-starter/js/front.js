@@ -27,6 +27,9 @@ var pilau_vw_small;
 var pilau_did_resize = false;
 var pilau_did_scroll = false;
 
+/** Initialise viewport infos straight away, so they're ready for DOM loaded */
+pilau_viewport_infos();
+
 
 /** Trigger when DOM has loaded */
 jQuery( document ).ready( function( $ ) {
@@ -43,9 +46,6 @@ jQuery( document ).ready( function( $ ) {
 	pilau_popups = $( '.popup-wrap' );
 	pilau_slideshows = $( '.slideshow' );
 
-
-	/** Initialise viewport infos */
-	pilau_viewport_infos();
 
 	/** Slideshows */
 	pilau_slideshows_manage();
