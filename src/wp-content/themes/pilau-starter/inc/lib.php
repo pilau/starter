@@ -8,6 +8,15 @@
  */
 
 
+//add_action( 'wp_mail_failed', 'pilau_wp_mail_failed' );
+/**
+ * Debugging failed wp_mails
+ */
+function pilau_wp_mail_failed( $error ) {
+	echo '<pre>'; print_r( $error ); echo '</pre>'; exit;
+}
+
+
 /**
  * Get IDs of all pages set to noindex (cached, refreshed when any page is edited)
  *
