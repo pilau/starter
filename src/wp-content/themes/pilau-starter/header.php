@@ -13,8 +13,8 @@ global $pilau_use_breadcrumbs, $pilau_cookie_notice_just_set;
  * @link http://www.paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/
  */
 ?><!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie11 lt-ie10 lt-ie9 ie8" <?php language_attributes(); ?>> <![endif]-->
-<!--[if IE 9]><html class="no-js lt-ie11 lt-ie10 ie9" <?php language_attributes(); ?>> <![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie12 lt-ie11 lt-ie10 lt-ie9 ie8" <?php language_attributes(); ?>> <![endif]-->
+<!--[if IE 9]><html class="no-js lt-ie12 lt-ie11 lt-ie10 ie9" <?php language_attributes(); ?>> <![endif]-->
 <!--[if gt IE 9]><!--><html class="no-js" <?php language_attributes(); ?>><!--<![endif]-->
 <head>
 
