@@ -74,8 +74,8 @@ global $pilau_use_breadcrumbs, $pilau_cookie_notice_just_set;
 <a href="#content" class="screen-reader-text skip-link skip-to-content"><?php _e( 'Skip to main content' ); ?></a>
 
 
-<?php /* Upgrade notice for IE 7 and below */ ?>
-<!--[if lt IE 8]><p class="upgrade-browser">Please note that this site does not support Internet Explorer 7 and below. Neither does Microsoft! <a href="http://browsehappy.com/">Please upgrade to a modern browser</a> if possible, or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this and other sites in your current browser.</p><![endif]-->
+<?php /* Upgrade notice for IE 8 and below */ ?>
+<!--[if lt IE 9]><p class="upgrade-browser">Please note that this site does not support Internet Explorer 8 and below. Microsoft no longer supports anything below version 11! <a href="http://browsehappy.com/">Please upgrade to a modern browser</a> if possible, or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this and other sites in your current browser.</p><![endif]-->
 
 
 <?php
