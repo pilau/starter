@@ -1,5 +1,5 @@
 /**
- * Global JavaScript
+ * Front-end JavaScript
  */
 
 
