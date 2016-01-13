@@ -297,7 +297,7 @@ function pilau_tweets( $max = 4 ) {
 	if ( PILAU_PLUGIN_EXISTS_TWITTER_FEED && defined( 'PILAU_USERNAME_TWITTER' ) && PILAU_USERNAME_TWITTER ) {
 
 		// Get tweets
-		$tweets = getTweets( $max, false, array( 'include_rts' => true ) );
+		$tweets = getTweets( PILAU_USERNAME_TWITTER, $max, array( 'include_rts' => true ) );
 		if ( $tweets && ! array_key_exists( 'error', $tweets ) ) {
 
 			echo '<ul class="tweets">';
