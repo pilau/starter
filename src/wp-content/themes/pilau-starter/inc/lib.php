@@ -68,15 +68,116 @@ function pilau_refresh_noindex_pages() {
 
 
 /**
+ * From timestamps, return start / end date / times
+ *
+ * @since	Pilau_Starter 0.1
+ * @param	string	$start				Timestamp
+ * @param	string	$end				Timestamp
+ * @param	string	$date_or_time		'date' | 'time' | 'both'
+ * @param	bool	$schema_attribs
+ * @param	string	$sep
+ * @return	string
+ */
+function pilau_start_end_date_time( $start, $end = null, $date_or_time = 'both', $schema_attribs = true, $sep = ' <span class="sep">|</span>' ) {
+	$output = '';
+	$scheme_prop_start = $schema_attribs ? 'startDate' : null;
+	$scheme_prop_end = $schema_attribs ? 'endDate' : null;
+
+	if ( is_null( $end ) ) {
+
+		// Just start date / time
+		$output .= pilau_format_date_time( $start, $scheme_prop_start, $date_or_time, $sep );
+
+	} else {
+
+		// Using an end date
+		if ( date( get_option( 'date_format' ), $start ) == date( get_option( 'date_format' ), $end ) ) {
+
+			// Start / end day are the same
+			$output .= pilau_format_date_time( $start, $scheme_prop_start, $date_or_time, $sep );
+			if ( $date_or_time != 'date' ) {
+				$output .= ' &ndash; ' . pilau_format_date_time( $end, $scheme_prop_end, 'time' );
+			}
+
+		} else {
+
+			// Start / end day are different
+			$output .= pilau_format_date_time( $start, $scheme_prop_start, $date_or_time, ' ' );
+			$output .= $sep . pilau_format_date_time( $end, $scheme_prop_end, $date_or_time, ' ' );
+
+		}
+
+	}
+
+	return $output;
+}
+
+
+/**
+ * Properly formatted HTML5 time
+ *
+ * @since	Pilau_Starter 0.1
+ * @param	string	$timestamp
+ * @param	string	$schema_prop		'startDate' | 'endDate'
+ * @param	string	$date_or_time		'date' | 'time' | 'both'
+ * @param	string	$sep
+ * @return	string
+ */
+function pilau_format_date_time( $timestamp, $schema_prop = null, $date_or_time = 'date', $sep = ' ' ) {
+
+	// Init
+	$date_w3c = date( DATE_W3C, $timestamp );
+	$outputs = array();
+	$outputs['date'] = date( get_option( 'date_format' ), $timestamp );
+	$outputs['time'] = date( get_option( 'time_format' ), $timestamp );
+	if ( $date_or_time == 'both' ) {
+		$date_output = $outputs['date'] . $sep . $outputs['time'];
+	} else {
+		$date_output = $outputs[ $date_or_time ];
+	}
+
+	// Start output
+	$output = '<time datetime="' . $date_w3c . '"';
+
+	// Schema.org attributes?
+	if ( $schema_prop ) {
+		$output .= ' itemprop="' . $schema_prop . '" content="' . $date_w3c . '"';
+	}
+
+	// Finish output
+	$output .= '>' . $date_output . '</time>';
+
+	return $output;
+}
+
+
+/**
  * Output post date
  *
  * @since	Pilau_Starter 0.1
- * @uses	the_time()
+ * @uses	pilau_get_post_date()
+ * @param	int|null	$post_id
  * @return	void
  */
-function pilau_post_date() { ?>
-	<time datetime="<?php the_time( DATE_W3C ); ?>"><?php the_time( get_option( 'date_format' ) ); ?></time>
-<?php }
+function pilau_post_date( $post_id = null ) {
+	echo pilau_get_post_date( $post_id );
+}
+
+
+/**
+ * Get post date
+ *
+ * @since	Pilau_Starter 0.1
+ * @uses	get_the_time()
+ * @uses	get_post()
+ * @uses	get_option()
+ * @param	int|null	$post_id
+ * @return	string
+ */
+function pilau_get_post_date( $post_id = null ) {
+	$post = get_post( $post_id );
+	return pilau_format_date_time( get_post_time( 'U', true, $post ) );
+}
 
 
 /**
