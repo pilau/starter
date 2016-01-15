@@ -357,9 +357,14 @@ jQuery( document ).ready( function( $ ) {
 			var target = $( this.hash );
 			target = target.length ? target : $( '[name=' + this.hash.slice(1) + ']' );
 			if ( target.length ) {
+				var st = parseInt( target.offset().top );
+				// Account for admin bar?
+				if ( pilau_body.hasClass( 'admin-bar' ) ) {
+					st -= 70;
+				}
 				$( 'html,body' ).animate( {
-					scrollTop: target.offset().top
-				}, 700 );
+					scrollTop: st + 'px'
+				}, 1000, 'easeInOutExpo' );
 				return false;
 			}
 		}
