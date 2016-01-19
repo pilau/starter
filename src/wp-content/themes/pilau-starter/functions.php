@@ -92,6 +92,7 @@ define( 'PILAU_PLUGIN_EXISTS_GRAVITY_FORMS', class_exists( 'GFAPI' ) );
 define( 'PILAU_PLUGIN_EXISTS_WOOCOMMERCE', class_exists( 'WooCommerce' ) );
 define( 'PILAU_PLUGIN_EXISTS_SIMPLE_EVENTS', function_exists( 'slt_se_get_date' ) );
 define( 'PILAU_PLUGIN_EXISTS_SHARETHIS', function_exists( 'install_ShareThis' ) );
+define( 'PILAU_PLUGIN_EXISTS_MEMBERS', class_exists( 'Members_Plugin' ) );
 
 
 /**
