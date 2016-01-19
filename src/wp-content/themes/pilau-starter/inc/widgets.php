@@ -15,16 +15,21 @@ add_action( 'widgets_init', 'pilau_register_sidebars' );
  * @since	Pilau_Starter 0.1
  */
 function pilau_register_sidebars() {
+	global $pilau_default_sidebar_args;
 
-	/* Default sidebar */
-	register_sidebar( array(
-		'id'				=> 'default-sidebar',
-		'name'				=> __( 'Default' ),
-		'before_widget'		=> '<aside class="widget %2$s">',
+	// Sidebar args - useful if dropping widgets in manually outside standard sidebars
+	$pilau_default_sidebar_args = array(
+		'before_widget'		=> '<aside class="widget %s">',
 		'after_widget'		=> '</aside>',
 		'before_title'		=> '<h2 class="widget-title">',
 		'after_title'		=> '</h2>',
-	));
+	);
+
+	// Default sidebar
+	register_sidebar( array_merge( $pilau_default_sidebar_args, array(
+		'id'				=> 'default-sidebar',
+		'name'				=> __( 'Default' ),
+	)));
 
 }
 
