@@ -65,7 +65,7 @@ global $pilau_use_breadcrumbs, $pilau_cookie_notice_just_set;
 	* Remember to update the version appended here if you upgrade!
 	*/
 	?>
-	<script src="<?php echo get_stylesheet_directory_uri() . '/js/modernizr.js?ver=3.1.0'; ?>"></script>
+	<script src="<?php echo get_stylesheet_directory_uri() . '/js/modernizr.js?ver=3.3.1'; ?>"></script>
 
 </head>
 <body <?php body_class(); ?> role="document">
