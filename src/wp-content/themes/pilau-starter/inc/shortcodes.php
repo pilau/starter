@@ -67,3 +67,60 @@ function pilau_sitemap_shortcode() {
 
 	return $output;
 }
+
+
+add_filter( 'wp_page_menu', 'pilau_sitemap_shortcode_cpts', 10, 2 );
+/**
+ * Filter sitemap output to include public CPTs
+ */
+function pilau_sitemap_shortcode_cpts( $menu, $args ) {
+	global $pilau_post_type_ancestors;
+
+	// Check for sitemap
+	if ( $args['menu_class'] == 'sitemap' ) {
+
+		// Go through public custom post types, and posts
+		foreach ( array_merge( array( 'post' ), pilau_get_public_custom_post_type_names() ) as $cpt_name ) {
+
+			// Does this post type have a landing page?
+			if ( $pilau_post_type_ancestors[ $cpt_name ] ) {
+
+				// Try to find landing page in markup
+				$cpt_landing_link = get_permalink( $pilau_post_type_ancestors[ $cpt_name ][0] );
+				$cpt_landing_pattern_start = '<a href="' . $cpt_landing_link . '">';
+				$cpt_landing_pattern_end = '</a>';
+				if ( $cpt_landing_link && preg_match( '%' . $cpt_landing_pattern_start . '([^<]+)' . $cpt_landing_pattern_end . '%', $menu, $matches, PREG_OFFSET_CAPTURE ) === 1 ) {
+
+					// Get posts
+					$posts = get_posts( array(
+						'post_type'			=> $cpt_name,
+						'posts_per_page'	=> -1
+					));
+					if ( $posts ) {
+
+						// Build list markup
+						$list_markup = '';
+						foreach ( $posts as $post ) {
+							$list_markup .= '<li><a href="' . get_permalink( $post ) . '">' . get_the_title( $post ) . '</a></li>';
+						}
+
+						// Calculate the position to insert the posts
+						$pos =	$matches[1][1] + // start of the link text
+							strlen( $matches[1][0] ) + // length of the link text
+							strlen( $cpt_landing_pattern_end ); // length of end of pattern
+
+						// Add posts add the right position
+						$menu = substr_replace( $menu, '<ul class="children">' . $list_markup . '</ul>', $pos, 0 );
+
+					}
+
+				}
+
+			}
+
+		}
+
+	}
+
+	return $menu;
+}
