@@ -51,7 +51,7 @@ add_action( 'admin_enqueue_scripts', 'pilau_admin_enqueue_scripts_styles', 10 );
  * @since	Pilau_Starter 0.1
  */
 function pilau_admin_enqueue_scripts_styles() {
-	global $current_screen;
+	global $current_screen, $pilau_gforms_protected;
 
 	// Register any scripts that might be enqueued elsewhere
 	wp_register_script( 'pilau-upload-media', get_stylesheet_directory_uri() . '/js/media.js', array( 'jquery' ), '1.0' );
@@ -62,8 +62,14 @@ function pilau_admin_enqueue_scripts_styles() {
 
 	// Anything to pass to admin JS?
 	$admin_js_vars = array(
-		'ajaxurl'		=> admin_url( 'admin-ajax.php', PILAU_REQUEST_PROTOCOL )
+		'ajaxurl'			=> admin_url( 'admin-ajax.php', PILAU_REQUEST_PROTOCOL ),
+		'user_is_admin'		=> current_user_can( 'update_core' )
 	);
+
+	// Protected Gravity Forms?
+	if ( ! empty( $pilau_gforms_protected ) ) {
+		$admin_js_vars['gforms_protected'] = $pilau_gforms_protected;
+	}
 
 	/*
 	 * Check post edit screens for taxonomies with JS validation rules

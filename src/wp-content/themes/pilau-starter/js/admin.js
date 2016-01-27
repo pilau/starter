@@ -135,6 +135,21 @@ jQuery( document ).ready( function( $ ) {
 	});
 
 
+	/**
+	 * Protect Gravity Forms
+	 */
+	if ( b.hasClass( 'toplevel_page_gf_edit_forms' ) && typeof pilau_admin.gforms_protected != 'undefined' && typeof pilau_admin.user_is_admin != 'undefined' && pilau_admin.user_is_admin != 1 ) {
+		$( 'tr' ).each( function( i ) {
+			var el = $( this );
+			var id = el.data( 'id' );
+			if ( $.inArray( id, pilau_admin.gforms_protected ) != -1 ) {
+				el.find( '.gf_form_toolbar_editor' ).remove();
+				el.find( '.trash' ).remove();
+			}
+		});
+	}
+
+
 });
 
 

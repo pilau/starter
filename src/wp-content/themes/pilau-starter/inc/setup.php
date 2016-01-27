@@ -15,7 +15,7 @@ add_action( 'after_setup_theme', 'pilau_setup' );
  * @since	Pilau_Starter 0.1
  */
 function pilau_setup() {
-	global $pilau_site_settings, $pilau_filters, $pilau_download_mime_types, $pilau_use_breadcrumbs;
+	global $pilau_site_settings, $pilau_filters, $pilau_download_mime_types, $pilau_use_breadcrumbs, $pilau_gforms_protected;
 
 	// Enable shortcodes in widgets
 	add_filter( 'widget_text', 'do_shortcode' );
@@ -65,6 +65,10 @@ function pilau_setup() {
 
 	// Breadcrumbs flag (set to false before get_header() in template to override)
 	$pilau_use_breadcrumbs = true;
+
+	// Protected Gravity Forms
+	// For now, just jQuery to remove interface elements - can't figure out a capabilities method
+	$pilau_gforms_protected = array(); // forms IDs
 
 }
 
