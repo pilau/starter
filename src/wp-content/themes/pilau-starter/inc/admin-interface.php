@@ -91,6 +91,16 @@ function pilau_admin_enqueue_scripts_styles() {
 }
 
 
+add_filter( 'gform_noconflict_scripts', 'pilau_gform_noconflict_scripts' );
+/**
+ * Tell Gravity Forms to use our admin scripts even if No Conflict mode is on
+ */
+function pilau_gform_noconflict_scripts( $scripts ) {
+	$scripts[] = 'pilau-admin-js';
+	return $scripts;
+}
+
+
 //add_action( 'admin_notices', 'pilau_admin_notices', 10 );
 /**
  * Admin notices
