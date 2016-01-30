@@ -61,7 +61,7 @@ function pilau_get_noindex_pages( $refresh = false ) {
 add_action( 'wpseo_saved_postdata', 'pilau_refresh_noindex_pages' );
 function pilau_refresh_noindex_pages() {
 	global $post;
-	if ( get_post_type( $post->ID ) == 'page' && ! wp_is_post_revision( $post->ID ) ) {
+	if ( isset( $post->ID ) && get_post_type( $post->ID ) == 'page' && ! wp_is_post_revision( $post->ID ) ) {
 		pilau_get_noindex_pages( true );
 	}
 }
