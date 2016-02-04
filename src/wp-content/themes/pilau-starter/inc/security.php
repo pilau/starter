@@ -156,17 +156,18 @@ function pilau_fix_ssl_url( $url ) {
 }
 
 
-add_filter( 'wp_calculate_image_srcset', 'pilau_ssl_srcset' );
+add_filter( 'wp_calculate_image_srcset', 'pilau_wp_calculate_image_srcset', PHP_INT_MAX );
 /**
- * Force URLs in srcset attributes into HTTPS scheme.
- * This is particularly useful when you're running a Flexible SSL frontend like Cloudflare
+ * Force HTTPS scheme on srcset URLs
  *
- * @link	https://wordpress.org/support/topic/responsive-images-src-url-is-https-srcset-url-is-http-no-images-loaded
+ * @link	http://wordpress.stackexchange.com/a/211376/2336
  */
-function pilau_ssl_srcset( $sources ) {
-	if ( is_ssl() ) {
+function pilau_wp_calculate_image_srcset( $sources ) {
+	if ( is_array( $sources ) ) {
 		foreach ( $sources as &$source ) {
-			$source['url'] = set_url_scheme( $source['url'], 'https' );
+			if ( isset( $source['url'] ) ) {
+				$source['url'] = set_url_scheme( $source['url'], 'https' );
+			}
 		}
 	}
 	return $sources;
