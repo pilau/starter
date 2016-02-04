@@ -233,6 +233,39 @@ function pilau_remove_meta_boxes() {
 }
 
 
+add_action( 'load-post.php', 'pilau_load_user_dropdown_filter' );
+add_action( 'load-post-new.php', 'pilau_load_user_dropdown_filter' );
+/**
+ * Fix author meta box drop down
+ *
+ * @link	http://themehybrid.com/weblog/correcting-the-author-meta-box-drop-down
+ */
+function pilau_load_user_dropdown_filter() {
+	$screen = get_current_screen();
+	if ( ! empty( $screen->post_type ) && in_array( $screen->post_type, array( 'post' ) ) ) {
+		add_filter( 'wp_dropdown_users_args', 'pilau_dropdown_users_args', 10, 2 );
+	}
+}
+function pilau_dropdown_users_args( $args, $r ) {
+	global $wp_roles, $post;
+
+	// Check that this is the correct drop-down.
+	if ( $r['name'] === 'post_author_override' && in_array( $post->post_type, array( 'post' ) ) ) {
+
+		$roles = pilau_get_roles_for_post_type( $post->post_type );
+
+		// If we have roles, change the args to only get users of those roles.
+		if ( $roles ) {
+			$args['who']      = '';
+			$args['role__in'] = $roles;
+		}
+
+	}
+
+	return $args;
+}
+
+
 /**
  * Inline image hints for Featured Image box
  *
