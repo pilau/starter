@@ -163,7 +163,7 @@ add_filter( 'wp_calculate_image_srcset', 'pilau_wp_calculate_image_srcset', PHP_
  * @link	http://wordpress.stackexchange.com/a/211376/2336
  */
 function pilau_wp_calculate_image_srcset( $sources ) {
-	if ( is_array( $sources ) ) {
+	if ( is_ssl() && is_array( $sources ) ) {
 		foreach ( $sources as &$source ) {
 			if ( isset( $source['url'] ) ) {
 				$source['url'] = set_url_scheme( $source['url'], 'https' );
