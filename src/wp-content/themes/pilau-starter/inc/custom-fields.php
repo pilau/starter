@@ -90,9 +90,12 @@ function pilau_cmb2_custom_fields() {
 	/*
 	 * NOTE: This code is kept here in case it comes in useful. However, for the basic
 	 * problem here, a better solution now is probably on of these:
+	 *
 	 * @link	http://themehybrid.com/weblog/members-role-levels-wordpress-plugin
 	 * @link	http://themehybrid.com/weblog/correcting-the-author-meta-box-drop-down
-	 * Remove this code if not needed.
+	 *
+	 * Remove this code if not needed. Uncomment hooks for pilau_cpt_author_meta_value_override() and
+	 * pilau_cpt_author_meta_value_override() if you use this code.
 
 	// Loop through CPTs
 	foreach ( get_post_types( array( '_builtin' => false ), 'objects' ) as $cpt ) {
@@ -435,7 +438,7 @@ function pilau_cmb2_options_file( $style, $options_override = array() ) {
 }
 
 
-add_filter( 'cmb2_override_' . pilau_cmb2_meta_key( 'author' ) . '_meta_save', 'pilau_cpt_author_meta_save_override', 0, 4 );
+//add_filter( 'cmb2_override_' . pilau_cmb2_meta_key( 'author' ) . '_meta_save', 'pilau_cpt_author_meta_save_override', 0, 4 );
 /**
  * Override CPT author meta save in order to store as post author
  */
@@ -464,7 +467,7 @@ function pilau_cpt_author_meta_save_override( $override, $data_args, $args, $fie
 }
 
 
-add_filter( 'cmb2_override_' . pilau_cmb2_meta_key( 'author' ) . '_meta_value', 'pilau_cpt_author_meta_value_override', 0, 4 );
+//add_filter( 'cmb2_override_' . pilau_cmb2_meta_key( 'author' ) . '_meta_value', 'pilau_cpt_author_meta_value_override', 0, 4 );
 /**
  * Override CPT author meta value in order to fetch post author
  */
