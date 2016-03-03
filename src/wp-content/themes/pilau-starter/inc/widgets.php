@@ -78,7 +78,7 @@ function pilau_register_widgets() {
 }
 
 
-if ( function_exists( 'slt_obfuscate_email' ) ) {
+if ( function_exists( 'pilau_obfuscate_email' ) ) {
 	add_filter( 'widget_text', 'pilau_widget_email_obfuscation' );
 }
 /**
