@@ -259,7 +259,7 @@ function pilau_setup_after_post() {
 	 * Get all custom fields for current post
 	 */
 	if ( PILAU_PAGE_ID_CURRENT ) {
-		$pilau_custom_fields = pilau_get_custom_fields( $current_page_id, 'post' );
+		$pilau_custom_fields = pilau_get_custom_fields( PILAU_PAGE_ID_CURRENT, 'post' );
 	}
 
 	/*
