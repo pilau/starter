@@ -5,8 +5,11 @@ module.exports = function(grunt) {
 	var srcDir  = 'src/';
 	var publicDir = 'public/';
 	var themeDir = 'wp-content/themes/' + themeName + '/';
+	var MUPluginsDir = 'wp-content/mu-plugins/';
 	var srcThemeDir = srcDir + themeDir;
 	var publicThemeDir = publicDir + themeDir;
+	var srcMUPluginsDir = srcDir + MUPluginsDir;
+	var publicMUPluginsDir = publicDir + MUPluginsDir;
 	var breakpoints = require('./public/breakpoints.json');
 
 	// Set up the CSS files object
@@ -25,6 +28,7 @@ module.exports = function(grunt) {
 	grunt.registerTask( 'js_changed',			['copy:js'] );
 	grunt.registerTask( 'fonts_changed',		['copy:fonts'] );
 	grunt.registerTask( 'root_changed',			['copy:root'] );
+	grunt.registerTask( 'mu_plugins_changed',	['copy:mu_plugins'] );
 
 	// Default tasks
 	grunt.registerTask( 'default', ['watch'] );
@@ -133,6 +137,15 @@ module.exports = function(grunt) {
 					src: ['*'],
 					dest: publicDir
 				}]
+			},
+			mu_plugins: {
+				files: [{
+					expand: true,
+					dot: true,
+					cwd: srcMUPluginsDir,
+					src: ['*'],
+					dest: publicMUPluginsDir
+				}]
 			}
 		},
 
@@ -164,6 +177,10 @@ module.exports = function(grunt) {
 			},
 			root: {
 				files:	[srcDir + '*.php', srcDir + '*.txt', srcDir + '.ht*', srcDir + '*.ico', srcDir + '*.xml', srcDir + '*.json' ],
+				tasks:	['root_changed']
+			},
+			mu_plugins: {
+				files:	[srcMUPluginsDir + '*.php'],
 				tasks:	['root_changed']
 			}
 		}
