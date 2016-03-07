@@ -90,7 +90,7 @@
 # ----------------------------------------------------------------------
 
 # staging-password-start
-##<IfModule mod_authn_default.c>
+##<IfModule mod_access_compat.c>
 	##SetEnvIf Host [[staging-domain]] passreq
 	##AuthType Basic
 	##AuthName "Staging Server"
