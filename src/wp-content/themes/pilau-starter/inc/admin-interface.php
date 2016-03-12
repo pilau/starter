@@ -426,7 +426,7 @@ add_filter( 'cac/column/value', 'pilau_cac_column_value', 10, 4 );
 function pilau_cac_column_value( $value, $object_id, $column, $storage_key ) {
 
 	// Check for custom field column
-	if ( $column->is_type( 'column-meta' ) ) {
+	if ( is_object( $column ) && $column->is_type( 'column-meta' ) ) {
 
 		// Check for entry_id field and capability
 		if ( $column->get_option( 'field' ) == 'entry_id' && $value && PILAU_PLUGIN_EXISTS_GRAVITY_FORMS && current_user_can( 'gravityforms_edit_entries' ) ) {
