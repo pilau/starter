@@ -153,6 +153,32 @@ function pilau_register_post_types() {
 }
 
 
+//add_filter( 'post_type_link', 'pilau_custom_post_type_link', 10, 2 );
+/**
+ * Customise permalinks on output
+ *
+ * If custom post type permalinks are dynamic, containing placeholders, replace
+ * them here.
+ */
+function pilau_custom_post_type_link( $url, $post ) {
+
+	// Permalinks with region placeholder
+	if ( strpos( $url, '%region%' ) !== false ) {
+
+		// Is there a region for the post?
+		if ( $region = get_post_meta( $post->ID, pilau_cmb2_meta_key( 'region' ), true ) ) {
+
+			// Replace
+			$url = str_replace( '%region%', urlencode( get_post_field( 'post_name', $region ) ), $url );
+
+		}
+
+	}
+
+	return $url;
+}
+
+
 add_filter( 'simple_page_ordering_is_sortable', 'pilau_simple_page_ordering_is_sortable', 10, 2 );
 /**
  * Flag CPTs which should be sortable (click 'Sort by Order' for drag-and-drop)
