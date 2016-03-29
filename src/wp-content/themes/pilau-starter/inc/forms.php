@@ -39,6 +39,47 @@ function pilau_gform_status() {
 }
 
 
+//add_action( 'gform_after_submission', 'pilau_gform_remove_form_entry' );
+/**
+ * Prevents Gravity Form entries from being stored in the database.
+ *
+ * @link	https://thomasgriffin.io/prevent-gravity-forms-storing-entries-wordpress/
+ * @global object $wpdb The WP database object.
+ * @param array $entry  Array of entry data.
+ */
+function pilau_gform_remove_form_entry( $entry ) {
+	global $wpdb;
+
+	// Check for forms that shouldn't have entries storing
+	if ( in_array( $entry['form_id'], array(  ) ) ) {
+
+		// Prepare variables.
+		$lead_id                = $entry['id'];
+		$lead_table             = RGFormsModel::get_lead_table_name();
+		$lead_notes_table       = RGFormsModel::get_lead_notes_table_name();
+		$lead_detail_table      = RGFormsModel::get_lead_details_table_name();
+		$lead_detail_long_table = RGFormsModel::get_lead_details_long_table_name();
+		// Delete from lead detail long.
+		$sql = $wpdb->prepare( "DELETE FROM $lead_detail_long_table WHERE lead_detail_id IN(SELECT id FROM $lead_detail_table WHERE lead_id = %d)", $lead_id );
+		$wpdb->query( $sql );
+		// Delete from lead details.
+		$sql = $wpdb->prepare( "DELETE FROM $lead_detail_table WHERE lead_id = %d", $lead_id );
+		$wpdb->query( $sql );
+		// Delete from lead notes.
+		$sql = $wpdb->prepare( "DELETE FROM $lead_notes_table WHERE lead_id = %d", $lead_id );
+		$wpdb->query( $sql );
+		// Delete from lead.
+		$sql = $wpdb->prepare( "DELETE FROM $lead_table WHERE id = %d", $lead_id );
+		$wpdb->query( $sql );
+
+		// Finally, ensure everything is deleted (like stuff from Addons).
+		GFAPI::delete_entry( $lead_id );
+
+	}
+
+}
+
+
 //add_filter( 'gform_tabindex', 'pilau_gform_tabindexer', 10, 2 );
 /**
  * Fix Gravity Forms Tabindex Conflicts
