@@ -83,7 +83,7 @@ jQuery( document ).ready( function( $ ) {
 
 	// When editing terms
 	if ( b.hasClass( 'edit-tags-php' ) ) {
-		var tax = $( 'input[name=taxonomy]' ).val();
+		var tax = $( 'input[name="taxonomy"]' ).val();
 
 		if ( typeof tax == 'string' && typeof pilau_admin[ tax + '_hierarchical' ] != 'undefined' && pilau_admin[ tax + '_hierarchical' ] == '' ) {
 			$( '.term-parent-wrap' ).css({
@@ -116,7 +116,7 @@ jQuery( document ).ready( function( $ ) {
 		var el = $( this );
 		var tf = pilau_get_class_value( el.attr( 'class' ), 'cmb-show-when-field-' );
 		var tv = pilau_get_class_value( el.attr( 'class' ), 'cmb-show-when-value-' );
-		if ( $( '[name=' + tf + ']' ).val() != tv ) {
+		if ( $( '[name="' + tf + '"]' ).val() != tv ) {
 			el.hide();
 		}
 	});

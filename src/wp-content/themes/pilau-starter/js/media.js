@@ -15,7 +15,7 @@ jQuery( document ).ready( function( $ ) {
 
 		// Store the button and other fields
 		var button = $( this );
-		var file_id_field = $( '#' + button.siblings( '[name=pilau-upload-media-field-id]' ).val() );
+		var file_id_field = $( '#' + button.siblings( '[name="pilau-upload-media-field-id"]' ).val() );
 		var field_id = file_id_field.attr( 'id' );
 
 		// Get any parameters passed through

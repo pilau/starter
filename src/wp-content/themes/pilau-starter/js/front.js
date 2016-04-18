@@ -37,7 +37,7 @@ jQuery( document ).ready( function( $ ) {
 	//var cn = $( '#cookie-notice' );
 	//var di = $( 'img[data-defer-src]' );
 	var op = $( '.older-posts' );
-	var tl = $( '[role=tablist]' );
+	var tl = $( '[role="tablist"]' );
 	var nmc = $( '.nav-mobile-control' );
 	pilau_html = $( 'html' );
 	pilau_body = $( 'body' );
@@ -325,7 +325,7 @@ jQuery( document ).ready( function( $ ) {
 	 */
 	if ( typeof tl !== 'undefined' && tl.length ) {
 
-		tl.on( 'click', '[role=tab]', function( e ) {
+		tl.on( 'click', '[role="tab"]', function( e ) {
 			// Clicking on a tab
 			e.preventDefault();
 			var el = $( this );
@@ -337,7 +337,7 @@ jQuery( document ).ready( function( $ ) {
 				panel.siblings().attr( 'aria-hidden', 'true' );
 			}
 			el.blur();
-		} ).on( 'keydown', '[role=tab]', function( e ) {
+		} ).on( 'keydown', '[role="tab"]', function( e ) {
 			// Make enter key act like a click
 			if ( e.which == 13 ) {
 				$( this ).click()
@@ -352,10 +352,10 @@ jQuery( document ).ready( function( $ ) {
 	 *
 	 * @link	https://css-tricks.com/snippets/jquery/smooth-scrolling/
 	 */
-	pilau_body.on( 'click', 'a[href*=#]:not([href=#])', function() {
+	pilau_body.on( 'click', 'a[href*="#"]:not([href="#"])', function() {
 		if ( location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname ) {
 			var target = $( this.hash );
-			target = target.length ? target : $( '[name=' + this.hash.slice(1) + ']' );
+			target = target.length ? target : $( '[name="' + this.hash.slice(1) + '"]' );
 			if ( target.length ) {
 				var st = parseInt( target.offset().top );
 				// Account for admin bar?
