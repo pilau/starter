@@ -86,7 +86,7 @@ main {
 		padding-left: $gutter*2;
 	}
 }
-@include Tablet {
+@include Desktop {
 	.grid-extra-gutter-right {
 		padding-right: $gutter*3;
 	}
