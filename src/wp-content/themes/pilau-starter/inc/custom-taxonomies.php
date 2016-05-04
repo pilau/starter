@@ -25,6 +25,7 @@ function pilau_register_taxonomies() {
 			'hierarchical'			=> true,
 			'query_var'				=> true,
 			'rewrite'				=> true,
+			'show_admin_column'		=> true,
 			'labels'				=> array(
 				'name'				=> __( 'Project types' ),
 				'singular_name'		=> __( 'Project type' ),
