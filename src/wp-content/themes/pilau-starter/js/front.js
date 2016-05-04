@@ -364,7 +364,7 @@ jQuery( document ).ready( function( $ ) {
 				}
 				$( 'html,body' ).animate( {
 					scrollTop: st + 'px'
-				}, 1000, 'easeInOutExpo' );
+				}, 1000, 'swing' );
 				return false;
 			}
 		}
