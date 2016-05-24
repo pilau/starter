@@ -29,7 +29,7 @@ function pilau_setup() {
 	//add_theme_support( 'post-formats', array( 'aside', 'gallery', 'link', 'image', 'quote', 'status', 'video', 'audio', 'chat' ) );
 
 	// HTML5 support
-	add_theme_support( 'html5', array( 'widgets' ) );
+	add_theme_support( 'html5', array( 'widgets', 'comment-list', 'comment-form', 'search-form', 'gallery', 'caption' ) );
 
 	// Title tag
 	// @link https://make.wordpress.org/core/2014/10/29/title-tags-in-4-1/
