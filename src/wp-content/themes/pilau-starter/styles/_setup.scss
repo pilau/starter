@@ -34,6 +34,9 @@ $grid-columns: 12;
  * - Use CamelCaps to distinguish from normal CSS selectors and classes
  */
 
+// 3rd-party mixins
+@import "vendor/family";
+
 // Media queries
 // @link	http://davidwalsh.name/write-media-queries-sass
 @mixin Desktop {
