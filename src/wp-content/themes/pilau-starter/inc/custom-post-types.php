@@ -424,8 +424,8 @@ function pilau_post_back_link( $link_text = null, $keep_referer_qs = false ) {
 	if ( $link ) {
 
 		// Keep query string?
-		if ( $keep_referer_qs ) {
-			$link .= '?' . parse_url( $_SERVER['HTTP_REFERER'], PHP_URL_QUERY );
+		if ( $keep_referer_qs && ! empty( $_SERVER['HTTP_REFERER'] ) && $query_string = parse_url( $_SERVER['HTTP_REFERER'], PHP_URL_QUERY ) ) {
+			$link .= '?' . $query_string;
 		}
 
 		// Output
