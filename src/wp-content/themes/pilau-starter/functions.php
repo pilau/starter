@@ -35,6 +35,7 @@ define( 'PILAU_SLUG_LENGTH', 8 );
 define( 'PILAU_RENAME_POSTS_NEWS', true );
 define( 'PILAU_SLIDESHOW_ITEMS', 5 ); // Set to 0 to disable slideshow functionality
 define( 'PILAU_CUSTOM_FIELDS_PREFIX', '_pilau_' ); // For use by CMB2 plugin
+define( 'PILAU_NOT_PRODUCTION', ! defined( 'PILAU_REMOTE_ENV' ) || PILAU_REMOTE_ENV != 'production' );
 /*
  * Add constants for IDs of important locked pages here when they're the same
  * between environments (i.e. created before dev has been ported to staging etc.).
