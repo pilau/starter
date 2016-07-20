@@ -373,15 +373,13 @@ function pilau_enqueue_styles() {
 }
 
 
-//add_action( 'login_head', 'pilau_login_styles_scripts', 10000 );
+//add_action( 'login_enqueue_scripts', 'pilau_login_enqueue_scripts', PHP_INT_MAX );
 /**
  * Login styles and scripts
- *
- * @since	Pilau_Starter 0.1
  */
-function pilau_login_styles_scripts() { ?>
-	<link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri() . '/styles/wp-login.css'; ?>">
-<?php }
+function pilau_login_enqueue_scripts() {
+	wp_enqueue_style( 'pilau-login', get_stylesheet_directory_uri() . '/styles/login.css', array(), '1.0' );
+}
 
 
 add_filter( 'comments_open', 'pilau_comments_open', 10, 2 );
